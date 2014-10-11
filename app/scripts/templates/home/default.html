@@ -1,0 +1,18 @@
+<b>default wrapper template</b>
+
+<br/><br/><hr><br/><br/>
+
+<div v-text="title"></div>
+
+<input v-model="searchText" placeholder="Search">
+
+<ul>
+    <li v-repeat="items  | filterBy searchText">
+        {{$index}} - {{firstname + ' ' + lastname}}
+        <span class="remove-user" v-on="click : removeUser(this)">X<span>
+    </li>
+</ul>
+
+<input type="text" v-model="firstname" placeholder="firstname" v-on="keyup: addUser() | key enter">
+<input type="text" v-model="lastname" placeholder="lastname" v-on="keyup: addUser() | key enter">
+<button v-on="click : addUser()">add user</button>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>App</title>
+        <link rel="stylesheet" href="styles/main.css">
+        <script data-main="main" src="bower_components/requirejs/require.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <ul>
+                <li><a href="#!/home">Home</a></li>
+                <li><a href="#!/profil">Profile</a></li>
+                <li><a href="#!/help">Help</a></li>
+                <li><a href="#!/admin">Admin</a></li>
+            </ul>
+            <div v-view="currentView" class="view" v-transition>
+            <!-- content rendered here -->
+            </div>
+        </div>
+    </body>
+</html>
