@@ -3,3 +3,7 @@ node_modules
 dist
 app/styles/.sass-cache
 app/bower_components
+### komodoedit
+*.komodoproject
+.komodotools
+*.sqlite
