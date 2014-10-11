@@ -1,7 +1,7 @@
 mp_ws
 =====
 
-Masterproject WS2014 - work in progess...
+Masterproject WS2014/15 - work in progess...
 
 1.) you need npm and bower  
 2.) after cloning repo (be in the root folder of your project)  
