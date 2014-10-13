@@ -11,11 +11,28 @@ header('Cache-Control: no-cache, no-store, max-age=0, must-revalidate');
 header('Pragma: no-cache');
 header('Expires: Sat, 1 Jan 2000 00:00:00 GMT');
 
-// includes
-require_once('db/db.php');
-require_once('users.php');
-require_once('tracks.php');
+// websocket
+$isInitWebSocket = '';
+$isInitWebSocket = ($argv[1] == 'ws') ? true : false;
 
+// includes
+if($isInitWebSocket){
+    // > php -q client.php ws
+    require_once('websocket.php');
+} else {
+    require_once('db/db.php');
+    require_once('users.php');
+    require_once('tracks.php');
+}
+
+/* getClientDataViaWebsocket()
+ * get client all data through websocket
+ */
+function getClientDataViaWebsocket($user , $msg){
+  $msg = unwrap($msg);
+
+  sendDataToClientViaWebsocket($user->socket, $msg);
+}
 
 /* execAction()
  * Determine what to do, depending on client $_POST['type']
@@ -361,6 +378,9 @@ function getUserImage() {
     echo json_encode(['musicHiveUserImage' => ['url' => $userPicture]]);
 }
 
-execAction();
+if($isInitWebSocket == false){
+    execAction();
+}
+
 
 ?>
