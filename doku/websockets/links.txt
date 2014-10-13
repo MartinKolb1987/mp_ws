@@ -1,0 +1,4 @@
+https://code.google.com/p/phpwebsocket/
+
+FIX server.php:
+http://phpforum.de/forum/showpost.php?p=1502477&postcount=13
