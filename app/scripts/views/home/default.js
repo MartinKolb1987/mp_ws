@@ -1,7 +1,8 @@
 define([
     'vue',
+    'error',
     'text!../../templates/home/default.html'
-], function(Vue, DefaultTemplate) {
+], function(Vue, ErrorHandler, DefaultTemplate) {
     'use strict';
 
     Vue.component('home', {

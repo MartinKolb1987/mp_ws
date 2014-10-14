@@ -102,6 +102,7 @@ function getheaders($req){
     if(preg_match("/Host: (.*)\r\n/"  ,$req,$match)){ $h=$match[1]; }
     if(preg_match("/Origin: (.*)\r\n/",$req,$match)){ $o=$match[1]; }
     if(preg_match("/Sec-WebSocket-Key: (.*)\r\n/",$req,$match)){ $key1=$match[1]; }
+    if(preg_match("/\r\n(.*?)\$/",$req,$match)){ $data=$match[1]; }
     return array($r,$h,$o,$key1);
 }
 
