@@ -5,13 +5,13 @@ require.config({
 		}
 	},
 	paths: {
-		vue: 'bower_components/vue/dist/vue',
-		text: 'bower_components/requirejs-text/text'
+		vue: '../bower_components/vue/dist/vue',
+		text: '../bower_components/requirejs-text/text'
 	}
 });
 
 require([
-	'scripts/router/router'
+	'router/router'
 ], function(Router) {
 
 });
