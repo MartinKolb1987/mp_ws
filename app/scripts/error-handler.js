@@ -3,9 +3,11 @@ define([
     'use strict';
 
     var error = {
-        log: function(data){
-            console.log('ErrorHandler: ');
-            console.log(data);
+        log: function(description, errorStack){
+            console.log('-------------------------');
+            console.log('Description: ' + description);
+            console.log(errorStack);
+            console.log('-------------------------');
         }
     };
 

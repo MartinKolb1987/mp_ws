@@ -37,7 +37,7 @@ define([
 
                 this.websocket.onerror = function (error) {
                     // unidentified websocket error
-                    ErrorHandler.log(error);
+                    ErrorHandler.log('unidentified websocket error', new Error().stack);
                     that.initLongPolling();
                 };
 
@@ -49,7 +49,7 @@ define([
 
             } catch(error){ 
                 // no websocket is available
-                ErrorHandler.log(error);
+                ErrorHandler.log('no websocket is available', new Error().stack);
                 that.initLongPolling();
             }
         },
