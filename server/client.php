@@ -30,8 +30,7 @@ if($isInitWebSocket){
  */
 function getClientDataViaWebsocket($user , $msg){
   $msg = unwrap($msg);
-
-  sendDataToClientViaWebsocket($user->socket, $msg);
+  sendDataToClientViaWebsocket($user->socket, 'Ich war auf dem Server: ' . $msg);
 }
 
 /* execAction()
