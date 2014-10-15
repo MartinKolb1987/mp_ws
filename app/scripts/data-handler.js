@@ -1,6 +1,7 @@
 define([
-    'error'
-], function(ErrorHandler) {
+    'error',
+    'debug'
+], function(ErrorHandler, DebugHandler) {
     'use strict';
 
     var dataRouter = {
@@ -32,7 +33,7 @@ define([
                 
                 this.websocket.onopen  = function(msg){ 
                     that.isWebsocketActive = true;
-                    console.log("Websocket is established: Status " + this.readyState); 
+                    DebugHandler.log('Websocket is established: Status ' + this.readyState); 
                 };
 
                 this.websocket.onerror = function (error) {
@@ -85,8 +86,10 @@ define([
         // -----------------------------------------------------------
 
         initLongPolling: function(){
-            // this.websocketHost.replace('ws:', 'http:').replace('wss:', 'https:'),
-            console.log('okay, long polling...');
+            this.websocketHost = this.websocketHost.replace('ws:', 'http:').replace('wss:', 'https:').replace(':54321', '');
+            DebugHandler.log(this.websocketHost)
+
+            DebugHandler.log('okay, no websocket alive... long polling...')
         }
     };
 

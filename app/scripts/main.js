@@ -8,6 +8,7 @@ require.config({
 		vue: '../bower_components/vue/dist/vue',
 		text: '../bower_components/requirejs-text/text',
 		dataHandler: 'data-handler',
+		debug: 'debug-handler',
 		error: 'error-handler'
 	}
 });
