@@ -2,12 +2,13 @@ define([
 	'vue',
 	'../views/home/default',
 	'../views/notfound/default',
-], function(Vue, HomeView, NotfoundView) {
+    '../views/translation/default',
+], function(Vue, HomeView, NotfoundView, TranslationView) {
     'use strict';
 
     var app = {
         vue: {},
-        routes: ['home', 'notfound'],
+        routes: ['home', 'notfound', 'translation'],
 
         init: function(){
             var that = this;
