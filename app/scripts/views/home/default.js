@@ -3,8 +3,9 @@ define([
     'error',
     'debug',
     'dataHandler',
+    'translation',
     'text!../../templates/home/default.html'
-], function(Vue, ErrorHandler, DebugHandler, DataHandler, DefaultTemplate) {
+], function(Vue, ErrorHandler, DebugHandler, DataHandler, TranslationHandler, DefaultTemplate) {
     'use strict';
 
     Vue.component('home', {

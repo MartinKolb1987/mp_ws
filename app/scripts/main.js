@@ -9,7 +9,8 @@ require.config({
 		text: '../bower_components/requirejs-text/text',
 		dataHandler: 'data-handler',
 		debug: 'debug-handler',
-		error: 'error-handler'
+		error: 'error-handler',
+		translation: 'translation-handler'
 	}
 });
 
