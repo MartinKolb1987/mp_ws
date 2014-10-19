@@ -23,10 +23,8 @@ define([
         methods: {
             setTranslation: function(lang){
                 console.log("lang: " + lang);
-                var t_subtitle = this.$data[lang].t_subtitle;
-                var t_description = this.$data[lang].t_description;
-                console.log("subtitle: " + t_subtitle + " description: " + t_description);
-                return t_subtitle, t_description;
+                this.$data.t_subtitle = this.$data[lang].t_subtitle;
+                this.$data.t_description = this.$data[lang].t_description;
             },
         }
 
