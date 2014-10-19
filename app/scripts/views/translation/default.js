@@ -13,7 +13,7 @@ define([
             title: 'Translation',
             de: {
                 t_subtitle: 'Deutsch',
-                t_description: 'Das ist die deutsche Übersetzung'
+                t_description: 'Das ist die deutsche Übersetzung.'
             },
             en: {
                 t_subtitle: 'English',
