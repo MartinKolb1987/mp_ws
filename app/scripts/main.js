@@ -2,6 +2,9 @@ require.config({
 	shim: {
 		vue: {
 			exports: 'Vue'
+		},
+		translation: {
+			deps: ['componentCollection']
 		}
 	},
 	paths: {
@@ -10,13 +13,16 @@ require.config({
 		dataHandler: 'data-handler',
 		debug: 'debug-handler',
 		error: 'error-handler',
-		translation: 'translation-handler'
+		translation: 'translation-handler',
+		componentCollection: 'component-collection'
 	}
 });
 
 require([
 	'router/router',
-	'dataHandler'
-], function(Router, DataHandler) {
+	'dataHandler',
+	'componentCollection'
+], function(Router, DataHandler, ComponentCollection) {
+	ComponentCollection.init();
 	DataHandler.init();
 });

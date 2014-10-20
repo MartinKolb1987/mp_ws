@@ -1,9 +1,11 @@
 define([
-	'vue',
-	'../views/home/default',
-	'../views/notfound/default',
+    'vue',
+    'translation',
+    'componentCollection',
+    '../views/home/default',
+    '../views/notfound/default',
     '../views/translation/default'
-], function(Vue, HomeView, NotfoundView, TranslationView) {
+], function(Vue, TranslationHandler, ComponentCollection, HomeView, NotfoundView, TranslationView) {
     'use strict';
 
     var app = {
@@ -20,7 +22,6 @@ define([
                     routes: that.routes
                 }
             });
-
             this.setEventlistener();
             this.getLanguage();
         },
@@ -39,11 +40,14 @@ define([
         },
 
         getLanguage: function(){
+            var that = this;
             var language = window.navigator.userLanguage || window.navigator.language;
-            console.log("language: " + language);
-            return language;
+            console.log('render');
+            // TranslationHandler.translate('de', ComponentCollection.getComponent('home'));
+            TranslationHandler.translate('de', ComponentCollection.getComponent(that.vue.$data.currentView));
         }
     };
+
 
     app.init();
 

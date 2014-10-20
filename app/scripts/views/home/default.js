@@ -4,12 +4,18 @@ define([
     'debug',
     'dataHandler',
     'translation',
+    'componentCollection',
     'text!../../templates/home/default.html'
-], function(Vue, ErrorHandler, DebugHandler, DataHandler, TranslationHandler, DefaultTemplate) {
+], function(Vue, ErrorHandler, DebugHandler, DataHandler, TranslationHandler, ComponentCollection, DefaultTemplate) {
     'use strict';
-
+    console.log('component home');
     Vue.component('home', {
         template: DefaultTemplate,
+        ready: function () {
+            // wird erst beim aktiven Klicken hinzugefügt?!?!
+            console.log('component home add');
+            ComponentCollection.addComponent('home', this.$data);
+        },
         data: {
             title: 'Test-Nutzer:',
             items: [
@@ -63,9 +69,6 @@ define([
             updateUser: function(item){
                 // console.log($el.message);
                 // console.log(item);
-            },
-            setTranslation: function(lang){
-                TranslationHandler.translate(lang, this.$data);
             }
         }
     });

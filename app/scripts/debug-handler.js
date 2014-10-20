@@ -3,7 +3,7 @@ define([
     'use strict';
 
     var debug = {
-        isActive: true
+        isActive: false
     };
 
     return debug;

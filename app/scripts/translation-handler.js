@@ -1,5 +1,8 @@
 define([
-], function() {
+    'vue',
+    'error',
+    'debug'
+], function(Vue, ErrorHandler, DebugHandler) {
     'use strict';
 
     var translation = {
@@ -8,11 +11,14 @@ define([
             de: {
                 langSubtitle: 'Deutsch',
                 langDescription: 'Das ist die deutsche Übersetzung.',
-                langHome: 'Heimat'
+                langHome: 'Heimat',
+                langNotfound: 'Emmm, keine Ahnung...'
             },
             en: {
                 langSubtitle: 'English',
-                langDescription: 'This is the english translation.'
+                langDescription: 'This is the english translation.',
+                langHome: 'Home',
+                langNotfound: 'Sorry, not found...'
             }
         },
 
@@ -21,8 +27,6 @@ define([
                 if(this.language[lang].hasOwnProperty(el)){
                     if(view.hasOwnProperty(el)){
                         view[el] = this.language[lang][el];
-                    } else {
-                        console.log('Element not found');
                     }
                 }
             }

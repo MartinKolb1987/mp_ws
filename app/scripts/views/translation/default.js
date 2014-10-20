@@ -4,17 +4,15 @@ define([
     'debug',
     'dataHandler',
     'translation',
+    'componentCollection',
     'text!../../templates/translation/default.html'
-], function(Vue, ErrorHandler, DebugHandler, DataHandler, TranslationHandler, DefaultTemplate) {
+], function(Vue, ErrorHandler, DebugHandler, DataHandler, TranslationHandler, ComponentCollection, DefaultTemplate) {
     'use strict';
-
+    console.log('component translation');
     Vue.component('translation', {
         template: DefaultTemplate,
-        methods: {
-            setTranslation: function(lang){
-                // this.$data.t_subtitle = 'sdfsdf';
-                TranslationHandler.translate(lang, this.$data);
-            }
+        ready: function () {
+            ComponentCollection.addComponent('translation', this.$data);
         }
     });
 
