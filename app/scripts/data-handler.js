@@ -34,7 +34,7 @@ define([
                 this.websocket.onopen  = function(msg){
                     that.isWebsocketActive = true;
 
-                    if(DebugHandler.isActive){console.log('Websocket is established: Status ' + this.readyState); }
+                    if(DebugHandler.isActive){ console.log('Websocket is established: Status ' + this.readyState); }
 
                     that.sendData('Hallo');
                 };
