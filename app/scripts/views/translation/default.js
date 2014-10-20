@@ -12,7 +12,8 @@ define([
         template: DefaultTemplate,
         methods: {
             setTranslation: function(lang){
-                TranslationHandler.translate(lang);
+                // this.$data.t_subtitle = 'sdfsdf';
+                TranslationHandler.translate(lang, this.$data);
             }
         }
     });

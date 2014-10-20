@@ -33,7 +33,7 @@ define([
                 
                 this.websocket.onopen  = function(msg){ 
                     that.isWebsocketActive = true;
-                    DebugHandler.log('Websocket is established: Status ' + this.readyState); 
+                    DebugHandler.log('Websocket is established: Status ' + this.readyState,  new Error().stack); 
                     that.sendData('Hallo');
                 };
 
@@ -69,7 +69,7 @@ define([
             if(this.isWebsocketActive){
                 // do websocket stuff
                 this.websocket.send(data);
-                DebugHandler.log('Send data to server via websocket: ' + data);
+                DebugHandler.log('Send data to server via websocket: ' + data,  new Error().stack);
             } else {
                 // do longpolling stuff
             }
@@ -78,7 +78,7 @@ define([
         getData: function(data){
             if(this.isWebsocketActive){
                 // do websocket stuff
-                DebugHandler.log('Data from server via websocket: ' + data);
+                DebugHandler.log('Data from server via websocket: ' + data,  new Error().stack);
             } else {
                 // do longpolling stuff
             }

@@ -4,7 +4,7 @@ define([
 
     var translation = {
 
-        data : {
+        language : {
             de: {
                 t_subtitle: 'Deutsch',
                 t_description: 'Das ist die deutsche Übersetzung.'
@@ -15,20 +15,25 @@ define([
             }
         },
 
-        translate: function(lang){
+        translate: function(lang, view){
             console.log("lang: " + lang);
 
-            for (var el in this.data[lang]) {
-                if(this.data[lang].hasOwnProperty(el)){
-                    console.log(this.data[lang][el]);
-
-                    // this.data.t_subtitle = this.data[lang][el];
+            for (var el in this.language[lang]) {
+                if(this.language[lang].hasOwnProperty(el)){
+                    console.log(this.language[lang][el]);
+                    console.log(view);
+                    if(view.t_subtitle){
+                        console.log('jup');
+                    } else {
+                        console.log('false');
+                    }
+                    // this.$data.t_subtitle = this.$data[lang][el];
                 }
             }
 
-            // this.data.t_subtitle = this.data[lang].t_subtitle;
+            // view.t_subtitle = this.language[lang].t_subtitle;
             // this.data.t_description = this.data[lang].t_description;
-        }        
+        }
     };
 
     return translation;
