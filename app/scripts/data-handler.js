@@ -31,25 +31,27 @@ define([
             try{
                 this.websocket = new WebSocket(that.websocketHost);
                 
-                this.websocket.onopen  = function(msg){ 
+                this.websocket.onopen  = function(msg){
                     that.isWebsocketActive = true;
-                    DebugHandler.log('Websocket is established: Status ' + this.readyState,  new Error().stack); 
+
+                    if(DebugHandler.isActive){console.log('Websocket is established: Status ' + this.readyState); }
+
                     that.sendData('Hallo');
                 };
 
-                this.websocket.onerror = function (error) {
+                this.websocket.onerror = function (error){
                     // unidentified websocket error
                     ErrorHandler.log('unidentified websocket error', new Error().stack);
                     that.initLongPolling();
                 };
 
-                this.websocket.onmessage = function(msg){ 
-                    that.getData(msg.data); 
+                this.websocket.onmessage = function(msg){
+                    that.getData(msg.data);
                 };
 
                 this.websocket.onclose = function(msg){};
 
-            } catch(error){ 
+            } catch(error){
                 // no websocket is available
                 ErrorHandler.log('no websocket is available', new Error().stack);
                 that.initLongPolling();
@@ -69,7 +71,7 @@ define([
             if(this.isWebsocketActive){
                 // do websocket stuff
                 this.websocket.send(data);
-                DebugHandler.log('Send data to server via websocket: ' + data,  new Error().stack);
+                if(DebugHandler.isActive){ console.log('Send data to server via websocket: ' + data); }
             } else {
                 // do longpolling stuff
             }
@@ -78,7 +80,7 @@ define([
         getData: function(data){
             if(this.isWebsocketActive){
                 // do websocket stuff
-                DebugHandler.log('Data from server via websocket: ' + data,  new Error().stack);
+                if(DebugHandler.isActive){ console.log('Data from server via websocket: ' + data); }
             } else {
                 // do longpolling stuff
             }
@@ -90,9 +92,9 @@ define([
 
         initLongPolling: function(){
             this.websocketHost = this.websocketHost.replace('ws:', 'http:').replace('wss:', 'https:').replace(':54321', '');
-            DebugHandler.log(this.websocketHost)
+            
+            if(DebugHandler.isActive){ console.log('okay, no websocket alive... long polling...'); }
 
-            DebugHandler.log('okay, no websocket alive... long polling...')
         }
     };
 
