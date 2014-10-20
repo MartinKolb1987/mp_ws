@@ -2,7 +2,7 @@ define([
 	'vue',
 	'../views/home/default',
 	'../views/notfound/default',
-    '../views/translation/default',
+    '../views/translation/default'
 ], function(Vue, HomeView, NotfoundView, TranslationView) {
     'use strict';
 
@@ -22,7 +22,7 @@ define([
             });
 
             this.setEventlistener();
-
+            this.getLanguage();
         },
 
         getRoute: function(){
@@ -34,7 +34,14 @@ define([
             var that = this;
             window.addEventListener('hashchange', function () {
                 that.vue.currentView = that.getRoute();
+                that.getLanguage();
             });
+        },
+
+        getLanguage: function(){
+            var language = window.navigator.userLanguage || window.navigator.language;
+            console.log("language: " + language);
+            return language;
         }
     };
 

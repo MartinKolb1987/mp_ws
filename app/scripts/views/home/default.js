@@ -63,6 +63,9 @@ define([
             updateUser: function(item){
                 // console.log($el.message);
                 // console.log(item);
+            },
+            setTranslation: function(lang){
+                TranslationHandler.translate(lang, this.$data);
             }
         }
     });
