@@ -13,9 +13,7 @@ define([
 
         addComponent: function(key, data){
             console.log(this.allComponents);
-            if(this.allComponents.hasOwnProperty(key) === false){
-                this.allComponents[key] = data;
-            }
+            this.allComponents[key] = data;
         },
 
         getComponent: function(key){

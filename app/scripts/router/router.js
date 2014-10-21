@@ -20,10 +20,16 @@ define([
                 data: {
                     currentView: that.getRoute(),
                     routes: that.routes
+                },
+                methods: {
+                    blubb: function(view){
+                        that.getLanguage(view);
+                    }
                 }
             });
+
             this.setEventlistener();
-            this.getLanguage();
+            that.getLanguage('home');
         },
 
         getRoute: function(){
@@ -35,16 +41,16 @@ define([
             var that = this;
             window.addEventListener('hashchange', function () {
                 that.vue.currentView = that.getRoute();
-                that.getLanguage();
+                // that.getLanguage();
             });
         },
 
-        getLanguage: function(){
+        getLanguage: function(view){
             var that = this;
             var language = window.navigator.userLanguage || window.navigator.language;
-            console.log('render');
+            console.log('render --- ');
             // TranslationHandler.translate('de', ComponentCollection.getComponent('home'));
-            TranslationHandler.translate('de', ComponentCollection.getComponent(that.vue.$data.currentView));
+            TranslationHandler.translate('en', ComponentCollection.getComponent(view));
         }
     };
 

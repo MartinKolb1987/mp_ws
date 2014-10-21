@@ -10,14 +10,14 @@
     <body>
         <div id="app">
             <ul>
-                <li><a href="#!/home">Home</a></li>
+                <li><a href="#!/home" v-on="click:blubb('home')">Home</a></li>
                 <li><a href="#!/profil">Profile</a></li>
                 <li><a href="#!/help">Help</a></li>
                 <li><a href="#!/admin">Admin</a></li>
                 <li><a href="#!/translation">Translation</a></li>
             </ul>
             <div v-view="currentView" class="view" v-transition>
-            <!-- content rendered here -->
+                <!-- content rendered here -->
             </div>
         </div>
     </body>

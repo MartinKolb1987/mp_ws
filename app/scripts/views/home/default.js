@@ -11,7 +11,7 @@ define([
     console.log('component home');
     Vue.component('home', {
         template: DefaultTemplate,
-        ready: function () {
+        created: function () {
             // wird erst beim aktiven Klicken hinzugefügt?!?!
             console.log('component home add');
             ComponentCollection.addComponent('home', this.$data);

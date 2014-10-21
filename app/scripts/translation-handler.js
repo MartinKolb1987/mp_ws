@@ -23,10 +23,15 @@ define([
         },
 
         translate: function(lang, view){
+            // console.log(view);
+
             for (var el in this.language[lang]) {
                 if(this.language[lang].hasOwnProperty(el)){
                     if(view.hasOwnProperty(el)){
+                        // console.log(el);
                         view[el] = this.language[lang][el];
+                    } else {
+                        console.log('not found');
                     }
                 }
             }
