@@ -20,16 +20,12 @@ define([
                 data: {
                     currentView: that.getRoute(),
                     routes: that.routes
-                },
-                methods: {
-                    blubb: function(view){
-                        that.getLanguage(view);
-                    }
                 }
             });
 
             this.setEventlistener();
-            that.getLanguage('home');
+            that.getLanguage();
+
         },
 
         getRoute: function(){
@@ -41,16 +37,23 @@ define([
             var that = this;
             window.addEventListener('hashchange', function () {
                 that.vue.currentView = that.getRoute();
-                // that.getLanguage();
             });
+
+            // triggerd from component-collection.js
+            window.addEventListener('collectionChanged', function (e) {
+                that.getLanguage();
+            }, false);
+
         },
 
-        getLanguage: function(view){
+        getLanguage: function(){
             var that = this;
-            var language = window.navigator.userLanguage || window.navigator.language;
-            console.log('render --- ');
-            // TranslationHandler.translate('de', ComponentCollection.getComponent('home'));
-            TranslationHandler.translate('en', ComponentCollection.getComponent(view));
+            // safari (mac osx) de-de en-us , chrome de en (mac osx), firefox de en (mac osx), firefox (linux) en-US de-DE
+            // chrome (linux) en-US de-DE , firefox (win) de en, chrome (win) de en, ie (win) de-DE en-US
+            var autoLang = window.navigator.userLanguage || window.navigator.language;
+            autoLang = autoLang.substr(0, 2).toLowerCase();
+
+            TranslationHandler.translate(autoLang, ComponentCollection.getComponent(that.vue.$data.currentView));
         }
     };
 

@@ -8,11 +8,17 @@ define([
     'text!../../templates/translation/default.html'
 ], function(Vue, ErrorHandler, DebugHandler, DataHandler, TranslationHandler, ComponentCollection, DefaultTemplate) {
     'use strict';
-    console.log('component translation');
+
     Vue.component('translation', {
         template: DefaultTemplate,
         ready: function () {
             ComponentCollection.addComponent('translation', this.$data);
+        },
+        methods: {
+            setTranslation: function(lang){
+                TranslationHandler.setCurrentLang(lang);
+                TranslationHandler.translate(lang, this.$data);
+            }
         }
     });
 

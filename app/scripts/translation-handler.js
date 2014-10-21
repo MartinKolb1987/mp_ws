@@ -6,6 +6,7 @@ define([
     'use strict';
 
     var translation = {
+        currentLang: '',
 
         language : {
             de: {
@@ -23,18 +24,24 @@ define([
         },
 
         translate: function(lang, view){
-            // console.log(view);
+
+            if(this.currentLang !== ''){
+                lang = this.currentLang;
+            }
 
             for (var el in this.language[lang]) {
                 if(this.language[lang].hasOwnProperty(el)){
                     if(view.hasOwnProperty(el)){
-                        // console.log(el);
                         view[el] = this.language[lang][el];
                     } else {
-                        console.log('not found');
+                        if(DebugHandler.isActive){ console.log('translation for "' + el + '" (' + lang + ') is missing'); }
                     }
                 }
             }
+        },
+
+        setCurrentLang: function(lang){
+            this.currentLang = lang;
         }
     };
     return translation;

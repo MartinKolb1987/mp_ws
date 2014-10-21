@@ -8,42 +8,14 @@ define([
     'text!../../templates/home/default.html'
 ], function(Vue, ErrorHandler, DebugHandler, DataHandler, TranslationHandler, ComponentCollection, DefaultTemplate) {
     'use strict';
-    console.log('component home');
+
     Vue.component('home', {
         template: DefaultTemplate,
-        created: function () {
-            // wird erst beim aktiven Klicken hinzugefügt?!?!
-            console.log('component home add');
+        ready: function () {
             ComponentCollection.addComponent('home', this.$data);
         },
         data: {
-            title: 'Test-Nutzer:',
-            items: [
-                {
-                    firstname: 'Hans',
-                    lastname: 'Wurst'
-                },
-                {
-                    firstname: 'Peter',
-                    lastname: 'Pan'
-                },
-                {
-                    firstname: 'Max',
-                    lastname: 'Mustermann'
-                },
-                {
-                    firstname: 'Petra',
-                    lastname: 'Müller'
-                },
-                {
-                    firstname: 'Josef',
-                    lastname: 'Mayer'
-                },
-                {
-                    firstname: 'Hans',
-                    lastname: 'Dampf'
-                }
-            ]
+            langHome: ''
         },
         methods: {
             removeUser: function(item){
