@@ -3,7 +3,7 @@
 // https://code.google.com/p/phpwebsocket/
 // FIX server.php:
 // http://phpforum.de/forum/showpost.php?p=1502477&postcount=13
-
+// custom function
 error_reporting(E_ALL);
 set_time_limit(0);
 ob_implicit_flush();
@@ -28,7 +28,7 @@ while(true){
             else{
                 $user = getuserbysocket($socket);
                 if(!$user->handshake){ dohandshake($user,$buffer); }
-                else{ getClientDataViaWebsocket($user, $users, $buffer); }
+                else{ getClientDataViaWebsocket($user->socket, $users, $buffer); }
             }
         }
     }
@@ -53,7 +53,6 @@ function WebSocket($address,$port){
     socket_set_option($master, SOL_SOCKET, SO_REUSEADDR, 1)  or die("socket_option() failed");
     socket_bind($master, $address, $port)                    or die("socket_bind() failed");
     socket_listen($master,20)                                or die("socket_listen() failed");
-    echo "Server Started : ".date('Y-m-d H:i:s')."\n";
     echo "Master socket  : ".$master."\n";
     echo "Listening on   : ".$address." port ".$port."\n\n";
     return $master;
@@ -180,8 +179,6 @@ function unwrap($msg=""){
         }
     }
     
-    echo $length."\n";
-
     for($x=0;$x<$length;$x++){
         $msgnum=ord($msg[$index]);
         $keynum=$key[$x % 4];

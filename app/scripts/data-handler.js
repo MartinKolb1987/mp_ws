@@ -112,7 +112,6 @@ define([
                 // do websocket stuff
                 receivedData = this.fromStringToJson(receivedData);
 
-                console.log('bingo');
                 console.log('Data from server: ');
                 console.log(receivedData);
 

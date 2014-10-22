@@ -33,10 +33,10 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
   $json = json_decode($msg);
   // print $json->type;
   
-  // sendDataToClientViaWebsocket($user->socket, $msg);
-  // sendDataToClientViaWebsocket($user->socket, '{"ser_vus": "blubb"}');
-  // sendDataToClientViaWebsocket($user->socket, '{"musicHiveInfo":{"currentlyPlaying":{"t_id":1,"t_artist":"MUCC","t_title":"1R","t_album":"Houyoku","t_length":225,"u_picture":"","downvote":0},"status":{"users":"30","internet_access":true}}}');
-  sendDataToAllClientsViaWebsocket($allUsers, '{"ser_vus": "blubb"}');
+  // sendDataToClientViaWebsocket($user, $msg);
+  sendDataToClientViaWebsocket($user, '{"ser_vus": "blubb"}');
+  // sendDataToClientViaWebsocket($user, '{"musicHiveInfo":{"currentlyPlaying":{"t_id":1,"t_artist":"MUCC","t_title":"1R","t_album":"Houyoku","t_length":225,"u_picture":"","downvote":0},"status":{"users":"30","internet_access":true}}}');
+  sendDataToAllClientsViaWebsocket($allUsers, '{"musicHiveInfo":{"currentlyPlaying":{"t_id":1,"t_artist":"MUCC","t_title":"1R","t_album":"Houyoku","t_length":225,"u_picture":"","downvote":0},"status":{"users":"30","internet_access":true}}}');
 }
 
 /* execAction()
