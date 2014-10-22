@@ -1,11 +1,12 @@
 define([
     'vue',
     'translation',
+    'dataHandler',
     'componentCollection',
     '../views/home/default',
     '../views/notfound/default',
     '../views/translation/default'
-], function(Vue, TranslationHandler, ComponentCollection, HomeView, NotfoundView, TranslationView) {
+], function(Vue, TranslationHandler, DataHandler, ComponentCollection, HomeView, NotfoundView, TranslationView) {
     'use strict';
 
     var app = {
@@ -24,8 +25,7 @@ define([
             });
 
             this.setEventlistener();
-            that.getLanguage();
-
+            this.afterCareCollectionChanged();
         },
 
         getRoute: function(){
@@ -40,21 +40,49 @@ define([
             });
 
             // triggerd from component-collection.js
+            // it‘s important because $data for every component
+            // must be ready to work with 2 way databinding 
             window.addEventListener('collectionChanged', function (e) {
-                that.getLanguage();
+                that.afterCareCollectionChanged();
             }, false);
 
         },
 
-        getLanguage: function(){
+        afterCareCollectionChanged: function(){
+            var that = this;
+            var route = this.vue.currentView;
+            
+            this.getBrowserLanguage();
+            
+            // check and load which data is needed
+            // --> based on current route
+            switch(route){
+                case 'home':
+                    DataHandler.getCurrentlyPlayingTrack();
+                    break;
+                case 'notfound':
+                    break;
+                case 'translation':
+                    break;
+                default:
+            }
+
+        },
+
+        getBrowserLanguage: function(){
             var that = this;
             // safari (mac osx) de-de en-us , chrome de en (mac osx), firefox de en (mac osx), firefox (linux) en-US de-DE
             // chrome (linux) en-US de-DE , firefox (win) de en, chrome (win) de en, ie (win) de-DE en-US
-            var autoLang = window.navigator.userLanguage || window.navigator.language;
-            autoLang = autoLang.substr(0, 2).toLowerCase();
+            var lang = window.navigator.userLanguage || window.navigator.language;
+            lang = lang.substr(0, 2).toLowerCase();
+            this.translateCurrentView(lang);
+        },
 
-            TranslationHandler.translate(autoLang, ComponentCollection.getComponent(that.vue.$data.currentView));
+        translateCurrentView: function(lang){
+            var that = this;
+            TranslationHandler.translate(lang, ComponentCollection.getComponent(that.vue.$data.currentView));
         }
+
     };
 
 

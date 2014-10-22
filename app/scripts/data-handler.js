@@ -4,13 +4,15 @@ define([
 ], function(ErrorHandler, DebugHandler) {
     'use strict';
 
-    var dataRouter = {
+    var dataHandler = {
         
         isWebsocketActive: false,
         websocketHost: 'ws://localhost:54321/server.php',
         websocket: {},
+        regularHost: '../../server/client.php',
 
         init: function(){
+            var that = this;
             this.checkWebsocket();
         },
 
@@ -22,7 +24,7 @@ define([
             if(window.WebSocket){
                 this.initWebsocket();
             } else {
-                this.initLongPolling();
+                this.initShortPolling();
             }
         },
 
@@ -36,13 +38,12 @@ define([
 
                     if(DebugHandler.isActive){ console.log('Websocket is established: Status ' + this.readyState); }
 
-                    that.sendData('Hallo');
                 };
 
                 this.websocket.onerror = function (error){
                     // unidentified websocket error
                     ErrorHandler.log('unidentified websocket error', new Error().stack);
-                    that.initLongPolling();
+                    that.initShortPolling();
                 };
 
                 this.websocket.onmessage = function(msg){
@@ -54,7 +55,7 @@ define([
             } catch(error){
                 // no websocket is available
                 ErrorHandler.log('no websocket is available', new Error().stack);
-                that.initLongPolling();
+                that.initShortPolling();
             }
         },
 
@@ -67,37 +68,134 @@ define([
         // SEND & RECEIVE DATE FROM SERVER
         // -----------------------------------------------------------
 
-        sendData: function(data){
+        sendData: function(type, data){
+
+            var sendData = {
+                type: type,
+                sendData: data
+            };
+
+            sendData = this.toJsonString(sendData);
+
             if(this.isWebsocketActive){
                 // do websocket stuff
-                this.websocket.send(data);
-                if(DebugHandler.isActive){ console.log('Send data to server via websocket: ' + data); }
-            } else {
-                // do longpolling stuff
-            }
-        },
-
-        getData: function(data){
-            if(this.isWebsocketActive){
-                // do websocket stuff
-                if(DebugHandler.isActive){ console.log('Data from server via websocket: ' + data); }
-            } else {
-                // do longpolling stuff
-            }
-        },
-
-        // -----------------------------------------------------------
-        // LongPolling
-        // -----------------------------------------------------------
-
-        initLongPolling: function(){
-            this.websocketHost = this.websocketHost.replace('ws:', 'http:').replace('wss:', 'https:').replace(':54321', '');
+                this.websocket.send(sendData);
+                if(DebugHandler.isActive){ console.log('Send data to server via websocket: ' + sendData); }
             
-            if(DebugHandler.isActive){ console.log('okay, no websocket alive... long polling...'); }
+            } else {
+                // do shortpolling stuff
+            }
 
+        },
+
+        getData: function(receivedData){
+
+            if(this.isWebsocketActive){
+                // do websocket stuff
+                receivedData = this.fromJsonString(receivedData);
+                
+                console.log('Data from server: ');
+                console.log(receivedData);
+
+                if(DebugHandler.isActive){ console.log('Data from server via websocket: ' + receivedData); }
+            } else {
+                // do shortpolling stuff
+            }
+
+        },
+
+
+
+        // -----------------------------------------------------------
+        // SHORT POLLING
+        // -----------------------------------------------------------
+
+        initShortPolling: function(){
+            console.log(this.regularHost);
+            
+            if(DebugHandler.isActive){ console.log('okay, no websocket alive... short polling...'); }
+
+        },
+
+
+        // -----------------------------------------------------------
+        // HELPER FUNCTIONS SEND & GET DATA
+        // -----------------------------------------------------------
+
+        // currently playing track
+        // --------------------------
+        getCurrentlyPlayingTrack: function(){
+            console.log('getCurrentlyPlayingTrack');
+            // type = getInfo
+        },
+
+        // get user uploaded playlist
+        // --------------------------
+        getUserPlaylist: function(){
+            // type = getPlaylist
+            // url: 'json/musicHivePlaylist.json'
+        },
+
+        // user image
+        // --------------------------
+        uploadUserImage: function(file){
+            // type = uploadUserImage
+            // file = givenFile
+        },
+
+        getUserImage: function(){
+            // type = getUserImage
+            // url: 'json/musicHiveUserImage.json'
+        },
+
+        deleteUserImage: function(){
+            // type = deleteUserImage
+        },
+
+        // track
+        // --------------------------
+        uploadTrack: function(file){
+            // post
+            // type = uploadTrack
+            // file = givenFile
+        },
+
+        removeTrack: function(trackId){
+            // post
+            // type = removeTrack
+            // trackId = trackId
+        },
+
+        downvoteTrack: function(trackId){
+            // type = downvoteTrack
+            // trackId = trackId
+        },
+
+        swapTrack: function(trackIdOne, trackIdTwo){
+            // url: 'upload.php', // has to be changed
+            // data: { 
+            //     type: 'swapTrack',
+            //     trackIds: [
+            //         trackIdOne,
+            //         trackIdTwo
+            //     ]
+            // }
+        },
+
+        // -----------------------------------------------------------
+        // HELPER FUNCTIONS GENERALLY
+        // -----------------------------------------------------------
+
+        toJsonString: function(data){
+            return JSON.stringify(data);
+        },
+
+        fromJsonString: function(data){
+            return JSON.parse(data);
         }
+
     };
 
-    return dataRouter;
+    return dataHandler;
 
 });
