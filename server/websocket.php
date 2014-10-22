@@ -1,13 +1,20 @@
 <?php
-
 // https://code.google.com/p/phpwebsocket/
 // FIX server.php:
 // http://phpforum.de/forum/showpost.php?p=1502477&postcount=13
 // custom function
+
+// includes
+// require_once('db/db.php');
+// require_once('users.php');
+// require_once('tracks.php');
+require_once('client_actions.php');
+
 error_reporting(E_ALL);
 set_time_limit(0);
 ob_implicit_flush();
 
+// > php -q websocket.php
 $master  = WebSocket("localhost",54321);
 $sockets = array($master);
 $users   = array();
@@ -35,6 +42,20 @@ while(true){
 }
 
 //---------------------------------------------------------------
+
+/* getClientDataViaWebsocket()
+ * get client all data through websocket
+ */
+function getClientDataViaWebsocket($user, $allUsers, $msg){
+    $msg = unwrap($msg);
+    $json = json_decode($msg);
+    // print $json->type;
+
+    // sendDataToClientViaWebsocket($user, $msg);
+    sendDataToClientViaWebsocket($user, '{"servus": "blubb"}');
+    // sendDataToClientViaWebsocket($user, '{"musicHiveInfo":{"currentlyPlaying":{"t_id":1,"t_artist":"MUCC","t_title":"1R","t_album":"Houyoku","t_length":225,"u_picture":"","downvote":0},"status":{"users":"30","internet_access":true}}}');
+    sendDataToAllClientsViaWebsocket($allUsers, '{"musicHiveInfo":{"currentlyPlaying":{"t_id":1,"t_artist":"MUCC","t_title":"1R","t_album":"Houyoku","t_length":225,"u_picture":"","downvote":0},"status":{"users":"30","internet_access":true}}}');
+}
 
 function sendDataToClientViaWebsocket($client,$msg){
     $msg = wrap($msg);
