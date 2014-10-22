@@ -78,12 +78,15 @@ define([
             sendData = this.toJsonString(sendData);
 
             if(this.isWebsocketActive){
+            
                 // do websocket stuff
                 this.websocket.send(sendData);
                 if(DebugHandler.isActive){ console.log('Send data to server via websocket: ' + sendData); }
             
             } else {
+               
                 // do shortpolling stuff
+            
             }
 
         },
@@ -98,8 +101,11 @@ define([
                 console.log(receivedData);
 
                 if(DebugHandler.isActive){ console.log('Data from server via websocket: ' + receivedData); }
+            
             } else {
+            
                 // do shortpolling stuff
+            
             }
 
         },

@@ -1,0 +1,19 @@
+{
+    "musicHivePlaylist": {
+        "prio1": {
+            "t_id": 1,
+            "t_title": "Furzkissen",
+            "t_artist": "Mongo"
+        },
+        "prio2": {
+            "t_id": 2,
+            "t_title": "Stiff upper lip",
+            "t_artist": "Mongo2"
+        },
+        "prio3": {
+            "t_id": 3,
+            "t_title": "Furzkissen2",
+            "t_artist": "Mongo45"
+        }
+    }
+}
