@@ -6,7 +6,6 @@ define([
 
     var componentCollection = {
         allComponents: {},
-        changedEvent: {},
 
         init: function(){
             if(DebugHandler.isActive){ console.log('componentCollection init'); }
@@ -17,9 +16,11 @@ define([
             
             if(DebugHandler.isActive){ console.log('component collection: '); console.log(this.allComponents); }
 
-            this.changedEvent = document.createEvent('Event');
-            this.changedEvent.initEvent('collectionChanged', true, true);
-            document.dispatchEvent(this.changedEvent);
+            // trigger collectionChanged if new component is added
+            // --> event listener router.js
+            var changedEvent = document.createEvent('Event');
+            changedEvent.initEvent('collectionChanged', true, false);
+            document.dispatchEvent(changedEvent);
 
         },
 

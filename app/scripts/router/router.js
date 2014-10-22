@@ -10,6 +10,7 @@ define([
     'use strict';
 
     var app = {
+        initialStart: true,
         vue: {},
         routes: ['home', 'notfound', 'translation'],
 
@@ -25,7 +26,7 @@ define([
             });
 
             this.setEventlistener();
-            this.afterCareCollectionChanged();
+
         },
 
         getRoute: function(){
@@ -43,6 +44,11 @@ define([
             // it‘s important because $data for every component
             // must be ready to work with 2 way databinding 
             window.addEventListener('collectionChanged', function (e) {
+                that.afterCareCollectionChanged();
+            }, false);
+
+            // triggerd from data-handler.js
+            window.addEventListener('dataHandlerIsReady', function (e) {
                 that.afterCareCollectionChanged();
             }, false);
 
