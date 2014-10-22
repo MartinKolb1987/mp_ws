@@ -91,7 +91,7 @@ define([
             };
 
             // convert json to string
-            sendData = this.toJsonString(sendData);
+            sendData = this.fromJsonToString(sendData);
 
             if(this.isWebsocketActive){
                 // do websocket stuff
@@ -110,7 +110,8 @@ define([
 
             if(this.isWebsocketActive){
                 // do websocket stuff
-                receivedData = this.fromJsonString(receivedData);
+                receivedData = this.fromStringToJson(receivedData);
+
                 console.log('bingo');
                 console.log('Data from server: ');
                 console.log(receivedData);
@@ -156,6 +157,11 @@ define([
             console.log('getCurrentlyPlayingTrack');
             this.sendData('getInfo');
             // type = getInfo
+        },
+
+        distributeCurrentlyPlayingTrack: function(){
+            // distrubte received data within app
+            // --> share data with the component
         },
 
         // get user uploaded playlist
@@ -215,11 +221,11 @@ define([
         // HELPER FUNCTIONS GENERALLY
         // -----------------------------------------------------------
 
-        toJsonString: function(data){
+        fromJsonToString: function(data){
             return JSON.stringify(data);
         },
 
-        fromJsonString: function(data){
+        fromStringToJson: function(data){
             return JSON.parse(data);
         }
 

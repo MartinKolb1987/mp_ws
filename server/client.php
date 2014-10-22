@@ -28,14 +28,15 @@ if($isInitWebSocket){
 /* getClientDataViaWebsocket()
  * get client all data through websocket
  */
-function getClientDataViaWebsocket($user , $msg){
+function getClientDataViaWebsocket($user, $allUsers, $msg){
   $msg = unwrap($msg);
-
+  $json = json_decode($msg);
+  // print $json->type;
   
-  
-  sendDataToClientViaWebsocket($user->socket, $msg);
-  // sendDataToClientViaWebsocket($user->socket, '{"servus": "blubb"}');
+  // sendDataToClientViaWebsocket($user->socket, $msg);
+  // sendDataToClientViaWebsocket($user->socket, '{"ser_vus": "blubb"}');
   // sendDataToClientViaWebsocket($user->socket, '{"musicHiveInfo":{"currentlyPlaying":{"t_id":1,"t_artist":"MUCC","t_title":"1R","t_album":"Houyoku","t_length":225,"u_picture":"","downvote":0},"status":{"users":"30","internet_access":true}}}');
+  sendDataToAllClientsViaWebsocket($allUsers, '{"ser_vus": "blubb"}');
 }
 
 /* execAction()

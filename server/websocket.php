@@ -28,7 +28,7 @@ while(true){
             else{
                 $user = getuserbysocket($socket);
                 if(!$user->handshake){ dohandshake($user,$buffer); }
-                else{ getClientDataViaWebsocket($user,$buffer); }
+                else{ getClientDataViaWebsocket($user, $users, $buffer); }
             }
         }
     }
@@ -37,9 +37,15 @@ while(true){
 //---------------------------------------------------------------
 
 function sendDataToClientViaWebsocket($client,$msg){
-    // say("> ".$msg);
     $msg = wrap($msg);
     $sent = socket_write($client, $msg);
+}
+
+function sendDataToAllClientsViaWebsocket($allClients, $msg){
+    $msg = wrap($msg);
+    foreach($allClients as $user){
+        $sent = socket_write($user->socket, $msg);
+    }
 }
 
 function WebSocket($address,$port){
@@ -120,9 +126,21 @@ function say($msg=""){
 }
 
 function wrap($msg=""){
-    $length=strlen($msg);
-    $header=chr(0x81).chr($length);
+
+    $len = strlen($msg);
+
+    /* 0x81 = first and last bit set (fin, opcode=text) */
+    $header = chr(0x81);
+
+    /* extended 32bit payload */
+    if ($len >= 126) {
+        $header .= chr(126) . pack('n', $len);
+    } else {
+        $header .= chr($len);
+    }
+
     $msg=$header.$msg;
+    
     return $msg;
 }
 
