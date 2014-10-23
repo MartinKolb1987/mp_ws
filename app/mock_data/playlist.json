@@ -1,20 +1,20 @@
 {
     "route": "home",
     "playlist": {
-        "prio_1": {
-            "t_id": 1,
-            "t_title": "Furzkissen",
-            "t_artist": "Mongo"
+        "prio1": {
+            "id": 1,
+            "title": "Furzkissen",
+            "artist": "Mongo"
         },
-        "prio_2": {
-            "t_id": 2,
-            "t_title": "Stiff upper lip",
-            "t_artist": "Mongo2"
+        "prio2": {
+            "id": 2,
+            "title": "Stiff upper lip",
+            "artist": "Mongo2"
         },
-        "prio_3": {
-            "t_id": 3,
-            "t_title": "Furzkissen2",
-            "t_artist": "Mongo45"
+        "prio3": {
+            "id": 3,
+            "title": "Furzkissen2",
+            "artist": "Mongo45"
         }
     }
 }

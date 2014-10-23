@@ -10,7 +10,7 @@ define([
         websocketHost: 'ws://localhost:54321/server.php',
         websocket: {},
         regularHost: '../../server/client.php',
-        checkForNewUpdatesTime: 10000, // milliseconds
+        checkForNewUpdatesTime: 50000000, // milliseconds
 
         init: function(){
             var that = this;
