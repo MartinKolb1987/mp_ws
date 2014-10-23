@@ -64,7 +64,7 @@ define([
             // --> based on current route
             switch(route){
                 case 'home':
-                    DataHandler.getCurrentlyPlayingTrack();
+                    DataHandler.checkForNewUpdates(route);
                     break;
                 case 'notfound':
                     break;

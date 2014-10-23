@@ -1,4 +1,5 @@
 {
+    "route": "profil",
     "user_image": {
         "url": "./img/user-image.jpg"
     }

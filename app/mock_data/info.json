@@ -1,4 +1,5 @@
 {
+    "route": "home",
     "info": {
         "currently_playing": {
             "t_id": 1,

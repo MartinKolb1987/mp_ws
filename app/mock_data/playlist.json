@@ -1,4 +1,5 @@
 {
+    "route": "home",
     "playlist": {
         "prio_1": {
             "t_id": 1,

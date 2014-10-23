@@ -75,29 +75,30 @@ define([
         },
 
         // -----------------------------------------------------------
-        // SEND & RECEIVE DATE FROM SERVER
+        // SEND & RECEIVE DATA FROM SERVER
         // -----------------------------------------------------------
 
-        sendData: function(type, data){
+        sendData: function(route, type, data){
             
-            // if(data === undefined){
-            //     data = 'no data should be send';
-            // }
-
-            // build json 
-            var sendData = {
-                type: type,
-                sendData: data
-            };
-
-            // convert json to string
-            sendData = this.fromJsonToString(sendData);
-
+            // Websocket
+            // --------------------------
             if(this.isWebsocketActive){
-                // do websocket stuff
+                // build json 
+                var sendData = {
+                    route: route,
+                    type: type,
+                    sendData: data
+                };
+
+                // convert json to string
+                sendData = this.fromJsonToString(sendData);
+                
                 this.websocket.send(sendData);
                 if(DebugHandler.isActive){ console.log('Send data to server via websocket: ' + sendData); }
             
+
+            // Shortpolling
+            // --------------------------
             } else {
                
                 // do shortpolling stuff
@@ -108,6 +109,8 @@ define([
 
         getData: function(receivedData){
 
+            // Websocket
+            // --------------------------
             if(this.isWebsocketActive){
                 // do websocket stuff
                 receivedData = this.fromStringToJson(receivedData);
@@ -117,14 +120,15 @@ define([
 
                 if(DebugHandler.isActive){ console.log('Data from server via websocket: ' + receivedData); }
             
+
+            // Shortpolling
+            // --------------------------
             } else {
             
-                // do shortpolling stuff
             
             }
 
         },
-
 
 
         // -----------------------------------------------------------
@@ -152,10 +156,8 @@ define([
 
         // currently playing track
         // --------------------------
-        getCurrentlyPlayingTrack: function(){
-            console.log('getCurrentlyPlayingTrack');
-            this.sendData('getInfo');
-            // type = getInfo
+        getCurrentlyPlayingTrack: function(routes){
+            this.sendData(routes, 'getInfo'); // route = 'home', type = getInfo, data = ''
         },
 
         distributeCurrentlyPlayingTrack: function(){
@@ -214,6 +216,29 @@ define([
             //         trackIdTwo
             //     ]
             // }
+        },
+
+        // -----------------------------------------------------------
+        // HELPER FUNCTIONS TIMER
+        // -----------------------------------------------------------
+
+        checkForNewUpdates: function(route){
+            // setInterval(function(){
+            //     console.log(route);
+            // }, 500);
+            // check and load which data is needed
+            // --> based on current route
+            switch(route){
+                case 'home':
+                    this.getCurrentlyPlayingTrack('home');
+                    break;
+                case 'notfound':
+                    break;
+                case 'translation':
+                    break;
+                default:
+            }
+
         },
 
         // -----------------------------------------------------------

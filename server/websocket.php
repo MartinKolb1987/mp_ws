@@ -47,13 +47,16 @@ while(true){
  */
 function getClientDataViaWebsocket($user, $allUsers, $msg){
     $msg = unwrap($msg);
-    $json = json_decode($msg);
-    // print $json->type;
+    $jsonDecoded = json_decode($msg);
+    
+    // print $jsonDecoded->route;
+    // print $jsonDecoded->type;
+    // print $jsonDecoded->sendData;
 
     // sendDataToClientViaWebsocket($user, $msg);
     // sendDataToClientViaWebsocket($user, 'servus');
-    sendDataToClientViaWebsocket($user, '{"info":{"currentlyPlaying":{"t_id":1,"t_artist":"MUCC","t_title":"1R","t_album":"Houyoku","t_length":225,"u_picture":"","downvote":0},"status":{"users":"30","internet_access":true}}}');
-    // sendDataToAllClientsViaWebsocket($allUsers, '{"info":{"currentlyPlaying":{"t_id":1,"t_artist":"MUCC","t_title":"1R","t_album":"Houyoku","t_length":225,"u_picture":"","downvote":0},"status":{"users":"30","internet_access":true}}}');
+    sendDataToClientViaWebsocket($user, '{"route":"' . $jsonDecoded->route . '","info":{"currentlyPlaying":{"t_id":1,"t_artist":"MUCC","t_title":"1R","t_album":"Houyoku","t_length":225,"u_picture":"","downvote":0},"status":{"users":"30","internet_access":true}}}');
+    // sendDataToAllClientsViaWebsocket($allUsers, '{"route":"home","info":{"currentlyPlaying":{"t_id":1,"t_artist":"MUCC","t_title":"1R","t_album":"Houyoku","t_length":225,"u_picture":"","downvote":0},"status":{"users":"30","internet_access":true}}}');
 }
 
 function sendDataToClientViaWebsocket($client,$msg){
