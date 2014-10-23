@@ -67,6 +67,9 @@ $db->exec("INSERT INTO buckets (b_is_active) VALUES (0)");
 $db->exec("INSERT INTO buckets (b_is_active) VALUES (0)");
 $db->exec("INSERT INTO buckets (b_is_active) VALUES (0)");
 
+// insert - blacklist
+$db->exec("INSERT INTO blacklist (u_ip, t_id, bl_timestamp, bl_mac) VALUES ('3.3.3.3', '7', '2014-10-23 11:00:00.000', 'd3-a2-54-69-3f-bb-24')");
+
 // insert - bucketcontents
 $db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing) VALUES ('1', '1', 1, 0)");
 $db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing) VALUES ('2', '2', 0, 1)");
