@@ -64,7 +64,7 @@ define([
             // --> based on current route
             switch(route){
                 case 'home':
-                    DataHandler.checkForNewUpdates(route);
+                    DataHandler.getCurrentlyPlayingTrack(route);
                     break;
                 case 'notfound':
                     break;
@@ -72,6 +72,11 @@ define([
                     break;
                 default:
             }
+
+            // because of websocket
+            // --> ws can only answer after request
+            // server send event doesn‘t fit in our web app context
+            DataHandler.checkForNewUpdates(route);
 
         },
 

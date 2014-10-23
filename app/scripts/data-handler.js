@@ -10,6 +10,7 @@ define([
         websocketHost: 'ws://localhost:54321/server.php',
         websocket: {},
         regularHost: '../../server/client.php',
+        checkForNewUpdatesTime: 10000, // milliseconds
 
         init: function(){
             var that = this;
@@ -156,8 +157,8 @@ define([
 
         // currently playing track
         // --------------------------
-        getCurrentlyPlayingTrack: function(routes){
-            this.sendData(routes, 'getInfo'); // route = 'home', type = getInfo, data = ''
+        getCurrentlyPlayingTrack: function(route){
+            this.sendData(route, 'getInfo'); // route = 'home', type = getInfo, data = ''
         },
 
         distributeCurrentlyPlayingTrack: function(){
@@ -222,22 +223,17 @@ define([
         // HELPER FUNCTIONS TIMER
         // -----------------------------------------------------------
 
+        checkForNewUpdatesInterval: '',
+
         checkForNewUpdates: function(route){
-            // setInterval(function(){
-            //     console.log(route);
-            // }, 500);
-            // check and load which data is needed
-            // --> based on current route
-            switch(route){
-                case 'home':
-                    this.getCurrentlyPlayingTrack('home');
-                    break;
-                case 'notfound':
-                    break;
-                case 'translation':
-                    break;
-                default:
-            }
+            var that = this;
+
+            // interval
+            clearInterval(this.checkForNewUpdatesInterval);
+            this.checkForNewUpdatesInterval = setInterval(function(){
+                console.log('interval');
+                that.sendData(route, 'checkForNewUpdates'); // route = 'home', type = getInfo, data = ''
+            }, that.checkForNewUpdatesTime);
 
         },
 
