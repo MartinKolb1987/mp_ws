@@ -18,6 +18,7 @@ $db->exec("PRAGMA foreign_keys = ON;");
 echo('initializing database, dropping old tables...<br/>');
 $db->exec("DROP TABLE downvotes");
 $db->exec("DROP TABLE bucketcontents");
+$db->exec("DROP TABLE blacklist");
 $db->exec("DROP TABLE buckets");
 $db->exec("DROP TABLE tracks");
 $db->exec("DROP TABLE users");
@@ -28,6 +29,8 @@ echo('creating new tables...<br/>');
 $db->exec("CREATE TABLE users (u_ip TEXT PRIMARY KEY, u_picture TEXT, u_admin INT)");
 // tracks
 $db->exec("CREATE TABLE tracks (t_id INTEGER PRIMARY KEY AUTOINCREMENT, u_ip TEXT REFERENCES users(u_ip), t_filename TEXT, t_artist TEXT, t_title TEXT, t_album TEXT, t_length INT)");
+// blacklist
+$db->exec("CREATE TABLE blacklist (u_ip TEXT REFERENCES users(u_ip), t_id INTEGER REFERENCES tracks(t_id), bl_timestamp TEXT, bl_mac TEXT)");
 // buckets
 $db->exec("CREATE TABLE buckets (b_id INTEGER PRIMARY KEY AUTOINCREMENT, b_is_active INT)");
 // downvotes
