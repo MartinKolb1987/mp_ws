@@ -11,7 +11,7 @@ define([
         websocketHost: 'ws://localhost:54321/server.php',
         websocket: {},
         regularHost: '../../server/client.php',
-        checkForNewUpdatesTime: 1000, // milliseconds
+        checkForNewUpdatesTime: 50000, // milliseconds
 
         init: function(){
             var that = this;
@@ -115,28 +115,26 @@ define([
             // Websocket
             // --------------------------
             if(this.isWebsocketActive){
-                // view.langHome = 'lsdkjfsldjfs';
-                // do websocket stuff
                 receivedData = this.fromStringToJson(receivedData);
                 var view = ComponentCollection.getComponent(receivedData.route);
                 
 
                 switch(receivedData.route){
                     case 'home':
-                        view.route = receivedData.route + ' -- ' + new Date();
-                        view.album = receivedData.info.currentlyPlaying.album + ' -- ' + new Date();
+                        if(receivedData.type === 'getCurrentlyPlaying'){
+                            // currentlyPlaying
+                            this.distributeCurrentlyPlayingTrack(receivedData, view);
+                        } else if(receivedData.type === 'getPlaylist'){
+                            // user playlist
+                            this.distributeUserPlaylist(receivedData, view);
+                        }
                         break;
-                    case 'notfound':
-                        break;
-                    case 'translation':
-                        view.route = receivedData.route + ' -- ' + new Date();
-                        view.album = receivedData.info.currentlyPlaying.album + ' -- ' + new Date();
+                    case 'settings':
+                        this.distributeUserImage(receivedData, view);
+                        // this.distributeCurrentlyPlayingTrack(receivedData, view);
                         break;
                     default:
                 }
-
-                console.log(receivedData);
-                console.log(receivedData.route);
 
 
                 if(DebugHandler.isActive){ console.log('Data from server via websocket: ' + receivedData); }
@@ -178,17 +176,26 @@ define([
         // currently playing track
         // --------------------------
         getCurrentlyPlayingTrack: function(route){
-            this.sendData(route, 'getInfo'); // route = 'home', type = getInfo, data = ''
+            this.sendData(route, 'getCurrentlyPlaying'); // route = 'home', type = currentlyPlaying, data = ''
         },
 
-        distributeCurrentlyPlayingTrack: function(){
-            // distrubte received data within app
-            // --> share data with the component
+        distributeCurrentlyPlayingTrack: function(data, view){
+            console.log(data);
+            view.route = data.route;
+            view.album = data.info.currentlyPlaying.album;
         },
 
         // get user uploaded playlist
         // --------------------------
-        getUserPlaylist: function(){
+        getUserPlaylist: function(route){
+            this.sendData(route, 'getPlaylist'); // route = 'home', type = getPlaylist, data = ''
+            // type = getPlaylist
+            // url: 'json/musicHivePlaylist.json'
+        },
+
+        distributeUserPlaylist: function(data, view){
+            console.log(data);
+            view.playlist = data.playlist;
             // type = getPlaylist
             // url: 'json/musicHivePlaylist.json'
         },
@@ -200,9 +207,13 @@ define([
             // file = givenFile
         },
 
-        getUserImage: function(){
-            // type = getUserImage
-            // url: 'json/musicHiveUserImage.json'
+        getUserImage: function(route){
+            this.sendData(route, 'getUserImage'); // route = 'home', type = getInfo, data = ''
+        },
+
+        distributeUserImage: function(data, view){
+            view.route = data.route + ' -- ' + new Date();
+            view.userImageUrl = data.userImage.url;
         },
 
         deleteUserImage: function(){
@@ -251,7 +262,6 @@ define([
             // interval
             clearInterval(this.checkForNewUpdatesInterval);
             this.checkForNewUpdatesInterval = setInterval(function(){
-                console.log('interval');
                 that.sendData(route, 'checkForNewUpdates'); // route = 'home', type = getInfo, data = ''
             }, that.checkForNewUpdatesTime);
 

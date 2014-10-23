@@ -48,15 +48,38 @@ while(true){
 function getClientDataViaWebsocket($user, $allUsers, $msg){
     $msg = unwrap($msg);
     $jsonDecoded = json_decode($msg);
-    
+    $sendJson = '';
+
+    switch ($jsonDecoded->route) {
+        case 'home':
+            if($jsonDecoded->type === 'getCurrentlyPlaying'){
+                // currentlyPlaying
+                $sendJson = '{"route":"' .  $jsonDecoded->route . '", "type": "' . $jsonDecoded->type . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":"Blubb","length":225,"image":"","downvote":0},"status":{"users":"30","internetAccess":true}}}';
+
+            } 
+
+            if ($jsonDecoded->type === 'getPlaylist') {
+                // user playlist
+                $sendJson = '{"route":"' .  $jsonDecoded->route . '","type":"' . $jsonDecoded->type . '","playlist":[{"track":{"id":1,"title":"Foo","artist":"Mongo1"}},{"track":{"id":2,"title":"Bar","artist":"Mongo2"}},{"track":{"id":3,"title":"Boo","artist":"Mongo3"}}]}';
+            }
+
+            sendDataToClientViaWebsocket($user, $sendJson);
+            
+            break;
+        case 'settings':
+            // userImage
+            sendDataToClientViaWebsocket($user, '{"route":"' .  $jsonDecoded->route . '", "type": "' . $jsonDecoded->type . '","userImage":{"url":"./img/user-image.jpg"}}');
+            // sendDataToClientViaWebsocket($user, '{"route":"settings"}');
+            break;
+    }
+
     // print $jsonDecoded->route;
     // print $jsonDecoded->type;
     // print $jsonDecoded->sendData;
 
     // sendDataToClientViaWebsocket($user, $msg);
     // sendDataToClientViaWebsocket($user, 'servus');
-    sendDataToClientViaWebsocket($user, '{"route":"' .  $jsonDecoded->route . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":" album-server ' . date('H:i:s') . '","length":225,"picture":"","downvote":0},"status":{"users":"30","internetAccess":true}}}');
-    // sendDataToAllClientsViaWebsocket($allUsers, '{"route":"' .  $jsonDecoded->route . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":" album-server ' . date('H:i:s') . '","length":225,"picture":"","downvote":0},"status":{"users":"30","internetAccess":true}}}');
+    // sendDataToAllClientsViaWebsocket($allUsers, '{"route":"' .  $jsonDecoded->route . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":"Blubb","length":225,"picture":"","downvote":0},"status":{"users":"30","internetAccess":true}}}');
     // sendDataToAllClientsViaWebsocket($allUsers, '{"route":"home","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":"Houyoku","length":225,"picture":"","downvote":0},"status":{"users":"30","internetAccess":true}}}');
 }
 

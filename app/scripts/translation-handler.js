@@ -10,16 +10,39 @@ define([
 
         language : {
             de: {
+                // home
+                langHome: 'Heimat',
+                
+                // settings
+                langSettings: 'Einstellungen',
+
+                // help
+                langHelp: 'Hilfe',
+
+                // not found
+                langNotfound: 'Emmm, keine Ahnung...',
+                
+                // translation
                 langSubtitle: 'Deutsch',
                 langDescription: 'Das ist die deutsche Übersetzung.',
-                langHome: 'Heimat',
-                langNotfound: 'Emmm, keine Ahnung...'
             },
             en: {
+                // home
+                langHome: 'Home',
+                
+                // settings
+                langSettings: 'Settings',
+
+                // help
+                langHelp: 'Help',
+
+                // not found
+                langNotfound: 'Sorry, not found...',
+                
+                // translation
                 langSubtitle: 'English',
                 langDescription: 'This is the english translation.',
-                langHome: 'Home',
-                langNotfound: 'Sorry, not found...'
+
             }
         },
 

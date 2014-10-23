@@ -1,5 +1,6 @@
 {
     "route": "profil",
+    "type": "getUserImage"
     "userImage": {
         "url": "./img/user-image.jpg"
     }

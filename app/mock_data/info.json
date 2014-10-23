@@ -1,5 +1,6 @@
 {
     "route": "home",
+    "type": "getCurrentlyPlaying",
     "info": {
         "currentlyPlaying": {
             "id": 1,
@@ -7,7 +8,7 @@
             "title": "1R",
             "album": "Houyoku",
             "length": 225,
-            "picture": "",
+            "image": "",
             "downvote": 0
         },
         "status": {

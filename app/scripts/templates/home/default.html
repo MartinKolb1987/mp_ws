@@ -1,3 +1,9 @@
 <b>{{langHome}}</b><br>
 route: {{route}}<br>
 album: {{album}}<br>
+
+<ul>
+    <li v-repeat="playlist">
+        {{$index}} - {{track.id}} {{track.title}}
+    </li>
+</ul>

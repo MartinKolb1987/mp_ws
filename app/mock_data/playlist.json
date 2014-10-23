@@ -1,20 +1,27 @@
 {
     "route": "home",
-    "playlist": {
-        "prio1": {
-            "id": 1,
-            "title": "Furzkissen",
-            "artist": "Mongo"
+    "type": "getPlaylist",
+    "playlist": [
+        {
+            "track": {
+                "id": 1,
+                "title": "Foo",
+                "artist": "Mongo1"
+            }
         },
-        "prio2": {
-            "id": 2,
-            "title": "Stiff upper lip",
-            "artist": "Mongo2"
+        {
+            "track": {
+                "id": 2,
+                "title": "Bar",
+                "artist": "Mongo2"
+            }
         },
-        "prio3": {
-            "id": 3,
-            "title": "Furzkissen2",
-            "artist": "Mongo45"
+        {
+            "track": {
+                "id": 3,
+                "title": "Boo",
+                "artist": "Mongo3"
+            }
         }
-    }
+    ]
 }

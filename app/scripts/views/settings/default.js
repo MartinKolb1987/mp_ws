@@ -5,18 +5,17 @@ define([
     'dataHandler',
     'translation',
     'componentCollection',
-    'text!../../templates/home/default.html'
+    'text!../../templates/settings/default.html'
 ], function(Vue, ErrorHandler, DebugHandler, DataHandler, TranslationHandler, ComponentCollection, DefaultTemplate) {
     'use strict';
 
-    Vue.component('home', {
+    Vue.component('settings', {
         template: DefaultTemplate,
         ready: function () {
-            ComponentCollection.addComponent('home', this.$data);
+            ComponentCollection.addComponent('settings', this.$data);
         },
         data: {
-            langHome: '',
-            album: 'Kein Album vorhanden'
+            langSettings: ''
         },
         methods: {
             removeUser: function(item){

@@ -4,15 +4,16 @@ define([
     'dataHandler',
     'componentCollection',
     '../views/home/default',
+    '../views/settings/default',
+    '../views/help/default',
     '../views/notfound/default',
-    '../views/translation/default'
-], function(Vue, TranslationHandler, DataHandler, ComponentCollection, HomeView, NotfoundView, TranslationView) {
+    '../views/translation/default',
+], function(Vue, TranslationHandler, DataHandler, ComponentCollection, HomeView, SettingsView, HelpView, NotfoundView, TranslationView) {
     'use strict';
 
     var app = {
-        initialStart: true,
         vue: {},
-        routes: ['home', 'notfound', 'translation'],
+        routes: ['home', 'settings', 'help', 'notfound', 'translation'],
 
         init: function(){
             var that = this;
@@ -65,11 +66,16 @@ define([
             switch(route){
                 case 'home':
                     DataHandler.getCurrentlyPlayingTrack(route);
+                    DataHandler.getUserPlaylist(route);
+                    break;
+                case 'settings':
+                    DataHandler.getUserImage(route);
+                    break;
+                case 'help':
                     break;
                 case 'notfound':
                     break;
                 case 'translation':
-                    DataHandler.getCurrentlyPlayingTrack(route);
                     break;
                 default:
             }
