@@ -1,6 +1,6 @@
 {
-    "musicHiveInfo": {
-        "currentlyPlaying": {
+    "info": {
+        "currently_playing": {
             "t_id": 1,
             "t_artist": "MUCC",
             "t_title": "1R",

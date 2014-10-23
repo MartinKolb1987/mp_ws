@@ -2,7 +2,8 @@
 // https://code.google.com/p/phpwebsocket/
 // FIX server.php:
 // http://phpforum.de/forum/showpost.php?p=1502477&postcount=13
-// custom function
+// 22.10.2014, master group mobile experience:
+// added sendDataToAllClientsViaWebsocket() function
 
 // includes
 // require_once('db/db.php');
@@ -18,7 +19,7 @@ ob_implicit_flush();
 $master  = WebSocket("localhost",54321);
 $sockets = array($master);
 $users   = array();
-$debug   = true;
+$debug   = false;
 
 while(true){
     $changed = $sockets;
@@ -28,11 +29,9 @@ while(true){
             $client=socket_accept($master);
             if($client<0){ console("socket_accept() failed"); continue; }
             else{ connect($client); }
-        }
-        else{
+        } else {
             $bytes = @socket_recv($socket,$buffer,2048,0);
-            if($bytes==0){ disconnect($socket); }
-            else{
+            if($bytes==0){ disconnect($socket); } else{
                 $user = getuserbysocket($socket);
                 if(!$user->handshake){ dohandshake($user,$buffer); }
                 else{ getClientDataViaWebsocket($user->socket, $users, $buffer); }
@@ -52,9 +51,9 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
     // print $json->type;
 
     // sendDataToClientViaWebsocket($user, $msg);
-    sendDataToClientViaWebsocket($user, '{"servus": "blubb"}');
-    // sendDataToClientViaWebsocket($user, '{"musicHiveInfo":{"currentlyPlaying":{"t_id":1,"t_artist":"MUCC","t_title":"1R","t_album":"Houyoku","t_length":225,"u_picture":"","downvote":0},"status":{"users":"30","internet_access":true}}}');
-    sendDataToAllClientsViaWebsocket($allUsers, '{"musicHiveInfo":{"currentlyPlaying":{"t_id":1,"t_artist":"MUCC","t_title":"1R","t_album":"Houyoku","t_length":225,"u_picture":"","downvote":0},"status":{"users":"30","internet_access":true}}}');
+    // sendDataToClientViaWebsocket($user, 'servus');
+    sendDataToClientViaWebsocket($user, '{"info":{"currentlyPlaying":{"t_id":1,"t_artist":"MUCC","t_title":"1R","t_album":"Houyoku","t_length":225,"u_picture":"","downvote":0},"status":{"users":"30","internet_access":true}}}');
+    // sendDataToAllClientsViaWebsocket($allUsers, '{"info":{"currentlyPlaying":{"t_id":1,"t_artist":"MUCC","t_title":"1R","t_album":"Houyoku","t_length":225,"u_picture":"","downvote":0},"status":{"users":"30","internet_access":true}}}');
 }
 
 function sendDataToClientViaWebsocket($client,$msg){
@@ -62,9 +61,9 @@ function sendDataToClientViaWebsocket($client,$msg){
     $sent = socket_write($client, $msg);
 }
 
-function sendDataToAllClientsViaWebsocket($allClients, $msg){
+function sendDataToAllClientsViaWebsocket($allUsers, $msg){
     $msg = wrap($msg);
-    foreach($allClients as $user){
+    foreach($allUsers as $user){
         $sent = socket_write($user->socket, $msg);
     }
 }
@@ -149,10 +148,10 @@ function wrap($msg=""){
 
     $len = strlen($msg);
 
-    /* 0x81 = first and last bit set (fin, opcode=text) */
+    // 0x81 = first and last bit set (fin, opcode=text) 
     $header = chr(0x81);
 
-    /* extended 32bit payload */
+    // extended 32bit payload
     if ($len >= 126) {
         $header .= chr(126) . pack('n', $len);
     } else {

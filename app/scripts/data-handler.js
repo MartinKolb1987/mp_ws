@@ -225,7 +225,16 @@ define([
         },
 
         fromStringToJson: function(data){
-            return JSON.parse(data);
+            var checkedData = '';
+            
+            // check if data is json string
+            if(data.substr(0,1) === '{' && data.substr(-1) === '}'){
+                checkedData = JSON.parse(data);
+            } else {
+                checkedData = data;
+            }
+
+            return checkedData;
         }
 
     };
