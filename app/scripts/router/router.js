@@ -66,7 +66,10 @@ define([
             switch(route){
                 case 'home':
                     DataHandler.getCurrentlyPlayingTrack(route);
-                    DataHandler.getUserPlaylist(route);
+                    // DataHandler.getUserPlaylist(route);
+                    setTimeout(function(){
+                        DataHandler.getUserPlaylist(route);
+                    }, 10);
                     break;
                 case 'settings':
                     DataHandler.getUserImage(route);

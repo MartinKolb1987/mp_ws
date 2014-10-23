@@ -85,6 +85,7 @@ define([
             // Websocket
             // --------------------------
             if(this.isWebsocketActive){
+                console.log(route, type, data);
                 // build json 
                 var sendData = {
                     route: route,
@@ -183,6 +184,11 @@ define([
             console.log(data);
             view.route = data.route;
             view.album = data.info.currentlyPlaying.album;
+            view.title = data.info.currentlyPlaying.title;
+            view.artist = data.info.currentlyPlaying.artist;
+            view.downvote = data.info.currentlyPlaying.downvote;
+            view.id = data.info.currentlyPlaying.id;
+            view.length = data.info.currentlyPlaying.length;
         },
 
         // get user uploaded playlist
@@ -196,8 +202,6 @@ define([
         distributeUserPlaylist: function(data, view){
             console.log(data);
             view.playlist = data.playlist;
-            // type = getPlaylist
-            // url: 'json/musicHivePlaylist.json'
         },
 
         // user image
@@ -212,7 +216,7 @@ define([
         },
 
         distributeUserImage: function(data, view){
-            view.route = data.route + ' -- ' + new Date();
+            view.route = data.route;
             view.userImageUrl = data.userImage.url;
         },
 

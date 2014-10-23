@@ -11,7 +11,6 @@
 // require_once('tracks.php');
 require_once('client_actions.php');
 
-error_reporting(E_ALL);
 set_time_limit(0);
 ob_implicit_flush();
 
@@ -49,18 +48,19 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
     $msg = unwrap($msg);
     $jsonDecoded = json_decode($msg);
     $sendJson = '';
+    $route = $jsonDecoded->route;
+    $type = $jsonDecoded->type;
 
-    switch ($jsonDecoded->route) {
+
+    switch($route) {
         case 'home':
-            if($jsonDecoded->type === 'getCurrentlyPlaying'){
+            if($type === 'getCurrentlyPlaying'){
                 // currentlyPlaying
-                $sendJson = '{"route":"' .  $jsonDecoded->route . '", "type": "' . $jsonDecoded->type . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":"Blubb","length":225,"image":"","downvote":0},"status":{"users":"30","internetAccess":true}}}';
+                $sendJson = '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":"Blubb","length":225,"image":"","downvote":0},"status":{"users":"30","internetAccess":true}}}';
 
-            } 
-
-            if ($jsonDecoded->type === 'getPlaylist') {
+            } else if($type === 'getPlaylist') {
                 // user playlist
-                $sendJson = '{"route":"' .  $jsonDecoded->route . '","type":"' . $jsonDecoded->type . '","playlist":[{"track":{"id":1,"title":"Foo","artist":"Mongo1"}},{"track":{"id":2,"title":"Bar","artist":"Mongo2"}},{"track":{"id":3,"title":"Boo","artist":"Mongo3"}}]}';
+                $sendJson = '{"route":"' .  $route . '","type":"' . $type . '","playlist":[{"track":{"id":1,"title":"Foo","artist":"Mongo1"}},{"track":{"id":2,"title":"Bar","artist":"Mongo2"}},{"track":{"id":3,"title":"Boo","artist":"Mongo3"}}]}';
             }
 
             sendDataToClientViaWebsocket($user, $sendJson);
@@ -68,7 +68,7 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
             break;
         case 'settings':
             // userImage
-            sendDataToClientViaWebsocket($user, '{"route":"' .  $jsonDecoded->route . '", "type": "' . $jsonDecoded->type . '","userImage":{"url":"./img/user-image.jpg"}}');
+            sendDataToClientViaWebsocket($user, '{"route":"' .  $route . '", "type": "' . $type . '","userImage":{"url":"./img/user-image.jpg"}}');
             // sendDataToClientViaWebsocket($user, '{"route":"settings"}');
             break;
     }
