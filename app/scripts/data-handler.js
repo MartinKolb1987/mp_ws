@@ -1,7 +1,8 @@
 define([
     'error',
-    'debug'
-], function(ErrorHandler, DebugHandler) {
+    'debug',
+    'componentCollection'
+], function(ErrorHandler, DebugHandler, ComponentCollection) {
     'use strict';
 
     var dataHandler = {
@@ -10,7 +11,7 @@ define([
         websocketHost: 'ws://localhost:54321/server.php',
         websocket: {},
         regularHost: '../../server/client.php',
-        checkForNewUpdatesTime: 50000000, // milliseconds
+        checkForNewUpdatesTime: 1000, // milliseconds
 
         init: function(){
             var that = this;
@@ -109,15 +110,34 @@ define([
         },
 
         getData: function(receivedData){
+            
 
             // Websocket
             // --------------------------
             if(this.isWebsocketActive){
+                // view.langHome = 'lsdkjfsldjfs';
                 // do websocket stuff
                 receivedData = this.fromStringToJson(receivedData);
+                var view = ComponentCollection.getComponent(receivedData.route);
+                
 
-                console.log('Data from server: ');
+                switch(receivedData.route){
+                    case 'home':
+                        view.route = receivedData.route + ' -- ' + new Date();
+                        view.album = receivedData.info.currentlyPlaying.album + ' -- ' + new Date();
+                        break;
+                    case 'notfound':
+                        break;
+                    case 'translation':
+                        view.route = receivedData.route + ' -- ' + new Date();
+                        view.album = receivedData.info.currentlyPlaying.album + ' -- ' + new Date();
+                        break;
+                    default:
+                }
+
                 console.log(receivedData);
+                console.log(receivedData.route);
+
 
                 if(DebugHandler.isActive){ console.log('Data from server via websocket: ' + receivedData); }
             

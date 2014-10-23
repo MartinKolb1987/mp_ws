@@ -55,7 +55,8 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
 
     // sendDataToClientViaWebsocket($user, $msg);
     // sendDataToClientViaWebsocket($user, 'servus');
-    sendDataToAllClientsViaWebsocket($allUsers, '{"route":"' .  $jsonDecoded->route . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":"Houyoku","length":225,"picture":"","downvote":0},"status":{"users":"30","internetAccess":true}}}');
+    sendDataToClientViaWebsocket($user, '{"route":"' .  $jsonDecoded->route . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":" album-server ' . date('H:i:s') . '","length":225,"picture":"","downvote":0},"status":{"users":"30","internetAccess":true}}}');
+    // sendDataToAllClientsViaWebsocket($allUsers, '{"route":"' .  $jsonDecoded->route . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":" album-server ' . date('H:i:s') . '","length":225,"picture":"","downvote":0},"status":{"users":"30","internetAccess":true}}}');
     // sendDataToAllClientsViaWebsocket($allUsers, '{"route":"home","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":"Houyoku","length":225,"picture":"","downvote":0},"status":{"users":"30","internetAccess":true}}}');
 }
 

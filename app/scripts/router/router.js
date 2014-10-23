@@ -69,6 +69,7 @@ define([
                 case 'notfound':
                     break;
                 case 'translation':
+                    DataHandler.getCurrentlyPlayingTrack(route);
                     break;
                 default:
             }
