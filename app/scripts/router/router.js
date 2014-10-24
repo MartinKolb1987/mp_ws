@@ -66,10 +66,7 @@ define([
             switch(route){
                 case 'home':
                     DataHandler.getCurrentlyPlayingTrack(route);
-                    // DataHandler.getUserPlaylist(route);
-                    setTimeout(function(){
-                        DataHandler.getUserPlaylist(route);
-                    }, 10);
+                    DataHandler.getUserPlaylist(route);
                     break;
                 case 'settings':
                     DataHandler.getUserImage(route);
@@ -86,7 +83,7 @@ define([
             // because of websocket
             // --> ws can only answer after request
             // server send event doesn‘t fit in our web app context
-            DataHandler.checkForNewUpdates(route);
+            // DataHandler.checkForNewUpdates(route);
 
         },
 

@@ -51,19 +51,16 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
     $route = $jsonDecoded->route;
     $type = $jsonDecoded->type;
 
-
     switch($route) {
         case 'home':
             if($type === 'getCurrentlyPlaying'){
                 // currentlyPlaying
-                $sendJson = '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":"Blubb","length":225,"image":"","downvote":0},"status":{"users":"30","internetAccess":true}}}';
-
+                sendDataToClientViaWebsocket($user, '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":"Blubb","length":225,"image":"","downvote":0},"status":{"users":"30","internetAccess":true}}}');
             } else if($type === 'getPlaylist') {
                 // user playlist
-                $sendJson = '{"route":"' .  $route . '","type":"' . $type . '","playlist":[{"track":{"id":1,"title":"Foo","artist":"Mongo1"}},{"track":{"id":2,"title":"Bar","artist":"Mongo2"}},{"track":{"id":3,"title":"Boo","artist":"Mongo3"}}]}';
+                sendDataToClientViaWebsocket($user, '{"route":"' .  $route . '","type":"' . $type . '","playlist":[{"track":{"id":1,"title":"Foo","artist":"Mongo1"}},{"track":{"id":2,"title":"Bar","artist":"Mongo2"}},{"track":{"id":3,"title":"Boo","artist":"Mongo3"}}]}');
             }
 
-            sendDataToClientViaWebsocket($user, $sendJson);
             
             break;
         case 'settings':
@@ -75,7 +72,7 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
 
     // print $jsonDecoded->route;
     // print $jsonDecoded->type;
-    // print $jsonDecoded->sendData;
+    // print $jsonDecoded->data;
 
     // sendDataToClientViaWebsocket($user, $msg);
     // sendDataToClientViaWebsocket($user, 'servus');

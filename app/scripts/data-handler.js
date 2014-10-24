@@ -8,10 +8,10 @@ define([
     var dataHandler = {
         
         isWebsocketActive: false,
-        websocketHost: 'ws://localhost:54321/server.php',
-        websocket: {},
+        websocketHost: 'ws://localhost:54321',
         regularHost: '../../server/client.php',
         checkForNewUpdatesTime: 50000, // milliseconds
+        sendDataRequestByRequestDelay: 10, // milliseconds (take care of websockets)
 
         init: function(){
             var that = this;
@@ -29,6 +29,8 @@ define([
                 this.initShortPolling();
             }
         },
+        
+        websocket: {},
 
         initWebsocket: function(){
 
@@ -50,22 +52,19 @@ define([
 
                 };
 
-                this.websocket.onerror = function (error){
-                    that.isWebsocketActive = false;
-                    // unidentified websocket error
-                    ErrorHandler.log('unidentified websocket error', new Error().stack);
-                };
-
                 this.websocket.onmessage = function(msg){
                     that.getData(msg.data);
                 };
 
                 this.websocket.onclose = function(msg){
                     that.isWebsocketActive = false;
+                    that.initShortPolling();
+                    ErrorHandler.log('websocket is closed', new Error().stack);
                 };
 
             } catch(error){
                 that.isWebsocketActive = false;
+                that.initShortPolling();
                 // no websocket is available
                 ErrorHandler.log('no websocket is available', new Error().stack);
             }
@@ -79,34 +78,72 @@ define([
         // -----------------------------------------------------------
         // SEND & RECEIVE DATA FROM SERVER
         // -----------------------------------------------------------
+        queue: [],
+        queueTimeout: '',
 
         sendData: function(route, type, data){
-            
-            // Websocket
-            // --------------------------
-            if(this.isWebsocketActive){
-                console.log(route, type, data);
-                // build json 
-                var sendData = {
-                    route: route,
-                    type: type,
-                    sendData: data
-                };
+            var that = this;
+            var sendData = '';
+            var counter = 0;
 
-                // convert json to string
-                sendData = this.fromJsonToString(sendData);
+            // build request queue
+            this.queue.push({route: route, type: type, data: data});
+            
+            clearTimeout(that.queueTimeout);
+            this.queueTimeout = setTimeout(function(){
+
                 
-                this.websocket.send(sendData);
-                if(DebugHandler.isActive){ console.log('Send data to server via websocket: ' + sendData); }
-            
+                (function sendDataRequestByRequest() {
+                    
+                    // Websocket
+                    // --------------------------
+                    if(that.isWebsocketActive){
 
-            // Shortpolling
-            // --------------------------
-            } else {
-               
-                // do shortpolling stuff
-            
-            }
+                        // build json 
+                        sendData = {
+                            route: that.queue[counter].route,
+                            type: that.queue[counter].type,
+                            data: that.queue[counter].data
+                        };
+
+                        // convert json to string
+                        sendData = that.fromJsonToString(sendData);
+                        that.websocket.send(sendData);
+                        
+                        if(DebugHandler.isActive){ console.log('Send data to server via websocket: ' + sendData); }
+
+
+                    // Shortpolling
+                    // --------------------------
+                    } else {
+
+                        // build json 
+                        sendData = {
+                            route: that.queue[counter].route,
+                            type: that.queue[counter].type,
+                            data: that.queue[counter].data
+                        };
+                        console.log('short polling:');
+                        console.log(sendData);
+                    
+                    }
+
+                    counter++;
+
+                    // clear request queue
+                    if(counter === that.queue.length){
+                        counter = 0;
+                        that.queue = [];
+                        return true;
+                    }
+
+                    setTimeout(function(){
+                        sendDataRequestByRequest();
+                    }, that.sendDataRequestByRequestDelay);
+
+                })();
+
+            }, 20);
 
         },
 
@@ -165,7 +202,7 @@ define([
 
             console.log(this.regularHost);
             
-            if(DebugHandler.isActive){ console.log('okay, no websocket alive... short polling...'); }
+            if(DebugHandler.isActive){ console.log('okay, no websocket alive... do short polling instead...'); }
 
         },
 
@@ -181,7 +218,6 @@ define([
         },
 
         distributeCurrentlyPlayingTrack: function(data, view){
-            console.log(data);
             view.route = data.route;
             view.album = data.info.currentlyPlaying.album;
             view.title = data.info.currentlyPlaying.title;
@@ -200,7 +236,6 @@ define([
         },
 
         distributeUserPlaylist: function(data, view){
-            console.log(data);
             view.playlist = data.playlist;
         },
 
