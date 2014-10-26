@@ -83,7 +83,7 @@ define([
             // because of websocket
             // --> ws can only answer after request
             // server send event doesn‘t fit in our web app context
-            // DataHandler.checkForNewUpdates(route);
+            DataHandler.checkForNewUpdates(route);
 
         },
 
