@@ -9,7 +9,7 @@ define([
         
         isWebsocketActive: false,
         websocketHost: 'ws://localhost:54321',
-        regularHost: '../../server/client.php',
+        regularHost: '../server/client.php',
         checkForNewUpdatesTime: 50000, // milliseconds
         sendDataRequestByRequestDelay: 10, // milliseconds (take care of websockets)
 
@@ -92,12 +92,11 @@ define([
             clearTimeout(that.queueTimeout);
             this.queueTimeout = setTimeout(function(){
 
-                
                 (function sendDataRequestByRequest() {
                     
                     // Websocket
                     // --------------------------
-                    if(that.isWebsocketActive){
+                    if(that.isWebsocketActive){ // TODO: && is not file upload (user image or track)
 
                         // build json 
                         sendData = {
@@ -117,14 +116,7 @@ define([
                     // --------------------------
                     } else {
 
-                        // build json 
-                        sendData = {
-                            route: that.queue[counter].route,
-                            type: that.queue[counter].type,
-                            data: that.queue[counter].data
-                        };
-                        console.log('short polling:');
-                        console.log(sendData);
+                        that.xhrCall(that.queue[counter].route, that.queue[counter].type, that.queue[counter].data);
                     
                     }
 
@@ -148,43 +140,35 @@ define([
         },
 
         getData: function(receivedData){
+
+            // this function getData() handles response
+            // data from websocket or xhr
+            // --------------------------------
+
+            receivedData = this.fromStringToJson(receivedData);
+            var view = ComponentCollection.getComponent(receivedData.route);
             
 
-            // Websocket
-            // --------------------------
-            if(this.isWebsocketActive){
-                receivedData = this.fromStringToJson(receivedData);
-                var view = ComponentCollection.getComponent(receivedData.route);
-                
-
-                switch(receivedData.route){
-                    case 'home':
-                        if(receivedData.type === 'getCurrentlyPlaying'){
-                            // currentlyPlaying
-                            this.distributeCurrentlyPlayingTrack(receivedData, view);
-                        } else if(receivedData.type === 'getPlaylist'){
-                            // user playlist
-                            this.distributeUserPlaylist(receivedData, view);
-                        }
-                        break;
-                    case 'settings':
-                        this.distributeUserImage(receivedData, view);
-                        // this.distributeCurrentlyPlayingTrack(receivedData, view);
-                        break;
-                    default:
-                }
-
-
-                if(DebugHandler.isActive){ console.log('Data from server via websocket: ' + receivedData); }
-            
-
-            // Shortpolling
-            // --------------------------
-            } else {
-            
-            
+            switch(receivedData.route){
+                case 'home':
+                    if(receivedData.type === 'getCurrentlyPlaying'){
+                        // currentlyPlaying
+                        this.distributeCurrentlyPlayingTrack(receivedData, view);
+                    } else if(receivedData.type === 'getPlaylist'){
+                        // user playlist
+                        this.distributeUserPlaylist(receivedData, view);
+                    }
+                    break;
+                case 'settings':
+                    this.distributeUserImage(receivedData, view);
+                    // this.distributeCurrentlyPlayingTrack(receivedData, view);
+                    break;
+                default:
             }
 
+
+            if(DebugHandler.isActive){ console.log('Data from server via websocket or xhr: ' + receivedData); }
+            
         },
 
 
@@ -200,15 +184,13 @@ define([
             dataHandlerEvent.initEvent('dataHandlerIsReady', true, false);
             document.dispatchEvent(dataHandlerEvent);
 
-            console.log(this.regularHost);
-            
             if(DebugHandler.isActive){ console.log('okay, no websocket alive... do short polling instead...'); }
 
         },
 
 
         // -----------------------------------------------------------
-        // HELPER FUNCTIONS SEND & GET DATA
+        // HELPER FUNCTIONS SEND & GET & DISTRIBUTE DATA
         // -----------------------------------------------------------
 
         // currently playing track
@@ -301,7 +283,7 @@ define([
             // interval
             clearInterval(this.checkForNewUpdatesInterval);
             this.checkForNewUpdatesInterval = setInterval(function(){
-                that.sendData(route, 'checkForNewUpdates'); // route = 'home', type = getInfo, data = ''
+                that.sendData(route, 'checkForNewUpdates'); // route = 'home', type = checkForNewUpdates, data = ''
             }, that.checkForNewUpdatesTime);
 
         },
@@ -309,6 +291,38 @@ define([
         // -----------------------------------------------------------
         // HELPER FUNCTIONS GENERALLY
         // -----------------------------------------------------------
+
+        xhrCall: function(route, type, data){
+            var that = this;
+            var formData = new FormData();
+            var xhr = new XMLHttpRequest();
+
+            formData.append('type', type);
+            formData.append('route', route);
+            // formData.append('file', givenFile);
+
+            xhr.onerror = function(e) {
+                ErrorHandler.log('xhr error, please try again: ' + type , new Error().stack);
+            };
+
+            xhr.onload = function(e) {
+                that.getData(e.target.responseText);
+                // upload finished
+            };
+
+            xhr.upload.onprogress = function(e) {
+                var procent = Math.round(100 / e.total * e.loaded);
+                if (procent < 98) {
+                    // show progress in procent
+                } else {
+                    // show i‘m ready
+                }
+            };
+
+            xhr.open('POST', that.regularHost);
+            xhr.send(formData);
+
+        },
 
         fromJsonToString: function(data){
             return JSON.stringify(data);

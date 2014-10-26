@@ -130,76 +130,78 @@ function uploadFile($type, $file) {
 }
 
 
-/* getInfo()
- * Render JSON with musicHiveInfo Object
+/* getCurrentlyPlaying()
+ * Render JSON with musicSystemInfo Object
  */
-function getInfo() {
-    global $clientIp;
+function getCurrentlyPlaying($route, $type) {
+ //    global $clientIp;
 
-    $mainArray = [];
+ //    $mainArray = [];
     
-    // initialize database   
-    $db = new ClientDB();
+ //    // initialize database   
+ //    $db = new ClientDB();
 
-    // get currently playing track meta data 
-    $currentlyPlayingQuery = $db->query("SELECT b.t_id, t.t_artist, t.t_title, t.t_album, t.t_length, u.u_picture FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id INNER JOIN users u ON t.u_ip = u.u_ip WHERE b.b_currently_playing=1");
-    $currentlyPlayingArray = $currentlyPlayingQuery->fetchArray(SQLITE3_ASSOC);
-    $currentTrack = $currentlyPlayingArray['t_id'];
+ //    // get currently playing track meta data 
+ //    $currentlyPlayingQuery = $db->query("SELECT b.t_id, t.t_artist, t.t_title, t.t_album, t.t_length, u.u_picture FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id INNER JOIN users u ON t.u_ip = u.u_ip WHERE b.b_currently_playing=1");
+ //    $currentlyPlayingArray = $currentlyPlayingQuery->fetchArray(SQLITE3_ASSOC);
+ //    $currentTrack = $currentlyPlayingArray['t_id'];
 
-	// user downvote check
-	if(empty($currentTrack) == false) {
-		$userDownvoteCount = 0;
-        $userDownvoteQuery = $db->query("SELECT u_ip FROM downvotes WHERE t_id=$currentTrack AND u_ip='$clientIp'");
-        while ($row = $userDownvoteQuery->fetchArray(SQLITE3_ASSOC)) {
-            $userDownvoteCount++;
-        }
-		$currentlyPlayingArray['downvote'] = $userDownvoteCount;
-	}
+	// // user downvote check
+	// if(empty($currentTrack) == false) {
+	// 	$userDownvoteCount = 0;
+ //        $userDownvoteQuery = $db->query("SELECT u_ip FROM downvotes WHERE t_id=$currentTrack AND u_ip='$clientIp'");
+ //        while ($row = $userDownvoteQuery->fetchArray(SQLITE3_ASSOC)) {
+ //            $userDownvoteCount++;
+ //        }
+	// 	$currentlyPlayingArray['downvote'] = $userDownvoteCount;
+	// }
     
-    // get number of all connected client ips
-    $userCount = getActiveUsers();
+ //    // get number of all connected client ips
+ //    $userCount = getActiveUsers();
     
-    // get user picture
-    $getUserPictureQuery = $db->query("SELECT u_picture FROM users WHERE u_ip = '$clientIp'");
-    $getUserPictureArray = $getUserPictureQuery->fetchArray(SQLITE3_ASSOC);
-    $userPicture = $getUserPictureArray['u_picture'];
+ //    // get user picture
+ //    $getUserPictureQuery = $db->query("SELECT u_picture FROM users WHERE u_ip = '$clientIp'");
+ //    $getUserPictureArray = $getUserPictureQuery->fetchArray(SQLITE3_ASSOC);
+ //    $userPicture = $getUserPictureArray['u_picture'];
     
-    $mainArray['musicHiveInfo'] = array('currentlyPlaying' => $currentlyPlayingArray, 'status' => ['users' => $userCount, 'user_image' => $userPicture, 'internet_access' => 'false']);
+ //    $mainArray['musicHiveInfo'] = array('currentlyPlaying' => $currentlyPlayingArray, 'status' => ['users' => $userCount, 'user_image' => $userPicture, 'internet_access' => 'false']);
 
-    // close db
-    $db->close();
-    unset($db);
+ //    // close db
+ //    $db->close();
+ //    unset($db);
     
-    echo json_encode($mainArray);
+    echo '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":"Blubb","length":225,"image":"","downvote":0},"status":{"users":"30","internetAccess":true}}}';
+    // echo json_encode($mainArray);
 }
 
 
 /* getUserPlaylist()
  * Render JSON with musicHivePlaylist Object
  */
-function getUserPlaylist() {
-    global $clientIp;
-    $playlistArray = [];
+function getPlaylist($route, $type) {
+    // global $clientIp;
+    // $playlistArray = [];
     
-    // initialize database   
-    $db = new ClientDB();
+    // // initialize database   
+    // $db = new ClientDB();
     
-    $userPlaylistQuery = $db->query("SELECT b.t_id, b.b_id, t.t_artist, t.t_title, t.t_filename, t.t_album, t.t_length FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id WHERE t.u_ip = '$clientIp' AND b.b_played = 0 ORDER BY b.b_id ASC");
-    $userPlaylistArray = [];
-    $listEntryCounter = 0;
+    // $userPlaylistQuery = $db->query("SELECT b.t_id, b.b_id, t.t_artist, t.t_title, t.t_filename, t.t_album, t.t_length FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id WHERE t.u_ip = '$clientIp' AND b.b_played = 0 ORDER BY b.b_id ASC");
+    // $userPlaylistArray = [];
+    // $listEntryCounter = 0;
     
-    while ($row = $userPlaylistQuery->fetchArray(SQLITE3_ASSOC)) {
-        $listEntryCounter++;
-        $userPlaylistArray[(String)$listEntryCounter] = $row;
-    }
+    // while ($row = $userPlaylistQuery->fetchArray(SQLITE3_ASSOC)) {
+    //     $listEntryCounter++;
+    //     $userPlaylistArray[(String)$listEntryCounter] = $row;
+    // }
     
-    // close db
-    $db->close();
-    unset($db);
+    // // close db
+    // $db->close();
+    // unset($db);
     
-    $playlistArray['musicHivePlaylist'] = $userPlaylistArray;
+    // $playlistArray['musicHivePlaylist'] = $userPlaylistArray;
     
-    echo json_encode($playlistArray);
+    // echo json_encode($playlistArray);
+    echo '{"route":"' .  $route . '","type":"' . $type . '","playlist":[{"track":{"id":1,"title":"Foo","artist":"Mongo1"}},{"track":{"id":2,"title":"Bar","artist":"Mongo2"}},{"track":{"id":3,"title":"Boo","artist":"Mongo3"}}]}';
 }
 
 

@@ -12,9 +12,9 @@ header('Pragma: no-cache');
 header('Expires: Sat, 1 Jan 2000 00:00:00 GMT');
 
 // includes
-require_once('db/db.php');
-require_once('users.php');
-require_once('tracks.php');
+// require_once('db/db.php');
+// require_once('users.php');
+// require_once('tracks.php');
 require_once('client_actions.php');
 
 /* execAction()
@@ -22,7 +22,8 @@ require_once('client_actions.php');
  * Rendered output will be text or JSON
  */
 function execAction() {
-	$action;
+	$type;
+    $route = $_POST['route'];
     // get action
 	try {
 		if(empty($_POST['type'])) {
@@ -30,16 +31,16 @@ function execAction() {
 		    if(empty($_GET['type'])) {
 		        die('error: no action specified (GET/POST type)');
 		    } else {
-				$action = $_GET['type'];
+				$type = $_GET['type'];
 			}
 		} else {
-			$action = $_POST['type'];
+			$type = $_POST['type'];
 		}
 	} catch(Exception $e) {
-		//bla
+		// no type defined
 	}
     
-    switch($action){
+    switch($type){
         case 'uploadTrack':
             // sanity check - empty input
             if (isset($_FILES['file']) == false) {
@@ -121,19 +122,19 @@ function execAction() {
             }
             break;
         
-        case 'getInfo':
+        case 'getCurrentlyPlaying':
             header('Content-type: application/json');
-            getInfo();
+            getCurrentlyPlaying($route, $type);
             break;
         
         case 'getPlaylist':
             header('Content-type: application/json');
-            getUserPlaylist();
+            getPlaylist($route, $type);
             break;
         
         case 'getUserImage':
             header('Content-type: application/json');
-            getUserImage();
+            getUserImage($route, $type);
             break;
     }
 }
