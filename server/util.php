@@ -16,4 +16,6 @@ $tempPath = '/usr/share/nginx/html/server/tmp/';
 // path for the user data (users.php) -- currently not used???
 $truePath = '/usr/share/nginx/html/server/userdata/';
 
+//websocket localhost port
+
 ?>
