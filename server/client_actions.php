@@ -169,9 +169,9 @@ function getCurrentlyPlaying($route, $type) {
  //    // close db
  //    $db->close();
  //    unset($db);
+ // echo json_encode($mainArray);
     
     echo '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":"Blubb","length":225,"image":"","downvote":0},"status":{"users":"30","internetAccess":true}}}';
-    // echo json_encode($mainArray);
 }
 
 
