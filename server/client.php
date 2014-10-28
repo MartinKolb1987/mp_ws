@@ -124,17 +124,17 @@ function execAction() {
         
         case 'getCurrentlyPlaying':
             header('Content-type: application/json');
-            getCurrentlyPlaying($route, $type);
+            echo getCurrentlyPlaying($route, $type);
             break;
         
         case 'getPlaylist':
             header('Content-type: application/json');
-            getPlaylist($route, $type);
+            echo getPlaylist($route, $type);
             break;
         
         case 'getUserImage':
             header('Content-type: application/json');
-            getUserImage($route, $type);
+            echo getUserImage($route, $type);
             break;
     }
 }

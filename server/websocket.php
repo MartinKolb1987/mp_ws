@@ -55,18 +55,19 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
         case 'home':
             if($type === 'getCurrentlyPlaying'){
                 // currentlyPlaying
-                sendDataToClientViaWebsocket($user, '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":"Blubb","length":225,"image":"","downvote":0},"status":{"users":"30","internetAccess":true}}}');
+                $data = getCurrentlyPlaying($route, $type);
+                sendDataToClientViaWebsocket($user, $data);
             } else if($type === 'getPlaylist') {
                 // user playlist
-                sendDataToClientViaWebsocket($user, '{"route":"' .  $route . '","type":"' . $type . '","playlist":[{"track":{"id":1,"title":"Foo","artist":"Mongo1"}},{"track":{"id":2,"title":"Bar","artist":"Mongo2"}},{"track":{"id":3,"title":"Boo","artist":"Mongo3"}}]}');
+                $data = getPlaylist($route, $type);
+                sendDataToClientViaWebsocket($user, $data);
             }
 
-            
             break;
         case 'settings':
             // userImage
-            sendDataToClientViaWebsocket($user, '{"route":"' .  $route . '", "type": "' . $type . '","userImage":{"url":"./img/user-image.jpg"}}');
-            // sendDataToClientViaWebsocket($user, '{"route":"settings"}');
+            $data = getUserImage($route, $type);
+            sendDataToClientViaWebsocket($user, $data);
             break;
     }
 

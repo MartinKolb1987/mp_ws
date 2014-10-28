@@ -169,9 +169,9 @@ function getCurrentlyPlaying($route, $type) {
  //    // close db
  //    $db->close();
  //    unset($db);
- // echo json_encode($mainArray);
+ // return json_encode($mainArray);
     
-    echo '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":"Blubb","length":225,"image":"","downvote":0},"status":{"users":"30","internetAccess":true}}}';
+    return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":"Blubb","length":225,"image":"","downvote":0},"status":{"users":"30","internetAccess":true}}}';
 }
 
 
@@ -200,27 +200,27 @@ function getPlaylist($route, $type) {
     
     // $playlistArray['musicHivePlaylist'] = $userPlaylistArray;
     
-    // echo json_encode($playlistArray);
-    echo '{"route":"' .  $route . '","type":"' . $type . '","playlist":[{"track":{"id":1,"title":"Foo","artist":"Mongo1"}},{"track":{"id":2,"title":"Bar","artist":"Mongo2"}},{"track":{"id":3,"title":"Boo","artist":"Mongo3"}}]}';
+    // return json_encode($playlistArray);
+    return '{"route":"' .  $route . '","type":"' . $type . '","playlist":[{"track":{"id":1,"title":"Foo","artist":"Mongo1"}},{"track":{"id":2,"title":"Bar","artist":"Mongo2"}},{"track":{"id":3,"title":"Boo","artist":"Mongo3"}}]}';
 }
 
 
 /* getUserImage()
  * Render JSON with musicHiveUserImage Object
  */
-function getUserImage() {
-    global $clientIp;
-    
-    // initialize database   
-    $db = new ClientDB();
-    
-    $getUserPictureQuery = $db->query("SELECT u_picture FROM users WHERE u_ip = '$clientIp'");
-    $getUserPictureArray = $getUserPictureQuery->fetchArray(SQLITE3_ASSOC);
-    $userPicture = $getUserPictureArray['u_picture'];
-    
-    // close db
-    $db->close();
-    unset($db);
-    
-    echo json_encode(['musicHiveUserImage' => ['url' => $userPicture]]);
+function getUserImage($route, $type) {
+//    global $clientIp;
+//
+//    // initialize database
+//    $db = new ClientDB();
+//
+//    $getUserPictureQuery = $db->query("SELECT u_picture FROM users WHERE u_ip = '$clientIp'");
+//    $getUserPictureArray = $getUserPictureQuery->fetchArray(SQLITE3_ASSOC);
+//    $userPicture = $getUserPictureArray['u_picture'];
+//
+//    // close db
+//    $db->close();
+//    unset($db);
+//    return json_encode(['musicHiveUserImage' => ['url' => $userPicture]]);
+    return '{"route":"' .  $route . '", "type": "' . $type . '","userImage":{"url":"./img/user-image.jpg"}}';
 }

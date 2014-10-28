@@ -6,7 +6,7 @@ define([
     'use strict';
 
     var dataHandler = {
-        
+
         isWebsocketActive: false,
         websocketHost: 'ws://localhost:54321',
         regularHost: '../server/client.php',
@@ -29,7 +29,7 @@ define([
                 this.initShortPolling();
             }
         },
-        
+
         websocket: {},
 
         initWebsocket: function(){
@@ -38,10 +38,10 @@ define([
 
             try{
                 this.websocket = new WebSocket(that.websocketHost);
-                
+
                 this.websocket.onopen  = function(msg){
                     that.isWebsocketActive = true;
-                    
+
                     // trigger dataHandlerInitEvent if webSocket is ready to go
                     // --> event listener router.js
                     var dataHandlerEvent = document.createEvent('Event');
@@ -88,17 +88,17 @@ define([
 
             // build request queue
             this.queue.push({route: route, type: type, data: data});
-            
+
             clearTimeout(that.queueTimeout);
             this.queueTimeout = setTimeout(function(){
 
                 (function sendDataRequestByRequest() {
-                    
+
                     // Websocket
                     // --------------------------
                     if(that.isWebsocketActive){ // TODO: && is not file upload (user image or track)
 
-                        // build json 
+                        // build json
                         sendData = {
                             route: that.queue[counter].route,
                             type: that.queue[counter].type,
@@ -108,7 +108,7 @@ define([
                         // convert json to string
                         sendData = that.fromJsonToString(sendData);
                         that.websocket.send(sendData);
-                        
+
                         if(DebugHandler.isActive){ console.log('Send data to server via websocket: ' + sendData); }
 
 
@@ -117,7 +117,7 @@ define([
                     } else {
 
                         that.xhrCall(that.queue[counter].route, that.queue[counter].type, that.queue[counter].data);
-                    
+
                     }
 
                     counter++;
@@ -147,7 +147,7 @@ define([
 
             receivedData = this.fromStringToJson(receivedData);
             var view = ComponentCollection.getComponent(receivedData.route);
-            
+
 
             switch(receivedData.route){
                 case 'home':
@@ -168,7 +168,7 @@ define([
 
 
             if(DebugHandler.isActive){ console.log('Data from server via websocket or xhr: ' + receivedData); }
-            
+
         },
 
 
@@ -262,7 +262,7 @@ define([
 
         swapTrack: function(trackIdOne, trackIdTwo){
             // url: 'upload.php', // has to be changed
-            // data: { 
+            // data: {
             //     type: 'swapTrack',
             //     trackIds: [
             //         trackIdOne,
@@ -330,7 +330,7 @@ define([
 
         fromStringToJson: function(data){
             var checkedData = '';
-            
+
             // check if data is json string
             if(data.substr(0,1) === '{' && data.substr(-1) === '}'){
                 checkedData = JSON.parse(data);
