@@ -20,7 +20,7 @@ $uploadDirectory = getenv("DOCUMENT_ROOT") . '/server/userdata/';
 $truePath = '/usr/share/nginx/html/server/userdata/';
 
 // port for websocket (websocket.php)
-$master  = WebSocket("localhost",54321);
+$websocketPort = 54321;
 
 // path for the currently_playing.txt
 $currentlyPlayingFilePath = dirname(__FILE__) . '/system_info/currently_playing_track.txt';

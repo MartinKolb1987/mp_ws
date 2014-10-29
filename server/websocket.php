@@ -16,8 +16,10 @@ set_time_limit(0);
 ob_implicit_flush();
 
 // > php -q websocket.php
-// $master  = WebSocket("localhost",54321);
-global $master;
+global $websocketPort;
+
+$master  = WebSocket("localhost",$websocketPort);
+
 $sockets = array($master);
 $users   = array();
 $debug   = false;
