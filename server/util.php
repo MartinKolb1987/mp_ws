@@ -16,6 +16,9 @@ $tempPath = '/usr/share/nginx/html/server/tmp/';
 // path for the user data (users.php) -- currently not used???
 $truePath = '/usr/share/nginx/html/server/userdata/';
 
+
+// path for the currently_playing.txt
+$currentlyPlayingFilePath = dirname(__FILE__) . '/system_info/currently_playing_track.txt';
 //websocket localhost port
 
 ?>

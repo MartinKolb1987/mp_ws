@@ -10,7 +10,7 @@
 require_once('db/db.php');
 require_once('users.php');
 require_once('tracks.php');
-
+require_once('util.php');
 
 /* execAction()
  * Determine what to do, depending on client $_POST['type']
@@ -179,12 +179,32 @@ function getTrackToPlay() {
     // set the status of the random track to currently_playing
     $db->exec("UPDATE bucketcontents SET b_currently_playing = 1 WHERE t_id=$randomTrackId");
 
+    // write currently playing track id into txt
+    // no db used, because of the high request rate during "is user view up to date"
+    $createTxtFile = createTxtFile($currentlyPlayingFilePath, $randomTrackId);
+
     // close db
     $db->close();
     unset($db);
     
     // return the t_filename of random track
     return $randomTrackFilename;
+}
+
+/* createTxtFile()
+ * needed for is client view up to date
+ * @param String $filename and $content
+ * @return true on success, false on fail
+ */
+function createTxtFile($filename, $content){
+    // fail = returns false if something doesn‘t work
+    // success = returns the quantity of written bytes
+    $msg = file_put_contents($filename, $content);
+    if($msg !== false){
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
