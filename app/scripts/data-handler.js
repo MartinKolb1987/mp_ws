@@ -107,10 +107,15 @@ define([
 
                 (function sendDataRequestByRequest() {
 
+                    // take care of undefined request queues
+                    if(that.queue[counter] === undefined){
+                        ErrorHandler.log('counter and request queue doesn‘t fit, start request again: ' + type , new Error().stack);
+                        return true;
+                    }
+
                     // Websocket
                     // --------------------------
                     if(that.isWebsocketActive){ // TODO: && is not file upload (user image or track)
-
                         // build json
                         sendData = {
                             route: that.queue[counter].route,

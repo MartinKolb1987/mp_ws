@@ -10,16 +10,22 @@ define([
     'use strict';
 
     Vue.component('settings', {
+        file: '',
         template: DefaultTemplate,
         ready: function () {
             ComponentCollection.addComponent('settings', this.$data);
         },
+        created: function(){
+        },
         data: {
-            langSettings: ''
+            langSettings: '',
+            route: 'no route',
+            userImageUrl: 'no image'
         },
         methods: {
-            removeUser: function(item){
-                this.$data.items.$remove(item.$index);
+            uploadUserImage: function(item){
+                // e.stopPropagation();
+                // this.$data.items.$remove(item.$index);
             },
             addUser: function(newItemValue){
 

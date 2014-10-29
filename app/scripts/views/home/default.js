@@ -16,7 +16,14 @@ define([
         },
         data: {
             langHome: '',
-            album: 'Kein Album vorhanden'
+            route: 'no route',
+            album: 'no album',
+            artist: 'no artist',
+            title: 'not title',
+            length: 0,
+            id: 0,
+            image: 'no image',
+            downvote: 0
         },
         methods: {
             removeUser: function(item){
