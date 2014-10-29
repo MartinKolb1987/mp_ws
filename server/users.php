@@ -11,7 +11,8 @@ require_once('db/db.php');
 require_once('util.php');
 
 // global variables
-$uploadDirectory = getenv("DOCUMENT_ROOT") . '/server/userdata/';
+// $uploadDirectory = getenv("DOCUMENT_ROOT") . '/server/userdata/';
+global $uploadDirectory;
 $clientIp = checkUser();
 // $truePath = '/usr/share/nginx/html/server/userdata/';
 global $truePath;
@@ -87,7 +88,7 @@ function createUser($currentIP) {
     $db = new ClientDB();
     
     // insert data
-    $db->exec("INSERT INTO users (u_ip, u_picture, u_admin) VALUES ('$currentIP', 'default.png', '$admin')");
+    $db->exec("INSERT INTO users (u_ip, u_picture) VALUES ('$currentIP', 'default.png')");
     
     // close db
     $db->close();

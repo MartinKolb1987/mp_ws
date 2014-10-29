@@ -10,12 +10,16 @@
 // require_once('users.php');
 // require_once('tracks.php');
 require_once('client_actions.php');
+require_once('util.php');
 
 set_time_limit(0);
 ob_implicit_flush();
 
 // > php -q websocket.php
-$master  = WebSocket("localhost",54321);
+global $websocketPort;
+
+$master  = WebSocket("localhost",$websocketPort);
+
 $sockets = array($master);
 $users   = array();
 $debug   = false;
