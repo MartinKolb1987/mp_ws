@@ -1,18 +1,20 @@
 <?php
 
-/* MusicHive User Administration
- * @package musichive
- * @author musichive
+/* Musicplayer Client Web Service
+ * @package musicplayer
+ * @author master group mobile experience
  * @version Alpha 1
  */
 
 // includes
 require_once('db/db.php');
+require_once('../util.php');
 
 // global variables
 $uploadDirectory = getenv("DOCUMENT_ROOT") . '/server/userdata/';
-$truePath = '/usr/share/nginx/html/server/userdata/';
 $clientIp = checkUser();
+// $truePath = '/usr/share/nginx/html/server/userdata/';
+global $truePath;
 
 
 /* getClientIp()

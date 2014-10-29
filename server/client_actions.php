@@ -1,7 +1,7 @@
 <?php
 
 // includes
-require_once('util.php');
+require_once('../util.php');
 
 /* uploadFile()
  * File uploader - tracks and pictures
@@ -11,6 +11,7 @@ require_once('util.php');
 function uploadFile($type, $file) {
     global $uploadDirectory;
     global $clientIp;
+    global $tempPath;
     // list of allowed MIME types
     $allowedFiles = [];
     // size limit in MB
@@ -81,7 +82,7 @@ function uploadFile($type, $file) {
     if($type == 'track') {
         // random number for the file
         $randomNo = rand(0, 9999999);
-		$tempPath = '/usr/share/nginx/html/server/tmp/';
+		// $tempPath = '/usr/share/nginx/html/server/tmp/';
 		$tempFile = $tempPath . $randomNo . $fileExt;
 		
 		// move file

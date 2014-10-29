@@ -1,8 +1,8 @@
 <?php
 
-/* MusicHive Music Player Web Service
- * @package musichive
- * @author musichive
+/* Musicplayer Client Web Service
+ * @package musicplayer
+ * @author master group mobile experience
  * @version Alpha 1
  */
 
