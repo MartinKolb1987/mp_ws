@@ -8,7 +8,7 @@
 
 // includes
 require_once('db/db.php');
-require_once('../util.php');
+require_once('util.php');
 
 // global variables
 $uploadDirectory = getenv("DOCUMENT_ROOT") . '/server/userdata/';
