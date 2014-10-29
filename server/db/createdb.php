@@ -27,7 +27,7 @@ $db->exec("DROP TABLE users");
 // create new tables
 echo('creating new tables...<br/>');
 // users
-$db->exec("CREATE TABLE users (u_ip TEXT PRIMARY KEY, u_picture TEXT, u_admin INT)");
+$db->exec("CREATE TABLE users (u_ip TEXT PRIMARY KEY, u_picture TEXT)");
 // admin
 $db->exec("CREATE TABLE admin (u_ip TEXT REFERENCES users(u_ip), a_downvote_level INTEGER, a_internet_access INTEGER)");
 // tracks
@@ -46,14 +46,14 @@ $db->exec("CREATE TABLE bucketcontents (t_id INTEGER REFERENCES tracks(t_id), b_
 echo('inserting super user...<br/>');
 
 // insert - users
-$db->exec("INSERT INTO users (u_ip, u_picture, u_admin) VALUES ('127.0.0.1', 'default.png', 1)");
+$db->exec("INSERT INTO users (u_ip, u_picture) VALUES ('127.0.0.1', 'default.png')");
 $db->exec("INSERT INTO admin (u_ip, a_downvote_level, a_internet_access) VALUES ('127.0.0.1', 50, 0)");
 
 
-// $db->exec("INSERT INTO users (u_ip, u_picture, u_admin) VALUES ('1.1.1.1', '1.1.1.1/user.png', 0)");
-// $db->exec("INSERT INTO users (u_ip, u_picture, u_admin) VALUES ('2.2.2.2', '2.2.2.2/user.png', 0)");
-// $db->exec("INSERT INTO users (u_ip, u_picture, u_admin) VALUES ('3.3.3.3', '3.3.3.3/user.png', 0)");
-// $db->exec("INSERT INTO users (u_ip, u_picture, u_admin) VALUES ('4.4.4.4', '4.4.4.4/user.png', 0)");
+// $db->exec("INSERT INTO users (u_ip, u_picture) VALUES ('1.1.1.1', '1.1.1.1/user.png')");
+// $db->exec("INSERT INTO users (u_ip, u_picture) VALUES ('2.2.2.2', '2.2.2.2/user.png')");
+// $db->exec("INSERT INTO users (u_ip, u_picture) VALUES ('3.3.3.3', '3.3.3.3/user.png')");
+// $db->exec("INSERT INTO users (u_ip, u_picture) VALUES ('4.4.4.4', '4.4.4.4/user.png')");
 
 // // insert - tracks
 // $db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('2.2.2.2', '2.2.2.2/56464156.ogg', 'Klospülung', 'Mundwasser', 'album1', 210)");

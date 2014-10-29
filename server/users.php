@@ -88,7 +88,7 @@ function createUser($currentIP) {
     $db = new ClientDB();
     
     // insert data
-    $db->exec("INSERT INTO users (u_ip, u_picture, u_admin) VALUES ('$currentIP', 'default.png', '$admin')");
+    $db->exec("INSERT INTO users (u_ip, u_picture) VALUES ('$currentIP', 'default.png')");
     
     // close db
     $db->close();
