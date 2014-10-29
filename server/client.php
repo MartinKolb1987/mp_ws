@@ -136,6 +136,14 @@ function execAction() {
             header('Content-type: application/json');
             echo getUserImage($route, $type);
             break;
+
+        case 'checkForNewUpdates':
+            $data = getCurrentMusicplayerInfo($route, $type);
+            if(empty($data) === false){
+                header('Content-type: application/json');
+                echo $data;
+            }
+            break;
     }
 }
 

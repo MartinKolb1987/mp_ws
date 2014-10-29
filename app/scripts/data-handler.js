@@ -8,13 +8,19 @@ define([
     var dataHandler = {
 
         // settings and paths
+        // websocket
         isWebsocketActive: false,
         websocketHost: 'ws://localhost:54321',
+        checkForNewUpdatesIntervalTimeWebsocket: 1000, // milliseconds
+        
+        // xhr
         regularHost: '../server/client.php',
-        checkForNewUpdatesTime: 1000, // milliseconds
-        sendDataRequestByRequestDelay: 10, // milliseconds (take care of websockets)
+        checkForNewUpdatesIntervalTimeXHR: 2000, // milliseconds
+        
+        // xhr and websocket request queue
+        sendDataRequestByRequestDelay: 10, // milliseconds (take care of requests)
 
-        // current system infos about tracks
+        // current music player system infos
         lastPlayedTrackId: 0,
         currentlyPlayingTrackId: 0,
         currentClientSidePlaylist: [],
@@ -291,32 +297,51 @@ define([
 
         checkForNewUpdates: function(route){
             var that = this;
+            var interval = 0;
+
+            if(this.isWebsocketActive){
+                interval = this.checkForNewUpdatesIntervalTimeWebsocket;
+            } else {
+                interval = this.checkForNewUpdatesIntervalTimeXHR;
+            }
 
             // interval
             clearInterval(this.checkForNewUpdatesInterval);
             this.checkForNewUpdatesInterval = setInterval(function(){
                 that.sendData(route, 'checkForNewUpdates'); // route = 'home', type = checkForNewUpdates, data = ''
-            }, that.checkForNewUpdatesTime);
+            }, interval);
 
         },
 
         responseDataCheckForNewUpdates: function(data, view){
-console.log('rDCFNU');
-console.log(data);
-            switch(data.route){
+            var that = this;
+            var route = data.route;
+
+            switch(route){
                 case 'home':
-                    // DataHandler.getCurrentlyPlayingTrack(route);
-                    // DataHandler.getUserPlaylist(route);
+                    // if it‘s not equal, just start an update request
+                    // TODO: take care of user is currently uploading a file
+                    // TODO: take care of user is currently swaping a file
+                    // --> stop autoUpdate  during user action
+                    if(data.currentlyPlayingTrackId !== this.currentlyPlayingTrackId){
+                        this.getCurrentlyPlayingTrack(route);
+                        this.getUserPlaylist(route);
+                    }
                     break;
+
                 case 'settings':
-                    // DataHandler.getUserImage(route);
+                    // this.getUserImage(route);
                     break;
+
                 case 'help':
                     break;
+
                 case 'notfound':
                     break;
+
                 case 'translation':
                     break;
+
                 default:
             }
 

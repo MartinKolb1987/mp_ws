@@ -175,7 +175,7 @@ function getCurrentlyPlaying($route, $type) {
  //    unset($db);
  // return json_encode($mainArray);
     
-    return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":"Blubb","length":225,"image":"","downvote":0},"status":{"users":"30","internetAccess":true}}}';
+    return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":85,"artist":"Foobar","title":"1R","album":"Blubb","length":225,"image":"","downvote":0},"status":{"users":"30","internetAccess":true}}}';
 }
 
 
@@ -183,29 +183,30 @@ function getCurrentlyPlaying($route, $type) {
  * Render JSON with musicHivePlaylist Object
  */
 function getPlaylist($route, $type) {
-    global $clientIp;
-    $playlistArray = [];
+    // global $clientIp;
+    // $playlistArray = [];
     
-    // initialize database   
-    $db = new ClientDB();
+    // // initialize database   
+    // $db = new ClientDB();
     
-    $userPlaylistQuery = $db->query("SELECT b.t_id, b.b_id, t.t_artist, t.t_title, t.t_filename, t.t_album, t.t_length FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id WHERE t.u_ip = '$clientIp' AND b.b_played = 0 ORDER BY b.b_id ASC");
-    $userPlaylistArray = [];
-    $listEntryCounter = 0;
+    // $userPlaylistQuery = $db->query("SELECT b.t_id, b.b_id, t.t_artist, t.t_title, t.t_filename, t.t_album, t.t_length FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id WHERE t.u_ip = '$clientIp' AND b.b_played = 0 ORDER BY b.b_id ASC");
+    // $userPlaylistArray = [];
+    // $listEntryCounter = 0;
     
-    while ($row = $userPlaylistQuery->fetchArray(SQLITE3_ASSOC)) {
-        $listEntryCounter++;
-        $userPlaylistArray[(String)$listEntryCounter] = $row;
-    }
+    // while ($row = $userPlaylistQuery->fetchArray(SQLITE3_ASSOC)) {
+    //     $listEntryCounter++;
+    //     $userPlaylistArray[(String)$listEntryCounter] = $row;
+    // }
     
-    // close db
-    $db->close();
-    unset($db);
+    // // close db
+    // $db->close();
+    // unset($db);
     
-    $playlistArray['musicHivePlaylist'] = $userPlaylistArray;
+    // $playlistArray['musicHivePlaylist'] = $userPlaylistArray;
     
-    return json_encode($playlistArray);
-    return '{"route":"' .  $route . '","type":"' . $type . '","playlist":[{"track":{"id":1,"title":"Foo","artist":"Mongo1"}},{"track":{"id":2,"title":"Bar","artist":"Mongo2"}},{"track":{"id":3,"title":"Boo","artist":"Mongo3"}}]}';
+
+    // return json_encode($playlistArray);
+    return '{"route":"' .  $route . '","type":"' . $type . '","playlist":[{"track":{"id":1,"title":"Foo","artist":"Mongo1"}},{"track":{"id":2,"title":"Bar","artist":"Foo"}},{"track":{"id":3,"title":"Boo","artist":"Mongo3"}}]}';
 }
 
 
@@ -230,11 +231,19 @@ function getUserImage($route, $type) {
 }
 
 
-/* getCurrentMusicSystemInfo()
- * check current music track
+/* getCurrentMusicplayerInfo()
+ * triggert from auto update mechanism
+ * decide which data is maybe needed (client side)
  */
-function getCurrentMusicSystemInfo($route, $type){
-    echo $currentlyPlayingFilePath;
-    // $content = file_get_contents($currentlyPlayingFilePath);
-    // echo $content . ' --- jap';
+function getCurrentMusicplayerInfo($route, $type){
+    global $currentlyPlayingFilePath;
+    $content = '';
+
+    if($route === 'home'){
+        // get currently playing music track id
+        $content = file_get_contents($currentlyPlayingFilePath);
+        $content = '{"route":"' .  $route . '", "type": "' . $type . '","currentlyPlayingTrackId": ' . $content . '}';
+    }
+
+    return $content;
 }

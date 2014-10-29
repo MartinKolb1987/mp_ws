@@ -68,15 +68,20 @@ define([
                     DataHandler.getCurrentlyPlayingTrack(route);
                     DataHandler.getUserPlaylist(route);
                     break;
+ 
                 case 'settings':
                     DataHandler.getUserImage(route);
                     break;
+ 
                 case 'help':
                     break;
+ 
                 case 'notfound':
                     break;
+ 
                 case 'translation':
                     break;
+ 
                 default:
             }
 

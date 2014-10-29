@@ -17,8 +17,9 @@ ob_implicit_flush();
 
 // > php -q websocket.php
 global $websocketPort;
+global $websocketHost;
 
-$master  = WebSocket("localhost",$websocketPort);
+$master  = WebSocket($websocketHost,$websocketPort);
 
 $sockets = array($master);
 $users   = array();
@@ -57,13 +58,7 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
 
     switch($route) {
         case 'home':
-            
-            if($type === 'checkForNewUpdates'){
-                $data = '{"route":"' .  $route . '", "type": "' . $type . '","currentlyPlayingTrackId": 43}';  
-                $data = getCurrentMusicSystemInfo($route, $type);    
-                echo $currentlyPlayingFilePath;      
-                // sendDataToClientViaWebsocket($user, $data);
-            } else if($type === 'getCurrentlyPlaying'){
+            if($type === 'getCurrentlyPlaying'){
                 // currentlyPlaying
                 $data = getCurrentlyPlaying($route, $type);
                 sendDataToClientViaWebsocket($user, $data);
@@ -72,13 +67,23 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
                 $data = getPlaylist($route, $type);
                 sendDataToClientViaWebsocket($user, $data);
             } 
+            break;
 
-            break;
         case 'settings':
-            // userImage
-            $data = getUserImage($route, $type);
-            sendDataToClientViaWebsocket($user, $data);
+            if($type === 'getUserImage'){
+                // userImage
+                $data = getUserImage($route, $type);
+                sendDataToClientViaWebsocket($user, $data);
+            }
             break;
+    }
+
+    // auto update mechanism on every site (home, settings,...)
+    if($type === 'checkForNewUpdates'){
+        $data = getCurrentMusicplayerInfo($route, $type); 
+        if(empty($data) === false){
+            sendDataToClientViaWebsocket($user, $data);
+        } 
     }
 
     // print $jsonDecoded->route;
