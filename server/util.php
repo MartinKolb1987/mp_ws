@@ -24,6 +24,6 @@ $websocketPort = 54321;
 $websocketHost = 'localhost';
 
 // path for the currently_playing.txt
-$currentlyPlayingFilePath = dirname(__FILE__) . '/system_info/currently_playing_track.txt';
+$currentlyPlayingFilePath = dirname(__FILE__) . '/musicplayer_system_info/currently_playing_track.txt';
 
 ?>
