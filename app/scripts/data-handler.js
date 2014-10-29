@@ -7,6 +7,7 @@ define([
 
     var dataHandler = {
 
+        // settings and paths
         isWebsocketActive: false,
         websocketHost: 'ws://localhost:54321',
         regularHost: '../server/client.php',
@@ -16,8 +17,8 @@ define([
         // current system infos about tracks
         lastPlayedTrackId: 0,
         currentlyPlayingTrackId: 0,
-        currentPlaylist: [],
-        currentlyUploadingTrack: false,
+        currentClientSidePlaylist: [],
+        currentlyClientSideUploadingTrack: false,
 
         init: function(){
             var that = this;
