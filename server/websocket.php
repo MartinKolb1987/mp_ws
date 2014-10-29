@@ -17,8 +17,9 @@ ob_implicit_flush();
 
 // > php -q websocket.php
 global $websocketPort;
+global $websocketHost;
 
-$master  = WebSocket("localhost",$websocketPort);
+$master  = WebSocket($websocketHost,$websocketPort);
 
 $sockets = array($master);
 $users   = array();
