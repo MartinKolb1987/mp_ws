@@ -20,7 +20,7 @@ define([
         // xhr and websocket request queue
         sendDataRequestByRequestDelay: 10, // milliseconds (take care of requests)
 
-        // current system infos about tracks
+        // current music player system infos
         lastPlayedTrackId: 0,
         currentlyPlayingTrackId: 0,
         currentClientSidePlaylist: [],
@@ -319,7 +319,7 @@ define([
 
             switch(route){
                 case 'home':
-                    // if it‘s not equal, just start a update request
+                    // if it‘s not equal, just start an update request
                     // TODO: take care of user is currently uploading a file
                     // TODO: take care of user is currently swaping a file
                     // --> stop autoUpdate  during user action
@@ -328,15 +328,20 @@ define([
                         this.getUserPlaylist(route);
                     }
                     break;
+
                 case 'settings':
                     // this.getUserImage(route);
                     break;
+
                 case 'help':
                     break;
+
                 case 'notfound':
                     break;
+
                 case 'translation':
                     break;
+
                 default:
             }
 

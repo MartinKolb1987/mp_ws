@@ -230,13 +230,19 @@ function getUserImage($route, $type) {
 }
 
 
-/* getCurrentMusicSystemInfo()
- * check current music track
+/* getCurrentMusicplayerInfo()
+ * triggert from auto update mechanism
+ * decide which data is maybe needed (client side)
  */
-function getCurrentMusicSystemInfo($route, $type){
+function getCurrentMusicplayerInfo($route, $type){
     global $currentlyPlayingFilePath;
-    $content;
-    $content = file_get_contents($currentlyPlayingFilePath);
-    $content = '{"route":"' .  $route . '", "type": "' . $type . '","currentlyPlayingTrackId": ' . $content . '}';
+    $content = '';
+
+    if($route === 'home'){
+        // get currently playing music track id
+        $content = file_get_contents($currentlyPlayingFilePath);
+        $content = '{"route":"' .  $route . '", "type": "' . $type . '","currentlyPlayingTrackId": ' . $content . '}';
+    }
+
     return $content;
 }
