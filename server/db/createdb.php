@@ -21,7 +21,7 @@ $db->exec("DROP TABLE bucketcontents");
 $db->exec("DROP TABLE blacklist");
 $db->exec("DROP TABLE buckets");
 $db->exec("DROP TABLE tracks");
-$db->exec("DROP TABLE admin");
+$db->exec("DROP TABLE admins");
 $db->exec("DROP TABLE users");
 
 // create new tables
@@ -29,7 +29,7 @@ echo('creating new tables...<br/>');
 // users
 $db->exec("CREATE TABLE users (u_ip TEXT PRIMARY KEY, u_picture TEXT)");
 // admin
-$db->exec("CREATE TABLE admin (u_ip TEXT REFERENCES users(u_ip), a_downvote_level INTEGER, a_internet_access INTEGER)");
+$db->exec("CREATE TABLE admins (u_ip TEXT REFERENCES users(u_ip), a_downvote_level INTEGER, a_internet_access INTEGER)");
 // tracks
 $db->exec("CREATE TABLE tracks (t_id INTEGER PRIMARY KEY AUTOINCREMENT, u_ip TEXT REFERENCES users(u_ip), t_filename TEXT, t_artist TEXT, t_title TEXT, t_album TEXT, t_length INT)");
 // blacklist
@@ -47,7 +47,7 @@ echo('inserting super user...<br/>');
 
 // insert - users
 $db->exec("INSERT INTO users (u_ip, u_picture) VALUES ('127.0.0.1', 'default.png')");
-$db->exec("INSERT INTO admin (u_ip, a_downvote_level, a_internet_access) VALUES ('127.0.0.1', 50, 0)");
+$db->exec("INSERT INTO admins (u_ip, a_downvote_level, a_internet_access) VALUES ('127.0.0.1', 50, 0)");
 
 
 // $db->exec("INSERT INTO users (u_ip, u_picture) VALUES ('1.1.1.1', '1.1.1.1/user.png')");

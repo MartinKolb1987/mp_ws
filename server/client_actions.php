@@ -28,48 +28,48 @@ function uploadFile($type, $file) {
     }
     
     // check file size
-	if ($file['size'] > ($sizeLimit * pow(1024, 2))) {
-		die('error: file size too big (uploadFile())');
-	}
+    if ($file['size'] > ($sizeLimit * pow(1024, 2))) {
+        die('error: file size too big (uploadFile())');
+    }
     
     // allowed file type server side check
     $checkFileType = false;
-	$fileType = strtolower($file['type']);
-	echo('error: DEBUG filetype: '.$fileType);
-	if ($fileType == 'application/octet-stream') {
-		// dirty hack for missing MIME type from file picker (google chrome / android 4.4)
-		$checkFileType = true;
-	} else {
-		while($allowedFileType = array_pop($allowedFiles)) {
-			if($allowedFileType == $fileType) {
-				$checkFileType = true;
-				break;
-			}
-		}
-	}
+    $fileType = strtolower($file['type']);
+    echo('error: DEBUG filetype: '.$fileType);
+    if ($fileType == 'application/octet-stream') {
+        // dirty hack for missing MIME type from file picker (google chrome / android 4.4)
+        $checkFileType = true;
+    } else {
+        while($allowedFileType = array_pop($allowedFiles)) {
+            if($allowedFileType == $fileType) {
+                $checkFileType = true;
+                break;
+            }
+        }
+    }
     
     if($checkFileType == false) {
         die('error: file type does not match (uploadFile())');
     }
-	
+    
     // initialize database   
-	$db = new ClientDB();
-	
+    $db = new ClientDB();
+    
     // get file name and extention
     $fileName = $db->escapeString(strtolower($file['name']));
-	
-	// close db
-	$db->close();
-	unset($db);
-	
-	$fileExt;
-	// check if filename has an extension (contains dot)
-	if (strpos($fileName, '.') !== false) {
-		$fileExt = substr($fileName, strrpos($fileName, '.'));
-	} else {
-		// dirty hack: on missing file extension, assume .mp3
-		$fileExt = '.mp3';
-	}
+    
+    // close db
+    $db->close();
+    unset($db);
+    
+    $fileExt;
+    // check if filename has an extension (contains dot)
+    if (strpos($fileName, '.') !== false) {
+        $fileExt = substr($fileName, strrpos($fileName, '.'));
+    } else {
+        // dirty hack: on missing file extension, assume .mp3
+        $fileExt = '.mp3';
+    }
     
     // check against forbidden file extensions
     $forbiddenFileExt = ['php', 'htm', 'exe', 'run', 'bin', 'torrent', 'js', 'css', 'zip', 'rar' , 'sh'];
@@ -82,44 +82,44 @@ function uploadFile($type, $file) {
     if($type == 'track') {
         // random number for the file
         $randomNo = rand(0, 9999999);
-		// $tempPath = '/usr/share/nginx/html/server/tmp/';
-		$tempFile = $tempPath . $randomNo . $fileExt;
-		
-		// move file
+        // $tempPath = '/usr/share/nginx/html/server/tmp/';
+        $tempFile = $tempPath . $randomNo . $fileExt;
+        
+        // move file
         if (move_uploaded_file($file['tmp_name'], $tempFile) == false) {
             die('error: moving temp file failed (fileUpload() - audio track - #1)');
         }
-		
-		// initialize database   
-		$db = new ClientDB();
-		
-		// get metadata from audio file
-		$t_artist = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Performer%" "'.$tempFile. '"'));
-		$t_title = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Track%" "'.$tempFile. '"'));
-		$t_album = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Album%" "'.$tempFile. '"'));
-		$t_length = shell_exec('nice -n 10 mediainfo --Inform="General;%Duration/String3%" "'.$tempFile. '"');
-		
-		// close db
-		$db->close();
-		unset($db);
-	
-		$lengthDate = date_parse($t_length);
-		$t_length = $lengthDate['hour'] * 3600 + $lengthDate['minute'] * 60 + $lengthDate['second'];
-	
-		if(strlen($t_title) <= 1) {
-			$t_title = $fileName;
-		}
-		
+        
+        // initialize database   
+        $db = new ClientDB();
+        
+        // get metadata from audio file
+        $t_artist = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Performer%" "'.$tempFile. '"'));
+        $t_title = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Track%" "'.$tempFile. '"'));
+        $t_album = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Album%" "'.$tempFile. '"'));
+        $t_length = shell_exec('nice -n 10 mediainfo --Inform="General;%Duration/String3%" "'.$tempFile. '"');
+        
+        // close db
+        $db->close();
+        unset($db);
+    
+        $lengthDate = date_parse($t_length);
+        $t_length = $lengthDate['hour'] * 3600 + $lengthDate['minute'] * 60 + $lengthDate['second'];
+    
+        if(strlen($t_title) <= 1) {
+            $t_title = $fileName;
+        }
+        
         // generate new file name
         $newFilePath = $clientIp . '/' . $randomNo . $fileExt;
         // move file
         if (rename($tempFile, ($uploadDirectory . $newFilePath)) == false) {
             die('error: moving temp file failed (fileUpload() - audio track - #2)');
         }
-		
+        
         // add to db
         addTrack($newFilePath, $t_artist, $t_title, $t_album, $t_length);
-		
+        
     } elseif ($type == 'picture') {
         $newFilePath = $clientIp . '/user' . $fileExt;
         // move file
@@ -150,15 +150,15 @@ function getCurrentlyPlaying($route, $type) {
  //    $currentlyPlayingArray = $currentlyPlayingQuery->fetchArray(SQLITE3_ASSOC);
  //    $currentTrack = $currentlyPlayingArray['t_id'];
 
-	// // user downvote check
-	// if(empty($currentTrack) == false) {
-	// 	$userDownvoteCount = 0;
+    // // user downvote check
+    // if(empty($currentTrack) == false) {
+    //  $userDownvoteCount = 0;
  //        $userDownvoteQuery = $db->query("SELECT u_ip FROM downvotes WHERE t_id=$currentTrack AND u_ip='$clientIp'");
  //        while ($row = $userDownvoteQuery->fetchArray(SQLITE3_ASSOC)) {
  //            $userDownvoteCount++;
  //        }
-	// 	$currentlyPlayingArray['downvote'] = $userDownvoteCount;
-	// }
+    //  $currentlyPlayingArray['downvote'] = $userDownvoteCount;
+    // }
     
  //    // get number of all connected client ips
  //    $userCount = getActiveUsers();
@@ -183,28 +183,28 @@ function getCurrentlyPlaying($route, $type) {
  * Render JSON with musicHivePlaylist Object
  */
 function getPlaylist($route, $type) {
-    // global $clientIp;
-    // $playlistArray = [];
+    global $clientIp;
+    $playlistArray = [];
     
-    // // initialize database   
-    // $db = new ClientDB();
+    // initialize database   
+    $db = new ClientDB();
     
-    // $userPlaylistQuery = $db->query("SELECT b.t_id, b.b_id, t.t_artist, t.t_title, t.t_filename, t.t_album, t.t_length FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id WHERE t.u_ip = '$clientIp' AND b.b_played = 0 ORDER BY b.b_id ASC");
-    // $userPlaylistArray = [];
-    // $listEntryCounter = 0;
+    $userPlaylistQuery = $db->query("SELECT b.t_id, b.b_id, t.t_artist, t.t_title, t.t_filename, t.t_album, t.t_length FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id WHERE t.u_ip = '$clientIp' AND b.b_played = 0 ORDER BY b.b_id ASC");
+    $userPlaylistArray = [];
+    $listEntryCounter = 0;
     
-    // while ($row = $userPlaylistQuery->fetchArray(SQLITE3_ASSOC)) {
-    //     $listEntryCounter++;
-    //     $userPlaylistArray[(String)$listEntryCounter] = $row;
-    // }
+    while ($row = $userPlaylistQuery->fetchArray(SQLITE3_ASSOC)) {
+        $listEntryCounter++;
+        $userPlaylistArray[(String)$listEntryCounter] = $row;
+    }
     
-    // // close db
-    // $db->close();
-    // unset($db);
+    // close db
+    $db->close();
+    unset($db);
     
-    // $playlistArray['musicHivePlaylist'] = $userPlaylistArray;
+    $playlistArray['musicHivePlaylist'] = $userPlaylistArray;
     
-    // return json_encode($playlistArray);
+    return json_encode($playlistArray);
     return '{"route":"' .  $route . '","type":"' . $type . '","playlist":[{"track":{"id":1,"title":"Foo","artist":"Mongo1"}},{"track":{"id":2,"title":"Bar","artist":"Mongo2"}},{"track":{"id":3,"title":"Boo","artist":"Mongo3"}}]}';
 }
 

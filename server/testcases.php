@@ -1,16 +1,18 @@
 <?php
 
 /* Musicplayer Client Web Service
- * @package musicplayer
+ * @package Musicplayer
  * @author master group mobile experience
  * @version Alpha 1
  */
 
 // includes
-require_once('db/db.php');
+// require_once('db/db.php');
 //require_once('db/createdb.php');
-require_once('users.php');
-require_once('tracks.php');
+// require_once('util.php');
+// require_once('users.php');
+// require_once('tracks.php');
+require_once('admins.php');
 //require_once('player.php');
 
 /*
@@ -38,7 +40,10 @@ getTrackToPlay();
 $downvotes = abortPlayback();
 echo ('downvotes: '.$downvotes.'<br/>');*/
 
-addTrack('192.168.0.64/6686089.mp3');
+//change internet access
+setInternetAccess(1);
+
+// addTrack('192.168.0.64/6686089.mp3');
 
 $db = new ClientDB();
 echo 'db errors: ' . $db->lastErrorMsg() . '<br/>';
