@@ -19,6 +19,7 @@ $truePath = '/usr/share/nginx/html/server/userdata/';
 
 // path for the currently_playing.txt
 $currentlyPlayingFilePath = dirname(__FILE__) . '/system_info/currently_playing_track.txt';
+
 //websocket localhost port
 
 ?>

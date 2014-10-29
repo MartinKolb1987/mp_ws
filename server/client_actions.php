@@ -1,5 +1,8 @@
 <?php
 
+// includes
+require_once('util.php');
+
 /* uploadFile()
  * File uploader - tracks and pictures
  * @param String $type 'track' or 'picture', String $file file from HTML5 input form
@@ -223,4 +226,14 @@ function getUserImage($route, $type) {
 //    unset($db);
 //    return json_encode(['musicHiveUserImage' => ['url' => $userPicture]]);
     return '{"route":"' .  $route . '", "type": "' . $type . '","userImage":{"url":"./img/user-image.jpg"}}';
+}
+
+
+/* getCurrentMusicSystemInfo()
+ * check current music track
+ */
+function getCurrentMusicSystemInfo($route, $type){
+    echo $currentlyPlayingFilePath;
+    // $content = file_get_contents($currentlyPlayingFilePath);
+    // echo $content . ' --- jap';
 }

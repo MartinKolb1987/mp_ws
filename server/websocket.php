@@ -53,7 +53,13 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
 
     switch($route) {
         case 'home':
-            if($type === 'getCurrentlyPlaying'){
+            
+            if($type === 'checkForNewUpdates'){
+                $data = '{"route":"' .  $route . '", "type": "' . $type . '","currentlyPlayingTrackId": 43}';  
+                $data = getCurrentMusicSystemInfo($route, $type);    
+                echo $currentlyPlayingFilePath;      
+                // sendDataToClientViaWebsocket($user, $data);
+            } else if($type === 'getCurrentlyPlaying'){
                 // currentlyPlaying
                 $data = getCurrentlyPlaying($route, $type);
                 sendDataToClientViaWebsocket($user, $data);
@@ -61,7 +67,7 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
                 // user playlist
                 $data = getPlaylist($route, $type);
                 sendDataToClientViaWebsocket($user, $data);
-            }
+            } 
 
             break;
         case 'settings':

@@ -10,8 +10,14 @@ define([
         isWebsocketActive: false,
         websocketHost: 'ws://localhost:54321',
         regularHost: '../server/client.php',
-        checkForNewUpdatesTime: 50000, // milliseconds
+        checkForNewUpdatesTime: 1000, // milliseconds
         sendDataRequestByRequestDelay: 10, // milliseconds (take care of websockets)
+
+        // current system infos about tracks
+        lastPlayedTrackId: 0,
+        currentlyPlayingTrackId: 0,
+        currentPlaylist: [],
+        currentlyUploadingTrack: false,
 
         init: function(){
             var that = this;
@@ -151,7 +157,9 @@ define([
 
             switch(receivedData.route){
                 case 'home':
-                    if(receivedData.type === 'getCurrentlyPlaying'){
+                    if(receivedData.type === 'checkForNewUpdates'){
+                        this.responseDataCheckForNewUpdates(receivedData, view);
+                    } else if(receivedData.type === 'getCurrentlyPlaying'){
                         // currentlyPlaying
                         this.distributeCurrentlyPlayingTrack(receivedData, view);
                     } else if(receivedData.type === 'getPlaylist'){
@@ -207,6 +215,9 @@ define([
             view.downvote = data.info.currentlyPlaying.downvote;
             view.id = data.info.currentlyPlaying.id;
             view.length = data.info.currentlyPlaying.length;
+
+            this.lastPlayedTrackId = this.currentlyPlayingTrackId;
+            this.currentlyPlayingTrackId = data.info.currentlyPlaying.id;
         },
 
         // get user uploaded playlist
@@ -272,7 +283,7 @@ define([
         },
 
         // -----------------------------------------------------------
-        // HELPER FUNCTIONS TIMER
+        // HELPER FUNCTIONS ALL UP TO DATE
         // -----------------------------------------------------------
 
         checkForNewUpdatesInterval: '',
@@ -285,6 +296,28 @@ define([
             this.checkForNewUpdatesInterval = setInterval(function(){
                 that.sendData(route, 'checkForNewUpdates'); // route = 'home', type = checkForNewUpdates, data = ''
             }, that.checkForNewUpdatesTime);
+
+        },
+
+        responseDataCheckForNewUpdates: function(data, view){
+console.log('rDCFNU');
+console.log(data);
+            switch(data.route){
+                case 'home':
+                    // DataHandler.getCurrentlyPlayingTrack(route);
+                    // DataHandler.getUserPlaylist(route);
+                    break;
+                case 'settings':
+                    // DataHandler.getUserImage(route);
+                    break;
+                case 'help':
+                    break;
+                case 'notfound':
+                    break;
+                case 'translation':
+                    break;
+                default:
+            }
 
         },
 
