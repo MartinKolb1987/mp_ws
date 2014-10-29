@@ -55,10 +55,8 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
         case 'home':
             
             if($type === 'checkForNewUpdates'){
-                $data = '{"route":"' .  $route . '", "type": "' . $type . '","currentlyPlayingTrackId": 43}';  
                 $data = getCurrentMusicSystemInfo($route, $type);    
-                echo $currentlyPlayingFilePath;      
-                // sendDataToClientViaWebsocket($user, $data);
+                sendDataToClientViaWebsocket($user, $data);
             } else if($type === 'getCurrentlyPlaying'){
                 // currentlyPlaying
                 $data = getCurrentlyPlaying($route, $type);

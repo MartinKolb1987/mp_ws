@@ -181,7 +181,7 @@ function getTrackToPlay() {
 
     // write currently playing track id into txt
     // no db used, because of the high request rate during "is user view up to date"
-    $createTxtFile = createTxtFile($currentlyPlayingFilePath, $randomTrackId);
+    $createTxtFile = createTxtFile($randomTrackId);
 
     // close db
     $db->close();
@@ -193,13 +193,14 @@ function getTrackToPlay() {
 
 /* createTxtFile()
  * needed for is client view up to date
- * @param String $filename and $content
+ * @param String $content
  * @return true on success, false on fail
  */
-function createTxtFile($filename, $content){
+function createTxtFile($content){
+    global $currentlyPlayingFilePath;
     // fail = returns false if something doesn‘t work
     // success = returns the quantity of written bytes
-    $msg = file_put_contents($filename, $content);
+    $msg = file_put_contents($currentlyPlayingFilePath, $content);
     if($msg !== false){
         return true;
     } else {

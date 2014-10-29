@@ -175,7 +175,7 @@ function getCurrentlyPlaying($route, $type) {
  //    unset($db);
  // return json_encode($mainArray);
     
-    return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":1,"artist":"MUCC","title":"1R","album":"Blubb","length":225,"image":"","downvote":0},"status":{"users":"30","internetAccess":true}}}';
+    return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":85,"artist":"Foobar","title":"1R","album":"Blubb","length":225,"image":"","downvote":0},"status":{"users":"30","internetAccess":true}}}';
 }
 
 
@@ -205,7 +205,7 @@ function getPlaylist($route, $type) {
     // $playlistArray['musicHivePlaylist'] = $userPlaylistArray;
     
     // return json_encode($playlistArray);
-    return '{"route":"' .  $route . '","type":"' . $type . '","playlist":[{"track":{"id":1,"title":"Foo","artist":"Mongo1"}},{"track":{"id":2,"title":"Bar","artist":"Mongo2"}},{"track":{"id":3,"title":"Boo","artist":"Mongo3"}}]}';
+    return '{"route":"' .  $route . '","type":"' . $type . '","playlist":[{"track":{"id":1,"title":"Foo","artist":"Mongo1"}},{"track":{"id":2,"title":"Bar","artist":"Foo"}},{"track":{"id":3,"title":"Boo","artist":"Mongo3"}}]}';
 }
 
 
@@ -234,7 +234,9 @@ function getUserImage($route, $type) {
  * check current music track
  */
 function getCurrentMusicSystemInfo($route, $type){
-    echo $currentlyPlayingFilePath;
-    // $content = file_get_contents($currentlyPlayingFilePath);
-    // echo $content . ' --- jap';
+    global $currentlyPlayingFilePath;
+    $content;
+    $content = file_get_contents($currentlyPlayingFilePath);
+    $content = '{"route":"' .  $route . '", "type": "' . $type . '","currentlyPlayingTrackId": ' . $content . '}';
+    return $content;
 }
