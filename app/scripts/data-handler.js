@@ -115,7 +115,7 @@ define([
 
                     // Websocket
                     // --------------------------
-                    if(that.isWebsocketActive){ // TODO: && is not file upload (user image or track)
+                    if(that.isWebsocketActive && that.queue[counter].type !== 'uploadUserImage'){ // TODO: && is not file upload (user image or track)
                         // build json
                         sendData = {
                             route: that.queue[counter].route,
@@ -248,6 +248,9 @@ define([
         // user image
         // --------------------------
         uploadUserImage: function(file){
+            console.log('bingo');
+            console.log(file);
+            this.sendData('settings', 'uploadUserImage', file);
             // type = uploadUserImage
             // file = givenFile
         },
@@ -364,7 +367,10 @@ define([
 
             formData.append('type', type);
             formData.append('route', route);
-            // formData.append('file', givenFile);
+
+            if(type === 'uploadUserImage'){
+                formData.append('file', data);
+            }
 
             xhr.onerror = function(e) {
                 ErrorHandler.log('xhr error, please try again: ' + type , new Error().stack);
@@ -378,9 +384,10 @@ define([
             xhr.upload.onprogress = function(e) {
                 var procent = Math.round(100 / e.total * e.loaded);
                 if (procent < 98) {
+                    console.log('Upload progress: ' + procent + '%');
                     // show progress in procent
                 } else {
-                    // show i‘m ready
+                    console.log('Upload finished: ' + procent + '%');
                 }
             };
 

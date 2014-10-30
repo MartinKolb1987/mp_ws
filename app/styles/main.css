@@ -27,5 +27,8 @@ a.current {
   -webkit-transform: translate3d(-30px, 0, 0);
   transform: translate3d(-30px, 0, 0); }
 
-#settings #field-upload-user-image {
+#settings #upload-wrapper {
+  background-color: #777777;
+  padding: 10px; }
+#settings .hide {
   display: none; }

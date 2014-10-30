@@ -4,8 +4,25 @@
 	<b>{{langSettings}}</b><br>
 	route: {{route}}<br>
 	image path: {{userImageUrl}}<br><br><br>
-	<input type="file" id="field-upload-file">
-	<button id="trigger-upload-file" v-on="click: triggerFileBrowser">Upload</button>
+
+	<!-- upload wrapper single file -->	
+	<div id="upload-wrapper">
+		<input type="file" id="upload-file-field" class="hide">
+		<button id="trigger-upload-file" v-on="click: triggerFileBrowser">select file</button>
+
+		<div id="upload-control-wrapper" class="hide">
+			<button id="upload-file">upload file</button>
+			<button id="cancel-upload-file">cancel</button>
+		</div>
+		
+		<div id="file-control-wrapper" class="hide">
+			<button id="upload-file" v-on="click: removeFile()">remove file</button>
+		</div>
+		
+		<div id="progress" class="hide">0%</div>
+	
+	</div>
+	<!-- upload wrapper single file END -->	
 
 </div>
 <!-- wrapper settings END -->

@@ -44,7 +44,11 @@ a.current {
 
 // settings site
 #settings{
-    #field-upload-user-image{
+    #upload-wrapper{
+        background-color: #777777;
+        padding: 10px;
+    }
+    .hide{
         display: none;
     }
 }
