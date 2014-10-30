@@ -27,13 +27,13 @@ $db->exec("DROP TABLE users");
 // create new tables
 echo('creating new tables...<br/>');
 // users
-$db->exec("CREATE TABLE users (u_ip TEXT PRIMARY KEY, u_picture TEXT)");
+$db->exec("CREATE TABLE users (u_ip TEXT PRIMARY KEY, u_mac TEXT, u_picture TEXT)");
 // admin
 $db->exec("CREATE TABLE admins (u_ip TEXT REFERENCES users(u_ip), a_downvote_level INTEGER, a_internet_access INTEGER)");
 // tracks
 $db->exec("CREATE TABLE tracks (t_id INTEGER PRIMARY KEY AUTOINCREMENT, u_ip TEXT REFERENCES users(u_ip), t_filename TEXT, t_artist TEXT, t_title TEXT, t_album TEXT, t_length INT)");
 // blacklist
-$db->exec("CREATE TABLE blacklist (u_ip TEXT REFERENCES users(u_ip), t_id INTEGER REFERENCES tracks(t_id), bl_timestamp TEXT, bl_mac TEXT)");
+$db->exec("CREATE TABLE blacklist (u_ip TEXT REFERENCES users(u_ip), t_id INTEGER REFERENCES tracks(t_id), bl_timestamp TEXT)");
 // buckets
 $db->exec("CREATE TABLE buckets (b_id INTEGER PRIMARY KEY AUTOINCREMENT, b_is_active INT)");
 // downvotes
@@ -46,14 +46,14 @@ $db->exec("CREATE TABLE bucketcontents (t_id INTEGER REFERENCES tracks(t_id), b_
 echo('inserting super user...<br/>');
 
 // insert - users
-$db->exec("INSERT INTO users (u_ip, u_picture) VALUES ('127.0.0.1', 'default.png')");
+$db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('127.0.0.1', 'd3-a2-54-69-3f-bb-24', 'default.png')");
 $db->exec("INSERT INTO admins (u_ip, a_downvote_level, a_internet_access) VALUES ('127.0.0.1', 50, 0)");
 
 
-// $db->exec("INSERT INTO users (u_ip, u_picture) VALUES ('1.1.1.1', '1.1.1.1/user.png')");
-// $db->exec("INSERT INTO users (u_ip, u_picture) VALUES ('2.2.2.2', '2.2.2.2/user.png')");
-// $db->exec("INSERT INTO users (u_ip, u_picture) VALUES ('3.3.3.3', '3.3.3.3/user.png')");
-// $db->exec("INSERT INTO users (u_ip, u_picture) VALUES ('4.4.4.4', '4.4.4.4/user.png')");
+// $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('1.1.1.1', 'd3-a2-54-69-3f-bb-25', '1.1.1.1/user.png')");
+// $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('2.2.2.2', 'd3-a2-54-69-3f-bb-26', '2.2.2.2/user.png')");
+// $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('3.3.3.3', 'd3-a2-54-69-3f-bb-27', '3.3.3.3/user.png')");
+// $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('4.4.4.4', 'd3-a2-54-69-3f-bb-28', '4.4.4.4/user.png')");
 
 // // insert - tracks
 // $db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('2.2.2.2', '2.2.2.2/56464156.ogg', 'Klospülung', 'Mundwasser', 'album1', 210)");
@@ -73,7 +73,7 @@ $db->exec("INSERT INTO admins (u_ip, a_downvote_level, a_internet_access) VALUES
 // $db->exec("INSERT INTO buckets (b_is_active) VALUES (0)");
 
 // // insert - blacklist
-// $db->exec("INSERT INTO blacklist (u_ip, t_id, bl_timestamp, bl_mac) VALUES ('3.3.3.3', '7', '2014-10-23 11:00:00.000', 'd3-a2-54-69-3f-bb-24')");
+// $db->exec("INSERT INTO blacklist (u_ip, t_id, bl_timestamp, bl_mac) VALUES ('3.3.3.3', '7', '2014-10-23 11:00:00.000')");
 
 // // insert - bucketcontents
 // $db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing) VALUES ('1', '1', 1, 0)");

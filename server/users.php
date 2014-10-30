@@ -31,6 +31,28 @@ function getClientIP() {
     }
 }
 
+/* getClientMAC()
+ * @return String u_mac
+ */
+function getClientMAC($currentIP) {
+
+    $mac = shell_exec('arp -a '. escapeshellarg($currentIP));
+
+    $findme = "Physical";
+    $pos = strpos($mac, $findme);
+    $macp = substr($mac,($pos+42),26);
+
+    if(empty($mac))
+    {
+        die("No mac address for $currentIP found");
+    }
+
+    echo "mac address for $currentIP: $macp";
+
+    return $macp;
+
+}
+
 
 /* checkUser()
  * Check database for user, create user if necessary
@@ -83,12 +105,15 @@ function createUser($currentIP) {
     if ($userCount == 0) {
         $admin = 1;
     }
+
+    // get the mac address
+    $macAddress = getClientMAC($currentIP);
     
     // initialize database   
     $db = new ClientDB();
     
     // insert data
-    $db->exec("INSERT INTO users (u_ip, u_picture) VALUES ('$currentIP', 'default.png')");
+    $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('$currentIP', ' $macAddress', 'default.png')");
     
     // close db
     $db->close();
