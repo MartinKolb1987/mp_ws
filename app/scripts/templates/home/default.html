@@ -1,14 +1,20 @@
-<b>{{langHome}}</b><br>
-route: {{route}}<br>
-album: {{album}}<br>
-title: {{title}}<br>
-artist: {{artist}}<br>
-downvote: {{downvote}}<br>
-id: {{id}}<br>
-length: {{length}}<br>
+<!-- wrapper home -->
+<div id="home">
 
-<ul>
-    <li v-repeat="playlist">
-        {{$index}} - {{track.id}} {{track.title}}
-    </li>
-</ul>
+	<b>{{langHome}}</b><br>
+	route: {{route}}<br>
+	title: {{title}}<br>
+	album: {{album}}<br>
+	artist: {{artist}}<br>
+	downvote: {{downvote}}<br>
+	id: {{id}}<br>
+	length: {{length}}<br>
+
+	<ul>
+	    <li v-repeat="playlist">
+	        {{$index}} - {{track.id}} {{track.title}}
+	    </li>
+	</ul>
+
+</div>
+<!-- wrapper home END -->

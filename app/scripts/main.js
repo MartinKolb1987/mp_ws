@@ -17,6 +17,13 @@ require.config({
                 'zeptoCore',
                 'zeptoEvents'
             ]
+        },
+        zeptoSelector: {
+            deps: [
+                'zeptoCore',
+                'zeptoEvents',
+                'zeptoCallbacks'
+            ]
         }
     },
     paths: {
@@ -25,6 +32,7 @@ require.config({
         zeptoCore: '../bower_components/zeptojs/src/zepto',
         zeptoEvents: '../bower_components/zeptojs/src/event',
         zeptoCallbacks: '../bower_components/zeptojs/src/callbacks',
+        zeptoSelector: '../bower_components/zeptojs/src/selector',
         dataHandler: 'data-handler',
         debug: 'debug-handler',
         error: 'error-handler',
@@ -39,8 +47,9 @@ require([
     'componentCollection',
     'zeptoCore',
     'zeptoEvents',
-    'zeptoCallbacks'
-], function(Router, DataHandler, ComponentCollection, $, ZeptoEvents, ZeptoCallbacks) {
+    'zeptoCallbacks',
+    'zeptoSelector'
+], function(Router, DataHandler, ComponentCollection, $, ZeptoEvents, ZeptoCallbacks, ZeptoSelector) {
     ComponentCollection.init();
     DataHandler.init();
 });

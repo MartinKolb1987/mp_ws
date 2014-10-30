@@ -10,6 +10,7 @@ define([
     'use strict';
 
     Vue.component('translation', {
+        el: '#translation',
         template: DefaultTemplate,
         ready: function () {
             ComponentCollection.addComponent('translation', this.$data);

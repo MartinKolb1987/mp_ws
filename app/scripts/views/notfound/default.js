@@ -6,6 +6,7 @@ define([
     'use strict';
 
     Vue.component('notfound', {
+        el: '#notfound',
         ready: function () {
             ComponentCollection.addComponent('notfound', this.$data);
         },

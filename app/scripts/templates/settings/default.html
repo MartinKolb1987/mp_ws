@@ -1,8 +1,11 @@
+<!-- wrapper settings -->
 <div id="settings">
+
 	<b>{{langSettings}}</b><br>
 	route: {{route}}<br>
 	image path: {{userImageUrl}}<br><br><br>
-	<input type="file" id="field-upload-user-image">
-	<button id="start-upload-user-image" v-on="click: uploadUserImage()">Upload</button>
-	<button id="test-button">test</button>
+	<input type="file" id="field-upload-file">
+	<button id="trigger-upload-file" v-on="click: triggerFileBrowser">Upload</button>
+
 </div>
+<!-- wrapper settings END -->

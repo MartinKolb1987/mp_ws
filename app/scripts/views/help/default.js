@@ -6,6 +6,7 @@ define([
     'use strict';
 
     Vue.component('help', {
+        el: '#help',
         ready: function () {
             ComponentCollection.addComponent('help', this.$data);
         },

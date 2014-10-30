@@ -10,6 +10,7 @@ define([
     'use strict';
 
     Vue.component('settings', {
+        el: '#settings',
         file: '',
         template: DefaultTemplate,
         ready: function () {
@@ -21,8 +22,11 @@ define([
             userImageUrl: 'no image'
         },
         methods: {
-            uploadUserImage: function(item){
-                // e.stopPropagation();
+            triggerFileBrowser: function(e){
+                e.stopPropagation();
+                console.log(e);
+                console.log(e.target.tagName); // "A"
+                // console.log(clickedElement);
                 // this.$data.items.$remove(item.$index);
             },
             addUser: function(newItemValue){

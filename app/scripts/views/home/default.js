@@ -10,6 +10,7 @@ define([
     'use strict';
 
     Vue.component('home', {
+        el: '#home',
         template: DefaultTemplate,
         ready: function () {
             ComponentCollection.addComponent('home', this.$data);
