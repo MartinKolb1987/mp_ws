@@ -8,3 +8,4 @@ app/bower_components
 .komodotools
 *.sqlite
 .idea
+server/userdata/

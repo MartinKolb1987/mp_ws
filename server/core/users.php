@@ -107,7 +107,8 @@ function createUser($currentIP) {
     }
 
     // get the mac address
-    $macAddress = getClientMAC($currentIP);
+    $macAddress = 'sdf';
+    // $macAddress = getClientMAC($currentIP);
     
     // initialize database   
     $db = new ClientDB();

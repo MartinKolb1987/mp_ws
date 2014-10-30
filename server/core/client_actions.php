@@ -36,7 +36,7 @@ function uploadFile($type, $file) {
     // allowed file type server side check
     $checkFileType = false;
     $fileType = strtolower($file['type']);
-    echo('error: DEBUG filetype: '.$fileType);
+
     if ($fileType == 'application/octet-stream') {
         // dirty hack for missing MIME type from file picker (google chrome / android 4.4)
         $checkFileType = true;

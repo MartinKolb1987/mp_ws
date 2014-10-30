@@ -15,7 +15,7 @@ $db_path = $_SERVER['DOCUMENT_ROOT'] . '/mp_ws/server/db/db.sqlite';
 $tempPath = '/Applications/XAMPP/xamppfiles/htdocs/mp_ws/tmp';
 
 // path for upload directory (users.php)
-$uploadDirectory = getenv("DOCUMENT_ROOT") . '/server/userdata/';
+$uploadDirectory = getenv("DOCUMENT_ROOT") . '/mp_ws/server/userdata/';
 
 // path for user data (users.php) -- currently not used???
 $truePath = '/usr/share/nginx/html/server/userdata/';
