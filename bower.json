@@ -4,7 +4,8 @@
   "dependencies": {
     "vue": "~v0.10.6",
     "requirejs": "~2.1.15",
-    "requirejs-text": "~2.0.12"
+    "requirejs-text": "~2.0.12",
+    "zeptojs": "v1.1.4"
   },
   "devDependencies": {}
 }

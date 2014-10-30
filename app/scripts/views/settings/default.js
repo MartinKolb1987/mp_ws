@@ -15,8 +15,6 @@ define([
         ready: function () {
             ComponentCollection.addComponent('settings', this.$data);
         },
-        created: function(){
-        },
         data: {
             langSettings: '',
             route: 'no route',

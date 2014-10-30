@@ -228,6 +228,7 @@ define([
             view.id = data.info.currentlyPlaying.id;
             view.length = data.info.currentlyPlaying.length;
 
+            // music player system info
             this.lastPlayedTrackId = this.currentlyPlayingTrackId;
             this.currentlyPlayingTrackId = data.info.currentlyPlaying.id;
         },
