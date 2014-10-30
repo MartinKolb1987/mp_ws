@@ -1,8 +1,8 @@
 <?php
 
 // includes
-require_once('db/db.php');
-require_once('util.php');
+require_once('../db/db.php');
+require_once('../util.php');
 
 /* uploadFile()
  * File uploader - tracks and pictures

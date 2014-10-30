@@ -12,7 +12,7 @@ header('Pragma: no-cache');
 header('Expires: Sat, 1 Jan 2000 00:00:00 GMT');
 
 // includes
-require_once('db/db.php');
+require_once('../db/db.php');
 require_once('users.php');
 require_once('tracks.php');
 require_once('client_actions.php');

@@ -7,10 +7,10 @@
  */
 
 // includes
-require_once('db/db.php');
+require_once('../db/db.php');
 require_once('users.php');
 require_once('tracks.php');
-require_once('util.php');
+require_once('../util.php');
 
 /* execAction()
  * Determine what to do, depending on client $_POST['type']

@@ -10,7 +10,7 @@
 // require_once('users.php');
 // require_once('tracks.php');
 require_once('client_actions.php');
-require_once('util.php');
+require_once('../util.php');
 
 set_time_limit(0);
 ob_implicit_flush();

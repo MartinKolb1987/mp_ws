@@ -7,7 +7,7 @@
  */
 
 // includes
-require_once($_SERVER['DOCUMENT_ROOT'] . 'mp_ws/server/util.php');
+require_once('../util.php');
 
 class ClientDB extends SQLite3
 {

@@ -1,6 +1,6 @@
 <?php
 
-require_once('util.php');
+require_once('../util.php');
 
 $createFile = createTxtFile(85);
 if($createFile){

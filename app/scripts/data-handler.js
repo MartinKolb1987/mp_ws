@@ -14,7 +14,7 @@ define([
         checkForNewUpdatesIntervalTimeWebsocket: 1000, // milliseconds
         
         // xhr
-        regularHost: '../server/client.php',
+        regularHost: '../server/core/client.php',
         checkForNewUpdatesIntervalTimeXHR: 2000, // milliseconds
         
         // xhr and websocket request queue
