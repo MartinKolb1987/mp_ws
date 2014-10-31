@@ -105,10 +105,10 @@ function execAction() {
                 die('error: no file or filename specified (execAction() - uploadUserImage)');
             } else {
                 // return should be true on success
-                $returnMsg = uploadFile('picture', $_FILES['file']);
-                if($returnMsg) {
+                $returnMsg = uploadFile($type, $_FILES['file'], $route);
+                if(!empty($returnMsg)) {
                     header('Content-type: text/plain');
-                    echo 'success';
+                    echo $returnMsg;
                 }
             }
             break;

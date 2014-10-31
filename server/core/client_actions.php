@@ -9,7 +9,7 @@ require_once('../util.php');
  * @param String $type 'track' or 'picture', String $file file from HTML5 input form
  * @return Boolean true on success
  */
-function uploadFile($type, $file) {
+function uploadFile($type, $file, $route) {
     global $uploadDirectory;
     global $clientIp;
     global $tempPath;
@@ -21,7 +21,7 @@ function uploadFile($type, $file) {
     if($type == 'track') {
         $allowedFiles = ['audio/mpeg', 'audio/x-mpeg', 'audio/x-mpeg-3', 'audio/mp3', 'audio/mp4', 'audio/m4a', 'video/ogg', 'audio/ogg', 'audio/opus', 'audio/vorbis', 'audio/vnd.wav', 'audio/wav', 'audio/x-wav', 'audio/webm', 'audio/aiff', 'audio/x-aiff'];
         $sizeLimit = 100;
-    } elseif($type == 'picture') {
+    } elseif($type == 'uploadUserImage') {
         $allowedFiles = ['image/jpeg', 'image/png', 'image/gif'];
         $sizeLimit = 10;
     } else {
@@ -121,17 +121,23 @@ function uploadFile($type, $file) {
         // add to db
         addTrack($newFilePath, $t_artist, $t_title, $t_album, $t_length);
         
-    } elseif ($type == 'picture') {
-        $newFilePath = $clientIp . '/user' . $fileExt;
+        return true;
+        
+    } elseif ($type == 'uploadUserImage') {
+        // random number for the file
+        $randomNo = rand(0, 9999999);
+        $newFilePath = $clientIp . '/images/' . $randomNo . $fileExt;
+
         // move file
         if (move_uploaded_file($file['tmp_name'], $uploadDirectory . $newFilePath) == false) {
             die('error: moving temp file failed (fileUpload() - picture)');
         }
+
         // add to db
-        setPicture($newFilePath);
+        $path = setPicture($newFilePath);
+        return '{"route":"' .  $route . '", "type": "' . $type . '","userImage":{"url":"../server/userdata/' . $path . '"}}';
     }
     
-    return true;
 }
 
 
@@ -215,20 +221,20 @@ function getPlaylist($route, $type) {
  * Render JSON with musicHiveUserImage Object
  */
 function getUserImage($route, $type) {
-//    global $clientIp;
-//
-//    // initialize database
-//    $db = new ClientDB();
-//
-//    $getUserPictureQuery = $db->query("SELECT u_picture FROM users WHERE u_ip = '$clientIp'");
-//    $getUserPictureArray = $getUserPictureQuery->fetchArray(SQLITE3_ASSOC);
-//    $userPicture = $getUserPictureArray['u_picture'];
-//
-//    // close db
-//    $db->close();
-//    unset($db);
-//    return json_encode(['musicHiveUserImage' => ['url' => $userPicture]]);
-    return '{"route":"' .  $route . '", "type": "' . $type . '","userImage":{"url":"./img/user-image.jpg"}}';
+    global $clientIp;
+
+    // initialize database
+    $db = new ClientDB();
+
+    $getUserPictureQuery = $db->query("SELECT u_picture FROM users WHERE u_ip = '$clientIp'");
+    $getUserPictureArray = $getUserPictureQuery->fetchArray(SQLITE3_ASSOC);
+    $userPicture = $getUserPictureArray['u_picture'];
+
+    // close db
+    $db->close();
+    unset($db);
+    
+    return '{"route":"' .  $route . '", "type": "' . $type . '","userImage":{"url":"../server/userdata/' . $userPicture . '"}}';
 }
 
 

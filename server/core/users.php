@@ -62,7 +62,6 @@ function checkUser() {
     // initialize database   
     $db = new ClientDB();
     $currentIP = getClientIP();
-    
     // get user entries with current user ip
     $currentUserCount = 0;
     $currentUserQuery = $db->query("SELECT u_ip FROM users WHERE u_ip='$currentIP'");
@@ -121,16 +120,17 @@ function createUser($currentIP) {
     unset($db);
     
     // create user directory
-    $path = $uploadDirectory . $currentIP;
-    //echo 'user path: ' . $path . '</br>';
-    
-    if (file_exists($path)) {
+    $pathImages = $uploadDirectory . $currentIP . '/images/';
+    $pathTracks = $uploadDirectory . $currentIP . '/tracks/';
+
+    if (file_exists($pathImages) === false) {
+        mkdir($pathImages, 0777, true);
+        mkdir($pathTracks, 0777, true);
+    } else {
         //echo 'folder already exists <br/>';
         // recursive delete of files & folder
-        //shell_exec('rm ' . $truePath . $currentIP . ' -R');
-    } else {
-        mkdir($path, 0777);
-        //echo 'create new user folder <br/>';
+        shell_exec('rm -R ' . $pathImages);
+        // mkdir($pathImages, 0777, true);
     }
     
     return($currentIP);
@@ -180,7 +180,7 @@ function setPicture($path) {
     $db->close();
     unset($db);
     
-    return true;
+    return $path;
 }
 
 
