@@ -15,7 +15,7 @@ define([
         
         // xhr
         regularHost: '../server/core/client.php',
-        checkForNewUpdatesIntervalTimeXHR: 2000, // milliseconds
+        checkForNewUpdatesIntervalTimeXHR: 50000, // milliseconds
         
         // xhr and websocket request queue
         sendDataRequestByRequestDelay: 10, // milliseconds (take care of requests)
