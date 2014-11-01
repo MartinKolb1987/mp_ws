@@ -13,10 +13,8 @@ require_once('../util.php');
 // global variables
 // $uploadDirectory = getenv("DOCUMENT_ROOT") . '/server/userdata/';
 global $uploadDirectory;
-$clientIp = checkUser();
 // $truePath = '/usr/share/nginx/html/server/userdata/';
 global $truePath;
-
 
 /* getClientIp()
  * @return String u_ip - remote address of user calling the script
@@ -72,10 +70,16 @@ function getClientMAC() {
  * Check database for user, create user if necessary
  * @return String u_ip - remote address of user calling the script
  */
-function checkUser() {
+function checkUser($websocketClientIp = '') {
     // initialize database   
     $db = new ClientDB();
     $currentIP = getClientIP();
+
+    // take client ip from websocket
+    if(empty($websocketClientIp) === false){
+        $currentIP = $websocketClientIp;
+    }
+
     // get user entries with current user ip
     $currentUserCount = 0;
     $currentUserQuery = $db->query("SELECT u_ip FROM users WHERE u_ip='$currentIP'");
@@ -139,11 +143,13 @@ function createUser($currentIP) {
 
     if (file_exists($pathImages) === false) {
         mkdir($pathImages, 0777, true);
+        chmod($pathImages, 0777); // otherwise it doesn‘t work
         mkdir($pathTracks, 0777, true);
+        chmod($pathTracks, 0777); // otherwise it doesn‘t work
     } else {
         //echo 'folder already exists <br/>';
         // recursive delete of files & folder
-        shell_exec('rm -R ' . $pathImages);
+        // shell_exec('rm -R ' . $pathImages);
         // mkdir($pathImages, 0777, true);
     }
     

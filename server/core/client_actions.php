@@ -13,6 +13,7 @@ function uploadFile($type, $file, $route) {
     global $uploadDirectory;
     global $clientIp;
     global $tempPath;
+
     // list of allowed MIME types
     $allowedFiles = [];
     // size limit in MB
@@ -144,10 +145,14 @@ function uploadFile($type, $file, $route) {
 /* getCurrentlyPlaying()
  * Render JSON with musicSystemInfo Object
  */
-function getCurrentlyPlaying($route, $type) {
- //    global $clientIp;
+function getCurrentlyPlaying($route, $type, $websocketClientIp = '') {
+    global $clientIp;
+    $mainArray = [];
 
- //    $mainArray = [];
+    // take client ip from websocket
+    if(empty($websocketClientIp) === false){
+        $clientIp = $websocketClientIp;
+    }
     
  //    // initialize database   
  //    $db = new ClientDB();
@@ -189,10 +194,15 @@ function getCurrentlyPlaying($route, $type) {
 /* getUserPlaylist()
  * Render JSON with musicHivePlaylist Object
  */
-function getPlaylist($route, $type) {
-    // global $clientIp;
-    // $playlistArray = [];
+function getPlaylist($route, $type, $websocketClientIp = '') {
+    global $clientIp;
+    $playlistArray = [];
     
+    // take client ip from websocket
+    if(empty($websocketClientIp) === false){
+        $clientIp = $websocketClientIp;
+    }
+
     // // initialize database   
     // $db = new ClientDB();
     
@@ -220,8 +230,13 @@ function getPlaylist($route, $type) {
 /* getUserImage()
  * Render JSON with musicHiveUserImage Object
  */
-function getUserImage($route, $type) {
+function getUserImage($route, $type, $websocketClientIp = '') {
     global $clientIp;
+
+    // take client ip from websocket
+    if(empty($websocketClientIp) === false){
+        $clientIp = $websocketClientIp;
+    }
 
     // initialize database
     $db = new ClientDB();
@@ -242,8 +257,15 @@ function getUserImage($route, $type) {
  * triggert from auto update mechanism
  * decide which data is maybe needed (client side)
  */
-function getCurrentMusicplayerInfo($route, $type){
+function getCurrentMusicplayerInfo($route, $type, $websocketClientIp = ''){
+    global $clientIp;
     global $currentlyPlayingFilePath;
+
+    // take client ip from websocket
+    if(empty($websocketClientIp) === false){
+        $clientIp = $websocketClientIp;
+    }
+  
     $content = '';
 
     if($route === 'home'){

@@ -39,7 +39,6 @@ while(true){
             $bytes = @socket_recv($socket,$buffer,2048,0);
             if($bytes==0){ disconnect($socket); } else{
                 $user = getuserbysocket($socket);
-                var_dump($client);
                 if(!$user->handshake){ dohandshake($user,$buffer); }
                 else{ getClientDataViaWebsocket($user, $users, $buffer); }
             }
@@ -60,17 +59,21 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
     $type = $jsonDecoded->type;
     $userId = $user->id;
     $user = $user->socket;
-var_dump($_SERVER);
-// var_dump($_SERVER);
+
+    // get client ip via websocket
+    $getPeername = @socket_getpeername($user, $websocketClientIp, $port);
+
+    $websocketClientIp = checkUser($websocketClientIp);
+
     switch($route) {
         case 'home':
             if($type === 'getCurrentlyPlaying'){
                 // currentlyPlaying
-                $data = getCurrentlyPlaying($route, $type);
+                $data = getCurrentlyPlaying($route, $type, $websocketClientIp);
                 sendDataToClientViaWebsocket($user, $data);
             } else if($type === 'getPlaylist') {
                 // user playlist
-                $data = getPlaylist($route, $type);
+                $data = getPlaylist($route, $type, $websocketClientIp);
                 sendDataToClientViaWebsocket($user, $data);
             } 
             break;
@@ -78,7 +81,7 @@ var_dump($_SERVER);
         case 'settings':
             if($type === 'getUserImage'){
                 // userImage
-                $data = getUserImage($route, $type);
+                $data = getUserImage($route, $type, $websocketClientIp);
                 sendDataToClientViaWebsocket($user, $data);
             }
             break;
@@ -86,7 +89,7 @@ var_dump($_SERVER);
 
     // auto update mechanism on every site (home, settings,...)
     if($type === 'checkForNewUpdates'){
-        $data = getCurrentMusicplayerInfo($route, $type); 
+        $data = getCurrentMusicplayerInfo($route, $type, $websocketClientIp); 
         if(empty($data) === false){
             sendDataToClientViaWebsocket($user, $data);
         } 
