@@ -34,22 +34,36 @@ function getClientIP() {
 /* getClientMAC()
  * @return String u_mac
  */
-function getClientMAC($currentIP) {
+function getClientMAC() {
 
-    $mac = shell_exec('arp -a '. escapeshellarg($currentIP));
+    $ipAddress=$_SERVER['REMOTE_ADDR'];
+    $macAddr=false;
 
-    $findme = "Physical";
-    $pos = strpos($mac, $findme);
-    $macp = substr($mac,($pos+42),26);
+    #run the external command, break output into lines
+    $arp=`arp -a 192.168.211.2`;
 
-    if(empty($mac))
+    print_r($arp);
+
+
+    $lines=explode("\n", $arp);
+
+    #look for the output line describing our IP address
+    foreach($lines as $line)
     {
-        die("No mac address for $currentIP found");
+       $cols=preg_split('/\s+/', trim($line));
+
+       if (empty($cols[0]) === false) {
+        print('<pre>');
+       print_r($cols);
+
+       if ($cols[1]=='(192.168.211.2)')
+       {
+           $macAddr=$cols[3];
+       }
+       }
+       
     }
-
-    echo "mac address for $currentIP: $macp";
-
-    return $macp;
+    echo 'mac address: ' . $macAddr . '<br/>';
 
 }
 

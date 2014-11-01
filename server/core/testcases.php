@@ -41,8 +41,8 @@ $downvotes = abortPlayback();
 echo ('downvotes: '.$downvotes.'<br/>');*/
 
 //change internet access
-setInternetAccess(1);
-echo ('set internet access <br/>');
+// setInternetAccess(1);
+// echo ('set internet access <br/>');
 
 // addTrack('192.168.0.64/6686089.mp3');
 
