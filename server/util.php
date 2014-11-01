@@ -8,14 +8,16 @@
 
 // path to db (db.php)
 // $db_path = '/usr/share/nginx/html/server/tmp/db.sqlite';
-$db_path = $_SERVER['DOCUMENT_ROOT'] . '/mp_ws/server/db/db.sqlite';
+// $db_path = $_SERVER['DOCUMENT_ROOT'] . '/mp_ws/server/db/db.sqlite';
+$db_path = dirname(__FILE__)  . '/db/db.sqlite';
 
 // path for temp fileupload (client_actions.php)
 // $tempPath = '/usr/share/nginx/html/server/tmp/';
 $tempPath = '/Applications/XAMPP/xamppfiles/htdocs/mp_ws/tmp';
 
 // path for upload directory (users.php)
-$uploadDirectory = getenv("DOCUMENT_ROOT") . '/mp_ws/server/userdata/';
+// $uploadDirectory = getenv("DOCUMENT_ROOT") . '/mp_ws/server/userdata/';
+$uploadDirectory = dirname(__FILE__) . '/userdata/';
 
 // path for user data (users.php) -- currently not used???
 $truePath = '/usr/share/nginx/html/server/userdata/';

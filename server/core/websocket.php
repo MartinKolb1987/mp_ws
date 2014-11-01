@@ -5,10 +5,12 @@
 // 22.10.2014, master group mobile experience:
 // added sendDataToAllClientsViaWebsocket() function
 
+session_start();
+
 // includes
-// require_once('db/db.php');
-// require_once('users.php');
-// require_once('tracks.php');
+require_once('../db/db.php');
+require_once('users.php');
+require_once('tracks.php');
 require_once('client_actions.php');
 require_once('../util.php');
 
@@ -37,8 +39,9 @@ while(true){
             $bytes = @socket_recv($socket,$buffer,2048,0);
             if($bytes==0){ disconnect($socket); } else{
                 $user = getuserbysocket($socket);
+                var_dump($client);
                 if(!$user->handshake){ dohandshake($user,$buffer); }
-                else{ getClientDataViaWebsocket($user->socket, $users, $buffer); }
+                else{ getClientDataViaWebsocket($user, $users, $buffer); }
             }
         }
     }
@@ -55,7 +58,10 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
     $sendJson = '';
     $route = $jsonDecoded->route;
     $type = $jsonDecoded->type;
-
+    $userId = $user->id;
+    $user = $user->socket;
+var_dump($_SERVER);
+// var_dump($_SERVER);
     switch($route) {
         case 'home':
             if($type === 'getCurrentlyPlaying'){
