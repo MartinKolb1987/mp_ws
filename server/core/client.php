@@ -146,10 +146,16 @@ function execAction() {
             }
             break;
 
+        case 'getInternetAccess':
+            header('Content-type: application/json');
+            echo getInternetAccess($route, $type);
+            break;
+            
         case 'setInternetAccess':
             header('Content-type: application/json');
             echo setInternetAccess($route, $type);
             break;
+
     }
 }
 

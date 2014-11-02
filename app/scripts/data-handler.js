@@ -183,6 +183,8 @@ define([
                     if(receivedData.type === 'getUserImage'){
                         this.distributeUserImage(receivedData, view);
                         // this.distributeCurrentlyPlayingTrack(receivedData, view);
+                    } else if(receivedData.type === 'getInternetAccess'){
+                        this.distributeInternetAccess(receivedData, view);
                     } else if(receivedData.type === 'setInternetAccess'){
                         this.distributeInternetAccess(receivedData, view);
                     }
@@ -302,19 +304,21 @@ define([
 
         // internet access
         // --------------------------
+        getInternetAccess: function(){
+            this.sendData('settings', 'getInternetAccess');
+        },
+
         setInternetAccess: function(){
             this.sendData('settings', 'setInternetAccess');
         },
 
         distributeInternetAccess: function(data, view){
             view.route = data.route;
-            if (data.internetAccess == 0) {
+            if (data.internetAccess === 0) {
                 view.internetAccess = 'Activate Internet';
             } else {
                 view.internetAccess = 'Deactivate Internet';
             }
-            console.log('distributeInternetAccess');
-            console.log(view.internetAccess);
         },
 
 

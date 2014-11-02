@@ -28,7 +28,7 @@ function checkAdmin($clientIp) {
     $db->close();
     unset($db);
 
-    if ($adminCount == 1) {
+    if ($adminCount === 1) {
         return true;
     } else {
         return false;
@@ -64,6 +64,45 @@ function updateDownvoteLevel($downvoteLevel) {
     }
 
 }
+
+
+/* getInternetAccess()
+ * Render JSON with the internet access - coming from the frontend
+ */
+function getInternetAccess($route, $type, $websocketClientIp = '') {
+    global $clientIp;
+    
+    // take client ip from websocket
+    if(empty($websocketClientIp) === false){
+        $clientIp = $websocketClientIp;
+    }
+
+    // initialize database   
+    $db = new ClientDB();
+
+    $admin = checkAdmin($clientIp);
+
+    if ($admin) {
+
+        $internetAccessQuery = $db->query("SELECT a_internet_access FROM admins WHERE u_ip = '$clientIp'");
+        $internetAccessArray = $internetAccessQuery->fetchArray(SQLITE3_ASSOC);
+        $internetAccess = $internetAccessArray['a_internet_access'];
+
+        // close db
+        $db->close();
+        unset($db);
+
+    } else {
+        // close db
+        $db->close();
+        unset($db);
+
+        die('error: user is not an admin and can not see the internet access');
+    }
+
+    return '{"route":"' .  $route . '", "type": "' . $type . '" ,"internetAccess":' . $internetAccess . '}';
+}
+
 
 /* setInternetAccess()
  * Render JSON with the internet access - coming from the frontend
