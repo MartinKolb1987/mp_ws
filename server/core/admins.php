@@ -13,14 +13,13 @@ require_once('users.php');
 /* checkAdmin()
  * Update the different downvote levels - coming from the frontend
  */
-function checkAdmin() {
-    $currentIP = getClientIP();
+function checkAdmin($clientIp) {
 
     // initialize database   
     $db = new ClientDB();
 
     $adminCount = 0;
-    $adminQuery = $db->query("SELECT * FROM admins WHERE u_ip='$currentIP'");
+    $adminQuery = $db->query("SELECT * FROM admins WHERE u_ip='$clientIp'");
     while ($row = $adminQuery->fetchArray(SQLITE3_ASSOC)) {
         $adminCount++;
     }
@@ -67,18 +66,32 @@ function updateDownvoteLevel($downvoteLevel) {
 }
 
 /* setInternetAccess()
- * Switch on/off the internet access - coming from the frontend
+ * Render JSON with the internet access - coming from the frontend
  */
-function setInternetAccess($internetAccess) {
-    $currentIP = getClientIP();
+function setInternetAccess($route, $type, $websocketClientIp = '') {
+    global $clientIp;
+    
+    // take client ip from websocket
+    if(empty($websocketClientIp) === false){
+        $clientIp = $websocketClientIp;
+    }
 
     // initialize database   
     $db = new ClientDB();
 
-    $admin = checkAdmin();
+    $admin = checkAdmin($clientIp);
 
     if ($admin) {
-        $db->exec("UPDATE admins SET a_internet_access = '$internetAccess' WHERE u_ip='$currentIP'");
+
+        $internetAccessQuery = $db->query("SELECT a_internet_access FROM admins WHERE u_ip = '$clientIp'");
+        $internetAccessArray = $internetAccessQuery->fetchArray(SQLITE3_ASSOC);
+        $internetAccess = $internetAccessArray['a_internet_access'];
+
+        if ($internetAccess == 0) {
+            $db->exec("UPDATE admins SET a_internet_access = 1 WHERE u_ip='$clientIp'");
+        } else {
+            $db->exec("UPDATE admins SET a_internet_access = 0 WHERE u_ip='$clientIp'");
+        }
 
         // close db
         $db->close();
@@ -92,6 +105,7 @@ function setInternetAccess($internetAccess) {
         die('error: user is not an admin and can not change the internet access');
     }
 
+    return '{"route":"' .  $route . '", "type": "' . $type . '" ,"internetAccess":' . $internetAccess . '}';
 }
 
 /* getBlacklist()

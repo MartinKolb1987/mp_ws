@@ -145,6 +145,11 @@ function execAction() {
                 echo $data;
             }
             break;
+
+        case 'setInternetAccess':
+            header('Content-type: application/json');
+            echo setInternetAccess($route, $type);
+            break;
     }
 }
 

@@ -3,6 +3,7 @@
 // includes
 require_once('../db/db.php');
 require_once('../util.php');
+require_once('admins.php');
 
 /* uploadFile()
  * File uploader - tracks and pictures
@@ -192,7 +193,7 @@ function getCurrentlyPlaying($route, $type, $websocketClientIp = '') {
 
 
 /* getUserPlaylist()
- * Render JSON with musicHivePlaylist Object
+ * Render JSON with playlist Object
  */
 function getPlaylist($route, $type, $websocketClientIp = '') {
     global $clientIp;
@@ -228,7 +229,7 @@ function getPlaylist($route, $type, $websocketClientIp = '') {
 
 
 /* getUserImage()
- * Render JSON with musicHiveUserImage Object
+ * Render JSON with image Object
  */
 function getUserImage($route, $type, $websocketClientIp = '') {
     global $clientIp;
@@ -276,3 +277,4 @@ function getCurrentMusicplayerInfo($route, $type, $websocketClientIp = ''){
 
     return $content;
 }
+

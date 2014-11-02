@@ -59,12 +59,12 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
     $type = $jsonDecoded->type;
     $userId = $user->id;
     $user = $user->socket;
-
+    
     // get client ip via websocket
     $getPeername = @socket_getpeername($user, $websocketClientIp, $port);
 
     $websocketClientIp = checkUser($websocketClientIp);
-
+    
     switch($route) {
         case 'home':
             if($type === 'getCurrentlyPlaying'){
@@ -82,6 +82,10 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
             if($type === 'getUserImage'){
                 // userImage
                 $data = getUserImage($route, $type, $websocketClientIp);
+                sendDataToClientViaWebsocket($user, $data);
+            } else if ($type === 'setInternetAccess'){
+                // internetAccess
+                $data = setInternetAccess($route, $type, $websocketClientIp);
                 sendDataToClientViaWebsocket($user, $data);
             }
             break;

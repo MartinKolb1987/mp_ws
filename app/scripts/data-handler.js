@@ -180,8 +180,12 @@ define([
                     }
                     break;
                 case 'settings':
-                    this.distributeUserImage(receivedData, view);
-                    // this.distributeCurrentlyPlayingTrack(receivedData, view);
+                    if(receivedData.type === 'getUserImage'){
+                        this.distributeUserImage(receivedData, view);
+                        // this.distributeCurrentlyPlayingTrack(receivedData, view);
+                    } else if(receivedData.type === 'setInternetAccess'){
+                        this.distributeInternetAccess(receivedData, view);
+                    }
                     break;
                 default:
             }
@@ -297,6 +301,24 @@ define([
             //     ]
             // }
         },
+
+        // internet access
+        // --------------------------
+        setInternetAccess: function(){
+            this.sendData('settings', 'setInternetAccess');
+        },
+
+        distributeInternetAccess: function(data, view){
+            view.route = data.route;
+            if (data.internetAccess == 0) {
+                view.internetAccess = 'Activate Internet';
+            } else {
+                view.internetAccess = 'Deactivate Internet';
+            }
+            console.log('distributeInternetAccess');
+            console.log(view.internetAccess);
+        },
+
 
         // -----------------------------------------------------------
         // HELPER FUNCTIONS ALL UP TO DATE

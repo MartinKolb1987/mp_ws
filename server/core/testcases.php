@@ -10,7 +10,7 @@
 // require_once('db/db.php');
 //require_once('db/createdb.php');
 // require_once('util.php');
-// require_once('users.php');
+require_once('users.php');
 // require_once('tracks.php');
 require_once('admins.php');
 //require_once('player.php');
@@ -45,6 +45,10 @@ echo ('downvotes: '.$downvotes.'<br/>');*/
 // echo ('set internet access <br/>');
 
 // addTrack('192.168.0.64/6686089.mp3');
+
+echo getClientIP() . '<br/><br/>';
+var_dump($_SERVER);
+echo '<br/><br/>';
 
 $db = new ClientDB();
 echo 'db errors: ' . $db->lastErrorMsg() . '<br/>';

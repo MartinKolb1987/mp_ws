@@ -21,7 +21,8 @@ define([
         data: {
             langSettings: '',
             route: 'no route',
-            userImageUrl: 'no image'
+            userImageUrl: 'no image',
+            internetAccess: ''
         },
 
         methods: {
@@ -98,6 +99,12 @@ define([
                 // better to remove and add new one
                 inputField.parent('#upload-wrapper').prepend('<input type="file" id="upload-file-field" class="hide">');
                 inputField.remove();
+            },
+
+            setInternetAccess: function(e){
+                e.stopPropagation();
+                // console.log('1. view');
+                DataHandler.setInternetAccess();
             }
         }
     });

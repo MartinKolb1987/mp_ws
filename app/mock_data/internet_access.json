@@ -1,0 +1,5 @@
+{
+    "route": "settings",
+    "type": "setInternetAccess",
+    "internetAccess": 0
+}
