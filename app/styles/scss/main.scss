@@ -48,6 +48,16 @@ a.current {
         background-color: #777777;
         padding: 10px;
     }
+    #progress-wrapper{
+        position: absolute;
+        left: 5px;
+        right: 5px;
+        top: 5px;
+        bottom: 5px;
+        border-radius: 10px;
+        border: 1px solid gray;
+        background-color: #ffffff;
+    }
     .hide{
         display: none;
     }

@@ -21,7 +21,14 @@ define([
         data: {
             langSettings: '',
             route: 'no route',
-            userImageUrl: 'no image'
+            userImageUrl: '../server/userdata/default.png',
+
+            // css classes
+            triggerUploadFileStateClass: '',
+            uploadFileControlWrapperStateClass: 'hide',
+            fileControlStateClass: 'hide',
+            uploadProgressWrapperStateClass: 'hide'
+
         },
 
         methods: {
@@ -46,8 +53,10 @@ define([
                 inputField.on('change', function(e){
                     if(inputField[0].files[0] !== undefined){
                         if(that.checkFile(inputField) === true){
-                            inputField.parent('#upload-wrapper').find('#trigger-upload-file').addClass('hide');
-                            inputField.parent('#upload-wrapper').find('#upload-control-wrapper').removeClass('hide');
+                            // set state css 
+                            that.$data.triggerUploadFileStateClass = 'hide';
+                            that.$data.uploadFileControlWrapperStateClass = '';
+                            // upload file
                             that.uploadFile(inputField);
                             that.cancelUploadFile(inputField);
                         } else {
@@ -60,6 +69,7 @@ define([
             },
             
             uploadFile: function(inputField){
+                var that = this;
                 var uploadFileButton = inputField.parent('#upload-wrapper').find('#upload-control-wrapper  #upload-file');
                 uploadFileButton.unbind('click');
                 uploadFileButton.on('click', function(){
@@ -74,8 +84,8 @@ define([
 
                 uploadFileButton.unbind('click');
                 uploadFileButton.on('click', function(){
-                    inputField.parent('#upload-wrapper').find('#trigger-upload-file').removeClass('hide');
-                    inputField.parent('#upload-wrapper').find('#upload-control-wrapper').addClass('hide');
+                    that.$data.triggerUploadFileStateClass = '';
+                    that.$data.uploadFileControlWrapperStateClass = 'hide';
                     that.clearUploadField(inputField);
                 });
             },

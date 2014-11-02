@@ -3,26 +3,31 @@
 
 	<b>{{langSettings}}</b><br>
 	route: {{route}}<br>
-	image path: <img src="{{userImageUrl}}" width="100"/><br><br><br>
+	image path:  <img src="{{userImageUrl}}" width="100"/><br><br><br>
 
 	<!-- upload wrapper single file -->	
 	<div id="upload-wrapper">
 		<input type="file" id="upload-file-field" class="hide">
-		<button id="trigger-upload-file" v-on="click: triggerFileBrowser">select file</button>
+		<button id="trigger-upload-file" class="{{triggerUploadFileStateClass}}" v-on="click: triggerFileBrowser">select file</button>
 
-		<div id="upload-control-wrapper" class="hide">
+		<div id="upload-control-wrapper" class="{{uploadFileControlWrapperStateClass}}">
 			<button id="upload-file">upload file</button>
 			<button id="cancel-upload-file">cancel</button>
 		</div>
 		
-		<div id="file-control-wrapper" class="hide">
+		<div id="file-control-wrapper" class="{{fileControlStateClass}}">
 			<button id="upload-file" v-on="click: removeFile()">remove file</button>
 		</div>
 		
-		<div id="progress" class="hide">0%</div>
 	
 	</div>
-	<!-- upload wrapper single file END -->	
+	<!-- upload wrapper single file END -->
+
+	<!-- upload progress state wrapper -->
+	<div id="progress-wrapper" class="{{uploadProgressWrapperStateClass}}">
+		{{uploadProgressValue}}
+	</div>
+	<!-- upload progress state wrapper END -->
 
 </div>
 <!-- wrapper settings END -->
