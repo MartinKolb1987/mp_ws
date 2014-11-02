@@ -252,8 +252,6 @@ define([
         // user image
         // --------------------------
         uploadUserImage: function(file){
-            console.log('bingo');
-            console.log(file);
             this.sendData('settings', 'uploadUserImage', file);
             // type = uploadUserImage
             // file = givenFile
@@ -386,6 +384,7 @@ define([
             var that = this;
             var formData = new FormData();
             var xhr = new XMLHttpRequest();
+            var view = ComponentCollection.getComponent(route);
 
             formData.append('type', type);
             formData.append('route', route);
@@ -399,18 +398,28 @@ define([
             };
 
             xhr.onload = function(e) {
+                // distribute responsed data 
                 that.getData(e.target.responseText);
-                // upload finished
             };
 
             xhr.upload.onprogress = function(e) {
                 var procent = Math.round(100 / e.total * e.loaded);
-                if (procent < 98) {
-                    console.log('Upload progress: ' + procent + '%');
-                    // show progress in procent
-                } else {
-                    console.log('Upload finished: ' + procent + '%');
+
+                if(type === 'uploadUserImage'){ // TODO: upload user track
+
+                    if (procent < 98) {
+                        that.$data.uploadProgressWrapperStateClass = ''; // show progress wrapper
+                        view.uploadProgressValue = procent + '%';
+                    } else {
+                        view.fileControlStateClass = '';
+                        view.uploadFileControlWrapperStateClass = 'hide';
+                        view.uploadProgressValue = procent + '% --> fertig';
+                        view.uploadProgressWrapperStateClass = 'hide'; // hide progress wrapper
+                        // finished
+                    }
+
                 }
+
             };
 
             xhr.open('POST', that.regularHost);
