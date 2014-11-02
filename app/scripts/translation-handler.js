@@ -15,6 +15,7 @@ define([
                 
                 // settings
                 langSettings: 'Einstellungen',
+                uploadProgressImageMessage: 'Ich lade gerade dein Bild hoch...',
 
                 // help
                 langHelp: 'Hilfe',
@@ -32,6 +33,7 @@ define([
                 
                 // settings
                 langSettings: 'Settings',
+                uploadProgressImageMessage: 'Currently i‘m uploading your image...',
 
                 // help
                 langHelp: 'Help',

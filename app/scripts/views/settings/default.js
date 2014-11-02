@@ -23,6 +23,8 @@ define([
             route: 'no route',
             internetAccess: ''
             userImageUrl: '../server/userdata/default.png',
+            // upload message
+            uploadProgressImageMessage: '',
 
             // css classes
             triggerUploadFileStateClass: '',
