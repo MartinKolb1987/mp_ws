@@ -23,7 +23,7 @@ define([
             route: 'no route',
             internetAccess: '',
             downvoteLevel: '',
-            userImageUrl: '../server/userdata/default.png',
+
             // upload message
             uploadProgressImageMessage: '',
 

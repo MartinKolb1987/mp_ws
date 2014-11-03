@@ -180,9 +180,8 @@ define([
                     }
                     break;
                 case 'settings':
-                    if(receivedData.type === 'getUserImage'){
+                    if(receivedData.type === 'getUserImage' || receivedData.type === 'uploadUserImage'){
                         this.distributeUserImage(receivedData, view);
-                        // this.distributeCurrentlyPlayingTrack(receivedData, view);
                     } else if(receivedData.type === 'getInternetAccess'){
                         this.distributeInternetAccess(receivedData, view);
                     } else if(receivedData.type === 'setInternetAccess'){
@@ -432,7 +431,7 @@ define([
 
                 if(type === 'uploadUserImage'){ // TODO: upload user track
 
-                    if (procent < 98) {
+                    if (procent < 98){
                         that.$data.uploadProgressWrapperStateClass = ''; // show progress wrapper
                         view.uploadProgressValue = procent + '%';
                     } else {
