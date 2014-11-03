@@ -150,10 +150,20 @@ function execAction() {
             header('Content-type: application/json');
             echo getInternetAccess($route, $type);
             break;
-            
+
         case 'setInternetAccess':
             header('Content-type: application/json');
             echo setInternetAccess($route, $type);
+            break;
+
+        case 'getDownvoteLevel':
+            header('Content-type: application/json');
+            echo getDownvoteLevel($route, $type);
+            break;
+            
+        case 'setDownvoteLevel':
+            header('Content-type: application/json');
+            echo setDownvoteLevel($route, $type);
             break;
 
     }

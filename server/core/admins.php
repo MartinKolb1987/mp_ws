@@ -37,19 +37,27 @@ function checkAdmin($clientIp) {
 
 
 
-/* updateDownvoteLevel()
+/* getDownvoteLevel()
  * Update the different downvote levels - coming from the frontend
  */
-function updateDownvoteLevel($downvoteLevel) {
-    $currentIP = getClientIP();
+function getDownvoteLevel($route, $type, $websocketClientIp = '') {
+    global $clientIp;
+    
+    // take client ip from websocket
+    if(empty($websocketClientIp) === false){
+        $clientIp = $websocketClientIp;
+    }
 
     // initialize database   
     $db = new ClientDB();
 
-    $admin = checkAdmin();
+    $admin = checkAdmin($clientIp);
 
     if ($admin) {
-        $db->exec("UPDATE admins SET a_internet_access = '$downvoteLevel' WHERE u_ip='$currentIP'");
+
+        $downvoteLevelQuery = $db->query("SELECT a_downvote_level FROM admins WHERE u_ip = '$clientIp'");
+        $downvoteLevelArray = $downvoteLevelQuery->fetchArray(SQLITE3_ASSOC);
+        $downvoteLevel = $downvoteLevelArray['a_downvote_level'];
 
         // close db
         $db->close();
@@ -62,6 +70,44 @@ function updateDownvoteLevel($downvoteLevel) {
 
         die('error: user is not an admin and can not change the downvote level');
     }
+
+    return '{"route":"' .  $route . '", "type": "' . $type . '", "downvoteLevel":' . $downvoteLevel . '}';
+
+}
+
+/* setDownvoteLevel()
+ * Update the different downvote levels - coming from the frontend
+ */
+function setDownvoteLevel($route, $type, $data, $websocketClientIp = '') {
+    global $clientIp;
+    
+    // take client ip from websocket
+    if(empty($websocketClientIp) === false){
+        $clientIp = $websocketClientIp;
+    }
+
+    // initialize database   
+    $db = new ClientDB();
+
+    $admin = checkAdmin($clientIp);
+
+    if ($admin) {
+
+        $db->exec("UPDATE admins SET a_downvote_level = '$data' WHERE u_ip='$clientIp'");
+
+        // close db
+        $db->close();
+        unset($db);
+
+    } else {
+        // close db
+        $db->close();
+        unset($db);
+
+        die('error: user is not an admin and can not change the downvote level');
+    }
+
+    return '{"route":"' .  $route . '", "type": "' . $type . '", "downvoteLevel":' . $data . '}';
 
 }
 
@@ -100,7 +146,7 @@ function getInternetAccess($route, $type, $websocketClientIp = '') {
         die('error: user is not an admin and can not see the internet access');
     }
 
-    return '{"route":"' .  $route . '", "type": "' . $type . '" ,"internetAccess":' . $internetAccess . '}';
+    return '{"route":"' .  $route . '", "type": "' . $type . '", "internetAccess":' . $internetAccess . '}';
 }
 
 
@@ -126,10 +172,12 @@ function setInternetAccess($route, $type, $websocketClientIp = '') {
         $internetAccessArray = $internetAccessQuery->fetchArray(SQLITE3_ASSOC);
         $internetAccess = $internetAccessArray['a_internet_access'];
 
-        if ($internetAccess == 0) {
+        if ($internetAccess === 0) {
             $db->exec("UPDATE admins SET a_internet_access = 1 WHERE u_ip='$clientIp'");
+            $internetAccess = 1;
         } else {
             $db->exec("UPDATE admins SET a_internet_access = 0 WHERE u_ip='$clientIp'");
+            $internetAccess = 0;
         }
 
         // close db
@@ -144,7 +192,7 @@ function setInternetAccess($route, $type, $websocketClientIp = '') {
         die('error: user is not an admin and can not change the internet access');
     }
 
-    return '{"route":"' .  $route . '", "type": "' . $type . '" ,"internetAccess":' . $internetAccess . '}';
+    return '{"route":"' .  $route . '", "type": "' . $type . '", "internetAccess":' . $internetAccess . '}';
 }
 
 /* getBlacklist()

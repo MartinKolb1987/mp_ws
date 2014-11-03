@@ -22,6 +22,7 @@ define([
             langSettings: '',
             route: 'no route',
             internetAccess: '',
+            downvoteLevel: '',
             userImageUrl: '../server/userdata/default.png',
             // upload message
             uploadProgressImageMessage: '',
@@ -115,8 +116,11 @@ define([
 
             setInternetAccess: function(e){
                 e.stopPropagation();
-                // console.log('1. view');
                 DataHandler.setInternetAccess();
+            },
+
+            setDownvoteLevel: function(level){
+                DataHandler.setDownvoteLevel(level);
             }
         }
     });

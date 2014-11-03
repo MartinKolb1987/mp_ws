@@ -57,6 +57,7 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
     $sendJson = '';
     $route = $jsonDecoded->route;
     $type = $jsonDecoded->type;
+    $data = $jsonDecoded->data;
     $userId = $user->id;
     $user = $user->socket;
     
@@ -90,6 +91,14 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
             } else if ($type === 'setInternetAccess'){
                 // set internetAccess
                 $data = setInternetAccess($route, $type, $websocketClientIp);
+                sendDataToClientViaWebsocket($user, $data);
+            } else if ($type === 'getDownvoteLevel'){
+                // get downvoteLevel
+                $data = getDownvoteLevel($route, $type, $websocketClientIp);
+                sendDataToClientViaWebsocket($user, $data);
+            } else if ($type === 'setDownvoteLevel'){
+                // set downvoteLevel
+                $data = setDownvoteLevel($route, $type, $data, $websocketClientIp);
                 sendDataToClientViaWebsocket($user, $data);
             } 
             break;

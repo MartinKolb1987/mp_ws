@@ -1,0 +1,5 @@
+{
+    "route": "settings",
+    "type": "setDownvoteLevel",
+    "downvoteLevel": 50
+}

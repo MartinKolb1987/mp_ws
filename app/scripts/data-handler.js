@@ -187,6 +187,10 @@ define([
                         this.distributeInternetAccess(receivedData, view);
                     } else if(receivedData.type === 'setInternetAccess'){
                         this.distributeInternetAccess(receivedData, view);
+                    } else if(receivedData.type === 'getDownvoteLevel'){
+                        this.distributeDownvoteLevel(receivedData, view);
+                    } else if(receivedData.type === 'setDownvoteLevel'){
+                        this.distributeDownvoteLevel(receivedData, view);
                     }
                     break;
                 default:
@@ -319,6 +323,23 @@ define([
             } else {
                 view.internetAccess = 'Deactivate Internet';
             }
+        },
+
+
+        // downvote level
+        // --------------------------
+        getDownvoteLevel: function(){
+            this.sendData('settings', 'getDownvoteLevel');
+        },
+
+        setDownvoteLevel: function(level){
+            this.sendData('settings', 'setDownvoteLevel', level);
+        },
+
+        distributeDownvoteLevel: function(data, view){
+            console.log('distributeDownvoteLevel');
+            view.route = data.route;
+            view.downvoteLevel = data.downvoteLevel;
         },
 
 

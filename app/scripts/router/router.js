@@ -72,6 +72,7 @@ define([
                 case 'settings':
                     DataHandler.getUserImage(route);
                     DataHandler.getInternetAccess();
+                    DataHandler.getDownvoteLevel();
                     break;
  
                 case 'help':
