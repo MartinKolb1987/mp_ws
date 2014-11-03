@@ -22,7 +22,7 @@ define([
             langSettings: '',
             route: 'no route',
             internetAccess: '',
-            userImageUrl: '../server/userdata/default.png',
+
             // upload message
             uploadProgressImageMessage: '',
 

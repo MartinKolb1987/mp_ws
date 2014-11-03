@@ -180,9 +180,8 @@ define([
                     }
                     break;
                 case 'settings':
-                    if(receivedData.type === 'getUserImage'){
+                    if(receivedData.type === 'getUserImage' || receivedData.type === 'uploadUserImage'){
                         this.distributeUserImage(receivedData, view);
-                        // this.distributeCurrentlyPlayingTrack(receivedData, view);
                     } else if(receivedData.type === 'getInternetAccess'){
                         this.distributeInternetAccess(receivedData, view);
                     } else if(receivedData.type === 'setInternetAccess'){
@@ -266,6 +265,7 @@ define([
         distributeUserImage: function(data, view){
             view.route = data.route;
             view.userImageUrl = data.userImage.url;
+            console.log(data);
         },
 
         deleteUserImage: function(){
