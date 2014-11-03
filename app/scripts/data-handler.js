@@ -411,7 +411,7 @@ define([
 
                 if(type === 'uploadUserImage'){ // TODO: upload user track
 
-                    if (procent < 98) {
+                    if (procent < 98){
                         that.$data.uploadProgressWrapperStateClass = ''; // show progress wrapper
                         view.uploadProgressValue = procent + '%';
                     } else {
