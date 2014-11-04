@@ -8,11 +8,12 @@
         <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
     </head>
     <body>
-        <div id="app">
-            <ul>
-                <li><a href="#!/home">Home</a></li>
-                <li><a href="#!/settings">Settings</a></li>
-                <li><a href="#!/translation">Translation</a></li>
+        <div id="app" class="indoor">
+            <ul id="navigation">
+                <li><a href="#!/home"><span class="icon">H</span><span class="icon-info">Home</span></a></li>
+                <li><a href="#!/settings"><span class="icon">S</span><span class="icon-info">Settings</span></a></li>
+                <li><a href="#!/help"><span class="icon">H</span><span class="icon-info">Help</span></a></li>
+                <li><a href="#!/translation"><span class="icon">T</span><span class="icon-info">Translation</span></a></li>
             </ul>
             <div v-view="currentView" class="view" v-transition>
                 Ich lade...

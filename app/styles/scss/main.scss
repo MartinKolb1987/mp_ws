@@ -1,19 +1,25 @@
 // -------------------------------------
-//  DEFAULT STYLES
+//  MIXINS
 // -------------------------------------
-body {
-    padding: 0px;
-}
-ul {
-    list-style-type: none;
+@mixin transition($property, $duration) {
+    -webkit-transition: $property $duration;
+    -moz-transition: $property $duration;
+    -ms-transition: $property $duration;
+    -o-transition: $property $duration;
+    transition: $property $duration;
 }
 
-a {
-    color: #999;
-    text-decoration: none;
-}
-a.current {
-    color: blue;
+// -------------------------------------
+//  COLORS
+// -------------------------------------
+
+
+// -------------------------------------
+//  DEFAULT STYLES
+// -------------------------------------
+* {
+    padding: 0;
+    margin: 0;
 }
 
 [v-cloak] { 
@@ -26,15 +32,18 @@ a.current {
 
 .view {
     position: absolute;
+    margin-top: 50px;
     opacity: 1;
     -webkit-transition: all .2s ease;
     transition: all .2s ease;
 }
+
 .v-enter {
     opacity: 0;
     -webkit-transform: translate3d(30px, 0, 0);
     transform: translate3d(30px, 0, 0);
 }
+
 .v-leave {
     opacity: 0;
     -webkit-transform: translate3d(-30px, 0, 0);
@@ -46,24 +55,73 @@ a.current {
 //  CUSTOM STYLES
 // -------------------------------------
 
-// settings site
-#settings{
-    #upload-wrapper{
-        background-color: #777777;
-        padding: 10px;
+// default structure
+#app{
+
+    //  navigation
+    // -------------------------------------
+    ul#navigation{
+        list-style-type: none;
+        background-color: blue;
+        li{
+            float:left;
+            a{
+                padding: 0 10px 0 10px;
+                height: 50px;
+                line-height: 50px;
+                display: block;
+                background-color: green;
+                span{
+                    &.icon{
+                        width: 10px;
+                        float: left;
+                    }
+                    &.icon-info{
+                        float: left;
+                        overflow: hidden;
+                        display: block;
+                        width: 0;
+                        padding-left: 10px;
+                    }
+                }
+                &:hover, &.active{
+                    background-color: gray;
+                    span {
+                        &.icon-info{
+                            @include transition(all, 0.4s);
+                            width: 100px;
+                        }
+                    }
+                }
+            }
+        }
     }
-    #progress-wrapper{
-        position: absolute;
-        left: 5px;
-        right: 5px;
-        top: 5px;
-        bottom: 5px;
-        border-radius: 10px;
-        border: 1px solid gray;
-        background-color: #ffffff;
+
+   //  settings site
+   // -------------------------------------
+    #settings{
+        #upload-wrapper{
+            background-color: #777777;
+            padding: 10px;
+        }
+        #progress-wrapper{
+            position: absolute;
+            left: 5px;
+            right: 5px;
+            top: 5px;
+            bottom: 5px;
+            border-radius: 10px;
+            border: 1px solid gray;
+            background-color: #ffffff;
+        }
+        .hide{
+            display: none;
+        }
     }
-    .hide{
-        display: none;
-    }
+
 }
+
+
+
+
 
