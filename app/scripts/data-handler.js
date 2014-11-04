@@ -412,6 +412,7 @@ define([
 
             formData.append('type', type);
             formData.append('route', route);
+            formData.append('data', data);
 
             if(type === 'uploadUserImage'){
                 formData.append('file', data);

@@ -26,6 +26,7 @@ function execAction() {
 	$type;
     $route = $_POST['route'];
     $sendData = $_POST['data'];
+
     // get action
 	try {
 		if(empty($_POST['type'])) {
