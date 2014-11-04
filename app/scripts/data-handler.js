@@ -307,8 +307,8 @@ define([
 
         // internet access
         // --------------------------
-        getInternetAccess: function(){
-            this.sendData('settings', 'getInternetAccess');
+        getInternetAccess: function(route){
+            this.sendData(route, 'getInternetAccess');
         },
 
         setInternetAccess: function(){
@@ -326,8 +326,8 @@ define([
 
         // downvote level
         // --------------------------
-        getDownvoteLevel: function(){
-            this.sendData('settings', 'getDownvoteLevel');
+        getDownvoteLevel: function(route){
+            this.sendData(route, 'getDownvoteLevel');
         },
 
         setDownvoteLevel: function(level){
