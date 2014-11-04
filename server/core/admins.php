@@ -91,6 +91,8 @@ function setDownvoteLevel($route, $type, $data, $websocketClientIp = '') {
 
     $admin = checkAdmin($clientIp);
 
+    var_dump($data);
+
     if ($admin) {
 
         $db->exec("UPDATE admins SET a_downvote_level = '$data' WHERE u_ip='$clientIp'");

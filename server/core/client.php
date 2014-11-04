@@ -25,6 +25,7 @@ require_once('client_actions.php');
 function execAction() {
 	$type;
     $route = $_POST['route'];
+    $sendData = $_POST['data'];
     // get action
 	try {
 		if(empty($_POST['type'])) {
@@ -163,7 +164,7 @@ function execAction() {
             
         case 'setDownvoteLevel':
             header('Content-type: application/json');
-            echo setDownvoteLevel($route, $type);
+            echo setDownvoteLevel($route, $type, $sendData);
             break;
 
     }
