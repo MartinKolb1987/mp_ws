@@ -167,7 +167,6 @@ function execAction() {
             header('Content-type: application/json');
             echo setDownvoteLevel($route, $type, $sendData);
             break;
-
     }
 }
 

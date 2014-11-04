@@ -324,7 +324,6 @@ define([
             }
         },
 
-
         // downvote level
         // --------------------------
         getDownvoteLevel: function(){

@@ -67,7 +67,7 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
     $getPeername = @socket_getpeername($user, $websocketClientIp, $port);
 
     $websocketClientIp = checkUser($websocketClientIp);
-    
+
     switch($route) {
         case 'home':
             if($type === 'getCurrentlyPlaying'){
