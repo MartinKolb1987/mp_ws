@@ -66,33 +66,46 @@
         li{
             float:left;
             a{
-                padding: 0 10px 0 10px;
                 height: 50px;
+                min-width: 50px;
                 line-height: 50px;
-                display: block;
-                background-color: green;
                 span{
                     &.icon{
-                        width: 10px;
                         float: left;
+                        width: 50px;
+                        background: green;
+                        text-align: center;
                     }
                     &.icon-info{
                         float: left;
                         overflow: hidden;
                         display: block;
                         width: 0;
-                        padding-left: 10px;
                     }
                 }
-                &:hover, &.active{
-                    background-color: gray;
+                &.active, &.inactive{
                     span {
+                        &.icon, &.icon-info{
+                            background-color: gray;
+                        }
                         &.icon-info{
-                            @include transition(all, 0.4s);
-                            width: 100px;
+                            @include transition(width, 0.4s);
+                            width: 80px;
                         }
                     }
                 }
+                &.inactive{
+                    background-color: green;
+                    span {
+                        &.icon, &.icon-info{
+                            background-color: green;
+                        }
+                        &.icon-info{
+                            width: 0px;
+                        }
+                    }
+                }
+
             }
         }
     }

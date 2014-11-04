@@ -10,10 +10,10 @@
     <body>
         <div id="app" class="indoor">
             <ul id="navigation">
-                <li><a href="#!/home"><span class="icon">H</span><span class="icon-info">Home</span></a></li>
-                <li><a href="#!/settings"><span class="icon">S</span><span class="icon-info">Settings</span></a></li>
-                <li><a href="#!/help"><span class="icon">H</span><span class="icon-info">Help</span></a></li>
-                <li><a href="#!/translation"><span class="icon">T</span><span class="icon-info">Translation</span></a></li>
+                <li><a href="#!/home" data-route="home"><span class="icon">H</span><span class="icon-info">Home</span></a></li>
+                <li><a href="#!/settings" data-route="settings"><span class="icon">S</span><span class="icon-info">Settings</span></a></li>
+                <li><a href="#!/help" data-route="help"><span class="icon">H</span><span class="icon-info">Help</span></a></li>
+                <li><a href="#!/translation" data-route="translation"><span class="icon">T</span><span class="icon-info">Translation</span></a></li>
             </ul>
             <div v-view="currentView" class="view" v-transition>
                 Ich lade...

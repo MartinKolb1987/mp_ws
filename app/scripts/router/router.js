@@ -27,6 +27,7 @@ define([
             });
 
             this.setEventlistener();
+            this.initMainNavigation();
 
         },
 
@@ -106,6 +107,22 @@ define([
         translateCurrentView: function(lang){
             var that = this;
             TranslationHandler.translate(lang, ComponentCollection.getComponent(that.vue.$data.currentView));
+        },
+
+        initMainNavigation: function(){
+            var route = this.getRoute();
+            var allMainNavigationItems = $('#navigation > li');
+            var allMainNavigationItemsA = allMainNavigationItems.find('a');
+            
+            // set init navigation state
+            // based on route
+            allMainNavigationItems.find('a[data-route=' + route + ']').addClass('active');
+
+            // add click eventlistener
+            allMainNavigationItemsA.on('click', function(e){
+                allMainNavigationItemsA.removeClass('active').addClass('inactive');
+                $(this).removeClass('inactive').addClass('active');
+            });
         }
 
     };

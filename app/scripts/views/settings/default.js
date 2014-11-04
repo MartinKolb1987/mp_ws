@@ -21,7 +21,7 @@ define([
         data: {
             langSettings: '',
             route: 'no route',
-            userImageUrl: 'no image',
+            userImageUrl: '',
             internetAccess: '',
             downvoteLevel: '',
 
