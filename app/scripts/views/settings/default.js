@@ -21,7 +21,7 @@ define([
         data: {
             langSettings: '',
             route: 'no route',
-<<<<<<< Updated upstream
+            userImageUrl: 'no image',
             internetAccess: '',
             downvoteLevel: '',
 
@@ -33,11 +33,7 @@ define([
             uploadFileControlWrapperStateClass: 'hide',
             fileControlStateClass: 'hide',
             uploadProgressWrapperStateClass: 'hide'
-
-=======
-            userImageUrl: 'no image',
-            internetAccess: ''
->>>>>>> Stashed changes
+            
         },
 
         methods: {
@@ -119,7 +115,6 @@ define([
                 inputField.remove();
             },
 
-<<<<<<< Updated upstream
             setInternetAccess: function(e){
                 e.stopPropagation();
                 DataHandler.setInternetAccess();
@@ -127,11 +122,6 @@ define([
 
             setDownvoteLevel: function(level){
                 DataHandler.setDownvoteLevel(level);
-=======
-            internetAccess: function(e){
-                console.log('1. view');
-                // DataHandler.setInternetAccess();
->>>>>>> Stashed changes
             }
         }
     });
