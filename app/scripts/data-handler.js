@@ -336,7 +336,6 @@ define([
         },
 
         distributeDownvoteLevel: function(data, view){
-            console.log('distributeDownvoteLevel');
             view.route = data.route;
             view.downvoteLevel = data.downvoteLevel;
         },
