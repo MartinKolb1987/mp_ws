@@ -3,7 +3,7 @@
 // includes
 require_once('../db/db.php');
 require_once('../util.php');
-require_once('admins.php');
+require_once('admin.php');
 
 /* uploadFile()
  * File uploader - tracks and pictures
@@ -181,7 +181,7 @@ function getCurrentlyPlaying($route, $type, $websocketClientIp = '') {
  //    $getUserPictureArray = $getUserPictureQuery->fetchArray(SQLITE3_ASSOC);
  //    $userPicture = $getUserPictureArray['u_picture'];
     
- //    $mainArray['musicHiveInfo'] = array('currentlyPlaying' => $currentlyPlayingArray, 'status' => ['users' => $userCount, 'user_image' => $userPicture, 'internet_access' => 'false']);
+ //    $mainArray['info'] = array('currentlyPlaying' => $currentlyPlayingArray, 'status' => ['users' => $userCount, 'user_image' => $userPicture, 'internet_access' => 'false']);
 
  //    // close db
  //    $db->close();
@@ -220,7 +220,7 @@ function getPlaylist($route, $type, $websocketClientIp = '') {
     // $db->close();
     // unset($db);
     
-    // $playlistArray['musicHivePlaylist'] = $userPlaylistArray;
+    // $playlistArray['playlist'] = $userPlaylistArray;
     
 
     // return json_encode($playlistArray);

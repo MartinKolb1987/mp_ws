@@ -12,7 +12,7 @@
 // require_once('util.php');
 require_once('users.php');
 // require_once('tracks.php');
-require_once('admins.php');
+require_once('admin.php');
 //require_once('player.php');
 
 /*

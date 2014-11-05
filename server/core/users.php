@@ -112,26 +112,28 @@ function checkUser($websocketClientIp = '') {
 function createUser($currentIP) { 
     global $uploadDirectory;
     global $truePath;
-    $admin = 0;
     
     // first user will become admin, so check if first user
     $userCount = getActiveUsers();
     
     //echo 'there are ' . $userCount . ' users in the db<br/>';
     
-    if ($userCount == 0) {
-        $admin = 1;
-    }
+    
+    // initialize database   
+    $db = new ClientDB();
+    
 
     // get the mac address
     $macAddress = 'sdf';
     // $macAddress = getClientMAC($currentIP);
     
-    // initialize database   
-    $db = new ClientDB();
-    
     // insert data
     $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('$currentIP', ' $macAddress', 'default.png')");
+
+    if ($userCount === -1) {
+        $db->exec("INSERT INTO admins (u_ip, a_downvote_level, a_internet_access) VALUES ('$currentIP', 50, 0)");
+    }
+
     
     // close db
     $db->close();

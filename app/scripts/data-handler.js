@@ -222,6 +222,15 @@ define([
         // HELPER FUNCTIONS SEND & GET & DISTRIBUTE DATA
         // -----------------------------------------------------------
 
+        // check user
+        // --------------------------
+
+        checkUser: function(route){
+            this.sendData(route, 'checkUser');
+        },
+
+
+
         // currently playing track
         // --------------------------
         getCurrentlyPlayingTrack: function(route){
@@ -247,7 +256,7 @@ define([
         getUserPlaylist: function(route){
             this.sendData(route, 'getPlaylist'); // route = 'home', type = getPlaylist, data = ''
             // type = getPlaylist
-            // url: 'json/musicHivePlaylist.json'
+            // url: 'json/playlist.json'
         },
 
         distributeUserPlaylist: function(data, view){
