@@ -44,11 +44,6 @@ function execAction() {
 	}
     
     switch($type){
-        case 'checkUser':
-            header('Content-type: application/json');
-            echo checkUser();
-            break;
-
         case 'uploadTrack':
             // sanity check - empty input
             if (isset($_FILES['file']) == false) {
