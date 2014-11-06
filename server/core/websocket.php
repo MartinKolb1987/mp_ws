@@ -66,7 +66,10 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
     // get client ip via websocket
     $getPeername = @socket_getpeername($user, $websocketClientIp, $port);
 
-    $websocketClientIp = checkUser($websocketClientIp);
+    // inital user check (admin or not)
+    if($type === 'checkUser'){
+        checkUser($websocketClientIp);
+    }
 
     switch($route) {
         case 'home':

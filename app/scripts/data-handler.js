@@ -222,6 +222,13 @@ define([
         // HELPER FUNCTIONS SEND & GET & DISTRIBUTE DATA
         // -----------------------------------------------------------
 
+        // check user
+        // --------------------------
+
+        checkUser: function(route){
+            this.sendData(route, 'checkUser');
+        },
+
         // currently playing track
         // --------------------------
         getCurrentlyPlayingTrack: function(route){

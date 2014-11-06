@@ -14,7 +14,7 @@ header('Expires: Sat, 1 Jan 2000 00:00:00 GMT');
 // includes
 require_once('../db/db.php');
 require_once('users.php');
-$clientIp = checkUser();
+$clientIp = getClientIP();
 require_once('tracks.php');
 require_once('client_actions.php');
 
@@ -44,6 +44,10 @@ function execAction() {
 	}
     
     switch($type){
+        case 'checkUser':
+            checkUser();
+            break;
+
         case 'uploadTrack':
             // sanity check - empty input
             if (isset($_FILES['file']) == false) {

@@ -26,6 +26,9 @@ define([
                 }
             });
 
+            // set system admin, if not set yet
+            DataHandler.checkUser(that.getRoute());
+
             this.setEventlistener();
             this.initMainNavigation();
 
