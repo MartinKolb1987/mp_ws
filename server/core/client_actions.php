@@ -137,7 +137,13 @@ function uploadFile($type, $file, $route) {
 
         // add to db
         $path = setPicture($newFilePath);
-        return '{"route":"' .  $route . '", "type": "' . $type . '","userImage":{"url":"../server/userdata/' . $path . '"}}';
+        $wholeImagePath = '../server/userdata/'. $path;
+
+        // write currently playing track id into txt
+        // no db used, because of the high request rate during "is user view up to date"
+        $createTxtFile = createTxtFile('djImage', $wholeImagePath);
+
+        return '{"route":"' .  $route . '", "type": "' . $type . '","userImage":{"url":"' . $wholeImagePath . '"}}';
     }
     
 }
@@ -180,15 +186,14 @@ function getCurrentlyPlaying($route, $type, $websocketClientIp = '') {
  //    $getUserPictureQuery = $db->query("SELECT u_picture FROM users WHERE u_ip = '$clientIp'");
  //    $getUserPictureArray = $getUserPictureQuery->fetchArray(SQLITE3_ASSOC);
  //    $userPicture = $getUserPictureArray['u_picture'];
-    
+// $userPicture = '../server/userdata/'. $userPicture;
  //    $mainArray['info'] = array('currentlyPlaying' => $currentlyPlayingArray, 'status' => ['users' => $userCount, 'user_image' => $userPicture, 'internet_access' => 'false']);
 
  //    // close db
  //    $db->close();
  //    unset($db);
- // return json_encode($mainArray);
     
-    return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":85,"artist":"Foobar","title":"1R","album":"Blubb","length":225,"image":"","downvote":0},"status":{"users":"30","internetAccess":true}}}';
+    return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":85,"artist":"Foobar","title":"1R","album":"Blubb","length":225,"image":"../server/userdata/default.png","downvote":0},"status":{"users":"30","internetAccess":true}}}';
 }
 
 
@@ -260,7 +265,8 @@ function getUserImage($route, $type, $websocketClientIp = '') {
  */
 function getCurrentMusicplayerInfo($route, $type, $websocketClientIp = ''){
     global $clientIp;
-    global $currentlyPlayingFilePath;
+    global $currentlyPlayingTrackIdPath;
+    global $currentlyPlayingDjImagePath;
 
     // take client ip from websocket
     if(empty($websocketClientIp) === false){
@@ -268,11 +274,16 @@ function getCurrentMusicplayerInfo($route, $type, $websocketClientIp = ''){
     }
   
     $content = '';
+    $trackId = '';
+    $djImage = '';
 
     if($route === 'home'){
         // get currently playing music track id
-        $content = file_get_contents($currentlyPlayingFilePath);
-        $content = '{"route":"' .  $route . '", "type": "' . $type . '","currentlyPlayingTrackId": ' . $content . '}';
+        $trackId = file_get_contents($currentlyPlayingTrackIdPath);
+        // get currently playing dj image
+        $djImage = file_get_contents($currentlyPlayingDjImagePath);
+
+        $content = '{"route":"' .  $route . '", "type": "' . $type . '","currentlyPlayingTrackId": ' . $trackId . ', "currentlyPlayingDjImage": "' . $djImage . '"}';
     }
 
     return $content;

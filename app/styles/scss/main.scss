@@ -57,6 +57,8 @@
 // default structure
 #app{
 
+    width: 100%;
+
     //  navigation
     // -------------------------------------
     ul#navigation{
@@ -110,8 +112,37 @@
         }
     }
 
-   //  settings site
-   // -------------------------------------
+    //  home site
+    // -------------------------------------
+    #home{
+
+        #currently-playing{
+            display: block;
+            background: blue;
+            height: 130px;
+            #left, #right{
+                float: left;
+                height: 100px;
+            }
+            #left{
+                padding: 15px;
+                background: lightgray;
+                width: 100px;
+            }
+            #right{
+
+                #dj-image{
+                    width: 100px;
+                    height: 100px;
+                    display: block;
+                }
+            }
+        }
+
+    }
+
+    //  settings site
+    // -------------------------------------
     #settings{
         #upload-wrapper{
             background-color: #777777;

@@ -181,7 +181,7 @@ function getTrackToPlay() {
 
     // write currently playing track id into txt
     // no db used, because of the high request rate during "is user view up to date"
-    $createTxtFile = createTxtFile($randomTrackId);
+    $createTxtFile = createTxtFile('trackId', $randomTrackId);
 
     // close db
     $db->close();
@@ -190,24 +190,6 @@ function getTrackToPlay() {
     // return the t_filename of random track
     return $randomTrackFilename;
 }
-
-/* createTxtFile()
- * needed for is client view up to date
- * @param String $content
- * @return true on success, false on fail
- */
-function createTxtFile($content){
-    global $currentlyPlayingFilePath;
-    // fail = returns false if something doesn‘t work
-    // success = returns the quantity of written bytes
-    $msg = file_put_contents($currentlyPlayingFilePath, $content);
-    if($msg !== false){
-        return true;
-    } else {
-        return false;
-    }
-}
-
 
 /* playbackFinished()
  * Music player will call this after playback has finished

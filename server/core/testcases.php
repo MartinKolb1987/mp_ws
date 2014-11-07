@@ -15,16 +15,17 @@ require_once('users.php');
 require_once('admin.php');
 //require_once('player.php');
 
-/*
 // get clientIp 
-$clientIp = checkUser();
+// $clientIp = checkUser();
 
-/* add 5 tracks 
+/*
+// add 5 tracks 
 for ($i = 0; $i < 5; $i++) {
-	$filename = $clientIp.'/track' . ($i + 1) . '.mp3';
+	$filename = $clientIp.'/tracks/track' . ($i + 1) . '.mp3';
 	echo ('adding track ' . $filename . '<br/>');
 	addTrack($filename, ($i + 1));
 }
+
 
 /* swap 'track2.mp3' with 'track3.mp3' 
 //echo userOwnsTrack(6);

@@ -26,7 +26,36 @@ $truePath = '/usr/share/nginx/html/server/userdata/';
 $websocketPort = 54321;
 $websocketHost = 'localhost';
 
-// path for the currently_playing.txt
-$currentlyPlayingFilePath = dirname(__FILE__) . '/musicplayer_system_info/currently_playing_track.txt';
+// musicplayer system info
+$currentlyPlayingTrackIdPath = dirname(__FILE__) . '/musicplayer_system_info/currently_playing_track.txt';
+$currentlyPlayingDjImagePath = dirname(__FILE__) . '/musicplayer_system_info/currently_playing_dj_image.txt';
+
+
+
+
+/* createTxtFile()
+ * needed for is client view up to date
+ * @param String $type, String $content
+ * @return true on success, false on fail
+ */
+function createTxtFile($type, $content){
+    global $currentlyPlayingTrackIdPath;
+    global $currentlyPlayingDjImagePath;
+
+    $path = '';
+    
+    if($type === 'trackId'){
+        $path = $currentlyPlayingTrackIdPath;
+    } elseif ($type === 'djImage') {
+        $path = $currentlyPlayingDjImagePath;
+    }
+
+    $msg = file_put_contents($path, $content);
+    if($msg !== false){
+        return true;
+    } else {
+        return false;
+    }
+}
 
 ?>

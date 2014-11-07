@@ -1,14 +1,23 @@
 <!-- wrapper home -->
 <div id="home">
 
-	<b>{{langHome}}</b><br>
-	route: {{route}}<br>
-	title: {{title}}<br>
-	album: {{album}}<br>
-	artist: {{artist}}<br>
-	downvote: {{downvote}}<br>
-	id: {{id}}<br>
-	length: {{length}}<br>
+	<div id="currently-playing" data-track-id="{{id}}">
+
+		<!-- left side -->
+		<div id="left">
+		{{title}}<br>
+		{{artist}}<br>
+		{{album}}<br>
+		{{length}}<br>
+		</div>
+		<!-- left side END -->
+
+		<!-- right side -->
+		<div id="right">
+			<div id="dj-image" style="background-image: url('{{image}}');"></div>
+		</div>
+		<!-- right side END -->
+	</div>
 
 	<ul>
 	    <li v-repeat="playlist">
@@ -17,4 +26,4 @@
 	</ul>
 
 </div>
-<!-- wrapper home END -->
+<!-- wrapper home END

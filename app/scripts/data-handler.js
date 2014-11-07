@@ -11,7 +11,7 @@ define([
         // websocket
         isWebsocketActive: false,
         websocketHost: 'ws://localhost:54321',
-        checkForNewUpdatesIntervalTimeWebsocket: 1000, // milliseconds
+        checkForNewUpdatesIntervalTimeWebsocket: 50000, // milliseconds
         
         // xhr
         regularHost: '../server/core/client.php',
@@ -23,6 +23,7 @@ define([
         // current music player system infos
         lastPlayedTrackId: 0,
         currentlyPlayingTrackId: 0,
+        currentlyPlayingDjImage: '',
         currentClientSidePlaylist: [],
         currentlyClientSideUploadingTrack: false,
 
@@ -243,10 +244,12 @@ define([
             view.downvote = data.info.currentlyPlaying.downvote;
             view.id = data.info.currentlyPlaying.id;
             view.length = data.info.currentlyPlaying.length;
+            view.image = data.info.currentlyPlaying.image;
 
             // music player system info
             this.lastPlayedTrackId = this.currentlyPlayingTrackId;
             this.currentlyPlayingTrackId = data.info.currentlyPlaying.id;
+            this.currentlyPlayingDjImage = data.info.currentlyPlaying.image;
         },
 
         // get user uploaded playlist
@@ -385,6 +388,11 @@ define([
                         this.getCurrentlyPlayingTrack(route);
                         this.getUserPlaylist(route);
                     }
+
+                    if(data.currentlyPlayingDjImage !== this.currentlyPlayingDjImage){
+                        this.getCurrentlyPlayingTrack(route);
+                    }
+
                     break;
 
                 case 'settings':
