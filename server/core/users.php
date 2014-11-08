@@ -179,7 +179,7 @@ function getActiveUsers() {
     unset($db);
     
     // substract super user
-    $usersCount = $usersCount - 1;
+    // $usersCount = $usersCount - 1;
     
     return $usersCount;
 }

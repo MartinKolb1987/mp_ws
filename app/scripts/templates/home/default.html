@@ -3,27 +3,34 @@
 
 	<div id="currently-playing" data-track-id="{{id}}">
 
-		<!-- left side -->
-		<div id="left">
+		<!-- info track wrapper -->
+		<div id="info-track-wrapper">
 		{{title}}<br>
 		{{artist}}<br>
 		{{album}}<br>
 		{{length}}<br>
 		</div>
-		<!-- left side END -->
+		<!-- info track wrapper END -->
 
-		<!-- right side -->
-		<div id="right">
+		<!-- dj wrapper -->
+		<div id="dj-wrapper">
 			<div id="dj-image" v-style="background-image: 'url(' + image + ')';"></div>
 		</div>
-		<!-- right side END -->
-	</div>
+		<!-- dj wrapper END -->
 
-	<ul>
-	    <li v-repeat="playlist">
-	        {{$index}} - {{track.id}} {{track.title}}
-	    </li>
-	</ul>
+		<!-- downvote wrapper -->
+		<div id="downvote-wrapper">
+		downvote
+		</div>
+		<!-- downvote wrapper END -->
+
+		<!-- system info wrapper -->
+		<div id="system-info-wrapper">
+		I: {{internetAccess}} U: {{users}}
+		</div>
+		<!-- system info wrapper END -->
+
+	</div>
 
 </div>
 <!-- wrapper home END

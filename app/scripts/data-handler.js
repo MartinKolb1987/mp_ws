@@ -245,6 +245,8 @@ define([
             view.id = data.info.currentlyPlaying.id;
             view.length = data.info.currentlyPlaying.length;
             view.image = data.info.currentlyPlaying.image;
+            view.users = data.info.status.users;
+            view.internetAccess = data.info.status.internetAccess;
 
             // music player system info
             this.lastPlayedTrackId = this.currentlyPlayingTrackId;
@@ -393,7 +395,8 @@ define([
 
                     if(data.currentlyPlayingDjImage !== this.currentlyPlayingDjImage){
                         if(DebugHandler.isActive){ console.log('Auto update dj image: ' + this.readyState); }
-                        this.getCurrentlyPlayingTrack(route);
+                        view.image = data.currentlyPlayingDjImage;
+                        this.currentlyPlayingDjImage = data.currentlyPlayingDjImage;
                     }
 
                     break;

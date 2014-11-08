@@ -26,6 +26,13 @@
     display: none;
 }
 
+.clear{
+    padding: 0;
+    margin: 0;
+    display: initial;
+    float: initial;
+}
+
 // -------------------------------------
 //  SITE CHANGES
 // -------------------------------------
@@ -60,7 +67,7 @@
     //  initalize app
     // -------------------------------------
     #inital-loader-wrapper{
-        position: fixed;
+        // position: fixed; // uncomment if app is production ready
         z-index: 9999;
         top: 0;
         right: 0;
@@ -142,18 +149,18 @@
 
         #currently-playing{
             display: block;
-            height: 130px;
-            #left, #right{
+            width: 260px;
+            #dj-wrapper, #info-track-wrapper, #downvote-wrapper, #system-info-wrapper{
                 float: left;
-                height: 100px;
+                display: block;
             }
-            #left{
+            #info-track-wrapper{
                 padding: 15px;
                 background: lightgray;
                 width: 100px;
+                height: 100px;
             }
-            #right{
-
+            #dj-wrapper{
                 #dj-image{
                     width: 130px;
                     height: 130px;
@@ -161,6 +168,19 @@
                     background-size: cover;
                 }
             }
+            #downvote-wrapper{
+                background-color: yellow;
+                width: 130px;
+                line-height: 50px;
+                text-align: center;
+            }
+            #system-info-wrapper{
+                background-color: brown;
+                width: 130px;
+                line-height: 50px;
+                text-align: center;
+            }
+
         }
 
     }
@@ -168,9 +188,24 @@
     //  settings site
     // -------------------------------------
     #settings{
+        width: 260px;
+        #dj-wrapper, #upload-wrapper{
+            float: left;
+            display: block;
+        }
+        #dj-wrapper{
+            #dj-image{
+                width: 130px;
+                height: 130px;
+                display: block;
+                background-size: cover;
+            }
+        }
         #upload-wrapper{
-            background-color: #777777;
-            padding: 10px;
+            padding: 15px;
+            background: lightgray;
+            width: 100px;
+            height: 100px;
         }
         #progress-wrapper{
             position: absolute;

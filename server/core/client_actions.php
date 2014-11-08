@@ -188,16 +188,21 @@ function getCurrentlyPlaying($route, $type, $websocketClientIp = '') {
     $userCount = getActiveUsers();
     
     // get user picture
-    $getUserPictureQuery = $db->query("SELECT u_picture FROM users WHERE u_ip = '$clientIp'");
+    $getUserPictureQuery = $db->query("SELECT u_picture FROM users WHERE u_ip = '$clientIp' LIMIT 1");
     $getUserPictureArray = $getUserPictureQuery->fetchArray(SQLITE3_ASSOC);
     $userPicture = $getUserPictureArray['u_picture'];
     $userPicture = '../server/userdata/'. $userPicture;
+
+    // get internet access
+    $getInternetAccess = $db->query("SELECT a_internet_access FROM admins");
+    $getInternetAccess = $getInternetAccess->fetchArray(SQLITE3_ASSOC);
+    $getInternetAccess = $getInternetAccess['a_internet_access'];
 
     // close db
     $db->close();
     unset($db);
     
-    return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":' . $currentTrack . ',"artist":"' . $currentArtist . '","title":"' . $currentTitle . '","album":"' . $currentAlbum . '","length":' . $currentLength . ',"image":"' . $userPicture . '","downvote":' . $currentlyPlayingDownvote . '},"status":{"users":"' . $userCount . '","internetAccess":false}}}';
+    return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":' . $currentTrack . ',"artist":"' . $currentArtist . '","title":"' . $currentTitle . '","album":"' . $currentAlbum . '","length":' . $currentLength . ',"image":"' . $userPicture . '","downvote":' . $currentlyPlayingDownvote . '},"status":{"users":"' . $userCount . '","internetAccess":' . $getInternetAccess . '}}}';
     // return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":85,"artist":"Foobar","title":"1R","album":"Blubb","length":225,"image":"../server/userdata/default.png","downvote":0},"status":{"users":"30","internetAccess":true}}}';
 }
 
