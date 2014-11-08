@@ -55,6 +55,7 @@ define([
             // triggerd from data-handler.js
             window.addEventListener('dataHandlerIsReady', function (e) {
                 that.afterCareCollectionChanged();
+                that.removeInitialLoaderAnimation();
             }, false);
 
         },
@@ -126,6 +127,14 @@ define([
                 allMainNavigationItemsA.removeClass('active').addClass('inactive');
                 $(this).removeClass('inactive').addClass('active');
             });
+        },
+
+        removeInitialLoaderAnimation: function(){
+            // timeout it‘s only for user experience
+            // --> system is already ready
+            setTimeout(function(){
+                $('#inital-loader-wrapper').addClass('fadeOut');
+            }, 200);
         }
 
     };

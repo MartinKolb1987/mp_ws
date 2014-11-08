@@ -57,7 +57,31 @@
 // default structure
 #app{
 
-    width: 100%;
+    //  initalize app
+    // -------------------------------------
+    #inital-loader-wrapper{
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: #ffffff;
+        #inital-loader{
+            text-align: center;
+            width: 200px;
+            height: 100px;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            margin-left: -100px;
+        }
+        &.fadeOut{
+            @include transition(all, 0.6s);
+            visibility: hidden;
+            opacity: 0;
+        }
+    }
 
     //  navigation
     // -------------------------------------

@@ -9,16 +9,30 @@
     </head>
     <body>
         <div id="app" class="indoor">
+
+            <!-- navigation -->
             <ul id="navigation">
                 <li><a href="#!/home" data-route="home"><span class="icon">H</span><span class="icon-info">Home</span></a></li>
                 <li><a href="#!/settings" data-route="settings"><span class="icon">S</span><span class="icon-info">Settings</span></a></li>
                 <li><a href="#!/help" data-route="help"><span class="icon">H</span><span class="icon-info">Help</span></a></li>
                 <li><a href="#!/translation" data-route="translation"><span class="icon">T</span><span class="icon-info">Translation</span></a></li>
             </ul>
+            <!-- navigation END -->
+            
+            <!-- initial loader -->
+            <div id="inital-loader-wrapper">
+                <div id="inital-loader">
+                    Dein Musikerlebnis wird vorbereitet...
+                </div>
+            </div>
+            <!-- initial loader END -->
+
+            <!-- rendered view -->
             <div v-view="currentView" class="view" v-transition>
-                Ich lade...
                 <!-- content rendered here -->
             </div>
+            <!-- rendered view END -->
+
         </div>
     </body>
 </html>
