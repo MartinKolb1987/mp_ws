@@ -118,7 +118,6 @@
 
         #currently-playing{
             display: block;
-            background: blue;
             height: 130px;
             #left, #right{
                 float: left;
@@ -132,9 +131,10 @@
             #right{
 
                 #dj-image{
-                    width: 100px;
-                    height: 100px;
+                    width: 130px;
+                    height: 130px;
                     display: block;
+                    background-size: cover;
                 }
             }
         }

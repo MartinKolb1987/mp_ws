@@ -23,7 +23,7 @@ define([
             title: 'not title',
             length: 0,
             id: 0,
-            image: 'no image',
+            image: '',
             downvote: 0
         },
         methods: {
