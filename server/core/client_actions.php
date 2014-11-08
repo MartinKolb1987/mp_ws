@@ -4,6 +4,7 @@
 require_once('../db/db.php');
 require_once('../util.php');
 require_once('admin.php');
+require_once('users.php');
 
 /* uploadFile()
  * File uploader - tracks and pictures
@@ -161,39 +162,43 @@ function getCurrentlyPlaying($route, $type, $websocketClientIp = '') {
         $clientIp = $websocketClientIp;
     }
     
- //    // initialize database   
- //    $db = new ClientDB();
+    // initialize database   
+    $db = new ClientDB();
 
- //    // get currently playing track meta data 
- //    $currentlyPlayingQuery = $db->query("SELECT b.t_id, t.t_artist, t.t_title, t.t_album, t.t_length, u.u_picture FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id INNER JOIN users u ON t.u_ip = u.u_ip WHERE b.b_currently_playing=1");
- //    $currentlyPlayingArray = $currentlyPlayingQuery->fetchArray(SQLITE3_ASSOC);
- //    $currentTrack = $currentlyPlayingArray['t_id'];
+    // get currently playing track meta data 
+    $currentlyPlayingQuery = $db->query("SELECT b.t_id, t.t_artist, t.t_title, t.t_album, t.t_length, u.u_picture FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id INNER JOIN users u ON t.u_ip = u.u_ip WHERE b.b_currently_playing=1");
+    $currentlyPlayingArray = $currentlyPlayingQuery->fetchArray(SQLITE3_ASSOC);
+    $currentTrack = $currentlyPlayingArray['t_id'];
+    $currentArtist = $currentlyPlayingArray['t_artist'];
+    $currentTitle = $currentlyPlayingArray['t_title'];
+    $currentAlbum = $currentlyPlayingArray['t_album'];
+    $currentLength = $currentlyPlayingArray['t_length'];
 
-    // // user downvote check
-    // if(empty($currentTrack) == false) {
-    //  $userDownvoteCount = 0;
- //        $userDownvoteQuery = $db->query("SELECT u_ip FROM downvotes WHERE t_id=$currentTrack AND u_ip='$clientIp'");
- //        while ($row = $userDownvoteQuery->fetchArray(SQLITE3_ASSOC)) {
- //            $userDownvoteCount++;
- //        }
-    //  $currentlyPlayingArray['downvote'] = $userDownvoteCount;
-    // }
+    // user downvote check
+    if(empty($currentTrack) == false) {
+     $userDownvoteCount = 0;
+        $userDownvoteQuery = $db->query("SELECT u_ip FROM downvotes WHERE t_id=$currentTrack AND u_ip='$clientIp'");
+        while ($row = $userDownvoteQuery->fetchArray(SQLITE3_ASSOC)) {
+            $userDownvoteCount++;
+        }
+        $currentlyPlayingDownvote = $userDownvoteCount;
+    }
     
- //    // get number of all connected client ips
- //    $userCount = getActiveUsers();
+    // get number of all connected client ips
+    $userCount = getActiveUsers();
     
- //    // get user picture
- //    $getUserPictureQuery = $db->query("SELECT u_picture FROM users WHERE u_ip = '$clientIp'");
- //    $getUserPictureArray = $getUserPictureQuery->fetchArray(SQLITE3_ASSOC);
- //    $userPicture = $getUserPictureArray['u_picture'];
-// $userPicture = '../server/userdata/'. $userPicture;
- //    $mainArray['info'] = array('currentlyPlaying' => $currentlyPlayingArray, 'status' => ['users' => $userCount, 'user_image' => $userPicture, 'internet_access' => 'false']);
+    // get user picture
+    $getUserPictureQuery = $db->query("SELECT u_picture FROM users WHERE u_ip = '$clientIp'");
+    $getUserPictureArray = $getUserPictureQuery->fetchArray(SQLITE3_ASSOC);
+    $userPicture = $getUserPictureArray['u_picture'];
+    $userPicture = '../server/userdata/'. $userPicture;
 
- //    // close db
- //    $db->close();
- //    unset($db);
+    // close db
+    $db->close();
+    unset($db);
     
-    return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":85,"artist":"Foobar","title":"1R","album":"Blubb","length":225,"image":"../server/userdata/default.png","downvote":0},"status":{"users":"30","internetAccess":true}}}';
+    return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":' . $currentTrack . ',"artist":"' . $currentArtist . '","title":"' . $currentTitle . '","album":"' . $currentAlbum . '","length":' . $currentLength . ',"image":"' . $userPicture . '","downvote":' . $currentlyPlayingDownvote . '},"status":{"users":"' . $userCount . '","internetAccess":false}}}';
+    // return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":85,"artist":"Foobar","title":"1R","album":"Blubb","length":225,"image":"../server/userdata/default.png","downvote":0},"status":{"users":"30","internetAccess":true}}}';
 }
 
 

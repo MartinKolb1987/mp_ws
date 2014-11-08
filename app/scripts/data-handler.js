@@ -380,16 +380,19 @@ define([
 
             switch(route){
                 case 'home':
+
                     // if it‘s not equal, just start an update request
                     // TODO: take care of user is currently uploading a file
                     // TODO: take care of user is currently swaping a file
                     // --> stop autoUpdate  during user action
                     if(data.currentlyPlayingTrackId !== this.currentlyPlayingTrackId){
+                        if(DebugHandler.isActive){ console.log('Auto update track id: ' + this.readyState); }
                         this.getCurrentlyPlayingTrack(route);
                         this.getUserPlaylist(route);
                     }
 
                     if(data.currentlyPlayingDjImage !== this.currentlyPlayingDjImage){
+                        if(DebugHandler.isActive){ console.log('Auto update dj image: ' + this.readyState); }
                         this.getCurrentlyPlayingTrack(route);
                     }
 

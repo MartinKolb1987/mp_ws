@@ -2,7 +2,7 @@
 
 require_once('../util.php');
 
-$createFile = createTxtFile('trackId', 85);
+$createFile = createTxtFile('trackId', 1);
 if($createFile){
     echo 'track id file passt';
 }
