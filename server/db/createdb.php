@@ -56,6 +56,7 @@ echo('inserting super user...<br/>');
 // $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('4.4.4.4', 'd3-a2-54-69-3f-bb-28', '4.4.4.4/user.png')");
 
 // // insert - tracks
+$db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('127.0.0.1', '127.0.0.1/tracks/56464156.ogg', 'Klospülung', 'Mundwasser', 'album1', 210)");
 // $db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('2.2.2.2', '2.2.2.2/56464156.ogg', 'Klospülung', 'Mundwasser', 'album1', 210)");
 // $db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('2.2.2.2', '2.2.2.2/45897614.ogg', 'Dell', 'Fickstuhl', 'album2', 220)");
 // $db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('2.2.2.2', '2.2.2.2/78416872.ogg', 'Todesengel', 'HeinzHarald', 'album3', 230)");
@@ -66,7 +67,7 @@ echo('inserting super user...<br/>');
 // $db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('4.4.4.4', '4.4.4.4/85945613.ogg', 'Spast', 'Mongo', 'Vagina', 280)");
 
 // // insert - buckets
-// $db->exec("INSERT INTO buckets (b_is_active) VALUES (1)");
+$db->exec("INSERT INTO buckets (b_is_active) VALUES (1)");
 // $db->exec("INSERT INTO buckets (b_is_active) VALUES (0)");
 // $db->exec("INSERT INTO buckets (b_is_active) VALUES (0)");
 // $db->exec("INSERT INTO buckets (b_is_active) VALUES (0)");
@@ -76,7 +77,7 @@ echo('inserting super user...<br/>');
 // $db->exec("INSERT INTO blacklist (u_ip, t_id, bl_timestamp, bl_mac) VALUES ('3.3.3.3', '7', '2014-10-23 11:00:00.000')");
 
 // // insert - bucketcontents
-// $db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing) VALUES ('1', '1', 1, 0)");
+$db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing) VALUES (1, 1, 0, 1)");
 // $db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing) VALUES ('2', '2', 0, 1)");
 // $db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing) VALUES ('3', '3', 0, 0)");
 // $db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing) VALUES ('4', '4', 0, 0)");
