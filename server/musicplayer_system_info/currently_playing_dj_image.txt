@@ -1,1 +1,1 @@
-../server/userdata/127.0.0.1/images/640353.png
+../server/userdata/default.png

@@ -288,6 +288,16 @@ function getCurrentMusicplayerInfo($route, $type, $websocketClientIp = ''){
     $djImage = '';
 
     if($route === 'home'){
+
+        // if txt files dont exists
+        // --> create them
+        if(file_exists($currentlyPlayingTrackIdPath) === false || file_exists($currentlyPlayingDjImagePath) === false){
+            $crtTxtFile = createTxtFile('trackId', 0);
+            chmod($currentlyPlayingTrackIdPath, 0777);
+            $crtTxtFile = createTxtFile('djImage', '../server/userdata/default.png');
+            chmod($currentlyPlayingDjImagePath, 0777);
+        }
+        
         // get currently playing music track id
         $trackId = file_get_contents($currentlyPlayingTrackIdPath);
         // get currently playing dj image

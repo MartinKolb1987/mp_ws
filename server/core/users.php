@@ -227,6 +227,10 @@ function deleteUserImage($route, $type, $websocketClientIp = '') {
     $db->exec("UPDATE users SET u_picture = 'default.png' WHERE u_ip='$clientIp'");
     $defaultImagePath = '../server/userdata/default.png';
     
+    // set dj image default
+    // --> otherwise auto update doesn‘t work correct
+    $createTxtFile = createTxtFile('djImage', $defaultImagePath);
+
     // close db
     $db->close();
     unset($db);

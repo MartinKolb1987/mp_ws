@@ -49,7 +49,7 @@ function createTxtFile($type, $content){
     } elseif ($type === 'djImage') {
         $path = $currentlyPlayingDjImagePath;
     }
-
+    
     $msg = file_put_contents($path, $content);
     if($msg !== false){
         return true;

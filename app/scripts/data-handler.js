@@ -11,11 +11,11 @@ define([
         // websocket
         isWebsocketActive: false,
         websocketHost: 'ws://localhost:54321',
-        checkForNewUpdatesIntervalTimeWebsocket: 50000, // milliseconds
+        checkForNewUpdatesIntervalTimeWebsocket: 1000, // milliseconds
         
         // xhr
         regularHost: '../server/core/client.php',
-        checkForNewUpdatesIntervalTimeXHR: 50000, // milliseconds
+        checkForNewUpdatesIntervalTimeXHR: 2000, // milliseconds
         
         // xhr and websocket request queue
         sendDataRequestByRequestDelay: 10, // milliseconds (take care of requests)
