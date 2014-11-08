@@ -108,6 +108,10 @@ define([
 
             },
 
+            deleteUserImage: function(){
+                DataHandler.deleteUserImage();
+            },
+
             clearUploadField: function(inputField){
                 // only clear input value --> doesn‘t work correctly
                 // better to remove and add new one
@@ -116,7 +120,6 @@ define([
             },
 
             setInternetAccess: function(e){
-                e.stopPropagation();
                 DataHandler.setInternetAccess();
             },
 

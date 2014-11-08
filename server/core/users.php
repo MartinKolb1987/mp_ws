@@ -130,7 +130,7 @@ function createUser($currentIP) {
     // insert data
     $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('$currentIP', ' $macAddress', 'default.png')");
 
-    if ($userCount === -1) {
+    if ($userCount === 0) {
         $db->exec("INSERT INTO admins (u_ip, a_downvote_level, a_internet_access) VALUES ('$currentIP', 50, 0)");
     }
 
@@ -148,11 +148,6 @@ function createUser($currentIP) {
         chmod($pathImages, 0777); // otherwise it doesn‘t work
         mkdir($pathTracks, 0777, true);
         chmod($pathTracks, 0777); // otherwise it doesn‘t work
-    } else {
-        //echo 'folder already exists <br/>';
-        // recursive delete of files & folder
-        // shell_exec('rm -R ' . $pathImages);
-        // mkdir($pathImages, 0777, true);
     }
     
     return($currentIP);
@@ -206,23 +201,37 @@ function setPicture($path) {
 }
 
 
-/* deletePicture()
+/* deleteUserImage()
  * Remove user picture from database
  * @return Boolean true on success
  */
-function deletePicture() {
+function deleteUserImage($route, $type, $websocketClientIp = '') {
     global $clientIp;
+    global $uploadDirectory;
+    
+    // take client ip from websocket
+    if(empty($websocketClientIp) === false){
+        $clientIp = $websocketClientIp;
+    }
     
     // initialize database   
     $db = new ClientDB();
-    
+
+    $oldImagePath = $db->query("SELECT u_picture FROM users WHERE u_ip = '$clientIp'");
+    $oldImagePath = $oldImagePath->fetchArray(SQLITE3_ASSOC);
+    $oldImagePath = $uploadDirectory . $oldImagePath['u_picture'];
+
+    // remove old image
+    shell_exec("rm -rf $oldImagePath");
+
     $db->exec("UPDATE users SET u_picture = 'default.png' WHERE u_ip='$clientIp'");
+    $defaultImagePath = '../server/userdata/default.png';
     
     // close db
     $db->close();
     unset($db);
-    
-    return true;
+
+    return '{"route":"' .  $route . '","type":"' . $type . '","userImage": { "url": "' . $defaultImagePath. '"}}';
 }
 
 ?>

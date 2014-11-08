@@ -120,13 +120,9 @@ function execAction() {
             }
             break;
         
-        case 'deletePicture':
-            // return should be true on success
-            $returnMsg = deletePicture();
-            if($returnMsg) {
-                header('Content-type: text/plain');
-                echo 'success';
-            }
+        case 'deleteUserImage':
+            header('Content-type: application/json');
+            echo deleteUserImage($route, $type);
             break;
         
         case 'getCurrentlyPlaying':

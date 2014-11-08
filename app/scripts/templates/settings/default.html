@@ -10,17 +10,19 @@
 	<!-- upload wrapper single file -->	
 	<div id="upload-wrapper">
 		<input type="file" id="upload-file-field" class="hide">
-		<button id="trigger-upload-file" class="{{triggerUploadFileStateClass}}" v-on="click: triggerFileBrowser">select file</button>
+		<button id="trigger-upload-file" class="{{triggerUploadFileStateClass}}" v-on="click: triggerFileBrowser">select image</button>
 
 		<div id="upload-control-wrapper" class="{{uploadFileControlWrapperStateClass}}">
-			<button id="upload-file">upload file</button>
+			<button id="upload-file">upload image</button>
 			<button id="cancel-upload-file">cancel</button>
 		</div>
 		
 		<div id="file-control-wrapper" class="{{fileControlStateClass}}">
-			<button id="upload-file" v-on="click: removeFile()">remove file</button>
+			<button id="upload-file" v-on="click: deleteUserImage()">delete image</button>
 		</div>
 	</div>
+
+
 	<!-- upload wrapper single file END -->
 
 	<!-- upload progress state wrapper -->
@@ -34,9 +36,9 @@
 	<br/>
 	Downvote Level: {{downvoteLevel}}
 	<br/>
-	<button id="set-downvote-level" v-on="click: setDownvoteLevel(25)">Level "25"</button>
-	<button id="set-downvote-level" v-on="click: setDownvoteLevel(50)">Level "50"</button>
-	<button id="set-downvote-level" v-on="click: setDownvoteLevel(75)">Level "75"</button>
+	<button class="set-downvote-level" v-on="click: setDownvoteLevel(25)">Level "25"</button>
+	<button class="set-downvote-level" v-on="click: setDownvoteLevel(50)">Level "50"</button>
+	<button class="set-downvote-level" v-on="click: setDownvoteLevel(75)">Level "75"</button>
 
 </div>
 <!-- wrapper settings END -->

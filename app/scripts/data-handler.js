@@ -181,7 +181,7 @@ define([
                     }
                     break;
                 case 'settings':
-                    if(receivedData.type === 'getUserImage' || receivedData.type === 'uploadUserImage'){
+                    if(receivedData.type === 'getUserImage' || receivedData.type === 'uploadUserImage' || receivedData.type === 'deleteUserImage'){
                         this.distributeUserImage(receivedData, view);
                     } else if(receivedData.type === 'getInternetAccess'){
                         this.distributeInternetAccess(receivedData, view);
@@ -281,9 +281,18 @@ define([
         distributeUserImage: function(data, view){
             view.route = data.route;
             view.userImageUrl = data.userImage.url;
+
+            // check if user has a uploaded file
+            // --> show delete image button
+            if(data.userImage.url.indexOf('images') > 0){
+                view.fileControlStateClass = '';
+            } else {
+                view.fileControlStateClass = 'hide';
+            }
         },
 
         deleteUserImage: function(){
+            this.sendData('settings', 'deleteUserImage');
             // type = deleteUserImage
         },
 
@@ -295,7 +304,7 @@ define([
             // file = givenFile
         },
 
-        removeTrack: function(trackId){
+        deleteTrack: function(trackId){
             // post
             // type = removeTrack
             // trackId = trackId
@@ -457,11 +466,10 @@ define([
                         that.$data.uploadProgressWrapperStateClass = ''; // show progress wrapper
                         view.uploadProgressValue = procent + '%';
                     } else {
-                        view.fileControlStateClass = '';
+                        view.triggerUploadFileStateClass = '';
                         view.uploadFileControlWrapperStateClass = 'hide';
                         view.uploadProgressValue = procent + '% --> fertig';
                         view.uploadProgressWrapperStateClass = 'hide'; // hide progress wrapper
-                        // finished
                     }
 
                 }

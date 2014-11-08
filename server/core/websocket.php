@@ -89,6 +89,10 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
                 // userImage
                 $data = getUserImage($route, $type, $websocketClientIp);
                 sendDataToClientViaWebsocket($user, $data);
+            } else if ($type === 'deleteUserImage'){
+                // delete userImage
+                $data = deleteUserImage($route, $type, $websocketClientIp);
+                sendDataToClientViaWebsocket($user, $data);
             } else if ($type === 'getInternetAccess'){
                 // get internetAccess
                 $data = getInternetAccess($route, $type, $websocketClientIp);

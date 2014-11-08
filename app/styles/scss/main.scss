@@ -189,6 +189,11 @@
     // -------------------------------------
     #settings{
         width: 260px;
+
+        button{
+            padding: 5px;
+            margin-bottom: 5px;
+        }
         #dj-wrapper, #upload-wrapper{
             float: left;
             display: block;
