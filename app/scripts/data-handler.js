@@ -172,9 +172,11 @@ define([
                 case 'home':
                     if(receivedData.type === 'checkForNewUpdates'){
                         this.responseDataCheckForNewUpdates(receivedData, view);
+                    
                     } else if(receivedData.type === 'getCurrentlyPlaying'){
                         // currentlyPlaying
                         this.distributeCurrentlyPlayingTrack(receivedData, view);
+                    
                     } else if(receivedData.type === 'getPlaylist'){
                         // user playlist
                         this.distributeUserPlaylist(receivedData, view);
@@ -183,13 +185,11 @@ define([
                 case 'settings':
                     if(receivedData.type === 'getUserImage' || receivedData.type === 'uploadUserImage' || receivedData.type === 'deleteUserImage'){
                         this.distributeUserImage(receivedData, view);
-                    } else if(receivedData.type === 'getInternetAccess'){
+                    
+                    } else if(receivedData.type === 'getInternetAccess' || receivedData.type === 'setInternetAccess'){
                         this.distributeInternetAccess(receivedData, view);
-                    } else if(receivedData.type === 'setInternetAccess'){
-                        this.distributeInternetAccess(receivedData, view);
-                    } else if(receivedData.type === 'getDownvoteLevel'){
-                        this.distributeDownvoteLevel(receivedData, view);
-                    } else if(receivedData.type === 'setDownvoteLevel'){
+                    
+                    } else if(receivedData.type === 'getDownvoteLevel' || receivedData.type === 'setDownvoteLevel'){
                         this.distributeDownvoteLevel(receivedData, view);
                     }
                     break;
