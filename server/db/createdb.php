@@ -46,8 +46,8 @@ $db->exec("CREATE TABLE bucketcontents (t_id INTEGER REFERENCES tracks(t_id), b_
 echo('inserting super user...<br/>');
 
 // insert - users
-// $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('127.0.0.1', 'd3-a2-54-69-3f-bb-24', 'default.png')");
-// $db->exec("INSERT INTO admins (u_ip, a_downvote_level, a_internet_access) VALUES ('127.0.0.1', 50, 0)");
+$db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('127.0.0.1', 'd3-a2-54-69-3f-bb-24', 'default.png')");
+$db->exec("INSERT INTO admins (u_ip, a_downvote_level, a_internet_access) VALUES ('127.0.0.1', 50, 0)");
 
 
 // $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('1.1.1.1', 'd3-a2-54-69-3f-bb-25', '1.1.1.1/user.png')");
