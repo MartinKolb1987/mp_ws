@@ -188,6 +188,9 @@ function getActiveUsers() {
 function setPicture($path) {
     global $clientIp;
     
+    // take care about disk space
+    deleteOldUserImageFromDisk($clientIp);
+
     // initialize database   
     $db = new ClientDB();
     
@@ -214,15 +217,11 @@ function deleteUserImage($route, $type, $websocketClientIp = '') {
         $clientIp = $websocketClientIp;
     }
     
+    // take care about disk space
+    deleteOldUserImageFromDisk($clientIp);
+
     // initialize database   
     $db = new ClientDB();
-
-    $oldImagePath = $db->query("SELECT u_picture FROM users WHERE u_ip = '$clientIp'");
-    $oldImagePath = $oldImagePath->fetchArray(SQLITE3_ASSOC);
-    $oldImagePath = $uploadDirectory . $oldImagePath['u_picture'];
-
-    // remove old image
-    shell_exec("rm -rf $oldImagePath");
 
     $db->exec("UPDATE users SET u_picture = 'default.png' WHERE u_ip='$clientIp'");
     $defaultImagePath = '../server/userdata/default.png';
@@ -236,6 +235,30 @@ function deleteUserImage($route, $type, $websocketClientIp = '') {
     unset($db);
 
     return '{"route":"' .  $route . '","type":"' . $type . '","userImage": { "url": "' . $defaultImagePath. '"}}';
+}
+
+
+/* deleteOldUserImageFromDisk()
+ * Remove user picture from disk
+ */
+function deleteOldUserImageFromDisk($clientIp){
+    global $uploadDirectory;
+
+    // initialize database   
+    $db = new ClientDB();
+
+    $imagePath = $db->query("SELECT u_picture FROM users WHERE u_ip = '$clientIp'");
+    $imagePath = $imagePath->fetchArray(SQLITE3_ASSOC);
+    $oldImagePath = $uploadDirectory . $imagePath['u_picture'];
+
+    // remove old image
+    if($imagePath['u_picture'] !== 'default.png'){
+        shell_exec("rm -rf $oldImagePath");
+    }
+
+    // close db
+    $db->close();
+    unset($db);
 }
 
 ?>
