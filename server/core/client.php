@@ -48,28 +48,28 @@ function execAction() {
             checkUser();
             break;
 
-        case 'uploadTrack':
+        case 'uploadUserTrack':
             // sanity check - empty input
             if (isset($_FILES['file']) == false) {
-                die('error: no file specified (execAction() - uploadTrack)');
+                die('error: no file specified (execAction() - uploadUserTrack)');
             } else {
                 // return should be true on success
-                $returnMsg = uploadFile('track', $_FILES['file']);
-                if($returnMsg) {
+                $returnMsg = uploadFile($type, $_FILES['file'], $route);
+                if(!empty($returnMsg)) {
                     header('Content-type: text/plain');
                     echo 'success';
                 }
             }
             break;
         
-        case 'removeTrack':
+        case 'deleteUserTrack':
             // sanity check - empty input
             if (empty($_POST['trackId'])) {
                 die('error: no id specified (execAction() - removeTrack)');
             } else {
                 // return should be true on success
                 $returnMsg = deleteTrack($_POST['trackId']);
-                if($returnMsg) {
+                if(!empty($returnMsg)) {
                     header('Content-type: text/plain');
                     echo 'success';
                 }

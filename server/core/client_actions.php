@@ -11,7 +11,7 @@ require_once('users.php');
  * @param String $type 'track' or 'picture', String $file file from HTML5 input form
  * @return Boolean true on success
  */
-function uploadFile($type, $file, $route) {
+function uploadFile($type, $file, $route){
     global $uploadDirectory;
     global $clientIp;
     global $tempPath;
@@ -21,10 +21,10 @@ function uploadFile($type, $file, $route) {
     // size limit in MB
     $sizeLimit = 0;
     
-    if($type == 'track') {
+    if($type == 'uploadUserTrack'){
         $allowedFiles = ['audio/mpeg', 'audio/x-mpeg', 'audio/x-mpeg-3', 'audio/mp3', 'audio/mp4', 'audio/m4a', 'video/ogg', 'audio/ogg', 'audio/opus', 'audio/vorbis', 'audio/vnd.wav', 'audio/wav', 'audio/x-wav', 'audio/webm', 'audio/aiff', 'audio/x-aiff'];
         $sizeLimit = 100;
-    } elseif($type == 'uploadUserImage') {
+    } elseif($type == 'uploadUserImage'){
         $allowedFiles = ['image/jpeg', 'image/png', 'image/gif'];
         $sizeLimit = 10;
     } else {
@@ -32,7 +32,7 @@ function uploadFile($type, $file, $route) {
     }
     
     // check file size
-    if ($file['size'] > ($sizeLimit * pow(1024, 2))) {
+    if ($file['size'] > ($sizeLimit * pow(1024, 2))){
         die('error: file size too big (uploadFile())');
     }
     
@@ -40,19 +40,19 @@ function uploadFile($type, $file, $route) {
     $checkFileType = false;
     $fileType = strtolower($file['type']);
 
-    if ($fileType == 'application/octet-stream') {
+    if ($fileType == 'application/octet-stream'){
         // dirty hack for missing MIME type from file picker (google chrome / android 4.4)
         $checkFileType = true;
     } else {
-        while($allowedFileType = array_pop($allowedFiles)) {
-            if($allowedFileType == $fileType) {
+        while($allowedFileType = array_pop($allowedFiles)){
+            if($allowedFileType == $fileType){
                 $checkFileType = true;
                 break;
             }
         }
     }
     
-    if($checkFileType == false) {
+    if($checkFileType == false){
         die('error: file type does not match (uploadFile())');
     }
     
@@ -68,7 +68,7 @@ function uploadFile($type, $file, $route) {
     
     $fileExt;
     // check if filename has an extension (contains dot)
-    if (strpos($fileName, '.') !== false) {
+    if (strpos($fileName, '.') !== false){
         $fileExt = substr($fileName, strrpos($fileName, '.'));
     } else {
         // dirty hack: on missing file extension, assume .mp3
@@ -77,20 +77,20 @@ function uploadFile($type, $file, $route) {
     
     // check against forbidden file extensions
     $forbiddenFileExt = ['php', 'htm', 'exe', 'run', 'bin', 'torrent', 'js', 'css', 'zip', 'rar' , 'sh'];
-    while($forbiddenExt = array_pop($forbiddenFileExt)) {
-        if (strpos($fileExt, $forbiddenExt) !== false) {
+    while($forbiddenExt = array_pop($forbiddenFileExt)){
+        if (strpos($fileExt, $forbiddenExt) !== false){
             die('error: forbidden file extension (uploadFile())');
         }
     }
     
-    if($type == 'track') {
+    if($type == 'uploadUserTrack'){
         // random number for the file
         $randomNo = rand(0, 9999999);
         // $tempPath = '/usr/share/nginx/html/server/tmp/';
-        $tempFile = $tempPath . $randomNo . $fileExt;
+        $tempFile = $clientIp . '/tracks/' . $randomNo . $fileExt;
         
         // move file
-        if (move_uploaded_file($file['tmp_name'], $tempFile) == false) {
+        if (move_uploaded_file($file['tmp_name'], $uploadDirectory . $tempFile) == false){
             die('error: moving temp file failed (fileUpload() - audio track - #1)');
         }
         
@@ -98,14 +98,16 @@ function uploadFile($type, $file, $route) {
         $db = new ClientDB();
         
         // get metadata from audio file
-        $t_artist = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Performer%" "'.$tempFile. '"'));
-        $t_title = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Track%" "'.$tempFile. '"'));
-        $t_album = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Album%" "'.$tempFile. '"'));
-        $t_length = shell_exec('nice -n 10 mediainfo --Inform="General;%Duration/String3%" "'.$tempFile. '"');
+        $t_artist = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Performer%" "' . $tempFile . '"'));
+        $t_title = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Track%" "' . $tempFile . '"'));
+        $t_album = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Album%" "' . $tempFile . '"'));
+        $t_length = shell_exec('nice -n 10 mediainfo --Inform="Audio;%Duration%" /opt/lampp/htdocs/mp_ws/server/userdata/127.0.0.1/tracks/2474444.mp3');
         
         // close db
         $db->close();
         unset($db);
+
+        echo 'Length: ' . $t_length;
     
         $lengthDate = date_parse($t_length);
         $t_length = $lengthDate['hour'] * 3600 + $lengthDate['minute'] * 60 + $lengthDate['second'];
@@ -114,17 +116,17 @@ function uploadFile($type, $file, $route) {
             $t_title = $fileName;
         }
         
-        // generate new file name
-        $newFilePath = $clientIp . '/' . $randomNo . $fileExt;
-        // move file
-        if (rename($tempFile, ($uploadDirectory . $newFilePath)) == false) {
-            die('error: moving temp file failed (fileUpload() - audio track - #2)');
-        }
+        // // generate new file name
+        // $newFilePath = $clientIp . '/' . $randomNo . $fileExt;
+        // // move file
+        // if (rename($tempFile, ($uploadDirectory . $newFilePath)) == false) {
+        //     die('error: moving temp file failed (fileUpload() - audio track - #2)');
+        // }
         
         // add to db
-        addTrack($newFilePath, $t_artist, $t_title, $t_album, $t_length);
+        addTrack($tempFile, $t_artist, $t_title, $t_album, $t_length);
         
-        return true;
+        return '{"route":"' .  $route . '", "type": "' . $type . '","title": "' . $t_title . '"}}';
         
     } elseif ($type == 'uploadUserImage') {
         // random number for the file

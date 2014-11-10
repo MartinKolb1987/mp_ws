@@ -9,7 +9,7 @@
 // path to db (db.php)
 // $db_path = '/usr/share/nginx/html/server/tmp/db.sqlite';
 // $db_path = $_SERVER['DOCUMENT_ROOT'] . '/mp_ws/server/db/db.sqlite';
-$db_path = dirname(__FILE__)  . '/db/db.sqlite';
+$db_path = dirname(__FILE__) . '/db/db.sqlite';
 
 // path for temp fileupload (client_actions.php)
 // $tempPath = '/usr/share/nginx/html/server/tmp/';

@@ -116,7 +116,7 @@ define([
 
                     // Websocket
                     // --------------------------
-                    if(that.isWebsocketActive && that.queue[counter].type !== 'uploadUserImage'){ // TODO: && is not file upload (user image or track)
+                    if(that.isWebsocketActive && that.queue[counter].type !== 'uploadUserImage' && that.queue[counter].type !== 'uploadUserTrack'){
                         // build json
                         sendData = {
                             route: that.queue[counter].route,
@@ -180,8 +180,13 @@ define([
                     } else if(receivedData.type === 'getPlaylist'){
                         // user playlist
                         this.distributeUserPlaylist(receivedData, view);
+
+                    } else if(receivedData.type === 'getUserTrack' || receivedData.type === 'uploadUserTrack' || receivedData.type === 'deleteUserTrack'){
+                        console.log('distributeUserTrack');
+                        this.distributeUserTrack(receivedData, view);
                     }
                     break;
+
                 case 'settings':
                     if(receivedData.type === 'getUserImage' || receivedData.type === 'uploadUserImage' || receivedData.type === 'deleteUserImage'){
                         this.distributeUserImage(receivedData, view);
@@ -298,16 +303,25 @@ define([
 
         // track
         // --------------------------
-        uploadTrack: function(file){
-            // post
-            // type = uploadTrack
-            // file = givenFile
+        uploadUserTrack: function(file){
+            this.sendData('home', 'uploadUserTrack', file);
         },
 
-        deleteTrack: function(trackId){
-            // post
-            // type = removeTrack
-            // trackId = trackId
+        distributeUserTrack: function(data, view){
+            view.route = data.route;
+            view.userTrackUrl = data.userTrack.url;
+
+            // check if user has a uploaded file
+            // --> show delete track button
+            if(data.userImage.url.indexOf('tracks') > 0){
+                view.fileControlStateClass = '';
+            } else {
+                view.fileControlStateClass = 'hide';
+            }
+        },
+
+        deleteUserTrack: function(trackId){
+            this.sendData('home', 'deleteUserTrack', file);
         },
 
         downvoteTrack: function(trackId){
@@ -441,7 +455,7 @@ define([
             formData.append('type', type);
             formData.append('route', route);
 
-            if(type === 'uploadUserImage'){
+            if(type === 'uploadUserImage' || type === 'uploadUserTrack'){
                 formData.append('file', data);
                 formData.append('data', '');
             } else {
@@ -460,7 +474,7 @@ define([
             xhr.upload.onprogress = function(e) {
                 var procent = Math.round(100 / e.total * e.loaded);
 
-                if(type === 'uploadUserImage'){ // TODO: upload user track
+                if(type === 'uploadUserImage' || type === 'uploadUserTrack'){
 
                     if (procent < 98){
                         that.$data.uploadProgressWrapperStateClass = ''; // show progress wrapper

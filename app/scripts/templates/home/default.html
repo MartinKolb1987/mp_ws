@@ -1,7 +1,7 @@
 <!-- wrapper home -->
 <div id="home">
 
-	<div id="currently-playing" data-track-id="{{id}}">
+	<div id="currently-playing" data-track-id="{{id}}" class="clearfix">
 
 		<!-- info track wrapper -->
 		<div id="info-track-wrapper">
@@ -31,6 +31,29 @@
 		<!-- system info wrapper END -->
 
 	</div>
+
+	<div id="playlist-wrapper" class="clearfix">
+
+			<!-- upload wrapper single file -->	
+			<div id="upload-wrapper">
+				<input type="file" id="upload-file-field" class="hide">
+				<button id="trigger-upload-file" class="{{triggerUploadFileStateClass}}" v-on="click: triggerFileBrowser">select track</button>
+
+				<div id="upload-control-wrapper" class="{{uploadFileControlWrapperStateClass}}">
+					<button id="upload-file">upload track</button>
+					<button id="cancel-upload-file">cancel</button>
+				</div>
+				
+				<div id="file-control-wrapper" class="{{fileControlStateClass}}">
+					<button id="upload-file" v-on="click: deleteUserTrack()">delete track</button>
+				</div>
+
+				<div id="track-url">
+					{{userTrackUrl}}
+				</div>
+			</div>
+
+		</div>
 
 </div>
 <!-- wrapper home END
