@@ -1,5 +1,6 @@
 require.config({
     shim: {
+        baseUrl: 'app/scripts',
         vue: {
             exports: 'Vue'
         },

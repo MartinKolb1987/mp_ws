@@ -15,17 +15,18 @@ $db = new ClientDB();
 $db->exec("PRAGMA foreign_keys = ON;");
 
 // drop old tables
-echo('initializing database, dropping old tables...<br/>');
-$db->exec("DROP TABLE downvotes");
-$db->exec("DROP TABLE bucketcontents");
-$db->exec("DROP TABLE blacklist");
-$db->exec("DROP TABLE buckets");
-$db->exec("DROP TABLE tracks");
-$db->exec("DROP TABLE admins");
-$db->exec("DROP TABLE users");
+// echo('Dropping old tables...<br/>');
+// $db->exec("DROP TABLE downvotes");
+// $db->exec("DROP TABLE bucketcontents");
+// $db->exec("DROP TABLE blacklist");
+// $db->exec("DROP TABLE buckets");
+// $db->exec("DROP TABLE tracks");
+// $db->exec("DROP TABLE admins");
+// $db->exec("DROP TABLE users");
+// echo('FINISHED Dropping old tables...<br/>');
 
 // create new tables
-echo('creating new tables...<br/>');
+echo('Creating new tables...<br/>');
 // users
 $db->exec("CREATE TABLE users (u_ip TEXT PRIMARY KEY, u_mac TEXT, u_picture TEXT)");
 // admin
@@ -40,14 +41,18 @@ $db->exec("CREATE TABLE buckets (b_id INTEGER PRIMARY KEY AUTOINCREMENT, b_is_ac
 $db->exec("CREATE TABLE downvotes (u_ip TEXT REFERENCES users(u_ip), t_id INTEGER REFERENCES tracks(t_id))");
 // bucketcontents
 $db->exec("CREATE TABLE bucketcontents (t_id INTEGER REFERENCES tracks(t_id), b_id INTEGER REFERENCES buckets(b_id), b_played INT, b_currently_playing INT)");
+echo('FINISHED Creating new tables...<br/>');
 
 
-// insert data
-echo('inserting super user...<br/>');
-
-// insert - users
-$db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('127.0.0.1', 'd3-a2-54-69-3f-bb-24', 'default.png')");
-$db->exec("INSERT INTO admins (u_ip, a_downvote_level, a_internet_access) VALUES ('127.0.0.1', 50, 0)");
+if(isset($_GET['AddTestUserAndTrack'])){
+	echo('inserting test data (incl. currently playing track)...<br/>');
+	$db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('127.0.0.1', 'd3-a2-54-69-3f-bb-24', 'default.png')");
+	$db->exec("INSERT INTO admins (u_ip, a_downvote_level, a_internet_access) VALUES ('127.0.0.1', 50, 0)");
+	$db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('127.0.0.1', '127.0.0.1/tracks/56464156.ogg', 'Klospülung', 'Mundwasser', 'album1', 210)");
+	$db->exec("INSERT INTO buckets (b_is_active) VALUES (1)");
+	$db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing) VALUES (1, 1, 0, 1)");
+	echo('FINISHED inserting test data (incl. currently playing track)...<br/>');
+}
 
 
 // $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('1.1.1.1', 'd3-a2-54-69-3f-bb-25', '1.1.1.1/user.png')");
@@ -56,7 +61,6 @@ $db->exec("INSERT INTO admins (u_ip, a_downvote_level, a_internet_access) VALUES
 // $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('4.4.4.4', 'd3-a2-54-69-3f-bb-28', '4.4.4.4/user.png')");
 
 // // insert - tracks
-$db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('127.0.0.1', '127.0.0.1/tracks/56464156.ogg', 'Klospülung', 'Mundwasser', 'album1', 210)");
 // $db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('2.2.2.2', '2.2.2.2/56464156.ogg', 'Klospülung', 'Mundwasser', 'album1', 210)");
 // $db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('2.2.2.2', '2.2.2.2/45897614.ogg', 'Dell', 'Fickstuhl', 'album2', 220)");
 // $db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('2.2.2.2', '2.2.2.2/78416872.ogg', 'Todesengel', 'HeinzHarald', 'album3', 230)");
@@ -67,7 +71,6 @@ $db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_l
 // $db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('4.4.4.4', '4.4.4.4/85945613.ogg', 'Spast', 'Mongo', 'Vagina', 280)");
 
 // // insert - buckets
-$db->exec("INSERT INTO buckets (b_is_active) VALUES (1)");
 // $db->exec("INSERT INTO buckets (b_is_active) VALUES (0)");
 // $db->exec("INSERT INTO buckets (b_is_active) VALUES (0)");
 // $db->exec("INSERT INTO buckets (b_is_active) VALUES (0)");
@@ -77,7 +80,6 @@ $db->exec("INSERT INTO buckets (b_is_active) VALUES (1)");
 // $db->exec("INSERT INTO blacklist (u_ip, t_id, bl_timestamp, bl_mac) VALUES ('3.3.3.3', '7', '2014-10-23 11:00:00.000')");
 
 // // insert - bucketcontents
-$db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing) VALUES (1, 1, 0, 1)");
 // $db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing) VALUES ('2', '2', 0, 1)");
 // $db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing) VALUES ('3', '3', 0, 0)");
 // $db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing) VALUES ('4', '4', 0, 0)");
@@ -89,5 +91,5 @@ $db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing
 // close database connection
 $db->close();
 unset($db);
-echo('done! <br/>');
+echo 'Ready to go!!'
 ?>

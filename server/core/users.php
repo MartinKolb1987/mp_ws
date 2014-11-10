@@ -93,6 +93,9 @@ function checkUser($websocketClientIp = '') {
 
     //echo 'this user ip is ' . $currentUserCount . ' times in the db<br/>';
     
+    // create user directories, if needed
+    createUserDirectories($currentIP);
+
     // if count = 0, create new user
     if ($currentUserCount == 0) {
         //echo('creating new user:</br>' . $currentIP . '</br>');
@@ -110,7 +113,6 @@ function checkUser($websocketClientIp = '') {
  * @return String u_ip - remote address of user calling the script
  */
 function createUser($currentIP) { 
-    global $uploadDirectory;
     global $truePath;
     
     // first user will become admin, so check if first user
@@ -121,7 +123,6 @@ function createUser($currentIP) {
     
     // initialize database   
     $db = new ClientDB();
-    
 
     // get the mac address
     $macAddress = 'sdf';
@@ -130,27 +131,35 @@ function createUser($currentIP) {
     // insert data
     $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('$currentIP', ' $macAddress', 'default.png')");
 
-    if ($userCount === 0) {
+    if ($userCount === -1) {
         $db->exec("INSERT INTO admins (u_ip, a_downvote_level, a_internet_access) VALUES ('$currentIP', 50, 0)");
     }
 
-    
     // close db
     $db->close();
     unset($db);
     
+    return($currentIP);
+}
+
+
+/* createUserDirectories()
+ * create images and tracks directory
+ * @param String $currentIP
+ */
+function createUserDirectories($currentIP){
+    global $uploadDirectory;
+
     // create user directory
     $pathImages = $uploadDirectory . $currentIP . '/images/';
     $pathTracks = $uploadDirectory . $currentIP . '/tracks/';
 
-    if (file_exists($pathImages) === false) {
+    if(file_exists($pathImages) === false) {
         mkdir($pathImages, 0777, true);
         chmod($pathImages, 0777); // otherwise it doesn‘t work
         mkdir($pathTracks, 0777, true);
         chmod($pathTracks, 0777); // otherwise it doesn‘t work
     }
-    
-    return($currentIP);
 }
 
 
@@ -174,8 +183,9 @@ function getActiveUsers() {
     unset($db);
     
     // substract super user
-    // $usersCount = $usersCount - 1;
-    
+    // --> production raspberry as user
+    $usersCount = $usersCount - 1;
+
     return $usersCount;
 }
 

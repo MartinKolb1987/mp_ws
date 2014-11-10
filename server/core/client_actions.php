@@ -199,6 +199,7 @@ function getCurrentlyPlaying($route, $type, $websocketClientIp = '') {
     $getInternetAccess = $db->query("SELECT a_internet_access FROM admins");
     $getInternetAccess = $getInternetAccess->fetchArray(SQLITE3_ASSOC);
     $getInternetAccess = $getInternetAccess['a_internet_access'];
+    if(empty($getInternetAccess)){ $getInternetAccess = 0; }
 
     // close db
     $db->close();
