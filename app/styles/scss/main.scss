@@ -174,6 +174,7 @@ body{
         ul#navigation{
             list-style-type: none;
             height: $btnHeight;
+            background-color: $btnColorDark;
             li{
                 float:left;
                 background-color: $btnColorLight;
@@ -200,7 +201,7 @@ body{
                         span {
                             &.icon-info{
                                 @include transition(width , 0.3s); 
-                                width: 60px;
+                                width: 105px;
                             }
                         }
                     }
@@ -217,6 +218,15 @@ body{
                 &:nth-child(1){
                     background-color: $mainColorDark;
                     @include skewedBorder(right, -9px, 0, 20px, $btnColorLight); // = direction, directionValue, zIndex, width, color
+                    a{
+                        &.active{
+                            span{
+                                &.icon-info{
+                                    width: 45.9vw;
+                                }
+                            }
+                        }
+                    }
                 }
                 &:nth-child(2){
                     background-color: $btnColorLight;
@@ -236,26 +246,40 @@ body{
                 display: block;
                 width: 100vw;
                 margin-bottom: 10px;
+
                 #info-track-wrapper, #dj-wrapper{
                     min-height: 130px;
                     max-height: 200px;
                     height: 20vh;
-                    width: 50vw;
                     float: left;
+                    position: relative;
                 }
                 #info-track-wrapper{
-                    background: $mainColorLight;
+                    width: 45vw;
+                    background-color: $mainColorLight;
+                    @include skewedBorder(right, -27px, 1, 60px, $mainColorLight); // = direction, directionValue, zIndex, width, color
                     #info-track{
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        left: 0;
+                        bottom: 0;
+                        z-index: 2;
                         margin: 15px;
                     }
                 }
                 #dj-wrapper{
-                    #dj-image{
+                    width: 55vw;
+                    .dj-image{
+                        width: 55vw;
+                        @include skewedBorder(left, -28px, 0, 55px, $bgColor); // = direction, directionValue, zIndex, width, color
                         height: 20vh;
                         min-height: 130px;
                         max-height: 200px;
                         background-size: cover;
-                        background-position: center center;
+                        background-position: right center;
+                        position: absolute;
+                        right: 0;
                     }
                 }
                 #downvote-wrapper{
@@ -280,6 +304,7 @@ body{
             }
 
             #playlist-wrapper{
+                display: none;
                 width: 260px;
                 height: 150px;
                 background-color: orange;

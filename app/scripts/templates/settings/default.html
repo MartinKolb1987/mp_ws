@@ -5,7 +5,6 @@
 	<div id="dj-wrapper">
 		<div id="dj-image" v-style="background-image: 'url(' + userImageUrl + ')';"></div>
 	</div>
-	<!-- dj wrapper END -->
 
 	<!-- upload wrapper single file -->	
 	<div id="upload-wrapper">
@@ -22,14 +21,10 @@
 		</div>
 	</div>
 
-
-	<!-- upload wrapper single file END -->
-
 	<!-- upload progress state wrapper -->
 	<div id="progress-wrapper" class="{{uploadProgressWrapperStateClass}}">
 		{{uploadProgressImageMessage}}, {{uploadProgressValue}}
 	</div>
-	<!-- upload progress state wrapper END -->
 
 	<button id="set-internet-access" v-on="click: setInternetAccess">{{internetAccess}}</button>
 
@@ -41,4 +36,3 @@
 	<button class="set-downvote-level" v-on="click: setDownvoteLevel(75)">Level "75"</button>
 
 </div>
-<!-- wrapper settings END -->
