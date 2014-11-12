@@ -31,6 +31,7 @@ define([
             id: 0,
             image: '',
             downvote: 0,
+            downvoteResponseMessage: 'YEAH! Your downvote has been counted!',
 
             // upload message
             uploadProgressImageMessage: '',

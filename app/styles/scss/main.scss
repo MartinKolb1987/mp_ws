@@ -50,6 +50,7 @@ $btnColorLight: #ffcc00; // orange light
 $btnColorDark: #ffa200; // orange light
 
 $iconSystemInfo: #637f88;
+$downvoteMessage: #ffffff;
 
 
 // -------------------------------------
@@ -58,8 +59,8 @@ $iconSystemInfo: #637f88;
 $regularLineHeight: 53px;
 $btnHeight: 53px;
 $btnMinHeight: 53px;
-$btnWidth: 53px;
-$btnMinWidth: 53px;
+$btnWidth: 40px;
+$btnMinWidth: 40px  ;
 
 // -------------------------------------
 //  DEFAULT STYLES
@@ -109,17 +110,17 @@ html[xmlns] .clearfix {
 .view {
     position: absolute;
     opacity: 1;
-    @include transition(all, 0.2s, ease-in);
+    @include transition(all, 0.3s, ease-in);
 }
 
 .v-enter {
     opacity: 0;
-    @include translate3d(30px, 0, 0);
+    // @include translate3d(30px, 0, 0);
 }
 
 .v-leave {
     opacity: 0;
-    @include translate3d(-30px, 0, 0);
+    // @include translate3d(-30px, 0, 0);
 }
 
 
@@ -127,190 +128,268 @@ html[xmlns] .clearfix {
 //  CUSTOM STYLES
 // -------------------------------------
 
-
-
 body{
     background-color: $bgColor;
 
     // default structure
     #app{
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        overflow: auto;
-        right: 0;
-        left: 0;
-        width: 100vw;
+        &.night{
 
-        //  initalize app
-        // -------------------------------------
-        #inital-loader-wrapper{
-            position: fixed; // uncomment if app is production ready
-            z-index: 9999;
+            position: fixed;
             top: 0;
-            right: 0;
             bottom: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            right: 0;
             left: 0;
-            background-color: $bgColor;
-            color: $white;
-            #inital-loader{
-                text-align: center;
-                width: 200px;
-                height: 100px;
-                position: absolute;
-                top: 40%;
-                left: 50%;
-                margin-left: -100px;
-            }
-            &.fadeOut{
-                transition: all 1.0s;
-                visibility: hidden;
-                opacity: 0;
-            }
-        }
+            width: 100vw;
 
-        //  navigation
-        // -------------------------------------
-        ul#navigation{
-            list-style-type: none;
-            height: $btnHeight;
-            background-color: $btnColorDark;
-            li{
-                float:left;
-                background-color: $btnColorLight;
-                position: relative;
-                a{
-                    height: $btnHeight;
-                    min-width: $btnMinWidth;
-                    line-height: $btnHeight;
-                    padding-right: 20px;
-                    span{
-                        &.icon{
-                            float: left;
-                            width: 50px;
-                            text-align: center;
-                        }
-                        &.icon-info{
-                            float: left;
-                            overflow: hidden;
-                            display: block;
-                            width: 0;
-                        }
-                    }
-                    &.active, &.inactive{
-                        span {
-                            &.icon-info{
-                                @include transition(width , 0.3s); 
-                                width: 105px;
-                            }
-                        }
-                    }
-                    &.inactive{
-                        span {
-                            &.icon-info{
-                                width: 0px;
-                            }
-                        }
-                    }
-
-
+            //  initalize app
+            // -------------------------------------
+            #inital-loader-wrapper{
+                position: fixed; // uncomment if app is production ready
+                z-index: 9999;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background-color: $bgColor;
+                color: $white;
+                #inital-loader{
+                    text-align: center;
+                    width: 200px;
+                    height: 100px;
+                    position: absolute;
+                    top: 40%;
+                    left: 50%;
+                    margin-left: -100px;
                 }
-                &:nth-child(1){
-                    background-color: $mainColorDark;
-                    @include skewedBorder(right, -9px, 0, 20px, $btnColorLight); // = direction, directionValue, zIndex, width, color
+                &.fadeOut{
+                    @include transition(all, 0.6s, linear);
+                    visibility: hidden;
+                    opacity: 0;
+                }
+            }
+
+            //  navigation
+            // -------------------------------------
+            ul#navigation{
+                list-style-type: none;
+                height: $btnHeight;
+                background-color: $btnColorDark;
+                li{
+                    float:left;
+                    background-color: $btnColorLight;
+                    position: relative;
                     a{
-                        &.active{
-                            span{
+                        height: $btnHeight;
+                        line-height: $btnHeight;
+                        padding-right: 20px;
+                        span{
+                            &.icon{
+                                float: left;
+                                width: 35px;
+                                text-align: center;
+                            }
+                            &.icon-info{
+                                float: left;
+                                overflow: hidden;
+                                display: block;
+                                width: 0;
+                            }
+                        }
+                        &.active, &.inactive{
+                            span {
                                 &.icon-info{
-                                    width: 45.9vw;
+                                    @include transition(width , 0.3s); 
+                                    width: 105px;
+                                }
+                            }
+                        }
+                        &.inactive{
+                            span {
+                                &.icon-info{
+                                    width: 0px;
+                                }
+                            }
+                        }
+
+
+                    }
+                    &:nth-child(1){
+                        background-color: $mainColorDark;
+                        @include skewedBorder(right, -9px, 0, 20px, $btnColorLight); // = direction, directionValue, zIndex, width, color
+                        padding-left: 5px;
+                        a{
+                            &.active{
+                                span{
+                                    &.icon-info{
+                                        width: 45.9vw;
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                &:nth-child(2){
-                    background-color: $btnColorLight;
-                    @include skewedBorder(right, -9px, 0, 20px, $btnColorDark); // = direction, directionValue, zIndex, width, color
-                }
-                &:nth-child(3){
-                    background-color: $btnColorDark;
-                }
-            }
-        }
-
-        //  home site
-        // -------------------------------------
-        #home{
-            width: 100%;
-            #currently-playing{
-                display: block;
-                width: 100vw;
-                margin-bottom: 10px;
-
-                #info-track-wrapper, #dj-wrapper{
-                    min-height: 130px;
-                    max-height: 200px;
-                    height: 20vh;
-                    float: left;
-                    position: relative;
-                }
-                #info-track-wrapper{
-                    width: 45vw;
-                    background-color: $mainColorLight;
-                    @include skewedBorder(right, -27px, 1, 60px, $mainColorLight); // = direction, directionValue, zIndex, width, color
-                    #info-track{
-                        position: absolute;
-                        top: 0;
-                        right: 0;
-                        left: 0;
-                        bottom: 0;
-                        z-index: 2;
-                        margin: 15px;
+                    &:nth-child(2){
+                        background-color: $btnColorLight;
+                        @include skewedBorder(right, -9px, 0, 20px, $btnColorDark); // = direction, directionValue, zIndex, width, color
+                    }
+                    &:nth-child(3){
+                        background-color: $btnColorDark;
                     }
                 }
-                #dj-wrapper{
-                    width: 55vw;
-                    .dj-image{
-                        width: 55vw;
-                        @include skewedBorder(left, -28px, 0, 55px, $bgColor); // = direction, directionValue, zIndex, width, color
-                        height: 20vh;
+            }
+
+            //  home site
+            // -------------------------------------
+            #home{
+                width: 100%;
+                #currently-playing{
+                    display: block;
+                    width: 100vw;
+                    margin-bottom: 10px;
+                    #info-track-wrapper, #dj-wrapper{
                         min-height: 130px;
                         max-height: 200px;
-                        background-size: cover;
-                        background-position: right center;
-                        position: absolute;
-                        right: 0;
+                        height: 20vh;
+                        float: left;
+                        position: relative;
+                    }
+                    #info-track-wrapper{
+                        width: 42.5vw;
+                        background-color: $mainColorLight;
+                        @include skewedBorder(right, -27px, 1, 60px, $mainColorLight); // = direction, directionValue, zIndex, width, color
+                        #info-track{
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            left: 0;
+                            bottom: 0;
+                            z-index: 2;
+                            margin: 16px;
+                        }
+                    }
+                    #dj-wrapper{
+                        width: 57.5vw;
+                        .dj-image{
+                            width: 57.5vw;
+                            @include skewedBorder(left, -28px, 0, 55px, $bgColor); // = direction, directionValue, zIndex, width, color
+                            height: 20vh;
+                            min-height: 130px;
+                            max-height: 200px;
+                            background-size: cover;
+                            background-position: right center;
+                            position: absolute;
+                            right: 0;
+                        }
+                    }
+                    #system-info-wrapper{
+                        float: left;
+                        position: relative;
+                        width: 100vw;
+
+                        #downvote-button, #downvote-response-message{
+                            min-width: $btnMinWidth;
+                            height: $btnHeight;
+                            line-height: $btnHeight;
+                        }
+                        #downvote-button{
+                            padding-left: 2px;
+                            position: relative;
+                            background-color: $btnColorLight;
+                            width: 10vw;
+                            text-align: center;
+                            @include skewedBorder(right, -10px, -1, 30px, $btnColorLight); // = direction, directionValue, zIndex, width, color
+                            &.disabled{
+                                &.colored{
+                                    background-color: red;
+                                    @include skewedBorder(right, -10px, -1, 30px, red); // = direction, directionValue, zIndex, width, color
+                                }
+                            }
+                        }
+                        #downvote-response-message{
+                            @include transition(left, 1.0s, linear);
+                            background-color: $downvoteMessage;
+                            position: absolute;
+                            text-align: left;
+                            top: 0;
+                            bottom: 0;
+                            @include skewedBorder(right, -10px, 0, 30px, $downvoteMessage); // = direction, directionValue, zIndex, width, color
+                            left: -120vw;
+                            right: 0;
+                            width: 75vw;
+                            padding-left: 25vw;
+                            z-index: -2;
+                            &.active{
+                                left: 0;
+                            }
+                        }
+                        #system-info-text{
+                            position: absolute;
+                            right: 0;
+                            top: 0;
+                            z-index: -3;
+                            padding-right: 20px;
+                            float: right;
+                            color: $iconSystemInfo;
+                            line-height: $regularLineHeight;
+                            text-align: center;
+                        }
                     }
                 }
-                #downvote-wrapper{
-                    float: left;
-                    background-color: $btnColorLight;
-                    width: 10vw;
-                    min-width: 50px;
-                    position: relative;
-                    line-height: 50px;
-                    text-align: center;
 
-                    @include skewedBorder(right, -10px, -1, 300px, $btnColorLight); // = direction, directionValue, zIndex, width, color
+                #playlist-wrapper{
+                    display: none;
+                    width: 260px;
+                    height: 150px;
+                    background-color: orange;
 
+                    #upload-wrapper{
+                        padding: 15px;
+                        width: 100px;
+                        height: 100px;
+                    }
+                    #progress-wrapper{
+                        position: absolute;
+                        left: 5px;
+                        right: 5px;
+                        top: 5px;
+                        bottom: 5px;
+                        border-radius: 10px;
+                        border: 1px solid gray;
+                        background-color: #ffffff;
+                    }
+                    .hide{ 
+                        display: none;
+                    }
                 }
-                #system-info-wrapper{
-                    padding-right: 20px;
-                    float: right;
-                    color: $iconSystemInfo;
-                    line-height: $regularLineHeight;
-                    text-align: center;
-                }
+
             }
 
-            #playlist-wrapper{
-                display: none;
+            //  settings site
+            // -------------------------------------
+            #settings{
                 width: 260px;
-                height: 150px;
-                background-color: orange;
 
+                button{
+                    padding: 5px;
+                    margin-bottom: 5px;
+                }
+                #dj-wrapper, #upload-wrapper{
+                    float: left;
+                    display: block;
+                }
+                #dj-wrapper{
+                    #dj-image{
+                        width: 130px;
+                        height: 130px;
+                        display: block;
+                        background-size: cover;
+                    }
+                }
                 #upload-wrapper{
                     padding: 15px;
+                    background: lightgray;
                     width: 100px;
                     height: 100px;
                 }
@@ -324,55 +403,11 @@ body{
                     border: 1px solid gray;
                     background-color: #ffffff;
                 }
-                .hide{ 
+                .hide{
                     display: none;
                 }
             }
-
         }
-
-        //  settings site
-        // -------------------------------------
-        #settings{
-            width: 260px;
-
-            button{
-                padding: 5px;
-                margin-bottom: 5px;
-            }
-            #dj-wrapper, #upload-wrapper{
-                float: left;
-                display: block;
-            }
-            #dj-wrapper{
-                #dj-image{
-                    width: 130px;
-                    height: 130px;
-                    display: block;
-                    background-size: cover;
-                }
-            }
-            #upload-wrapper{
-                padding: 15px;
-                background: lightgray;
-                width: 100px;
-                height: 100px;
-            }
-            #progress-wrapper{
-                position: absolute;
-                left: 5px;
-                right: 5px;
-                top: 5px;
-                bottom: 5px;
-                border-radius: 10px;
-                border: 1px solid gray;
-                background-color: #ffffff;
-            }
-            .hide{
-                display: none;
-            }
-        }
-
     }
 }
 
