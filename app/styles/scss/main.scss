@@ -201,8 +201,10 @@ body{
                         &.active, &.inactive{
                             span {
                                 &.icon-info{
-                                    @include transition(width , 0.3s); 
-                                    width: 105px;
+                                    @media only screen and (min-width: 300px) {
+                                        @include transition(width , 0.3s); 
+                                        width: 105px;
+                                    }
                                 }
                             }
                         }
@@ -213,8 +215,6 @@ body{
                                 }
                             }
                         }
-
-
                     }
                     &:nth-child(1){
                         background-color: $mainColorDark;
@@ -224,7 +224,9 @@ body{
                             &.active{
                                 span{
                                     &.icon-info{
-                                        width: 45.9vw;
+                                        @media only screen and (min-width: 320px) {
+                                            width: 45.9vw;
+                                        }
                                     }
                                 }
                             }
