@@ -118,21 +118,28 @@ define([
             var allMainNavigationItems = $('#navigation > li');
             var allMainNavigationItemsA = allMainNavigationItems.find('a');
             
-            // set init navigation state
-            // based on route
-            allMainNavigationItems.find('a[data-route=' + route + ']').addClass('active');
-
-            // add click eventlistener
-            allMainNavigationItemsA.on('click', function(e){
-                allMainNavigationItemsA.removeClass('active').addClass('inactive');
-                $(this).removeClass('inactive').addClass('active');
-            });
+            if(allMainNavigationItems !== 'undefined' && allMainNavigationItemsA !== 'undefined'){
+                // set init navigation state
+                // based on route
+                allMainNavigationItems.find('a[data-route=' + route + ']').addClass('active');
+                
+                // add click eventlistener
+                allMainNavigationItemsA.on('click', function(e){
+                    allMainNavigationItemsA.removeClass('active').addClass('inactive');
+                    $(this).removeClass('inactive').addClass('active');
+                });
+            } else {
+                console.log('again');
+                this.initMainNavigation();
+            }
         },
 
+        loader: '',
         removeInitialLoaderAnimation: function(){
+            clearTimeout(this.loader);
             // timeout it‘s only for user experience
             // --> system is already ready
-            setTimeout(function(){
+            this.loader = setTimeout(function(){
                 $('#inital-loader-wrapper').addClass('fadeOut');
             }, 200);
         }

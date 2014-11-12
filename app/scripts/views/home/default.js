@@ -18,7 +18,7 @@ define([
             ComponentCollection.addComponent('home', this.$data);
         },
 
-        ata: {
+        data: {
             langHome: '',
             route: 'no route',
 

@@ -11,7 +11,7 @@ define([
         // websocket
         isWebsocketActive: false,
         websocketHost: 'ws://localhost:54321',
-        checkForNewUpdatesIntervalTimeWebsocket: 1000, // milliseconds
+        checkForNewUpdatesIntervalTimeWebsocket: 500, // milliseconds
         
         // xhr
         regularHost: '../server/core/client.php',

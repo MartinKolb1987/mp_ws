@@ -1,18 +1,65 @@
 // -------------------------------------
 //  MIXINS
 // -------------------------------------
-@mixin transition($property, $duration) {
-    -webkit-transition: $property $duration;
-    -moz-transition: $property $duration;
-    -ms-transition: $property $duration;
-    -o-transition: $property $duration;
-    transition: $property $duration;
+@mixin transition($property:all, $duration:0.5s, $timing:ease-in){
+    -webkit-transition: $property $duration $timing;
+    -moz-transition: $property $duration $timing;
+    -ms-transition: $property $duration $timing;
+    -o-transition: $property $duration $timing;
+    transition: $property $duration $timing;
+}
+
+@mixin translate3d($x:30px, $y:0, $z:0){
+    -webkit-transform:translate3d($x, $y, $z);
+    -moz-transform:translate3d($x, $y, $z);
+    -ms-transform:translate3d($x, $y, $z);
+    -o-transform:translate3d($x, $y, $z);
+    transform:translate3d($x, $y, $z);
+}
+
+@mixin skewedBorder($direction:right, $valueDirection:-10px, $zIndex:-1, $width:300px, $color:$mainColorDark){
+    &:before{
+        content: "";
+        position: absolute;
+        background: $color;
+        z-index: $zIndex;
+        top:0;
+        @if $direction == "right" {
+            right: $valueDirection;
+            width: $width;
+        } @else if $direction == "left" {
+            left: $valueDirection;
+            width: $width;
+        }
+        bottom: 0;
+        -webkit-transform: skew(-20deg);
+        -moz-transform: skew(-20deg);
+        -ms-transform: skew(-20deg);
+        transform: skew(-20deg);
+    }
 }
 
 // -------------------------------------
 //  COLORS
 // -------------------------------------
+$white: #ffffff;
+$mainColorDark: #009bb2;  // dark cyan
+$mainColorLight: #33afc1;  // light cyan
+$bgColor: #17404d; // background
+$btnColorLight: #ffcc00; // orange light
+$btnColorDark: #ffa200; // orange light
 
+$iconSystemInfo: #637f88;
+
+
+// -------------------------------------
+//  scale units
+// -------------------------------------
+$regularLineHeight: 53px;
+$btnHeight: 53px;
+$btnMinHeight: 53px;
+$btnWidth: 53px;
+$btnMinWidth: 53px;
 
 // -------------------------------------
 //  DEFAULT STYLES
@@ -37,16 +84,16 @@
 //  CLEARFIX
 // -------------------------------------
 
-.clearfix:after {
-    content: ".";
-    display: block;
-    clear: both;
-    visibility: hidden;
-    line-height: 0;
-    height: 0;
-}
 .clearfix {
     display: inline-block;
+    &:after{
+        content: ".";
+        display: block;
+        clear: both;
+        visibility: hidden;
+        line-height: 0;
+        height: 0;
+    }
 }
 html[xmlns] .clearfix {
     display: block;
@@ -62,20 +109,17 @@ html[xmlns] .clearfix {
 .view {
     position: absolute;
     opacity: 1;
-    -webkit-transition: all .2s ease;
-    transition: all .2s ease;
+    @include transition(all, 0.2s, ease-in);
 }
 
 .v-enter {
     opacity: 0;
-    -webkit-transform: translate3d(30px, 0, 0);
-    transform: translate3d(30px, 0, 0);
+    @include translate3d(30px, 0, 0);
 }
 
 .v-leave {
     opacity: 0;
-    -webkit-transform: translate3d(-30px, 0, 0);
-    transform: translate3d(-30px, 0, 0);
+    @include translate3d(-30px, 0, 0);
 }
 
 
@@ -83,104 +127,197 @@ html[xmlns] .clearfix {
 //  CUSTOM STYLES
 // -------------------------------------
 
-// default structure
-#app{
 
-    //  initalize app
-    // -------------------------------------
-    #inital-loader-wrapper{
-        position: fixed; // uncomment if app is production ready
-        z-index: 9999;
+
+body{
+    background-color: $bgColor;
+
+    // default structure
+    #app{
+        position: fixed;
         top: 0;
-        right: 0;
         bottom: 0;
+        overflow: auto;
+        right: 0;
         left: 0;
-        background-color: #ffffff;
-        #inital-loader{
-            text-align: center;
-            width: 200px;
-            height: 100px;
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            margin-left: -100px;
-        }
-        &.fadeOut{
-            @include transition(all, 0.6s);
-            visibility: hidden;
-            opacity: 0;
-        }
-    }
+        width: 100vw;
 
-    //  navigation
-    // -------------------------------------
-    ul#navigation{
-        list-style-type: none;
-        background-color: blue;
-        height: 50px;
-        li{
-            float:left;
-            a{
-                height: 50px;
-                min-width: 50px;
-                line-height: 50px;
-                span{
-                    &.icon{
-                        float: left;
-                        width: 50px;
-                        background: green;
-                        text-align: center;
-                    }
-                    &.icon-info{
-                        float: left;
-                        overflow: hidden;
-                        display: block;
-                        width: 0;
-                    }
-                }
-                &.active, &.inactive{
-                    span {
-                        &.icon, &.icon-info{
-                            background-color: gray;
-                        }
-                        &.icon-info{
-                            @include transition(width, 0.4s);
-                            width: 80px;
-                        }
-                    }
-                }
-                &.inactive{
-                    background-color: green;
-                    span {
-                        &.icon, &.icon-info{
-                            background-color: green;
-                        }
-                        &.icon-info{
-                            width: 0px;
-                        }
-                    }
-                }
-
+        //  initalize app
+        // -------------------------------------
+        #inital-loader-wrapper{
+            position: fixed; // uncomment if app is production ready
+            z-index: 9999;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: $bgColor;
+            color: $white;
+            #inital-loader{
+                text-align: center;
+                width: 200px;
+                height: 100px;
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                margin-left: -100px;
+            }
+            &.fadeOut{
+                transition: all 1.0s;
+                visibility: hidden;
+                opacity: 0;
             }
         }
-    }
 
-    //  home site
-    // -------------------------------------
-    #home{
+        //  navigation
+        // -------------------------------------
+        ul#navigation{
+            list-style-type: none;
+            height: $btnHeight;
+            li{
+                float:left;
+                background-color: $btnColorLight;
+                position: relative;
+                a{
+                    height: $btnHeight;
+                    min-width: $btnMinWidth;
+                    line-height: $btnHeight;
+                    padding-right: 20px;
+                    span{
+                        &.icon{
+                            float: left;
+                            width: 50px;
+                            text-align: center;
+                        }
+                        &.icon-info{
+                            float: left;
+                            overflow: hidden;
+                            display: block;
+                            width: 0;
+                        }
+                    }
+                    &.active, &.inactive{
+                        span {
+                            &.icon-info{
+                                @include transition(width , 0.3s); 
+                                width: 60px;
+                            }
+                        }
+                    }
+                    &.inactive{
+                        span {
+                            &.icon-info{
+                                width: 0px;
+                            }
+                        }
+                    }
 
-        #currently-playing{
-            display: block;
+
+                }
+                &:nth-child(1){
+                    background-color: $mainColorDark;
+                    @include skewedBorder(right, -9px, 0, 20px, $btnColorLight); // = direction, directionValue, zIndex, width, color
+                }
+                &:nth-child(2){
+                    background-color: $btnColorLight;
+                    @include skewedBorder(right, -9px, 0, 20px, $btnColorDark); // = direction, directionValue, zIndex, width, color
+                }
+                &:nth-child(3){
+                    background-color: $btnColorDark;
+                }
+            }
+        }
+
+        //  home site
+        // -------------------------------------
+        #home{
+            width: 100%;
+            #currently-playing{
+                display: block;
+                width: 100vw;
+                margin-bottom: 10px;
+                #info-track-wrapper, #dj-wrapper{
+                    min-height: 130px;
+                    max-height: 200px;
+                    height: 20vh;
+                    width: 50vw;
+                    float: left;
+                }
+                #info-track-wrapper{
+                    background: $mainColorLight;
+                    #info-track{
+                        margin: 15px;
+                    }
+                }
+                #dj-wrapper{
+                    #dj-image{
+                        height: 20vh;
+                        min-height: 130px;
+                        max-height: 200px;
+                        background-size: cover;
+                        background-position: center center;
+                    }
+                }
+                #downvote-wrapper{
+                    float: left;
+                    background-color: $btnColorLight;
+                    width: 10vw;
+                    min-width: 50px;
+                    position: relative;
+                    line-height: 50px;
+                    text-align: center;
+
+                    @include skewedBorder(right, -10px, -1, 300px, $btnColorLight); // = direction, directionValue, zIndex, width, color
+
+                }
+                #system-info-wrapper{
+                    padding-right: 20px;
+                    float: right;
+                    color: $iconSystemInfo;
+                    line-height: $regularLineHeight;
+                    text-align: center;
+                }
+            }
+
+            #playlist-wrapper{
+                width: 260px;
+                height: 150px;
+                background-color: orange;
+
+                #upload-wrapper{
+                    padding: 15px;
+                    width: 100px;
+                    height: 100px;
+                }
+                #progress-wrapper{
+                    position: absolute;
+                    left: 5px;
+                    right: 5px;
+                    top: 5px;
+                    bottom: 5px;
+                    border-radius: 10px;
+                    border: 1px solid gray;
+                    background-color: #ffffff;
+                }
+                .hide{ 
+                    display: none;
+                }
+            }
+
+        }
+
+        //  settings site
+        // -------------------------------------
+        #settings{
             width: 260px;
-            #dj-wrapper, #info-track-wrapper, #downvote-wrapper, #system-info-wrapper{
+
+            button{
+                padding: 5px;
+                margin-bottom: 5px;
+            }
+            #dj-wrapper, #upload-wrapper{
                 float: left;
                 display: block;
-            }
-            #info-track-wrapper{
-                padding: 15px;
-                background: lightgray;
-                width: 100px;
-                height: 100px;
             }
             #dj-wrapper{
                 #dj-image{
@@ -190,27 +327,9 @@ html[xmlns] .clearfix {
                     background-size: cover;
                 }
             }
-            #downvote-wrapper{
-                background-color: yellow;
-                width: 130px;
-                line-height: 50px;
-                text-align: center;
-            }
-            #system-info-wrapper{
-                background-color: brown;
-                width: 130px;
-                line-height: 50px;
-                text-align: center;
-            }
-        }
-
-        #playlist-wrapper{
-            width: 260px;
-            height: 150px;
-            background-color: orange;
-
             #upload-wrapper{
                 padding: 15px;
+                background: lightgray;
                 width: 100px;
                 height: 100px;
             }
@@ -224,55 +343,12 @@ html[xmlns] .clearfix {
                 border: 1px solid gray;
                 background-color: #ffffff;
             }
-            .hide{ 
+            .hide{
                 display: none;
             }
         }
 
     }
-
-    //  settings site
-    // -------------------------------------
-    #settings{
-        width: 260px;
-
-        button{
-            padding: 5px;
-            margin-bottom: 5px;
-        }
-        #dj-wrapper, #upload-wrapper{
-            float: left;
-            display: block;
-        }
-        #dj-wrapper{
-            #dj-image{
-                width: 130px;
-                height: 130px;
-                display: block;
-                background-size: cover;
-            }
-        }
-        #upload-wrapper{
-            padding: 15px;
-            background: lightgray;
-            width: 100px;
-            height: 100px;
-        }
-        #progress-wrapper{
-            position: absolute;
-            left: 5px;
-            right: 5px;
-            top: 5px;
-            bottom: 5px;
-            border-radius: 10px;
-            border: 1px solid gray;
-            background-color: #ffffff;
-        }
-        .hide{
-            display: none;
-        }
-    }
-
 }
 
 
