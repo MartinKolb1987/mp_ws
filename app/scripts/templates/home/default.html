@@ -20,8 +20,8 @@
 		
 		<!-- system info wrapper -->
 		<div id="system-info-wrapper">
-			<div id="downvote-button">D</div>
-			<div id="downvote-response-message">{{downvoteResponseMessage}}</div>
+			<div id="downvote-button" class="{{downvoteActiveStateClass}} {{downvoteDisabledStateClass}}" v-on="click: downvoteTrack(id)">D</div>
+			<div id="downvote-response-message" class="{{downvoteResponseMessageStateClass}}">{{downvoteResponseMessage}}</div>
 			<div id="system-info-text">
 			I: {{internetAccess}} U: {{users}}
 			</div>

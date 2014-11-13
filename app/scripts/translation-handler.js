@@ -12,6 +12,7 @@ define([
             de: {
                 // home
                 langHome: 'Heimat',
+                downvoteResponseMessage: 'Dein Downvote war erfolgreich!',
                 
                 // settings
                 langSettings: 'Einstellungen',
@@ -30,6 +31,7 @@ define([
             en: {
                 // home
                 langHome: 'Home',
+                downvoteResponseMessage: 'Your downvote has been counted!',
                 
                 // settings
                 langSettings: 'Settings',

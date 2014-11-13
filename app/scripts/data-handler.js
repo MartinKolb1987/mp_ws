@@ -184,6 +184,9 @@ define([
                     } else if(receivedData.type === 'getUserTrack' || receivedData.type === 'uploadUserTrack' || receivedData.type === 'deleteUserTrack'){
                         console.log('distributeUserTrack');
                         this.distributeUserTrack(receivedData, view);
+                    
+                    } else if(receivedData.type === 'downvoteTrack'){
+                        this.distributeDownVoteTrack(receivedData, view);
                     }
                     break;
 
@@ -246,12 +249,20 @@ define([
             view.album = data.info.currentlyPlaying.album;
             view.title = data.info.currentlyPlaying.title;
             view.artist = data.info.currentlyPlaying.artist;
-            view.downvote = data.info.currentlyPlaying.downvote;
             view.id = data.info.currentlyPlaying.id;
             view.length = data.info.currentlyPlaying.length;
             view.image = data.info.currentlyPlaying.image;
             view.users = data.info.status.users;
             view.internetAccess = data.info.status.internetAccess;
+
+            // check if user has already downvoted current track
+            if(data.info.currentlyPlaying.downvote === 1){
+                view.downvoteActiveStateClass = '';
+                view.downvoteDisabledStateClass = 'disabled';
+            } else {
+                view.downvoteActiveStateClass = 'active';
+                view.downvoteDisabledStateClass = '';
+            }
 
             // music player system info
             this.lastPlayedTrackId = this.currentlyPlayingTrackId;
@@ -325,10 +336,27 @@ define([
         },
 
         downvoteTrack: function(trackId){
-            // type = downvoteTrack
-            // trackId = trackId
+            this.sendData('home', 'downvoteTrack', trackId);
         },
 
+        distributeDownVoteTrack: function(data, view){
+            if(data.downvote === 1){
+                view.downvoteActiveStateClass = '';
+                var downvoteTrackResponse = $('#downvote-response-message');
+                
+                // show downvote track response
+                view.downvoteResponseMessageStateClass = 'active';
+                setTimeout(function(){
+                    view.downvoteResponseMessageStateClass = '';
+                }, 3000);
+
+                // color downvote button
+                setTimeout(function(){
+                    view.downvoteDisabledStateClass = 'disabled';
+                }, 3800);
+            }
+        },
+        
         swapTrack: function(trackIdOne, trackIdTwo){
             // url: 'upload.php', // has to be changed
             // data: {

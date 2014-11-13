@@ -94,14 +94,14 @@ function execAction() {
         
         case 'downvoteTrack':
             // sanity check - empty input
-            if (empty($_POST['trackId'])) {
+            if (empty($sendData)) {
                 die('error: no id specified (execAction() - downvoteTrack)');
             } else {
                 // return should be true on success
-                $returnMsg = insertDownvote($_POST['trackId']);
-                if($returnMsg) {
-                    header('Content-type: text/plain');
-                    echo 'success';
+                $returnMsg = insertDownvote($route, $type, $sendData);
+                if(!empty($returnMsg)) {
+                    header('Content-type: application/json');
+                    echo $returnMsg;
                 }
             }
             break;

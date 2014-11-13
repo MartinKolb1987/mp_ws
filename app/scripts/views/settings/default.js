@@ -46,7 +46,7 @@ define([
                 // open file browser
                 inputField.trigger('click');
                 
-                // set event on change input field --> 
+                // set event on change input field
                 this.setOnChangeEventlistenerFileUpload(inputField);
 
             },

@@ -48,7 +48,7 @@ $mainColorLight: #33afc1;  // light cyan
 $bgColor: #17404d; // background
 $btnColorLight: #ffcc00; // orange light
 $btnColorDark: #ffa200; // orange light
-
+$btnDownvoteDisabled: #77ced4;
 $iconSystemInfo: #637f88;
 $downvoteMessage: #ffffff;
 
@@ -303,10 +303,8 @@ body{
                             text-align: center;
                             @include skewedBorder(right, -10px, -1, 30px, $btnColorLight); // = direction, directionValue, zIndex, width, color
                             &.disabled{
-                                &.colored{
-                                    background-color: red;
-                                    @include skewedBorder(right, -10px, -1, 30px, red); // = direction, directionValue, zIndex, width, color
-                                }
+                                background-color: $btnDownvoteDisabled;
+                                @include skewedBorder(right, -10px, -1, 30px, $btnDownvoteDisabled); // = direction, directionValue, zIndex, width, color
                             }
                         }
                         #downvote-response-message{

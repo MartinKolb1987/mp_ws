@@ -31,7 +31,10 @@ define([
             id: 0,
             image: '',
             downvote: 0,
-            downvoteResponseMessage: 'YEAH! Your downvote has been counted!',
+            downvoteActiveStateClass: 'active',
+            downvoteDisabledStateClass: '',
+            downvoteResponseMessageStateClass: '',
+            downvoteResponseMessage: '',
 
             // upload message
             uploadProgressImageMessage: '',
@@ -45,33 +48,6 @@ define([
         },
         methods: {
 
-            removeUser: function(item){
-                this.$data.items.$remove(item.$index);
-            },
-
-            addUser: function(newItemValue){
-
-                if(this.$data.firstname && this.$data.lastname){
-                    
-                    this.$data.items.push({
-                        firstname: this.$data.firstname,
-                        lastname: this.$data.lastname
-                    });
-                    // clear inputs
-                    this.$data.firstname = '';
-                    this.$data.lastname = '';
-
-                } else {
-                    alert('insert firstname and lastname please');
-                }
-
-            },
-
-            updateUser: function(item){
-                // console.log($el.message);
-                // console.log(item);
-            },
-            
             triggerFileBrowser: function(e){
                 e.stopPropagation();
                 
@@ -152,6 +128,12 @@ define([
                 // better to remove and add new one
                 inputField.parent('#upload-wrapper').prepend('<input type="file" id="upload-file-field" class="hide">');
                 inputField.remove();
+            },
+
+            downvoteTrack: function(trackId){
+                if(this.$data.downvoteActiveStateClass === 'active'){
+                    DataHandler.downvoteTrack(trackId);
+                }
             }
         }
     });

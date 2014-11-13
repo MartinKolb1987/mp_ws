@@ -267,35 +267,38 @@ function deleteTrack($track) {
  * @param Integer $track track t_id for the track to downvote
  * @return Boolean true on success
  */
-function insertDownvote($track) {  
+function insertDownvote($route, $type, $track, $websocketClientIp = '') {  
     global $clientIp;
     $track = (int)$track;
-    
+
+    // take client ip from websocket
+    if(empty($websocketClientIp) === false){
+        $clientIp = $websocketClientIp;
+    }
+
     // checks if given track id is currently being played    
-    $currentlyPlaying = currentlyPlaying();    
-    if ($currentlyPlaying != $track) {
-        die('error: the given track is not currently playing!');
-    }
-	
-	// initialize database   
-    $db = new ClientDB();
+    $currentlyPlaying = currentlyPlaying();  
+    if ($currentlyPlaying === $track) {
     
-    // checks if user has already voted
-    $userDownvoteQuery = $db->query("SELECT COUNT(u_ip) FROM downvotes WHERE u_ip = '$clientIp' AND t_id = $track");
-    $userDownvoteArray = $userDownvoteQuery->fetchArray(SQLITE3_ASSOC);
-    $userDownvoteCount = $userDownvoteArray['COUNT(u_ip)'];
-    
-    if ($userDownvoteCount > 0) {
-        die('error: user has already voted for the current track!');
+        // initialize database   
+        $db = new ClientDB();
+        
+        // checks if user has already voted
+        $userDownvoteQuery = $db->query("SELECT COUNT(u_ip) FROM downvotes WHERE u_ip = '$clientIp' AND t_id = $track");
+        $userDownvoteArray = $userDownvoteQuery->fetchArray(SQLITE3_ASSOC);
+        $userDownvoteCount = $userDownvoteArray['COUNT(u_ip)'];
+        
+        if($userDownvoteCount <= 0){
+            $db->exec("INSERT INTO downvotes (u_ip, t_id) VALUES ('$clientIp', $track)");
+        }
+        
+        // close db
+        $db->close();
+        unset($db);
+        
+        return '{"route":"' .  $route . '", "type": "' . $type . '","downvote": 1}';
+
     }
-     
-    $db->exec("INSERT INTO downvotes (u_ip, t_id) VALUES ('$clientIp', $track)");
-	
-    // close db
-    $db->close();
-    unset($db);
-	
-	return true;
 }
 
 /* currentlyPlaying()

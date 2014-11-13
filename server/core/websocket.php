@@ -77,11 +77,20 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
                 // currentlyPlaying
                 $data = getCurrentlyPlaying($route, $type, $websocketClientIp);
                 sendDataToClientViaWebsocket($user, $data);
+            
             } else if($type === 'getPlaylist'){
                 // user playlist
                 $data = getPlaylist($route, $type, $websocketClientIp);
                 sendDataToClientViaWebsocket($user, $data);
-            } 
+            
+            } else if($type === 'downvoteTrack'){
+                // sanity check - empty input
+                if (empty($getData) === false) {
+                    // insert downvote
+                    $data = insertDownvote($route, $type, $getData, $websocketClientIp);
+                    sendDataToClientViaWebsocket($user, $data);
+                }
+            }
             break;
 
         case 'settings':
