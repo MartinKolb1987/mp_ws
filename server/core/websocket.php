@@ -57,7 +57,7 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
     $sendJson = '';
     $route = $jsonDecoded->route;
     $type = $jsonDecoded->type;
-    if ($jsonDecoded->data){
+    if(array_key_exists('data', $jsonDecoded)){
         $getData = $jsonDecoded->data;
     }
     $userId = $user->id;
