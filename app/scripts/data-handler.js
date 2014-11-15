@@ -7,15 +7,29 @@ define([
 
     var dataHandler = {
 
-        // settings and paths
+        // ------------------------------------------------------------
+        // custom settings
+        // ------------------------------------------------------------
+        
         // websocket
-        isWebsocketActive: false,
         websocketHost: 'ws://localhost:54321',
         checkForNewUpdatesIntervalTimeWebsocket: 500, // milliseconds
         
         // xhr
         regularHost: '../server/core/client.php',
         checkForNewUpdatesIntervalTimeXHR: 2000, // milliseconds
+
+        // transition timeout dj image change
+        currentlyPlayingDjImageChangeTimeout: 600, // milliseconds
+
+
+        // ------------------------------------------------------------
+        // state variables – just for music system info
+        // --> what track is playing, how looks user playlist, etc.
+        // ------------------------------------------------------------
+
+        // websocket
+        isWebsocketActive: false,
         
         // xhr and websocket request queue
         sendDataRequestByRequestDelay: 10, // milliseconds (take care of requests)
@@ -24,7 +38,6 @@ define([
         lastPlayedTrackId: 0,
         currentlyPlayingTrackId: 0,
         currentlyPlayingDjImage: '',
-        currentlyPlayingDjImageChangeTimeout: 600, // milliseconds
         currentClientSidePlaylist: [],
         currentlyClientSideUploadingTrack: false,
 
