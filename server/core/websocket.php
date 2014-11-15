@@ -53,12 +53,12 @@ while(true){
  */
 function getClientDataViaWebsocket($user, $allUsers, $msg){
     $msg = unwrap($msg);
-    $jsonDecoded = json_decode($msg);
+    $array = json_decode($msg, true); // true = array
     $sendJson = '';
-    $route = $jsonDecoded->route;
-    $type = $jsonDecoded->type;
-    if(array_key_exists('data', $jsonDecoded)){
-        $getData = $jsonDecoded->data;
+    $route = $array['route'];
+    $type = $array['type'];
+    if(isset($array['data'])){
+        $getData = $array['data'];
     }
     $userId = $user->id;
     $user = $user->socket;
