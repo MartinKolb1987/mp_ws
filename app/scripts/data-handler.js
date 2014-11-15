@@ -268,13 +268,10 @@ define([
             view.length = data.info.currentlyPlaying.length;
             
             // dj image and states
-            view.imageOne = data.info.currentlyPlaying.image;
             setTimeout(function(){
                 view.djImageInfoStateClass = 'hide';
-                view.djImageStateClassOne = 'active';
+                that.changeDjImage(view, data.info.currentlyPlaying.image);
             }, that.currentlyPlayingDjImageChangeTimeout + 600);
-            view.djImageStateClassTwo = 'inactive';
-            view.imageTwo = data.info.currentlyPlaying.image;
             
             // system info
             view.users = data.info.status.users;
@@ -472,22 +469,7 @@ define([
                     // update user image
                     // --> needed for transition (vue.js updates view too fast)
                     if(data.currentlyPlayingDjImage !== this.currentlyPlayingDjImage){
-                        
-                        if(view.imageOne !== this.currentlyPlayingDjImage){
-                            view.imageOne = data.currentlyPlayingDjImage;
-                            view.djImageStateClassTwo = 'inactive';
-                            setTimeout(function(){
-                                view.djImageStateClassOne = 'active';
-                            }, that.currentlyPlayingDjImageChangeTimeout - 300);
-                        } else {
-                            view.imageTwo = data.currentlyPlayingDjImage;
-                            view.djImageStateClassOne = 'inactive';
-                            setTimeout(function(){
-                                view.djImageStateClassTwo = 'active';
-                            }, that.currentlyPlayingDjImageChangeTimeout - 300);
-                        }
-                        
-                        this.currentlyPlayingDjImage = data.currentlyPlayingDjImage;
+                        this.changeDjImage(view, data.currentlyPlayingDjImage);
                     }
 
                     break;
@@ -578,6 +560,28 @@ define([
             }
 
             return checkedData;
+        },
+
+        changeDjImage: function(view, dataCurrentlyPlayingDjImage){
+            var that = this;
+            
+            if(view.imageOne !== this.currentlyPlayingDjImage){
+                view.imageOne = dataCurrentlyPlayingDjImage;
+                view.djImageStateClassTwo = 'inactive';
+                setTimeout(function(){
+                    view.djImageStateClassOne = 'active';
+                }, that.currentlyPlayingDjImageChangeTimeout - 300);
+            
+            } else {
+                view.imageTwo = dataCurrentlyPlayingDjImage;
+                view.djImageStateClassOne = 'inactive';
+                setTimeout(function(){
+                    view.djImageStateClassTwo = 'active';
+                }, that.currentlyPlayingDjImageChangeTimeout - 300);
+            
+            }
+            
+            this.currentlyPlayingDjImage = dataCurrentlyPlayingDjImage;
         }
 
     };
