@@ -13,6 +13,7 @@ define([
                 // home
                 langHome: 'Heimat',
                 downvoteResponseMessage: 'Dein Downvote war erfolgreich!',
+                djImageInfo: 'Dein DJ!',
                 
                 // settings
                 langSettings: 'Einstellungen',
@@ -32,6 +33,7 @@ define([
                 // home
                 langHome: 'Home',
                 downvoteResponseMessage: 'Your downvote has been counted!',
+                djImageInfo: 'Your DJ!',
                 
                 // settings
                 langSettings: 'Settings',

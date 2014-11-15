@@ -29,7 +29,16 @@ define([
             title: 'not title',
             length: 0,
             id: 0,
-            image: '',
+            
+            // dj image
+            imageOne: '',
+            imageTwo: '',
+            djImageStateClassOne: '',
+            djImageStateClassTwo: '',
+            djImageInfoStateClass: '',
+            djImageInfo: 'Your DJ!',
+
+            // downvote
             downvote: 0,
             downvoteActiveStateClass: 'active',
             downvoteDisabledStateClass: '',

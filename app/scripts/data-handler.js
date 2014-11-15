@@ -24,6 +24,7 @@ define([
         lastPlayedTrackId: 0,
         currentlyPlayingTrackId: 0,
         currentlyPlayingDjImage: '',
+        currentlyPlayingDjImageChangeTimeout: 600, // milliseconds
         currentClientSidePlaylist: [],
         currentlyClientSideUploadingTrack: false,
 
@@ -245,13 +246,24 @@ define([
         },
 
         distributeCurrentlyPlayingTrack: function(data, view){
+            var that = this;
             view.route = data.route;
             view.album = data.info.currentlyPlaying.album;
             view.title = data.info.currentlyPlaying.title;
             view.artist = data.info.currentlyPlaying.artist;
             view.id = data.info.currentlyPlaying.id;
             view.length = data.info.currentlyPlaying.length;
-            view.image = data.info.currentlyPlaying.image;
+            
+            // dj image and states
+            view.imageOne = data.info.currentlyPlaying.image;
+            setTimeout(function(){
+                view.djImageInfoStateClass = 'hide';
+                view.djImageStateClassOne = 'active';
+            }, that.currentlyPlayingDjImageChangeTimeout + 600);
+            view.djImageStateClassTwo = 'inactive';
+            view.imageTwo = data.info.currentlyPlaying.image;
+            
+            // system info
             view.users = data.info.status.users;
             view.internetAccess = data.info.status.internetAccess;
 
@@ -264,7 +276,7 @@ define([
                 view.downvoteDisabledStateClass = '';
             }
 
-            // music player system info
+            // client music player system info
             this.lastPlayedTrackId = this.currentlyPlayingTrackId;
             this.currentlyPlayingTrackId = data.info.currentlyPlaying.id;
             this.currentlyPlayingDjImage = data.info.currentlyPlaying.image;
@@ -444,9 +456,24 @@ define([
                         this.getUserPlaylist(route);
                     }
 
+                    // update user image
+                    // --> needed for transition (vue.js updates view too fast)
                     if(data.currentlyPlayingDjImage !== this.currentlyPlayingDjImage){
-                        if(DebugHandler.isActive){ console.log('Auto update dj image: ' + this.readyState); }
-                        view.image = data.currentlyPlayingDjImage;
+                        
+                        if(view.imageOne !== this.currentlyPlayingDjImage){
+                            view.imageOne = data.currentlyPlayingDjImage;
+                            view.djImageStateClassTwo = 'inactive';
+                            setTimeout(function(){
+                                view.djImageStateClassOne = 'active';
+                            }, that.currentlyPlayingDjImageChangeTimeout - 300);
+                        } else {
+                            view.imageTwo = data.currentlyPlayingDjImage;
+                            view.djImageStateClassOne = 'inactive';
+                            setTimeout(function(){
+                                view.djImageStateClassTwo = 'active';
+                            }, that.currentlyPlayingDjImageChangeTimeout - 300);
+                        }
+                        
                         this.currentlyPlayingDjImage = data.currentlyPlayingDjImage;
                     }
 

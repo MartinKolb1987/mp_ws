@@ -260,7 +260,7 @@ body{
                     #info-track-wrapper{
                         width: 42.5vw;
                         background-color: $mainColorLight;
-                        @include skewedBorder(right, -27px, 1, 60px, $mainColorLight); // = direction, directionValue, zIndex, width, color
+                        @include skewedBorder(right, -27px, 3, 60px, $mainColorLight); // = direction, directionValue, zIndex, width, color
                         #info-track{
                             position: absolute;
                             top: 0;
@@ -274,15 +274,32 @@ body{
                     #dj-wrapper{
                         width: 57.5vw;
                         .dj-image{
+                            @include transition(right, 0.6s, linear);
                             width: 57.5vw;
-                            @include skewedBorder(left, -28px, 0, 55px, $bgColor); // = direction, directionValue, zIndex, width, color
+                            @include skewedBorder(left, -28px, 1, 55px, $bgColor); // = direction, directionValue, zIndex, width, color
                             height: 20vh;
                             min-height: 130px;
                             max-height: 200px;
                             background-size: cover;
                             background-position: right center;
                             position: absolute;
-                            right: 0;
+                            right: -70vw;
+                            &.info{
+                                @include transition(opacity, 0.3s, linear);
+                                color: white;
+                                text-align: center;
+                                right: 0;
+                                line-height: 20vh;
+                                &.hide{
+                                    opacity:0;
+                                }
+                            }
+                            &.active{
+                                right: 0;
+                            }
+                            &.inactive{
+                                right: -80vw;
+                            }
                         }
                     }
                     #system-info-wrapper{
