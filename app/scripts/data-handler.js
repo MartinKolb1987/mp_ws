@@ -177,12 +177,10 @@ define([
                         // currentlyPlaying
                         this.distributeCurrentlyPlayingTrack(receivedData, view);
                     
-                    } else if(receivedData.type === 'getPlaylist'){
-                        // user playlist
+                    } else if(receivedData.type === 'getUserPlaylist'){
                         this.distributeUserPlaylist(receivedData, view);
 
                     } else if(receivedData.type === 'getUserTrack' || receivedData.type === 'uploadUserTrack' || receivedData.type === 'deleteUserTrack'){
-                        console.log('distributeUserTrack');
                         this.distributeUserTrack(receivedData, view);
                     
                     } else if(receivedData.type === 'downvoteTrack'){
@@ -273,9 +271,7 @@ define([
         // get user uploaded playlist
         // --------------------------
         getUserPlaylist: function(route){
-            this.sendData(route, 'getPlaylist'); // route = 'home', type = getPlaylist, data = ''
-            // type = getPlaylist
-            // url: 'json/playlist.json'
+            this.sendData(route, 'getUserPlaylist');
         },
 
         distributeUserPlaylist: function(data, view){
@@ -316,19 +312,6 @@ define([
         // --------------------------
         uploadUserTrack: function(file){
             this.sendData('home', 'uploadUserTrack', file);
-        },
-
-        distributeUserTrack: function(data, view){
-            view.route = data.route;
-            view.userTrackUrl = data.userTrack.url;
-
-            // check if user has a uploaded file
-            // --> show delete track button
-            if(data.userImage.url.indexOf('tracks') > 0){
-                view.fileControlStateClass = '';
-            } else {
-                view.fileControlStateClass = 'hide';
-            }
         },
 
         deleteUserTrack: function(trackId){

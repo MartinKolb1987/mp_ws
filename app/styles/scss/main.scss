@@ -22,7 +22,7 @@
         content: "";
         position: absolute;
         background: $color;
-        z-index: $zIndex;
+        z-index: $zIndex; 
         top:0;
         @if $direction == "right" {
             right: $valueDirection;
@@ -51,6 +51,11 @@ $btnColorDark: #ffa200; // orange light
 $btnDownvoteDisabled: #77ced4;
 $iconSystemInfo: #637f88;
 $downvoteMessage: #ffffff;
+$playlistLine1: #009bb2;
+$playlistLine2: #1aa5ba;
+$playlistLine3: #33afc1;
+$playlistLine4: #4db9c9;
+$playlistLine5: #59becd;
 
 
 // -------------------------------------
@@ -339,10 +344,40 @@ body{
                 }
 
                 #playlist-wrapper{
-                    display: none;
-                    width: 260px;
-                    height: 150px;
-                    background-color: orange;
+                    width: 100%;
+
+                    ul li:nth-child(1) {  
+                        background-color: $playlistLine1;
+                    }
+                    ul li:nth-child(2) {  
+                        background-color: $playlistLine2;
+                    }
+                    ul li:nth-child(3) {  
+                        background-color: $playlistLine3;
+                    }
+                    ul li:nth-child(4) {  
+                        background-color: $playlistLine4;
+                    }
+                    ul li:nth-child(5) {  
+                        background-color: $playlistLine5;
+                    }
+
+                    .playlist {
+                        width: 100%;
+                        height: 40px;
+
+                        .line-text {
+                            padding: 12px 0 0 6px;
+                            color: #17404d;
+                            float: left;
+                        }
+
+                        .line-title {
+                            padding: 12px 0 0 6px;
+                            color: #17404d;
+                            float: left;
+                        }
+                    }
 
                     #upload-wrapper{
                         padding: 15px;

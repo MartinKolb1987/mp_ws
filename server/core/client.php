@@ -130,9 +130,9 @@ function execAction() {
             echo getCurrentlyPlaying($route, $type);
             break;
         
-        case 'getPlaylist':
+        case 'getUserPlaylist':
             header('Content-type: application/json');
-            echo getPlaylist($route, $type);
+            echo getUserPlaylist($route, $type);
             break;
         
         case 'getUserImage':

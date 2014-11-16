@@ -59,6 +59,7 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
     $type = $array['type'];
     if(isset($array['data'])){
         $getData = $array['data'];
+
     }
     $userId = $user->id;
     $user = $user->socket;
@@ -78,12 +79,12 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
                 $data = getCurrentlyPlaying($route, $type, $websocketClientIp);
                 sendDataToClientViaWebsocket($user, $data);
             
-            } else if($type === 'getPlaylist'){
+            } else if ($type === 'getUserPlaylist'){
                 // user playlist
-                $data = getPlaylist($route, $type, $websocketClientIp);
+                $data = getUserPlaylist($route, $type, $websocketClientIp);
                 sendDataToClientViaWebsocket($user, $data);
             
-            } else if($type === 'downvoteTrack'){
+            } else if ($type === 'downvoteTrack'){
                 // sanity check - empty input
                 if (empty($getData) === false) {
                     // insert downvote

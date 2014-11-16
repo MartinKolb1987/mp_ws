@@ -1,27 +1,21 @@
 {
     "route": "home",
-    "type": "getPlaylist",
-    "playlist": [
-        {
-            "track": {
-                "id": 1,
-                "title": "Foo",
-                "artist": "Mongo1"
-            }
+    "type": "getUserPlaylist", 
+    "playlist": {
+        "1": {
+            "t_id":1,
+            "t_artist":"Artist166648",
+            "t_title":"Title166648"
         },
-        {
-            "track": {
-                "id": 2,
-                "title": "Bar",
-                "artist": "Mongo2"
-            }
+        "2": {
+            "t_id":2,
+            "t_artist":"Artist9544839",
+            "t_title":"Title9544839"
         },
-        {
-            "track": {
-                "id": 3,
-                "title": "Boo",
-                "artist": "Mongo3"
-            }
+        "3": {
+            "t_id":3,
+            "t_artist":"Artist6848747",
+            "t_title":"Title6848747"
         }
-    ]
+    }
 }

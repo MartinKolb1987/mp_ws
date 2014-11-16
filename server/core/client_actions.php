@@ -98,16 +98,19 @@ function uploadFile($type, $file, $route){
         $db = new ClientDB();
         
         // get metadata from audio file
-        $t_artist = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Performer%" "' . $tempFile . '"'));
-        $t_title = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Track%" "' . $tempFile . '"'));
-        $t_album = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Album%" "' . $tempFile . '"'));
-        $t_length = shell_exec('nice -n 10 mediainfo --Inform="Audio;%Duration%" /opt/lampp/htdocs/mp_ws/server/userdata/127.0.0.1/tracks/2474444.mp3');
+        // $t_artist = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Performer%" "' . $tempFile . '"'));
+        // $t_title = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Track%" "' . $tempFile . '"'));
+        // $t_album = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Album%" "' . $tempFile . '"'));
+        // $t_length = exec('nice -n 10 mediainfo --Inform="Audio;%Duration%" /opt/lampp/htdocs/mp_ws/server/userdata/127.0.0.1/tracks/3118767.mp3');
+
+        $t_artist = 'Artist' . $randomNo;
+        $t_title = 'Title' . $randomNo;
+        $t_album = 'Album' . $randomNo;
+        $t_length = $randomNo;
         
         // close db
         $db->close();
         unset($db);
-
-        echo 'Length: ' . $t_length;
     
         $lengthDate = date_parse($t_length);
         $t_length = $lengthDate['hour'] * 3600 + $lengthDate['minute'] * 60 + $lengthDate['second'];
@@ -125,8 +128,11 @@ function uploadFile($type, $file, $route){
         
         // add to db
         addTrack($tempFile, $t_artist, $t_title, $t_album, $t_length);
+
+        getUserPlaylist($route, $type, $clientIp);
         
-        return '{"route":"' .  $route . '", "type": "' . $type . '","title": "' . $t_title . '"}}';
+        // return '{"route":"' .  $route . '", "type": "' . $type . '","title": "' . $t_title . '"}}';
+        return true;
         
     } elseif ($type == 'uploadUserImage') {
         // random number for the file
@@ -213,36 +219,33 @@ function getCurrentlyPlaying($route, $type, $websocketClientIp = '') {
 /* getUserPlaylist()
  * Render JSON with playlist Object
  */
-function getPlaylist($route, $type, $websocketClientIp = '') {
+function getUserPlaylist($route, $type, $websocketClientIp = '') {
     global $clientIp;
-    $playlistArray = [];
-    
+
     // take client ip from websocket
     if(empty($websocketClientIp) === false){
         $clientIp = $websocketClientIp;
     }
 
-    // // initialize database   
-    // $db = new ClientDB();
-    
-    // $userPlaylistQuery = $db->query("SELECT b.t_id, b.b_id, t.t_artist, t.t_title, t.t_filename, t.t_album, t.t_length FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id WHERE t.u_ip = '$clientIp' AND b.b_played = 0 ORDER BY b.b_id ASC");
-    // $userPlaylistArray = [];
-    // $listEntryCounter = 0;
-    
-    // while ($row = $userPlaylistQuery->fetchArray(SQLITE3_ASSOC)) {
-    //     $listEntryCounter++;
-    //     $userPlaylistArray[(String)$listEntryCounter] = $row;
-    // }
-    
-    // // close db
-    // $db->close();
-    // unset($db);
-    
-    // $playlistArray['playlist'] = $userPlaylistArray;
-    
+    $playlistArray = [];    
 
-    // return json_encode($playlistArray);
-    return '{"route":"' .  $route . '","type":"' . $type . '","playlist":[{"track":{"id":1,"title":"Foo","artist":"Mongo1"}},{"track":{"id":2,"title":"Bar","artist":"Foo"}},{"track":{"id":3,"title":"Boo","artist":"Mongo3"}}]}';
+    // initialize database   
+    $db = new ClientDB();
+    
+    $userPlaylistQuery = $db->query("SELECT b.t_id, t.t_artist, t.t_title FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id WHERE t.u_ip = '$clientIp' AND b.b_played = 0 ORDER BY b.b_id ASC");
+    $userPlaylistArray = [];
+    $listEntryCounter = 0;
+
+    while ($row = $userPlaylistQuery->fetchArray(SQLITE3_ASSOC)) {
+        $listEntryCounter++;
+        $userPlaylistArray[(String)$listEntryCounter] = $row;
+    }
+    
+    // close db
+    $db->close();
+    unset($db);
+    
+    return '{"route": "' .  $route . '", "type": "' . $type . '", "playlist": ' . json_encode($userPlaylistArray) . '}';
 }
 
 
@@ -313,3 +316,4 @@ function getCurrentMusicplayerInfo($route, $type, $websocketClientIp = ''){
     return $content;
 }
 
+?>

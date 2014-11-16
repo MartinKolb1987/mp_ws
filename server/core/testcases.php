@@ -14,11 +14,11 @@ require_once('users.php');
 // require_once('tracks.php');
 require_once('admin.php');
 //require_once('player.php');
+require_once('client_actions.php');
 
 
-echo getClientIP() . '<br/><br/>';
-var_dump($_SERVER);
-echo '<br/><br/>';
+
+getUserPlaylist('home', "getUserPlaylist", '127.0.0.1');
 
 $db = new ClientDB();
 echo 'db errors: ' . $db->lastErrorMsg() . '<br/>';
