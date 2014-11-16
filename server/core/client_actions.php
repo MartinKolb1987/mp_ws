@@ -211,8 +211,13 @@ function getCurrentlyPlaying($route, $type, $websocketClientIp = '') {
     $db->close();
     unset($db);
     
-    return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":' . $currentTrack . ',"artist":"' . $currentArtist . '","title":"' . $currentTitle . '","album":"' . $currentAlbum . '","length":' . $currentLength . ',"image":"' . $userPicture . '","downvote":' . $currentlyPlayingDownvote . '},"status":{"users":"' . $userCount . '","internetAccess":' . $getInternetAccess . '}}}';
-    // return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":85,"artist":"Foobar","title":"1R","album":"Blubb","length":225,"image":"../server/userdata/default.png","downvote":0},"status":{"users":"30","internetAccess":true}}}';
+    if(empty($currentTrack) === false){
+        // track is playing
+        return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":' . $currentTrack . ',"artist":"' . $currentArtist . '","title":"' . $currentTitle . '","album":"' . $currentAlbum . '","length":' . $currentLength . ',"image":"' . $userPicture . '","downvote":' . $currentlyPlayingDownvote . '},"status":{"users":"' . $userCount . '","internetAccess":' . $getInternetAccess . '}}}';
+    } else {
+        // show no track is playing
+        return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":-1,"artist":"no artist","title":"no title","album":"no album","length":0,"image":"../server/userdata/default.png","downvote":0},"status":{"users":"' . $userCount . '","internetAccess":' . $getInternetAccess . '}}}';
+    }
 }
 
 

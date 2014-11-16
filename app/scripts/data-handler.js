@@ -7,15 +7,29 @@ define([
 
     var dataHandler = {
 
-        // settings and paths
+        // ------------------------------------------------------------
+        // custom settings
+        // ------------------------------------------------------------
+        
         // websocket
-        isWebsocketActive: false,
         websocketHost: 'ws://localhost:54321',
         checkForNewUpdatesIntervalTimeWebsocket: 500, // milliseconds
         
         // xhr
         regularHost: '../server/core/client.php',
         checkForNewUpdatesIntervalTimeXHR: 2000, // milliseconds
+
+        // transition timeout dj image change
+        currentlyPlayingDjImageChangeTimeout: 600, // milliseconds
+
+
+        // ------------------------------------------------------------
+        // state variables – just for music system info
+        // --> what track is playing, how looks user playlist, etc.
+        // ------------------------------------------------------------
+
+        // websocket
+        isWebsocketActive: false,
         
         // xhr and websocket request queue
         sendDataRequestByRequestDelay: 10, // milliseconds (take care of requests)
@@ -243,13 +257,21 @@ define([
         },
 
         distributeCurrentlyPlayingTrack: function(data, view){
+            var that = this;
             view.route = data.route;
             view.album = data.info.currentlyPlaying.album;
             view.title = data.info.currentlyPlaying.title;
             view.artist = data.info.currentlyPlaying.artist;
             view.id = data.info.currentlyPlaying.id;
             view.length = data.info.currentlyPlaying.length;
-            view.image = data.info.currentlyPlaying.image;
+            
+            // dj image and states
+            setTimeout(function(){
+                view.djImageInfoStateClass = 'hide';
+                that.changeDjImage(view, data.info.currentlyPlaying.image);
+            }, that.currentlyPlayingDjImageChangeTimeout + 600);
+            
+            // system info
             view.users = data.info.status.users;
             view.internetAccess = data.info.status.internetAccess;
 
@@ -262,7 +284,7 @@ define([
                 view.downvoteDisabledStateClass = '';
             }
 
-            // music player system info
+            // client music player system info
             this.lastPlayedTrackId = this.currentlyPlayingTrackId;
             this.currentlyPlayingTrackId = data.info.currentlyPlaying.id;
             this.currentlyPlayingDjImage = data.info.currentlyPlaying.image;
@@ -427,10 +449,10 @@ define([
                         this.getUserPlaylist(route);
                     }
 
+                    // update user image
+                    // --> needed for transition (vue.js updates view too fast)
                     if(data.currentlyPlayingDjImage !== this.currentlyPlayingDjImage){
-                        if(DebugHandler.isActive){ console.log('Auto update dj image: ' + this.readyState); }
-                        view.image = data.currentlyPlayingDjImage;
-                        this.currentlyPlayingDjImage = data.currentlyPlayingDjImage;
+                        this.changeDjImage(view, data.currentlyPlayingDjImage);
                     }
 
                     break;
@@ -521,6 +543,28 @@ define([
             }
 
             return checkedData;
+        },
+
+        changeDjImage: function(view, dataCurrentlyPlayingDjImage){
+            var that = this;
+            
+            if(view.imageOne !== this.currentlyPlayingDjImage){
+                view.imageOne = dataCurrentlyPlayingDjImage;
+                view.djImageStateClassTwo = 'inactive';
+                setTimeout(function(){
+                    view.djImageStateClassOne = 'active';
+                }, that.currentlyPlayingDjImageChangeTimeout - 300);
+            
+            } else {
+                view.imageTwo = dataCurrentlyPlayingDjImage;
+                view.djImageStateClassOne = 'inactive';
+                setTimeout(function(){
+                    view.djImageStateClassTwo = 'active';
+                }, that.currentlyPlayingDjImageChangeTimeout - 300);
+            
+            }
+            
+            this.currentlyPlayingDjImage = dataCurrentlyPlayingDjImage;
         }
 
     };
