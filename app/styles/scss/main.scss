@@ -394,6 +394,17 @@ body{
                             color: #17404d;
                             float: left;
                         }
+
+                        .playlist-button {
+                            padding: 12px 0 0 6px;
+                            margin-right: 25px;
+                            float: right;
+                        }
+
+                        .playlist-button:hover {
+                            cursor: pointer;
+                            color: orange;
+                        }
                     }
 
                     #upload-wrapper{

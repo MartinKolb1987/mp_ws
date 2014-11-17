@@ -128,9 +128,9 @@ define([
 
             },
 
-            deleteUserTrack: function(el){
-                var t_id = 
-                DataHandler.deleteUserTrack();
+            deleteUserTrack: function(e){
+                var t_id = $(e.target).attr('id');
+                DataHandler.deleteUserTrack(t_id);
             },
 
             clearUploadField: function(inputField){

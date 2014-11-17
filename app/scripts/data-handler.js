@@ -191,11 +191,11 @@ define([
                         // currentlyPlaying
                         this.distributeCurrentlyPlayingTrack(receivedData, view);
                     
-                    } else if(receivedData.type === 'getUserPlaylist'){
+                    } else if(receivedData.type === 'getUserPlaylist' || receivedData.type === 'uploadUserTrack' || receivedData.type === 'deleteUserTrack'){
                         this.distributeUserPlaylist(receivedData, view);
 
-                    } else if(receivedData.type === 'getUserTrack' || receivedData.type === 'uploadUserTrack' || receivedData.type === 'deleteUserTrack'){
-                        this.distributeUserTrack(receivedData, view);
+                    // } else if(receivedData.type === 'getUserTrack'){
+                    //     this.distributeUserTrack(receivedData, view);
                     
                     } else if(receivedData.type === 'downvoteTrack'){
                         this.distributeDownVoteTrack(receivedData, view);
@@ -304,8 +304,6 @@ define([
         // --------------------------
         uploadUserImage: function(file){
             this.sendData('settings', 'uploadUserImage', file);
-            // type = uploadUserImage
-            // file = givenFile
         },
 
         getUserImage: function(route){
@@ -327,7 +325,6 @@ define([
 
         deleteUserImage: function(){
             this.sendData('settings', 'deleteUserImage');
-            // type = deleteUserImage
         },
 
         // track

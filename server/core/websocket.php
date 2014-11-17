@@ -84,6 +84,11 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
                 $data = getUserPlaylist($route, $type, $websocketClientIp);
                 sendDataToClientViaWebsocket($user, $data);
             
+            } else if ($type === 'deleteUserTrack'){
+                // delete user track
+                $data = deleteUserTrack($route, $type, $getData, $websocketClientIp);
+                sendDataToClientViaWebsocket($user, $data);
+
             } else if ($type === 'downvoteTrack'){
                 // sanity check - empty input
                 if (empty($getData) === false) {

@@ -57,21 +57,21 @@ function execAction() {
                 $returnMsg = uploadFile($type, $_FILES['file'], $route);
                 if(!empty($returnMsg)) {
                     header('Content-type: text/plain');
-                    echo 'success';
+                    echo $returnMsg;
                 }
             }
             break;
         
         case 'deleteUserTrack':
             // sanity check - empty input
-            if (empty($_POST['trackId'])) {
+            if (empty($sendData)) {
                 die('error: no id specified (execAction() - removeTrack)');
             } else {
                 // return should be true on success
-                $returnMsg = deleteTrack($_POST['trackId']);
+                $returnMsg = deleteUserTrack($route, $type, $sendData);
                 if(!empty($returnMsg)) {
-                    header('Content-type: text/plain');
-                    echo 'success';
+                    header('Content-type: application/json');
+                    echo $returnMsg;
                 }
             }
             break;

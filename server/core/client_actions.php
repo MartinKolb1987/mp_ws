@@ -5,6 +5,7 @@ require_once('../db/db.php');
 require_once('../util.php');
 require_once('admin.php');
 require_once('users.php');
+require_once('tracks.php');
 
 /* uploadFile()
  * File uploader - tracks and pictures
@@ -129,10 +130,10 @@ function uploadFile($type, $file, $route){
         // add to db
         addTrack($tempFile, $t_artist, $t_title, $t_album, $t_length);
 
-        getUserPlaylist($route, $type, $clientIp);
+        $playlistJSON = getUserPlaylist($route, $type, $clientIp);
         
         // return '{"route":"' .  $route . '", "type": "' . $type . '","title": "' . $t_title . '"}}';
-        return true;
+        return $playlistJSON;
         
     } elseif ($type == 'uploadUserImage') {
         // random number for the file
@@ -248,7 +249,7 @@ function getUserPlaylist($route, $type, $websocketClientIp = '') {
 
     for ($i = 1; $i < 6; $i++){
         if (empty($userPlaylistArray[$i])){
-            $userPlaylistArray[$i]['t_id'] = 0;
+            $userPlaylistArray[$i]['t_id'] = false;
             $userPlaylistArray[$i]['t_artist'] = false;
             $userPlaylistArray[$i]['t_title'] = false;
         }

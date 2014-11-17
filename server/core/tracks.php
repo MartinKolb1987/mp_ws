@@ -75,7 +75,7 @@ function addTrack($filename, $t_artist, $t_title, $t_album, $t_length) {
     // the bucket (b_id) the user wants to add the track to
     $bucketToFill = $activeBucketId + $userTracksCount + $leftover;
 	
-	echo('error: DEBUG, bucket to fill: '.$bucketToFill.' tracksCount: '.$userTracksCount.' leftover: ' . $leftover . 'activeBucket: '.$activeBucketId . 'filename: '.$filename);
+	// echo('error: DEBUG, bucket to fill: '.$bucketToFill.' tracksCount: '.$userTracksCount.' leftover: ' . $leftover . 'activeBucket: '.$activeBucketId . 'filename: '.$filename);
 	
 	// initialize database
 	$db = new ClientDB();
@@ -83,8 +83,8 @@ function addTrack($filename, $t_artist, $t_title, $t_album, $t_length) {
 	// check if bucket to fill exists
 	$bucketToFillCount = 0;
     $bucketToFillQuery = $db->query("SELECT b_id FROM buckets WHERE b_id = $bucketToFill");
-	echo('error: DEBUG bucketToFillQuery: ');
-	print_r($bucketToFillQuery);
+	// echo('error: DEBUG bucketToFillQuery: ');
+	// print_r($bucketToFillQuery);
     while ($row = $bucketToFillQuery->fetchArray(SQLITE3_ASSOC)) {
         $bucketToFillCount++;
     }
@@ -95,9 +95,9 @@ function addTrack($filename, $t_artist, $t_title, $t_album, $t_length) {
 	}
 
     // insert track into db
-	echo('inserting: '.$clientIp . ' ' .$filename . ' ' .$t_artist . ' ' .$t_title . ' ' .$t_album . ' ' .$t_length);
+	// echo('inserting: '.$clientIp . ' ' .$filename . ' ' .$t_artist . ' ' .$t_title . ' ' .$t_album . ' ' .$t_length);
     $dbInsert = $db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('$clientIp', '$filename', '$t_artist', '$t_title', '$t_album', $t_length)");
-	echo('insert: '.$dbInsert);
+	// echo('insert: '.$dbInsert);
 
     // fill bucketcontents with t_id
     // ========================================
@@ -109,7 +109,7 @@ function addTrack($filename, $t_artist, $t_title, $t_album, $t_length) {
         $trackId = $row['t_id'];
     }
     
-	echo('t-id: '.$trackId);
+	// echo('t-id: '.$trackId);
 	
 	if(empty($trackId)) {
 		die('error: t_id not found - insert into tracks failed? (addTrack())');
@@ -176,13 +176,18 @@ function swapTrack($track1, $track2) {
 }
 
 
-/* deleteTrack()
+/* deleteUserTrack()
  * Delete a track from db and reorder bucketcontents
  * @param Integer $track t_id to delete
  * @return Boolean true on success
  */
-function deleteTrack($track) {
+function deleteUserTrack($route, $type, $track, $websocketClientIp = '') {
     global $clientIp;
+
+    // take client ip from websocket
+    if(empty($websocketClientIp) === false){
+        $clientIp = $websocketClientIp;
+    }
 	
 	// does user own the track?
     if (userOwnsTrack($track) == false) {
@@ -258,8 +263,10 @@ function deleteTrack($track) {
     // close db
     $db->close();
     unset($db);
+
+    $playlistJSON = getUserPlaylist($route, $type, $clientIp);
 	
-	return true;
+	return $playlistJSON;
 }
 
 /* insertDownvote()
