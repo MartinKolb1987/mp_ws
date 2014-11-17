@@ -337,7 +337,7 @@ define([
         },
 
         deleteUserTrack: function(trackId){
-            this.sendData('home', 'deleteUserTrack', file);
+            this.sendData('home', 'deleteUserTrack', trackId);
         },
 
         downvoteTrack: function(trackId){

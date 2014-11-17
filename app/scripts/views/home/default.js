@@ -128,7 +128,8 @@ define([
 
             },
 
-            deleteUserTrack: function(){
+            deleteUserTrack: function(el){
+                var t_id = 
                 DataHandler.deleteUserTrack();
             },
 

@@ -12,3 +12,4 @@ server/userdata/
 !server/userdata/default.png
 app/styles/main.css
 server/musicplayer_system_info/
+/.project

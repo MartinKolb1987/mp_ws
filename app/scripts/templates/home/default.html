@@ -35,7 +35,8 @@
 		<ul>
 			<li v-repeat="playlist" class="playlist">
 				<div class="line-text">{{$key}}.</div>
-				<div class="line-title">{{t_title}}</div>		
+				<div class="line-title">{{t_title}}</div>
+				<button class="delete-{{t_id}}" v-on="click: deleteUserTrack()">delete</button>		
 			</li>
 		</ul>
 		
@@ -50,7 +51,7 @@
 			</div>
 			
 			<div id="file-control-wrapper" class="{{fileControlStateClass}}">
-				<button id="upload-file" v-on="click: deleteUserTrack()">delete track</button>
+				<button id="upload-file" v-on="click: deleteUserTrack(el)">delete track</button>
 			</div>
 		</div>
 

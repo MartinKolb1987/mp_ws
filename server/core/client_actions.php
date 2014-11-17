@@ -245,6 +245,14 @@ function getUserPlaylist($route, $type, $websocketClientIp = '') {
         $listEntryCounter++;
         $userPlaylistArray[(String)$listEntryCounter] = $row;
     }
+
+    for ($i = 1; $i < 6; $i++){
+        if (empty($userPlaylistArray[$i])){
+            $userPlaylistArray[$i]['t_id'] = 0;
+            $userPlaylistArray[$i]['t_artist'] = '';
+            $userPlaylistArray[$i]['t_title'] = '';
+        }
+    }
     
     // close db
     $db->close();
