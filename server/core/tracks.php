@@ -129,10 +129,18 @@ function addTrack($filename, $t_artist, $t_title, $t_album, $t_length) {
  * @param Integer $track1 t_id from first track to swap, Integer $track2 t_id from second track to swap
  * @return Boolean true on success
  */
-function swapTrack($track1, $track2) {
+function swapUserTrack($route, $type, $swapTracks, $websocketClientIp = '') {
     global $clientIp;
-	(int)$track1 = $track1;
-	(int)$track2 = $track2;
+
+    // take client ip from websocket
+    if(empty($websocketClientIp) === false){
+        $clientIp = $websocketClientIp;
+    }
+
+	$track1 = $swapTracks[0];
+	$track2 = $swapTracks[1];
+
+    echo 'track1: ' . $track1 . ' track2: ' . $track2 . ' ';
 
     if (userOwnsTrack($track1) == false || userOwnsTrack($track2) == false) {
         die('error: user does not own one of the tracks (swapTrack() - wrong track id?)');
@@ -172,7 +180,9 @@ function swapTrack($track1, $track2) {
     $db->close();
     unset($db);
 	
-	return true;
+	$playlistJSON = getUserPlaylist($route, $type, $clientIp);
+    
+    return $playlistJSON;
 }
 
 

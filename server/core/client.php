@@ -61,6 +61,20 @@ function execAction() {
                 }
             }
             break;
+
+        case 'swapUserTrack':
+            // sanity check - empty input
+            if (empty($sendData)) {
+                die('error: no id specified (execAction() - swapTrack)');
+            } else {
+                // return should be true on success
+                $returnMsg = swapUserTrack($route, $type, $sendData);
+                if(!empty($returnMsg)) {
+                    header('Content-type: application/json');
+                    echo $returnMsg;
+                }
+            }
+            break;
         
         case 'deleteUserTrack':
             // sanity check - empty input
@@ -72,22 +86,6 @@ function execAction() {
                 if(!empty($returnMsg)) {
                     header('Content-type: application/json');
                     echo $returnMsg;
-                }
-            }
-            break;
-        
-        case 'swapTrack':
-            // sanity check - empty input
-            if (empty($_POST['trackIds'][0])) {
-                die('error: no id specified (execAction() - swapTrack #1)');
-            } elseif (empty($_POST['trackIds'][1])) {
-                die('error: no id specified (execAction() - swapTrack #2)');
-            } else {
-                // return should be true on success
-                $returnMsg = swapTrack($_POST['trackIds'][0], $_POST['trackIds'][1]);
-                if($returnMsg) {
-                    header('Content-type: text/plain');
-                    echo 'success';
                 }
             }
             break;

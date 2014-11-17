@@ -191,11 +191,8 @@ define([
                         // currentlyPlaying
                         this.distributeCurrentlyPlayingTrack(receivedData, view);
                     
-                    } else if(receivedData.type === 'getUserPlaylist' || receivedData.type === 'uploadUserTrack' || receivedData.type === 'deleteUserTrack'){
+                    } else if(receivedData.type === 'getUserPlaylist' || receivedData.type === 'uploadUserTrack' || receivedData.type === 'deleteUserTrack' || receivedData.type === 'swapUserTrack'){
                         this.distributeUserPlaylist(receivedData, view);
-
-                    // } else if(receivedData.type === 'getUserTrack'){
-                    //     this.distributeUserTrack(receivedData, view);
                     
                     } else if(receivedData.type === 'downvoteTrack'){
                         this.distributeDownVoteTrack(receivedData, view);
@@ -359,15 +356,8 @@ define([
             }
         },
         
-        swapTrack: function(trackIdOne, trackIdTwo){
-            // url: 'upload.php', // has to be changed
-            // data: {
-            //     type: 'swapTrack',
-            //     trackIds: [
-            //         trackIdOne,
-            //         trackIdTwo
-            //     ]
-            // }
+        swapUserTrack: function(swapTracks){
+            this.sendData('home', 'swapUserTrack', swapTracks);
         },
 
         // internet access

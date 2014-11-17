@@ -83,6 +83,11 @@ function getClientDataViaWebsocket($user, $allUsers, $msg){
                 // user playlist
                 $data = getUserPlaylist($route, $type, $websocketClientIp);
                 sendDataToClientViaWebsocket($user, $data);
+
+            } else if ($type === 'swapUserTrack'){
+                // swap user track
+                $data = swapUserTrack($route, $type, $getData, $websocketClientIp);
+                sendDataToClientViaWebsocket($user, $data);
             
             } else if ($type === 'deleteUserTrack'){
                 // delete user track

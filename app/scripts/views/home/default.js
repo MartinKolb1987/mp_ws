@@ -128,8 +128,35 @@ define([
 
             },
 
+            swapUpUserTrack: function(e){
+                var that = this;
+                var key = parseInt(that.splitId(e));
+                var secondKey = key - 1;
+
+                var track1 = that.$data.playlist[key].t_id;
+                var track2 = that.$data.playlist[secondKey].t_id;
+
+                var swapTracks = [track1, track2];
+
+                DataHandler.swapUserTrack(swapTracks);
+            },
+
+            swapDownUserTrack: function(e){
+                var that = this;
+                var key = parseInt(that.splitId(e));
+                var secondKey = key + 1;
+
+                var track1 = that.$data.playlist[key].t_id;
+                var track2 = that.$data.playlist[secondKey].t_id;
+
+                var swapTracks = [track1, track2];
+
+                DataHandler.swapUserTrack(swapTracks);
+            },
+
             deleteUserTrack: function(e){
-                var t_id = $(e.target).attr('id');
+                var that = this;
+                var t_id = that.splitId(e);
                 DataHandler.deleteUserTrack(t_id);
             },
 
@@ -138,6 +165,13 @@ define([
                 // better to remove and add new one
                 inputField.parent('#upload-wrapper').prepend('<input type="file" id="upload-file-field" class="hide">');
                 inputField.remove();
+            },
+
+            splitId: function(e){
+                var elId = $(e.target).attr('id');
+                var elArray = elId.split("-");
+                var splitId = elArray[1];
+                return splitId;
             },
 
             downvoteTrack: function(trackId){
