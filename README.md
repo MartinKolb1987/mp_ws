@@ -10,3 +10,6 @@ Masterproject WS2014/15 - work in progess...
 	$ gulp  
 4.) have fun ;-)
 
+If you would reset (clean user folder, create new db, etc.) the system just type
+$ sudo gulp reset
+
