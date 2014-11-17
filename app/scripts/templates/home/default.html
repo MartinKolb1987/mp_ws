@@ -35,8 +35,8 @@
 		<ul>
 			<li v-repeat="playlist" class="playlist">
 				<div class="line-text">{{$key}}.</div>
-				<div class="line-title">{{t_title}}</div>
-				<button class="delete-{{t_id}}" v-on="click: deleteUserTrack()">delete</button>		
+				<div class="line-title" v-if="t_title">{{t_title}}</div>
+				<button class="delete-{{t_id}}" v-if="t_title" v-on="click: deleteUserTrack()">delete</button>	
 			</li>
 		</ul>
 		

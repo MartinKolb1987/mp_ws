@@ -249,8 +249,8 @@ function getUserPlaylist($route, $type, $websocketClientIp = '') {
     for ($i = 1; $i < 6; $i++){
         if (empty($userPlaylistArray[$i])){
             $userPlaylistArray[$i]['t_id'] = 0;
-            $userPlaylistArray[$i]['t_artist'] = '';
-            $userPlaylistArray[$i]['t_title'] = '';
+            $userPlaylistArray[$i]['t_artist'] = false;
+            $userPlaylistArray[$i]['t_title'] = false;
         }
     }
     

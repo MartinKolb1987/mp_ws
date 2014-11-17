@@ -22,7 +22,7 @@ define([
             langHome: '',
             route: 'no route',
 
-            playlist: '',
+            playlist: [],
 
             album: 'no album',
             artist: 'no artist',
