@@ -137,13 +137,15 @@ function swapUserTrack($route, $type, $swapTracks, $websocketClientIp = '') {
         $clientIp = $websocketClientIp;
     }
 
+    if(empty($websocketClientIp)){
+        $swapTracks = explode(',', $swapTracks);
+    }
+
 	$track1 = $swapTracks[0];
 	$track2 = $swapTracks[1];
 
-    echo 'track1: ' . $track1 . ' track2: ' . $track2 . ' ';
-
-    if (userOwnsTrack($track1) == false || userOwnsTrack($track2) == false) {
-        die('error: user does not own one of the tracks (swapTrack() - wrong track id?)');
+    if (userOwnsTrack($track1, $clientIp) == false || userOwnsTrack($track2, $clientIp) == false) {
+        // die('error: user does not own one of the tracks (swapTrack() - wrong track id?)');
     }
 
     // is track currently playing?    
@@ -345,12 +347,10 @@ function currentlyPlaying() {
  * @param Integer $track t_id to check
  * @return Boolean true if the user owns the track
  */
-function userOwnsTrack($track) {
+function userOwnsTrack($track, $clientIp) {
     // initialize database
     $db = new ClientDB();
 	
-    global $clientIp;
-    
     $trackQuery = $db->query("SELECT u_ip FROM tracks WHERE t_id=$track");
     
     while ($row = $trackQuery->fetchArray(SQLITE3_ASSOC)) {
