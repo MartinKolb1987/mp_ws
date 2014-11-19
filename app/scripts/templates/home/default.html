@@ -36,9 +36,10 @@
 			<li v-repeat="playlist" class="playlist">
 				<div class="line-text">{{$key}}.</div>
 				<div class="line-title" v-if="t_title">{{t_title}}</div>
-				<div id="delete-{{t_id}}" class="playlist-button delete-button" v-if="t_title" v-on="click: deleteUserTrack(t_id)">delete</div>	
-				<div id="swapup-{{$key}}" class="playlist-button swapup-button" v-if="t_title" v-on="click: swapUserTrack($key, 'up')">swap up</div>
-				<div id="swapdown-{{$key}}" class="playlist-button swapdown-button" v-if="t_title" v-on="click: swapUserTrack($key, 'down')">swap down</div>
+				<div id="delete-{{t_id}}" class="playlist-button delete-button" v-if="t_title" v-on="click: deleteUserTrack(t_id)">D</div>	
+				<div id="swapup-{{$key}}" class="playlist-button swapup-button" v-if="t_title" v-on="click: swapUserTrack($key, 'up')">u</div>
+				<div id="swapdown-{{$key}}" class="playlist-button swapdown-button" v-if="t_title" v-on="click: swapUserTrack($key, 'down')">d</div>
+				<div class="playlist-button" v-if="!t_title">test</div>
 			</li>
 		</ul>
 		

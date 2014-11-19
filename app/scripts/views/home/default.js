@@ -145,10 +145,7 @@ define([
             },
 
             deleteUserTrack: function(tId){
-                // var that = this;
-                // var tId = that.splitId(e);
-                console.log(tId);
-                // DataHandler.deleteUserTrack(tId);
+                DataHandler.deleteUserTrack(tId);
             },
 
             clearUploadField: function(inputField){

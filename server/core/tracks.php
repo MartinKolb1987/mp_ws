@@ -194,7 +194,7 @@ function deleteUserTrack($route, $type, $track, $websocketClientIp = '') {
     }
 	
 	// does user own the track?
-    if (userOwnsTrack($track) == false) {
+    if (userOwnsTrack($track, $clientIp) == false) {
         return '{"route":"' .  $route . '", "type": "error", "message": "user does not own the track"}';
     }
     
@@ -232,11 +232,6 @@ function deleteUserTrack($route, $type, $track, $websocketClientIp = '') {
         array_push($userPlaylistArray, $row);
     }
 	$userTrackCount = (int)count($userPlaylistArray);
-	
-	/*echo 'user has tracks: ' . $userTrackCount . '<br/>';
-	echo 'array looks like this: ';
-	print_r($userPlaylistArray);
-	echo '<br/>';*/
     
     // sorting algo
     for ($i = 0; $i < ($userTrackCount - 1); $i++) {
