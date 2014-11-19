@@ -298,7 +298,18 @@ define([
         },
 
         distributeUserPlaylist: function(data, view){
-            view.playlist = data.playlist;
+            var playlist = [];
+            var set = false;
+            $.each(data.playlist, function(key, item){
+                if (item.t_id === false && set === false){
+                    item.displayUpload = 'show';
+                    set = true;
+                } else {
+                    item.displayUpload = '';
+                }
+                playlist.push(item);
+            });
+            view.playlist = playlist;
         },
 
         // user image
@@ -332,6 +343,7 @@ define([
         // --------------------------
         uploadUserTrack: function(file){
             this.sendData('home', 'uploadUserTrack', file);
+            console.log(file);
         },
 
         deleteUserTrack: function(trackId){

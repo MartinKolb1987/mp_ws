@@ -81,6 +81,7 @@ define([
                             // set state css 
                             that.$data.triggerUploadFileStateClass = 'hide';
                             that.$data.uploadFileControlWrapperStateClass = '';
+                            inputField.parents('#upload-wrapper').siblings('.line-title').text(inputField[0].files[0].name);
                             // upload file
                             that.uploadFile(inputField);
                             that.cancelUploadFile(inputField);
@@ -130,7 +131,7 @@ define([
 
             swapUserTrack: function(key, direction){
 
-                key = parseInt(key);
+                key = parseInt(key) - 1;    
 
                 if (direction === 'up'){
                     var secondKey = key - 1;

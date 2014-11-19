@@ -373,6 +373,10 @@ body{
                 #playlist-wrapper{
                     width: 100%;
 
+                    ul {
+                        list-style: none;
+                    }
+
                     ul li:nth-child(1) {
                         background-color: $playlistLine1;
                     }
@@ -442,31 +446,20 @@ body{
                             .cancel-button {
                                 background-color: $btnColorDark;
                             }
-
                         }
 
                         .empty-field {
                             display: none;
-                        }
 
-                        .empty-field:first-child {
-                            display: block;
-                        }
-
-                        #progress-wrapper{
-                            position: absolute;
-                            left: 5px;
-                            right: 5px;
-                            top: 5px;
-                            bottom: 5px;
-                            border-radius: 10px;
-                            border: 1px solid gray;
-                            background-color: #ffffff;
+                            &.show {
+                                display: block;
+                            }
                         }
 
                         .hide{
                             display: none;
                         }
+
                     }
                 }
             }
