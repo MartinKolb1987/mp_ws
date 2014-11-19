@@ -37,7 +37,7 @@ define([
         // current music player system infos
         lastPlayedTrackId: 0,
         currentlyPlayingTrackId: 0,
-        currentlyPlayingDjImage: '',
+        currentlyPlayingDjImage: '../server/userdata/default.png',
         currentClientSidePlaylist: [],
         currentlyClientSideUploadingTrack: false,
 

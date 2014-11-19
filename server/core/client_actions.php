@@ -295,7 +295,6 @@ function getUserImage($route, $type, $websocketClientIp = '') {
  */
 function getCurrentMusicplayerInfo($route, $type, $websocketClientIp = ''){
     global $clientIp;
-    global $startTrackId;
     global $currentlyPlayingTrackIdPath;
     global $currentlyPlayingDjImagePath;
 
@@ -313,16 +312,16 @@ function getCurrentMusicplayerInfo($route, $type, $websocketClientIp = ''){
         // if txt files dont exists
         // --> create them
         if(file_exists($currentlyPlayingTrackIdPath) === false || file_exists($currentlyPlayingDjImagePath) === false){
-            $crtTxtFile = createTxtFile('trackId', $startTrackId); 
+            $crtTxtFile = createTxtFile('trackId', '0'); 
             chmod($currentlyPlayingTrackIdPath, 0777);
             $crtTxtFile = createTxtFile('djImage', '../server/userdata/default.png');
             chmod($currentlyPlayingDjImagePath, 0777);
         }
         
         // get currently playing music track id
-        $trackId = file_get_contents($currentlyPlayingTrackIdPath);
+        $trackId = trim(file_get_contents($currentlyPlayingTrackIdPath));
         // get currently playing dj image
-        $djImage = file_get_contents($currentlyPlayingDjImagePath);
+        $djImage = trim(file_get_contents($currentlyPlayingDjImagePath));
 
         $content = '{"route":"' .  $route . '", "type": "' . $type . '","currentlyPlayingTrackId": ' . $trackId . ', "currentlyPlayingDjImage": "' . $djImage . '"}';
     }

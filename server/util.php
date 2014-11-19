@@ -27,7 +27,6 @@ $websocketPort = 54321;
 $websocketHost = 'localhost';
 
 // musicplayer system info
-$startTrackId = 1; // set to 0 if it is in production use
 $currentlyPlayingTrackIdPath = dirname(__FILE__) . '/musicplayer_system_info/currently_playing_track.txt';
 $currentlyPlayingDjImagePath = dirname(__FILE__) . '/musicplayer_system_info/currently_playing_dj_image.txt';
 

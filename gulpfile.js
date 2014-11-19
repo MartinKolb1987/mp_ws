@@ -5,6 +5,7 @@ var appName = __dirname.split('/').pop();
 var appPath = './app';
 var distPath = './dist';
 var serverPath = './server';
+var trackIdStart = 0;
 
 // ----------------------------------------
 // gulp plugins
@@ -67,20 +68,78 @@ gulp.task('prefix-and-minify-css', function() {
     gulp.src(appPath + '/styles/*.css')
         .pipe(autoprefixer())
         .pipe(minifyCSS())
-        .pipe(gulp.dest(distPath + '/styles/'));
+        .pipe(gulp.dest(distPath + '/app/styles/'));
 });
 
-gulp.task('clean', function() {
-	gulp.src('./').pipe(exec('rm -rf dist', {silent: true}));
+gulp.task('clean-dist', function() {
+    gulp.src('./').pipe(exec('rm -rf dist', {silent: true}));
+    gulp.src('./').pipe(exec('mkdir ' + distPath, {silent: true}))
+        .pipe(exec('chmod -R 0777 ' + distPath, {silent: true}));
 });
 
+// ----------------------------------------
+// clean tasks
+// ----------------------------------------
+
+gulp.task('reset-server-userdata', function(){
+    // clean userdata, exclude default.png
+    gulp.src([ serverPath + '/userdata/**/**/*', '!' + serverPath + '/userdata/default.png'], { read: false })
+        .pipe(rimraf({ force: true }));
+});
+
+gulp.task('reset-server-musicplayer-system-info', function(){
+    var playingTrackIdFilePath = serverPath + '/musicplayer_system_info/currently_playing_track.txt';
+    var playingDjImageFilePath = serverPath + '/musicplayer_system_info/currently_playing_dj_image.txt';
+
+    // remove files from musicplayer_system_info
+    gulp.src('./').pipe(exec('rm -f ' + playingTrackIdFilePath, {silent: true}));
+    gulp.src('./').pipe(exec('rm -f ' + playingDjImageFilePath, {silent: true}));
+
+    // create txt file with track id 
+    gulp.src('./').pipe(exec('echo "' + trackIdStart + '" > ' + playingTrackIdFilePath, {silent: true}))
+        .pipe(exec('chmod 0777 ' + playingTrackIdFilePath, {silent: true}));
+    
+    // create txt file with default image path
+    gulp.src('./').pipe(exec('echo "../server/userdata/default.png" > ' + playingDjImageFilePath, {silent: true}))
+        .pipe(exec('chmod 0777 ' + playingDjImageFilePath, {silent: true}));
+});
+
+gulp.task('reset-server-db', function(){
+    // remove db
+    gulp.src([ serverPath + '/db/db.sqlite'], { read: false })
+       .pipe(rimraf({ force: true }));
+
+    // add new db and set chmod
+    gulp.src('./').pipe(exec('touch ' + serverPath + '/db/db.sqlite', {silent: true}));
+    gulp.src('./').pipe(exec('chmod 0777 ' + serverPath + '/db/db.sqlite', {silent: true}));
+});
+
+gulp.task('start-webapp', function (){
+    // open browser and start web app
+    gulp.src('./').pipe(exec('open http://localhost/mp_ws/app/', {silent: true}));
+});
+
+gulp.task('init-server-db', function (){
+    // open browser and init createdb with test data
+    gulp.src('./').pipe(exec('open http://localhost/mp_ws/dist/server/db/createdb.php', {silent: true}));
+});
+
+gulp.task('init-server-db-with-test-data', function (){
+    // open browser and init createdb with test data
+    gulp.src('./').pipe(exec('open http://localhost/mp_ws/server/db/createdb.php?AddTestUserAndTrack=true', {silent: true}));
+});
+
+gulp.task('move-server-to-dist', function (){
+    // open browser and init createdb with test data
+    gulp.src('./').pipe(exec('cp -R ' + serverPath + ' ' + distPath + '/server/', {silent: true}));
+});
 
 // ----------------------------------------
 // default
 // ----------------------------------------
 
 gulp.task('default', function () {
-	gulp.start('development');
+    gulp.start('development');
 });
 
 // ----------------------------------------
@@ -93,42 +152,43 @@ gulp.task('development', function () {
 
 // ----------------------------------------
 // build
+// e.g. sudo gulp build
 // ----------------------------------------
+
 gulp.task('build', function () {
-	gulp.start('clean');
+    gulp.start('clean-dist');
     gulp.run('prefix-and-minify-css');
+    
+    // TODO
+    // remove manual timeouts (just for testing)
+    // build app folder (after build remove mock_data, styles/scss, bower_components)
+
+    // reset all user stuff and system data
+    // trackIdStart = 0;
+    gulp.run('reset-server-userdata');
+    gulp.run('reset-server-musicplayer-system-info');
+    gulp.run('reset-server-db');
+    setTimeout(function(){
+        gulp.run('move-server-to-dist');
+    }, 2000);
+    setTimeout(function(){
+        gulp.src('./').pipe(exec('chmod -R 0777 ' + distPath, {silent: true}));
+    }, 4000);
+    setTimeout(function(){
+        gulp.run('init-server-db');
+    }, 6000);
 });
 
 // ----------------------------------------
-// reset system (sudo gulp reset)
+// reset during development
+// e.g. sudo gulp reset
 // ----------------------------------------
-gulp.task('reset', function () {
-    // clean userdata, exclude default.png
-    gulp.src([ serverPath + '/userdata/**/**/*', '!' + serverPath + '/userdata/default.png'], { read: false })
-        .pipe(rimraf({ force: true }));
 
-    // clean musicplayer_system_info
-    gulp.src([ serverPath + '/musicplayer_system_info/**/*'], { read: false })
-        .pipe(rimraf({ force: true }));
-
-    gulp.src('./').pipe(exec('touch ' + serverPath + '/musicplayer_system_info/currently_playing_track.txt', {silent: true}));
-    gulp.src('./').pipe(exec('chmod 0777 ' + serverPath + '/musicplayer_system_info/currently_playing_track.txt', {silent: true}));
-    
-    gulp.src('./').pipe(exec('touch ' + serverPath + '/musicplayer_system_info/currently_playing_dj_image.txt', {silent: true}));
-    gulp.src('./').pipe(exec('chmod 0777 ' + serverPath + '/musicplayer_system_info/currently_playing_dj_image.txt', {silent: true}));
-
-    // clean musicplayer_system_info
-    gulp.src([ serverPath + '/db/db.sqlite'], { read: false })
-        .pipe(rimraf({ force: true }));
-
-    // add new db and set chmod
-    gulp.src('./').pipe(exec('touch ' + serverPath + '/db/db.sqlite', {silent: true}));
-    gulp.src('./').pipe(exec('chmod 0777 ' + serverPath + '/db/db.sqlite', {silent: true}));
-
-    // open browser and init createdb with test data
-    gulp.src('./').pipe(exec('open http://localhost/mp_ws/server/db/createdb.php?AddTestUserAndTrack=true', {silent: true}));
-    
-    // open browser and start web app
-    gulp.src('./').pipe(exec('open http://localhost/mp_ws/app/', {silent: true}));
+gulp.task('reset', function (){
+    trackIdStart = 1;
+    gulp.run('reset-server-userdata');
+    gulp.run('reset-server-musicplayer-system-info');
+    gulp.run('reset-server-db');
+    gulp.run('init-server-db-with-test-data');
+    gulp.run('start-webapp');
 });
-
