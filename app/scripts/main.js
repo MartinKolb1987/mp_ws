@@ -52,5 +52,19 @@ require([
     'zeptoSelector'
 ], function(Router, DataHandler, ComponentCollection, $, ZeptoEvents, ZeptoCallbacks, ZeptoSelector) {
     ComponentCollection.init();
+
+    var currentUrl = String(window.location);
+    // // redirect to music-magnet url
+    // if(currentUrl.indexOf('musicmagnet.de') === -1 && currentUrl.indexOf('music-magnet.de') === -1  && currentUrl.indexOf('192.168.1.80') === -1  && currentUrl.indexOf('192.168.0.1') === -1){
+    //     window.location = 'http://music-magnet.de';
+    // }
+
+    // decide which websocket should be used
+    if(currentUrl.indexOf('localhost') > 0){
+        DataHandler.websocketHost = 'ws://localhost:54321';
+    } else{
+        DataHandler.websocketHost = 'ws://192.168.0.1:54321';
+    }
+
     DataHandler.init();
 });
