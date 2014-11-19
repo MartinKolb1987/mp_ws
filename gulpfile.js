@@ -111,6 +111,12 @@ gulp.task('reset', function () {
     gulp.src([ serverPath + '/musicplayer_system_info/**/*'], { read: false })
         .pipe(rimraf({ force: true }));
 
+    gulp.src('./').pipe(exec('touch ' + serverPath + '/musicplayer_system_info/currently_playing_track.txt', {silent: true}));
+    gulp.src('./').pipe(exec('chmod 0777 ' + serverPath + '/musicplayer_system_info/currently_playing_track.txt', {silent: true}));
+    
+    gulp.src('./').pipe(exec('touch ' + serverPath + '/musicplayer_system_info/currently_playing_dj_image.txt', {silent: true}));
+    gulp.src('./').pipe(exec('chmod 0777 ' + serverPath + '/musicplayer_system_info/currently_playing_dj_image.txt', {silent: true}));
+
     // clean musicplayer_system_info
     gulp.src([ serverPath + '/db/db.sqlite'], { read: false })
         .pipe(rimraf({ force: true }));
