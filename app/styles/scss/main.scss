@@ -208,7 +208,7 @@ body{
                     &.active{
                         @include transition(width , 0.3s); 
                         width: 42.5vw;
-                        span {
+                        span{
                             &.icon-info{
                                 width: 105px;
                             }
@@ -217,7 +217,7 @@ body{
                     &.inactive{
                         @include transition(width , 0.3s); 
                         width: 35px;
-                        span {
+                        span{
                             &.icon-info{
                                 width: 0;
                             }
