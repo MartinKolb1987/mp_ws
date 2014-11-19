@@ -188,63 +188,71 @@ body{
                     float:left;
                     background-color: $btnColorMiddle;
                     position: relative;
-                    a{
-                        height: $btnHeight;
-                        line-height: $btnHeight;
-                        padding-right: 20px;
-                        span{
-                            &.icon{
-                                float: left;
-                                width: 35px;
-                                text-align: center;
-                            }
+                    height: $btnHeight;
+                    line-height: $btnHeight;
+                    overflow: hidden;
+                    padding-right: 20px;
+                    span{
+                        &.icon{
+                            float: left;
+                            width: 35px;
+                            text-align: center;
+                        }
+                        &.icon-info{
+                            float: left;
+                            overflow: hidden;
+                            display: block;
+                            width: 0;
+                        }
+                    }
+                    &.active{
+                        @include transition(width , 0.3s); 
+                        width: 42.5vw;
+                        span {
                             &.icon-info{
-                                float: left;
-                                overflow: hidden;
-                                display: block;
+                                width: 105px;
+                            }
+                        }
+                    }
+                    &.inactive{
+                        @include transition(width , 0.3s); 
+                        width: 35px;
+                        span {
+                            &.icon-info{
                                 width: 0;
-                            }
-                        }
-                        &.active, &.inactive{
-                            span {
-                                &.icon-info{
-                                    @media only screen and (min-width: 300px) {
-                                        @include transition(width , 0.3s); 
-                                        width: 105px;
-                                    }
-                                }
-                            }
-                        }
-                        &.inactive{
-                            span {
-                                &.icon-info{
-                                    width: 0px;
-                                }
                             }
                         }
                     }
                     &:nth-child(1){
+                        overflow: hidden;
                         background-color: $mainColorDark;
-                        @include skewedBorder(right, -9px, 0, 20px, $btnColorMiddle); // = direction, directionValue, zIndex, width, color
+                        @include skewedBorder(right, -10px, 0, 20px, $btnColorMiddle); // = direction, directionValue, zIndex, width, color
                         padding-left: 5px;
-                        a{
-                            &.active{
-                                span{
-                                    &.icon-info{
-                                        @media only screen and (min-width: 320px) {
-                                            width: 45.9vw;
-                                        }
-                                    }
-                                }
-                            }
+                        &.active{
+                            padding-right: 71px;
+                        }
+                        &.inactive{
+                            padding-right: 20px;
                         }
                     }
                     &:nth-child(2){
                         background-color: $btnColorMiddle;
-                        @include skewedBorder(right, -9px, 0, 20px, $btnColorDark); // = direction, directionValue, zIndex, width, color
+                        @include skewedBorder(right, -10px, 0, 20px, $btnColorDark); // = direction, directionValue, zIndex, width, color
+                        &.active{
+                            padding-right: 71px;
+                        }
+                        &.inactive{
+                            padding-right: 20px;
+                        }
                     }
                     &:nth-child(3){
                         background-color: $btnColorDark;
+                        &.active{
+                            padding-right: 71px;
+                        }
+                        &.inactive{
+                            padding-right: 20px;
+                        }
                     }
                 }
             }
@@ -267,7 +275,7 @@ body{
                     #info-track-wrapper{
                         width: 42.5vw;
                         background-color: $mainColorLight;
-                        @include skewedBorder(right, -27px, 3, 60px, $mainColorLight); // = direction, directionValue, zIndex, width, color
+                        @include skewedBorder(right, -30px, 3, 60px, $mainColorLight); // = direction, directionValue, zIndex, width, color
                         #info-track{
                             position: absolute;
                             top: 0;
