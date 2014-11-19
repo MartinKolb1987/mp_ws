@@ -428,29 +428,47 @@ body{
                             background-color: $btnColorLight;
                         }
 
+                        #upload-wrapper{
+                            float: right;
 
-                    }
+                            .browse-button {
+                                background-color: $btnColorMiddle;
+                            }
 
-                    #upload-wrapper{
-                        padding: 15px;
-                        width: 100px;
-                        height: 100px;
-                    }
-                    #progress-wrapper{
-                        position: absolute;
-                        left: 5px;
-                        right: 5px;
-                        top: 5px;
-                        bottom: 5px;
-                        border-radius: 10px;
-                        border: 1px solid gray;
-                        background-color: #ffffff;
-                    }
-                    .hide{
-                        display: none;
+                            .upload-button {
+                                background-color: $btnColorMiddle;
+                            }
+
+                            .cancel-button {
+                                background-color: $btnColorDark;
+                            }
+
+                        }
+
+                        .empty-field {
+                            display: none;
+                        }
+
+                        .empty-field:first-child {
+                            display: block;
+                        }
+
+                        #progress-wrapper{
+                            position: absolute;
+                            left: 5px;
+                            right: 5px;
+                            top: 5px;
+                            bottom: 5px;
+                            border-radius: 10px;
+                            border: 1px solid gray;
+                            background-color: #ffffff;
+                        }
+
+                        .hide{
+                            display: none;
+                        }
                     }
                 }
-
             }
 
             //  settings site
