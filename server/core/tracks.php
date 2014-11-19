@@ -22,7 +22,7 @@ function addTrack($filename, $t_artist, $t_title, $t_album, $t_length) {
 
     // is there a file?
     if (strlen($filename) == 0) {
-        die('error: no file');
+        return '{"route":"' .  $route . '", "type": "error", "message": "no file"}';
     }
 	
 	// initialize database
@@ -36,7 +36,7 @@ function addTrack($filename, $t_artist, $t_title, $t_album, $t_length) {
     }
 	
     if ($userTracksCount >= 5) {
-        die('error: too many tracks');
+        return '{"route":"' .  $route . '", "type": "error", "message": "too many tracks"}';
     }
 	
 	// check if leftover
@@ -74,17 +74,13 @@ function addTrack($filename, $t_artist, $t_title, $t_album, $t_length) {
 		
     // the bucket (b_id) the user wants to add the track to
     $bucketToFill = $activeBucketId + $userTracksCount + $leftover;
-	
-	// echo('error: DEBUG, bucket to fill: '.$bucketToFill.' tracksCount: '.$userTracksCount.' leftover: ' . $leftover . 'activeBucket: '.$activeBucketId . 'filename: '.$filename);
-	
+		
 	// initialize database
 	$db = new ClientDB();
 	
 	// check if bucket to fill exists
 	$bucketToFillCount = 0;
     $bucketToFillQuery = $db->query("SELECT b_id FROM buckets WHERE b_id = $bucketToFill");
-	// echo('error: DEBUG bucketToFillQuery: ');
-	// print_r($bucketToFillQuery);
     while ($row = $bucketToFillQuery->fetchArray(SQLITE3_ASSOC)) {
         $bucketToFillCount++;
     }
@@ -95,9 +91,7 @@ function addTrack($filename, $t_artist, $t_title, $t_album, $t_length) {
 	}
 
     // insert track into db
-	// echo('inserting: '.$clientIp . ' ' .$filename . ' ' .$t_artist . ' ' .$t_title . ' ' .$t_album . ' ' .$t_length);
     $dbInsert = $db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('$clientIp', '$filename', '$t_artist', '$t_title', '$t_album', $t_length)");
-	// echo('insert: '.$dbInsert);
 
     // fill bucketcontents with t_id
     // ========================================
@@ -108,11 +102,9 @@ function addTrack($filename, $t_artist, $t_title, $t_album, $t_length) {
     while ($row = $trackIdQuery->fetchArray(SQLITE3_ASSOC)) {
         $trackId = $row['t_id'];
     }
-    
-	// echo('t-id: '.$trackId);
-	
+    	
 	if(empty($trackId)) {
-		die('error: t_id not found - insert into tracks failed? (addTrack())');
+        return '{"route":"' .  $route . '", "type": "error", "message": "t_id not found - insert into tracks failed? (addTrack())"}';
 	}
 	
     $db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing) VALUES ('$trackId', '$bucketToFill', 0, 0)");
@@ -140,17 +132,15 @@ function swapUserTrack($route, $type, $swapTracks, $websocketClientIp = '') {
 	$track1 = $swapTracks[0];
 	$track2 = $swapTracks[1];
 
-    echo 'track1: ' . $track1 . ' track2: ' . $track2 . ' ';
-
     if (userOwnsTrack($track1) == false || userOwnsTrack($track2) == false) {
-        die('error: user does not own one of the tracks (swapTrack() - wrong track id?)');
+        return '{"route":"' .  $route . '", "type": "error", "message": "user does not own one of the tracks (swapTrack() - wrong track id?)"}';
     }
 
     // is track currently playing?    
     $currentlyPlaying = currentlyPlaying();
     
     if ($currentlyPlaying == $track1 || $currentlyPlaying == $track2) {
-        die('error: one track is currently playing, cannot swap (swapTrack())');
+        return '{"route":"' .  $route . '", "type": "error", "message": "one track is currently playing, cannot swap (swapTrack())"}';
     }
     
     // get both track bucket ids 
@@ -201,7 +191,7 @@ function deleteUserTrack($route, $type, $track, $websocketClientIp = '') {
 	
 	// does user own the track?
     if (userOwnsTrack($track) == false) {
-        die('error: user does not own the track');
+        return '{"route":"' .  $route . '", "type": "error", "message": "user does not own the track"}';
     }
     
     // is the track currently playing?

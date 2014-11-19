@@ -68,7 +68,7 @@ function getDownvoteLevel($route, $type, $websocketClientIp = '') {
         $db->close();
         unset($db);
 
-        die('error: user is not an admin and can not change the downvote level');
+        return '{"route":"' .  $route . '", "type": "error", "message": "user is not an admin and can not change the downvote level"}';
     }
 
     return '{"route":"' .  $route . '", "type": "' . $type . '", "downvoteLevel":' . $downvoteLevel . '}';
@@ -104,7 +104,7 @@ function setDownvoteLevel($route, $type, $data, $websocketClientIp = '') {
         $db->close();
         unset($db);
 
-        die('error: user is not an admin and can not change the downvote level');
+        return '{"route":"' .  $route . '", "type": "error", "message": "user is not an admin and can not change the downvote level"}';
     }
 
     return '{"route":"' .  $route . '", "type": "' . $type . '", "downvoteLevel":' . $data . '}';
@@ -143,7 +143,7 @@ function getInternetAccess($route, $type, $websocketClientIp = '') {
         $db->close();
         unset($db);
 
-        die('error: user is not an admin and can not see the internet access');
+        return '{"route":"' .  $route . '", "type": "error", "message": "user is not an admin and can not see the internet access"}';
     }
 
     return '{"route":"' .  $route . '", "type": "' . $type . '", "internetAccess":' . $internetAccess . '}';
@@ -189,7 +189,7 @@ function setInternetAccess($route, $type, $websocketClientIp = '') {
         $db->close();
         unset($db);
 
-        die('error: user is not an admin and can not change the internet access');
+        return '{"route":"' .  $route . '", "type": "error", "message": "user is not an admin and can not see the internet access"}';
     }
 
     return '{"route":"' .  $route . '", "type": "' . $type . '", "internetAccess":' . $internetAccess . '}';
@@ -219,7 +219,7 @@ function getBlacklist() {
         $db->close();
         unset($db);
 
-        die('error: user is not an admin and can not get the blacklist');
+        return '{"route":"' .  $route . '", "type": "error", "message": "user is not an admin and can not get the blacklist"}';
     }
     
     //get blacklist

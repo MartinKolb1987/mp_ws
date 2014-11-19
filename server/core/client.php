@@ -32,7 +32,8 @@ function execAction() {
 		if(empty($_POST['type'])) {
 		    // debug mode
 		    if(empty($_GET['type'])) {
-		        die('error: no action specified (GET/POST type)');
+                header('Content-type: application/json');
+                return '{"route":"' .  $route . '", "type": "error", "message": "no action specified (GET/POST type)"}';
 		    } else {
 				$type = $_GET['type'];
 			}
@@ -51,12 +52,13 @@ function execAction() {
         case 'uploadUserTrack':
             // sanity check - empty input
             if (isset($_FILES['file']) == false) {
-                die('error: no file specified (execAction() - uploadUserTrack)');
+                header('Content-type: application/json');
+                return '{"route":"' .  $route . '", "type": "error", "message": "no file specified (execAction() - uploadUserTrack)"}';
             } else {
                 // return should be true on success
                 $returnMsg = uploadFile($type, $_FILES['file'], $route);
                 if(!empty($returnMsg)) {
-                    header('Content-type: text/plain');
+                    header('Content-type: application/json');
                     echo $returnMsg;
                 }
             }
@@ -65,7 +67,8 @@ function execAction() {
         case 'swapUserTrack':
             // sanity check - empty input
             if (empty($sendData)) {
-                die('error: no id specified (execAction() - swapTrack)');
+                header('Content-type: application/json');
+                return '{"route":"' .  $route . '", "type": "error", "message": "no id specified (execAction() - swapTrack)"}';
             } else {
                 // return should be true on success
                 $returnMsg = swapUserTrack($route, $type, $sendData);
@@ -79,7 +82,8 @@ function execAction() {
         case 'deleteUserTrack':
             // sanity check - empty input
             if (empty($sendData)) {
-                die('error: no id specified (execAction() - removeTrack)');
+                header('Content-type: application/json');
+                return '{"route":"' .  $route . '", "type": "error", "message": "no id specified (execAction() - deleteTrack)"}';
             } else {
                 // return should be true on success
                 $returnMsg = deleteUserTrack($route, $type, $sendData);
@@ -93,7 +97,8 @@ function execAction() {
         case 'downvoteTrack':
             // sanity check - empty input
             if (empty($sendData)) {
-                die('error: no id specified (execAction() - downvoteTrack)');
+                header('Content-type: application/json');
+                return '{"route":"' .  $route . '", "type": "error", "message": "no id specified (execAction() - downvoteTrack)"}';
             } else {
                 // return should be true on success
                 $returnMsg = insertDownvote($route, $type, $sendData);
@@ -107,7 +112,8 @@ function execAction() {
         case 'uploadUserImage':
             // sanity check - empty input
             if (isset($_FILES['file']) == false) {
-                die('error: no file or filename specified (execAction() - uploadUserImage)');
+                header('Content-type: application/json');
+                return '{"route":"' .  $route . '", "type": "error", "message": "no file or filename specified (execAction() - uploadUserImage)"}';
             } else {
                 // return should be true on success
                 $returnMsg = uploadFile($type, $_FILES['file'], $route);

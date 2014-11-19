@@ -181,6 +181,10 @@ define([
             receivedData = this.fromStringToJson(receivedData);
             var view = ComponentCollection.getComponent(receivedData.route);
 
+            if(receivedData.type === 'error'){
+                ErrorHandler.log(receivedData.message, receivedData.route);
+                return false;
+            }
 
             switch(receivedData.route){
                 case 'home':
@@ -334,8 +338,13 @@ define([
             this.sendData('home', 'deleteUserTrack', trackId);
         },
 
+        swapUserTrack: function(swapTracks){
+            this.sendData('home', 'swapUserTrack', swapTracks);
+        },
+
         downvoteTrack: function(trackId){
-            this.sendData('home', 'downvoteTrack', trackId);
+            console.log(trackId);
+            // this.sendData('home', 'downvoteTrack', trackId);
         },
 
         distributeDownVoteTrack: function(data, view){
@@ -356,9 +365,6 @@ define([
             }
         },
         
-        swapUserTrack: function(swapTracks){
-            this.sendData('home', 'swapUserTrack', swapTracks);
-        },
 
         // internet access
         // --------------------------

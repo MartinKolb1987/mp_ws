@@ -29,12 +29,12 @@ function uploadFile($type, $file, $route){
         $allowedFiles = ['image/jpeg', 'image/png', 'image/gif'];
         $sizeLimit = 10;
     } else {
-        die('error: wrong file upload mode (uploadFile())');
+        return '{"route":"' .  $route . '", "type": "error", "message": "wrong file upload mode (uploadFile())"}';
     }
     
     // check file size
     if ($file['size'] > ($sizeLimit * pow(1024, 2))){
-        die('error: file size too big (uploadFile())');
+        return '{"route":"' .  $route . '", "type": "error", "message": "file size too big (uploadFile())"}';
     }
     
     // allowed file type server side check
@@ -54,7 +54,7 @@ function uploadFile($type, $file, $route){
     }
     
     if($checkFileType == false){
-        die('error: file type does not match (uploadFile())');
+        return '{"route":"' .  $route . '", "type": "error", "message": "file type does not match (uploadFile())"}';
     }
     
     // initialize database   
@@ -80,7 +80,7 @@ function uploadFile($type, $file, $route){
     $forbiddenFileExt = ['php', 'htm', 'exe', 'run', 'bin', 'torrent', 'js', 'css', 'zip', 'rar' , 'sh'];
     while($forbiddenExt = array_pop($forbiddenFileExt)){
         if (strpos($fileExt, $forbiddenExt) !== false){
-            die('error: forbidden file extension (uploadFile())');
+            return '{"route":"' .  $route . '", "type": "error", "message": "forbidden file extension (uploadFile())"}';
         }
     }
     
@@ -92,7 +92,7 @@ function uploadFile($type, $file, $route){
         
         // move file
         if (move_uploaded_file($file['tmp_name'], $uploadDirectory . $tempFile) == false){
-            die('error: moving temp file failed (fileUpload() - audio track - #1)');
+            return '{"route":"' .  $route . '", "type": "error", "message": "moving temp file failed (fileUpload() - audio track - #1)"}';
         }
         
         // initialize database   
@@ -124,7 +124,7 @@ function uploadFile($type, $file, $route){
         // $newFilePath = $clientIp . '/' . $randomNo . $fileExt;
         // // move file
         // if (rename($tempFile, ($uploadDirectory . $newFilePath)) == false) {
-        //     die('error: moving temp file failed (fileUpload() - audio track - #2)');
+        //     return '{"route":"' .  $route . '", "type": "error", "message": "moving temp file failed (fileUpload() - audio track - #2)"}';
         // }
         
         // add to db
@@ -142,7 +142,7 @@ function uploadFile($type, $file, $route){
 
         // move file
         if (move_uploaded_file($file['tmp_name'], $uploadDirectory . $newFilePath) == false) {
-            die('error: moving temp file failed (fileUpload() - picture)');
+            return '{"route":"' .  $route . '", "type": "error", "message": "moving temp file failed (fileUpload() - picture)"}';
         }
 
         // add to db

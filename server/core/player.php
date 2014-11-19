@@ -21,7 +21,8 @@ function execAction() {
     // get action
     if(empty($action)) {
         // debug mode
-        die('error: no action specified (GET type)');
+        header('Content-type: application/json');
+        return '{"route":"' .  $route . '", "type": "error", "message": "no action specified (GET type)"}';
     }
     
     switch($action){
@@ -37,7 +38,8 @@ function execAction() {
         case 'playbackFinished':
             // sanity check - empty input
             if (empty($_GET['filename'])) {
-                die('error: no filename specified (execAction() - playbackFinished)');
+                header('Content-type: application/json');
+                return '{"route":"' .  $route . '", "type": "error", "message": "no filename specified (execAction() - playbackFinished)"}';
             } else {
                 $returnMsg = playbackFinished($_GET['filename']);
 				header('Content-type: text/plain');

@@ -128,36 +128,27 @@ define([
 
             },
 
-            swapUpUserTrack: function(e){
-                var that = this;
-                var key = parseInt(that.splitId(e));
-                var secondKey = key - 1;
+            swapUserTrack: function(key, direction){
 
-                var track1 = that.$data.playlist[key].t_id;
-                var track2 = that.$data.playlist[secondKey].t_id;
+                key = parseInt(key);
 
-                var swapTracks = [track1, track2];
+                if (direction === 'up'){
+                    var secondKey = key - 1;
+                } else {
+                    var secondKey = key + 1;
+                }
 
-                DataHandler.swapUserTrack(swapTracks);
+                var track1 = this.$data.playlist[key].t_id;
+                var track2 = this.$data.playlist[secondKey].t_id;
+
+                DataHandler.swapUserTrack([track1, track2]);
             },
 
-            swapDownUserTrack: function(e){
-                var that = this;
-                var key = parseInt(that.splitId(e));
-                var secondKey = key + 1;
-
-                var track1 = that.$data.playlist[key].t_id;
-                var track2 = that.$data.playlist[secondKey].t_id;
-
-                var swapTracks = [track1, track2];
-
-                DataHandler.swapUserTrack(swapTracks);
-            },
-
-            deleteUserTrack: function(e){
-                var that = this;
-                var t_id = that.splitId(e);
-                DataHandler.deleteUserTrack(t_id);
+            deleteUserTrack: function(tId){
+                // var that = this;
+                // var tId = that.splitId(e);
+                console.log(tId);
+                // DataHandler.deleteUserTrack(tId);
             },
 
             clearUploadField: function(inputField){
@@ -165,13 +156,6 @@ define([
                 // better to remove and add new one
                 inputField.parent('#upload-wrapper').prepend('<input type="file" id="upload-file-field" class="hide">');
                 inputField.remove();
-            },
-
-            splitId: function(e){
-                var elId = $(e.target).attr('id');
-                var elArray = elId.split("-");
-                var splitId = elArray[1];
-                return splitId;
             },
 
             downvoteTrack: function(trackId){
