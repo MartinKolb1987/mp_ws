@@ -117,7 +117,7 @@ html[xmlns] .clearfix {
 .view {
     position: absolute;
     opacity: 1;
-    @include transition(all, 0.3s, ease-in);
+    @include transition(opacity, 0.3s, ease-in);
 }
 
 .v-enter {
@@ -198,7 +198,7 @@ body{
                         }
                     }
                     &.active{
-                        @include transition(width , 0.3s); 
+                        @include transition(width , 0.3s, linear); 
                         width: 42.5vw;
                         background-color: $mainColorDark;
                         @include skewedBorder(left, -10px, 0, 20px, $mainColorDark); // = direction, directionValue, zIndex, width, color
@@ -211,7 +211,7 @@ body{
                         }
                     }
                     &.inactive{
-                        @include transition(width , 0.3s); 
+                        @include transition(width , 0.3s, linear); 
                         width: 35px;
                         padding-right: 20px;
                         span{
