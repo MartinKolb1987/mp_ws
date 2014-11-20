@@ -17,7 +17,7 @@ define([
         
         // xhr
         regularHost: '../server/core/client.php',
-        checkForNewUpdatesIntervalTimeXHR: 2000, // milliseconds
+        checkForNewUpdatesIntervalTimeXHR: 4000, // milliseconds
 
         // transition timeout dj image change
         currentlyPlayingDjImageChangeTimeout: 600, // milliseconds
@@ -341,9 +341,9 @@ define([
 
         // track
         // --------------------------
-        uploadUserTrack: function(file){
-            this.sendData('home', 'uploadUserTrack', file);
-            console.log(file);
+        uploadUserTrack: function(file, key){
+            var data = [file, key];
+            this.sendData('home', 'uploadUserTrack', data);
         },
 
         deleteUserTrack: function(trackId){
@@ -494,7 +494,7 @@ define([
             formData.append('route', route);
 
             if(type === 'uploadUserImage' || type === 'uploadUserTrack'){
-                formData.append('file', data);
+                formData.append('file', data[0]);
                 formData.append('data', '');
             } else {
                 formData.append('data', data);
@@ -513,11 +513,12 @@ define([
                 var procent = Math.round(100 / e.total * e.loaded);
 
                 if(type === 'uploadUserImage' || type === 'uploadUserTrack'){
-
+                    
                     if (procent < 98){
                         that.$data.uploadProgressWrapperStateClass = ''; // show progress wrapper
                         view.uploadProgressValue = procent + '%';
                     } else {
+                        console.log($('line-' + data[1]).parents());
                         view.triggerUploadFileStateClass = '';
                         view.uploadFileControlWrapperStateClass = 'hide';
                         view.uploadProgressValue = procent + '% --> fertig';

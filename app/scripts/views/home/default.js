@@ -82,6 +82,7 @@ define([
                             that.$data.triggerUploadFileStateClass = 'hide';
                             that.$data.uploadFileControlWrapperStateClass = '';
                             inputField.parents('#upload-wrapper').siblings('.line-title').text(inputField[0].files[0].name);
+
                             // upload file
                             that.uploadFile(inputField);
                             that.cancelUploadFile(inputField);
@@ -97,9 +98,14 @@ define([
             uploadFile: function(inputField){
                 var that = this;
                 var uploadFileButton = inputField.parent('#upload-wrapper').find('#upload-control-wrapper  #upload-file');
+
+                var lineId = inputField.parents('#upload-wrapper').siblings('.line-text').attr('id');
+                var lineArray = lineId.split("-");
+                var key = lineArray[1];
+
                 uploadFileButton.unbind('click');
                 uploadFileButton.on('click', function(){
-                    DataHandler.uploadUserTrack(inputField[0].files[0]);
+                    DataHandler.uploadUserTrack(inputField[0].files[0], key);
                 });
 
             },
@@ -108,9 +114,11 @@ define([
                 var that = this;
                 var uploadFileButton = inputField.parent('#upload-wrapper').find('#upload-control-wrapper  #cancel-upload-file');
 
+
                 uploadFileButton.unbind('click');
                 uploadFileButton.on('click', function(){
                     that.$data.triggerUploadFileStateClass = '';
+                    inputField.parents('#upload-wrapper').siblings('.line-title').text('');
                     that.$data.uploadFileControlWrapperStateClass = 'hide';
                     that.clearUploadField(inputField);
                 });
