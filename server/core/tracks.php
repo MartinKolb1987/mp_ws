@@ -378,4 +378,24 @@ function getActiveBucket() {
 	return $activeBucketId;
 }
 
+/* currentDjUserIp()
+ * @return String user ip of the track that is currently playing
+ */
+function currentDjUserIp(){
+    // initialize database
+    $db = new ClientDB();
+
+    $currentUserIpQuery = $db->query("SELECT t.u_ip FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id WHERE b.b_currently_playing = 1");
+    $currentUserIp = 0;        
+    while ($row = $currentUserIpQuery->fetchArray(SQLITE3_ASSOC)) {
+        $currentUserIp = $row['u_ip'];
+    }
+
+    // close db
+    $db->close();
+    unset($db);
+
+    return $currentUserIp;
+}
+
 ?>

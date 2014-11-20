@@ -44,14 +44,14 @@ $db->exec("CREATE TABLE bucketcontents (t_id INTEGER REFERENCES tracks(t_id), b_
 echo('FINISHED Creating new tables...<br/>');
 
 
-if(isset($_GET['AddTestUserAndTrack'])){
-	echo('inserting test data (incl. currently playing track)...<br/>');
-	$db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('127.0.0.1', 'd3-a2-54-69-3f-bb-24', 'default.png')");
-	$db->exec("INSERT INTO admins (u_ip, a_downvote_level, a_internet_access) VALUES ('127.0.0.1', 50, 0)");
-	$db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('127.0.0.1', '127.0.0.1/tracks/56464156.ogg', 'Klospülung', 'Mundwasser', 'album1', 210)");
-	$db->exec("INSERT INTO buckets (b_is_active) VALUES (1)");
-	$db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing) VALUES (1, 1, 0, 1)");
-	echo('FINISHED inserting test data (incl. currently playing track)...<br/>');
+if(isset($_GET['AddMockData'])){
+	// echo('inserting test data (incl. currently playing track)...<br/>');
+	// $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('127.0.0.1', 'd3-a2-54-69-3f-bb-24', 'default.png')");
+	// $db->exec("INSERT INTO admins (u_ip, a_downvote_level, a_internet_access) VALUES ('127.0.0.1', 50, 0)");
+	// $db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('127.0.0.1', '127.0.0.1/tracks/56464156.ogg', 'Klospülung', 'Mundwasser', 'album1', 210)");
+	// $db->exec("INSERT INTO buckets (b_is_active) VALUES (1)");
+	// $db->exec("INSERT INTO bucketcontents (t_id, b_id, b_played, b_currently_playing) VALUES (1, 1, 0, 1)");
+	// echo('FINISHED inserting test data (incl. currently playing track)...<br/>');
 }
 
 

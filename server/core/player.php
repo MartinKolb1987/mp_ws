@@ -136,6 +136,11 @@ function getTrackToPlay() {
             $db->close();
             unset($db);
 
+            // set dj image and current track default
+            // --> otherwise auto update doesn‘t work correct
+            $createTxtFile = createTxtFile('djImage', '../server/userdata/default.png');
+            $createTxtFile = createTxtFile('trackId', '0');
+
             return 'empty';
         }
 
