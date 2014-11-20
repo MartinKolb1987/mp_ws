@@ -155,7 +155,6 @@ function uploadFile($type, $file, $route){
         if($currentDjUserIp === $clientIp){
             $createTxtFile = createTxtFile('djImage', $wholeImagePath);
         }
-
         return '{"route":"' .  $route . '", "type": "' . $type . '","userImage":{"url":"' . $wholeImagePath . '"}}';
     }
     

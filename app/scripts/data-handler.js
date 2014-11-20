@@ -492,7 +492,10 @@ define([
             formData.append('type', type);
             formData.append('route', route);
 
-            if(type === 'uploadUserImage' || type === 'uploadUserTrack'){
+            if(type === 'uploadUserImage'){
+                formData.append('file', data);
+                formData.append('data', '');
+            } else if(type === 'uploadUserTrack') {
                 formData.append('file', data[0]);
                 formData.append('data', '');
             } else {
@@ -552,6 +555,7 @@ define([
 
         changeDjImage: function(view, dataCurrentlyPlayingDjImage){
             var that = this;
+
             if(view.imageOne !== this.currentlyPlayingDjImage){
                 view.imageOne = dataCurrentlyPlayingDjImage;
                 view.djImageStateClassTwo = 'inactive';
@@ -560,6 +564,7 @@ define([
                 }, that.currentlyPlayingDjImageChangeTimeout - 300);
             
             } else {
+                console.log('hieee');
                 view.imageTwo = dataCurrentlyPlayingDjImage;
                 view.djImageStateClassOne = 'inactive';
                 setTimeout(function(){

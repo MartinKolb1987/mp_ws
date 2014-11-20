@@ -303,7 +303,7 @@ function unwrap($msg=""){
     }
 
     if($fin!=1){
-        return $payload.processMsg(substr($msg,$index));
+        // return $payload.processMsg(substr($msg,$index));
     } else {
         return $payload;
     }
