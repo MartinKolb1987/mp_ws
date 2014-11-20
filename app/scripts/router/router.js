@@ -114,18 +114,38 @@ define([
         },
 
         initMainNavigation: function(){
+            var that = this;
             var route = this.getRoute();
-            var allMainNavigationItems = $('#navigation > li');
-            
+            var mainNavigation = $('#navigation');
+            var allMainNavigationItems = mainNavigation.find('li');
+
             if(allMainNavigationItems !== 'undefined'){
                 // set init navigation state
                 // based on route
-                allMainNavigationItems.find('a[data-route=' + route + ']').parents('li').addClass('active');
+                allMainNavigationItems.addClass('inactive');
+                allMainNavigationItems.find('a[data-route=' + route + ']').parents('li').addClass('active').removeClass('inactive');
                 
+                // needed for different background-colors
+                // --> there is no other possibility, otherwise feel free to change it ;-)
+                if(route === 'help'){
+                    allMainNavigationItems.eq(1).addClass('second');
+                    mainNavigation.addClass('last');
+                }
+
                 // add click eventlistener
                 allMainNavigationItems.on('click', function(e){
-                    allMainNavigationItems.removeClass('active').addClass('inactive');
+                    route = $(this).find('a').attr('data-route');
+
+                    mainNavigation.removeClass('last');
+                    allMainNavigationItems.removeClass('second active inactive').addClass('inactive');
                     $(this).removeClass('inactive').addClass('active');
+                    
+                    // needed for different background-colors
+                    // --> there is no other possibility, otherwise feel free to change it ;-)
+                    if(route === 'help'){
+                        allMainNavigationItems.eq(1).addClass('second');
+                        mainNavigation.addClass('last');
+                    }
                 });
             } else {
                 this.initMainNavigation();

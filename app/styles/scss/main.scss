@@ -183,77 +183,63 @@ body{
             ul#navigation{
                 list-style-type: none;
                 height: $btnHeight;
-                background-color: $btnColorDark;
+                background-color: $btnColorLight;
                 li{
-                    float:left;
+                    float: left;
                     background-color: $btnColorMiddle;
                     position: relative;
                     height: $btnHeight;
                     line-height: $btnHeight;
-                    overflow: hidden;
-                    padding-right: 20px;
                     span{
                         &.icon{
                             float: left;
                             width: 35px;
                             text-align: center;
                         }
-                        &.icon-info{
-                            float: left;
-                            overflow: hidden;
-                            display: block;
-                            width: 0;
-                        }
                     }
                     &.active{
                         @include transition(width , 0.3s); 
                         width: 42.5vw;
+                        background-color: $mainColorDark;
+                        @include skewedBorder(left, -10px, 0, 20px, $mainColorDark); // = direction, directionValue, zIndex, width, color
+                        padding-right: 71px;
                         span{
                             &.icon-info{
-                                width: 105px;
+                                opacity: 1;
+                                float: left;
                             }
                         }
                     }
                     &.inactive{
                         @include transition(width , 0.3s); 
                         width: 35px;
+                        padding-right: 20px;
                         span{
                             &.icon-info{
-                                width: 0;
+                                opacity: 0;
+                                float: left;
                             }
                         }
                     }
-                    &:nth-child(1){
-                        overflow: hidden;
-                        background-color: $mainColorDark;
-                        @include skewedBorder(right, -10px, 0, 20px, $btnColorMiddle); // = direction, directionValue, zIndex, width, color
-                        padding-left: 5px;
-                        &.active{
-                            padding-right: 71px;
-                        }
-                        &.inactive{
-                            padding-right: 20px;
-                        }
-                    }
                     &:nth-child(2){
-                        background-color: $btnColorMiddle;
-                        @include skewedBorder(right, -10px, 0, 20px, $btnColorDark); // = direction, directionValue, zIndex, width, color
-                        &.active{
-                            padding-right: 71px;
-                        }
                         &.inactive{
-                            padding-right: 20px;
+                            background-color: $btnColorMiddle;
+                            @include skewedBorder(left, -10px, 1, 20px, $btnColorMiddle); // = direction, directionValue, zIndex, width, color
+                            &.second{
+                                background-color: $btnColorLight;
+                                @include skewedBorder(left, -10px, 1, 20px, $btnColorLight); // = direction, directionValue, zIndex, width, color  
+                            }
                         }
                     }
                     &:nth-child(3){
-                        background-color: $btnColorDark;
-                        &.active{
-                            padding-right: 71px;
-                        }
                         &.inactive{
-                            padding-right: 20px;
+                            background-color: $btnColorLight;
+                            @include skewedBorder(left, -10px, 1, 20px, $btnColorLight); // = direction, directionValue, zIndex, width, color
                         }
                     }
+                }
+                &.last{
+                    background-color: $mainColorDark;
                 }
             }
 
@@ -275,7 +261,7 @@ body{
                     #info-track-wrapper{
                         width: 42.5vw;
                         background-color: $mainColorLight;
-                        @include skewedBorder(right, -30px, 3, 60px, $mainColorLight); // = direction, directionValue, zIndex, width, color
+                        @include skewedBorder(right, -27px, 3, 90px, $mainColorLight); // = direction, directionValue, zIndex, width, color
                         #info-track{
                             position: absolute;
                             top: 0;

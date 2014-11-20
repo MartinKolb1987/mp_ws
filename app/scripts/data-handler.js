@@ -37,7 +37,7 @@ define([
         // current music player system infos
         lastPlayedTrackId: 0,
         currentlyPlayingTrackId: 0,
-        currentlyPlayingDjImage: '../server/userdata/default.png',
+        currentlyPlayingDjImage: '',
         currentClientSidePlaylist: [],
         currentlyClientSideUploadingTrack: false,
 
@@ -552,7 +552,6 @@ define([
 
         changeDjImage: function(view, dataCurrentlyPlayingDjImage){
             var that = this;
-            
             if(view.imageOne !== this.currentlyPlayingDjImage){
                 view.imageOne = dataCurrentlyPlayingDjImage;
                 view.djImageStateClassTwo = 'inactive';
