@@ -451,7 +451,6 @@ define([
                     if(data.currentlyPlayingTrackId !== this.currentlyPlayingTrackId){
                         if(DebugHandler.isActive){ console.log('Auto update track id: ' + this.readyState); }
                         this.getCurrentlyPlayingTrack(route);
-                        this.getUserPlaylist(route);
                     }
 
                     // update user image
