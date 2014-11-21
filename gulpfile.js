@@ -138,6 +138,29 @@ gulp.task('chmod-dist-recursive', function(){
     gulp.src('./').pipe(exec('chmod -R 0777 ' + distPath, {silent: true}));
 });
 
+gulp.task('create-bower_components-folder-dist', function(){
+    gulp.src('./').pipe(exec('mkdir -p -m 0777 ' + distPath + '/app/bower_components/requirejs', {silent: true}));
+});
+
+gulp.task('concatenate-scripts-folder-and-move-require-js', function(){
+    // concatenate all scripts and html in scripts folder
+    gulp.src('./').pipe(exec('./node_modules/requirejs/bin/r.js -o ' + appPath + '/build-require.js', {silent: true}));
+
+    // create folders in dist/app
+    gulp.src('./').pipe(exec('cp -R ' + appPath + '/bower_components/requirejs/require.js ' + distPath + '/app/bower_components/requirejs/', {silent: true}));
+});
+
+gulp.task('move-index-to-dist', function (){
+    // open browser and init createdb with test data
+    gulp.src('./').pipe(exec('cp ' + appPath + '/index.html ' + distPath + '/app/', {silent: true}));
+});
+
+gulp.task('move-images-to-dist', function (){
+    // open browser and init createdb with test data
+    gulp.src('./').pipe(exec('cp -R ' + appPath + '/images/ ' + distPath + '/app/images/', {silent: true}));
+});
+
+
 // ----------------------------------------
 // default
 // ----------------------------------------
@@ -160,12 +183,9 @@ gulp.task('development', function () {
 // ----------------------------------------
 
 gulp.task('build', function () {
-    // TODO
-    // build app folder (after build remove mock_data, styles/scss, bower_components)
-
-    // reset all user stuff and system data
+    // reset all user stuff and system data and create cleand dist folder
     trackIdStart = 0;
-    runSequence('clean-dist', 'prefix-and-minify-css', 'reset-server-userdata', 'reset-server-musicplayer-system-info', 'reset-server-db', 'move-server-to-dist', 'chmod-dist-recursive', 'init-server-db');
+    runSequence('clean-dist', 'prefix-and-minify-css', 'create-bower_components-folder-dist', 'concatenate-scripts-folder-and-move-require-js', 'move-index-to-dist', 'move-images-to-dist', 'reset-server-userdata', 'reset-server-musicplayer-system-info', 'reset-server-db', 'move-server-to-dist', 'chmod-dist-recursive', 'init-server-db');
 });
 
 
