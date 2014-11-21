@@ -52,7 +52,10 @@ define([
             triggerUploadFileStateClass: '',
             uploadFileControlWrapperStateClass: 'hide',
             fileControlStateClass: 'hide',
-            uploadProgressWrapperStateClass: 'hide'
+            uploadProgressWrapperStateClass: 'hide',
+
+            // delete
+            deleteTimeout: ''
 
         },
         methods: {
@@ -154,18 +157,31 @@ define([
             },
 
             deleteUserTrack: function(el, tId){
-
+                var that = this;
                 var deleteButton = el.$el;
+                var progressbar = $(deleteButton).siblings('.progressbar');
 
-                for (var i = 100; i > 1; i--) { 
-                    setTimeout(function(){
-                        $(deleteButton).siblings('.progressbar').css('width', i + '%');
-                    }, 1000);
-                    console.log(i);
-                }
+                var length = 20;
 
-                // DataHandler.deleteUserTrack(tId);
+                this.$data.deleteTimeout = setInterval(function(){
+                    progressbar.css('width', length + '%');
+                    if(length === 0){
+                        console.log(tId, 'finished');
+                        // DataHandler.deleteUserTrack(tId);
+                        clearInterval(that.$data.deleteTimeout);
+                        return false;
+                    }
+                    length = length - 1;
+                }, 1000);
+
             },
+
+            cancelDelete: function(){
+                var that = this;
+                clearInterval(that.$data.deleteTimeout);
+                // TODO --> set event listener on track line to do this
+            },
+
 
             clearUploadField: function(inputField){
                 // only clear input value --> doesn‘t work correctly

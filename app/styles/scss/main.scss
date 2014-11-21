@@ -386,7 +386,7 @@ body{
                         .line-wrapper {
 
                             .progressbar {
-                                width: 0%;
+                                @include transition(width, 1s, linear);
                                 height: 40px;
                                 background-color: $btnColorDark;
                                 position: absolute;
