@@ -33,12 +33,12 @@
 
 	<div id="playlist-wrapper" class="clearfix">
 		<ul>
-			<li v-repeat="playlist" class="playlist">
+			<li v-repeat="playlist" class="playlist" v-on="click: setPlaylist(this)">
 
 				<div class="line-wrapper">
-					<div class="progressbar"></div>
-					<div id="line-{{$index + 1}}" class="line-text">{{$index + 1}}.</div>
-					<div class="line-title">{{t_title}}</div>
+					<div class="progressbar" v-on="click: cancelDelete(this)"></div>
+					<div class="line-text">{{$index + 1}}.</div>
+					<div class="line-title" v-on="click: cancelDelete(this)">{{t_title}}</div>
 					<div class="playlist-button delete-button" v-if="t_title" v-on="click: deleteUserTrack(this, t_id)">D</div>	
 					<div class="playlist-button swapup-button" v-if="t_title" v-on="click: swapUserTrack(($index + 1), 'up')">u</div>
 					<div class="playlist-button swapdown-button" v-if="t_title" v-on="click: swapUserTrack(($index + 1), 'down')">d</div>

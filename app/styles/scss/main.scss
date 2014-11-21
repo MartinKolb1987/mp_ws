@@ -386,7 +386,7 @@ body{
                         .line-wrapper {
 
                             .progressbar {
-                                @include transition(width, 1s, linear);
+                                // @include transition(width, 1s, linear);
                                 height: 40px;
                                 background-color: $btnColorDark;
                                 position: absolute;
@@ -407,7 +407,7 @@ body{
                             }
 
                             .playlist-button {
-                                padding: 12px 25px 0 6px;
+                                padding: 12px 28px 0 6px;
                                 height: 28px;
                                 float: right;
                                 position: relative;
@@ -420,14 +420,17 @@ body{
 
                             .delete-button {
                                 background-color: $btnColorDark;
+                                @include skewedBorder(left, -13px, 1, 20px, $btnColorDark);
                             }
 
                             .swapup-button {
                                 background-color: $btnColorMiddle;
+                                @include skewedBorder(left, -13px, 1, 20px, $btnColorMiddle);
                             }
                             
                             .swapdown-button {
                                 background-color: $btnColorLight;
+                                @include skewedBorder(left, -13px, 1, 20px, $btnColorLight);
                             }
 
                             #upload-wrapper{
@@ -435,14 +438,17 @@ body{
 
                                 .browse-button {
                                     background-color: $btnColorMiddle;
+                                    @include skewedBorder(left, -13px, 1, 20px, $btnColorMiddle);
                                 }
 
                                 .upload-button {
                                     background-color: $btnColorMiddle;
+                                    @include skewedBorder(left, -13px, 1, 20px, $btnColorMiddle);
                                 }
 
                                 .cancel-button {
                                     background-color: $btnColorDark;
+                                    @include skewedBorder(left, -13px, 1, 20px, $btnColorDark);
                                 }
                             }
 

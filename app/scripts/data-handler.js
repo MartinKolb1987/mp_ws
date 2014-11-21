@@ -343,8 +343,8 @@ define([
 
         // track
         // --------------------------
-        uploadUserTrack: function(file, key){
-            var data = [file, key];
+        uploadUserTrack: function(file, element){
+            var data = [file, element];
             this.sendData('home', 'uploadUserTrack', data);
         },
 
@@ -500,7 +500,7 @@ define([
                 formData.append('data', '');
             } else if(type === 'uploadUserTrack') {
                 formData.append('file', data[0]);
-                formData.append('data', '');
+                formData.append('data', data[1]);
             } else {
                 formData.append('data', data);
             }
@@ -522,8 +522,8 @@ define([
                     if (procent < 98){
                         that.$data.uploadProgressWrapperStateClass = ''; // show progress wrapper
                         view.uploadProgressValue = procent + '%';
+                        $(data[1]).css('width', procent + '%');
                     } else {
-                        console.log($('line-' + data[1]).parents());
                         view.triggerUploadFileStateClass = '';
                         view.uploadFileControlWrapperStateClass = 'hide';
                         view.uploadProgressValue = procent + '% --> fertig';

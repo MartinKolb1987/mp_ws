@@ -102,13 +102,11 @@ define([
                 var that = this;
                 var uploadFileButton = inputField.parent('#upload-wrapper').find('#upload-control-wrapper  #upload-file');
 
-                // var lineId = inputField.parents('#upload-wrapper').siblings('.line-text');
-                // var lineArray = lineId.split("-");
-                // var key = lineArray[1];
+                var element = inputField.parent('#upload-wrapper').siblings('.progressbar');
 
                 uploadFileButton.unbind('click');
                 uploadFileButton.on('click', function(){
-                    DataHandler.uploadUserTrack(inputField[0].files[0]);
+                    DataHandler.uploadUserTrack(inputField[0].files[0], element);
                 });
 
             },
@@ -161,26 +159,30 @@ define([
                 var deleteButton = el.$el;
                 var progressbar = $(deleteButton).siblings('.progressbar');
 
-                var length = 20;
+                var length = 100;
 
                 this.$data.deleteTimeout = setInterval(function(){
                     progressbar.css('width', length + '%');
                     if(length === 0){
-                        console.log(tId, 'finished');
-                        // DataHandler.deleteUserTrack(tId);
+                        // console.log(tId, 'finished');
+                        DataHandler.deleteUserTrack(tId);
                         clearInterval(that.$data.deleteTimeout);
                         return false;
                     }
                     length = length - 1;
-                }, 1000);
+                }, 50);
 
             },
 
-            cancelDelete: function(){
+            cancelDelete: function(el){
                 var that = this;
                 clearInterval(that.$data.deleteTimeout);
-                // TODO --> set event listener on track line to do this
+                
+                var playlist = el.$el;
+
+                $(playlist).children('.line-wrapper').children('.progressbar').css('width', '0%');
             },
+
 
 
             clearUploadField: function(inputField){
@@ -193,6 +195,18 @@ define([
             downvoteTrack: function(trackId){
                 if(this.$data.downvoteActiveStateClass === 'active'){
                     DataHandler.downvoteTrack(trackId);
+                }
+            },
+
+            setPlaylist: function(el){
+
+                var element = el.$el;
+
+                if ($(element).hasClass('activePlaylist')){
+                    $(element).removeClass('activePlaylist');
+                } else {
+                    $(element).addClass('activePlaylist');
+
                 }
             }
         }
