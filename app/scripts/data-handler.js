@@ -270,6 +270,7 @@ define([
             // dj image and states
             setTimeout(function(){
                 view.djImageInfoStateClass = 'hide';
+                that.autoChangeDjImage = true;
                 that.changeDjImage(view, data.info.currentlyPlaying.image);
             }, that.currentlyPlayingDjImageChangeTimeout + 600);
             
