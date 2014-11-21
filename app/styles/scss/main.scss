@@ -383,62 +383,75 @@ body{
                         width: 100%;
                         height: 40px;
 
-                        .line-text {
-                            padding: 12px 0 0 6px;
-                            color: $playlistText;
-                            float: left;
-                        }
+                        .line-wrapper {
 
-                        .line-title {
-                            padding: 12px 0 0 6px;
-                            color: white;
-                            float: left;
-                        }
-
-                        .playlist-button {
-                            padding: 12px 25px 0 6px;
-                            height: 28px;
-                            float: right;
-                        }
-
-                        .playlist-button:hover {
-                            cursor: pointer;
-                            color: orange;
-                        }
-
-                        .delete-button {
-                            background-color: $btnColorDark;
-                        }
-
-                        .swapup-button {
-                            background-color: $btnColorMiddle;
-                        }
-                        
-                        .swapdown-button {
-                            background-color: $btnColorLight;
-                        }
-
-                        #upload-wrapper{
-                            float: right;
-
-                            .browse-button {
-                                background-color: $btnColorMiddle;
+                            .progressbar {
+                                width: 0%;
+                                height: 40px;
+                                background-color: $btnColorDark;
+                                position: absolute;
                             }
 
-                            .upload-button {
-                                background-color: $btnColorMiddle;
+                            .line-text {
+                                padding: 12px 0 0 6px;
+                                color: $playlistText;
+                                float: left;
+                                position: relative;
                             }
 
-                            .cancel-button {
+                            .line-title {
+                                padding: 12px 0 0 6px;
+                                color: white;
+                                float: left;
+                                position: relative;
+                            }
+
+                            .playlist-button {
+                                padding: 12px 25px 0 6px;
+                                height: 28px;
+                                float: right;
+                                position: relative;
+                            }
+
+                            .playlist-button:hover {
+                                cursor: pointer;
+                                color: orange;
+                            }
+
+                            .delete-button {
                                 background-color: $btnColorDark;
                             }
-                        }
 
-                        .empty-field {
-                            display: none;
+                            .swapup-button {
+                                background-color: $btnColorMiddle;
+                            }
+                            
+                            .swapdown-button {
+                                background-color: $btnColorLight;
+                            }
 
-                            &.show {
-                                display: block;
+                            #upload-wrapper{
+                                float: right;
+
+                                .browse-button {
+                                    background-color: $btnColorMiddle;
+                                }
+
+                                .upload-button {
+                                    background-color: $btnColorMiddle;
+                                }
+
+                                .cancel-button {
+                                    background-color: $btnColorDark;
+                                }
+                            }
+
+                            .empty-field {
+                                display: none;
+
+                                &.show {
+                                    display: block;
+                                }
                             }
                         }
 

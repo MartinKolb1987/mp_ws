@@ -34,22 +34,25 @@
 	<div id="playlist-wrapper" class="clearfix">
 		<ul>
 			<li v-repeat="playlist" class="playlist">
-				<div id="line-{{$index + 1}}" class="line-text">{{$index + 1}}.</div>
-				<div class="line-title">{{t_title}}</div>
-				<div class="playlist-button delete-button" v-if="t_title" v-on="click: deleteUserTrack(t_id)">D</div>	
-				<div class="playlist-button swapup-button" v-if="t_title" v-on="click: swapUserTrack(($index + 1), 'up')">u</div>
-				<div class="playlist-button swapdown-button" v-if="t_title" v-on="click: swapUserTrack(($index + 1), 'down')">d</div>
-				
-				<div id="upload-wrapper" class="empty-field {{displayUpload}}" v-if="!t_title">
-					<input type="file" id="upload-file-field" class="hide">
-					<div id="trigger-upload-file" class="playlist-button browse-button {{triggerUploadFileStateClass}}" v-on="click: triggerFileBrowser">...</div>
 
-					<div id="upload-control-wrapper" class="{{uploadFileControlWrapperStateClass}}">
-						<div id="cancel-upload-file" class="playlist-button cancel-button">cancel</div>
-						<div id="upload-file" class="playlist-button upload-button">upload</div>
+				<div class="line-wrapper">
+					<div class="progressbar"></div>
+					<div id="line-{{$index + 1}}" class="line-text">{{$index + 1}}.</div>
+					<div class="line-title">{{t_title}}</div>
+					<div class="playlist-button delete-button" v-if="t_title" v-on="click: deleteUserTrack(this, t_id)">D</div>	
+					<div class="playlist-button swapup-button" v-if="t_title" v-on="click: swapUserTrack(($index + 1), 'up')">u</div>
+					<div class="playlist-button swapdown-button" v-if="t_title" v-on="click: swapUserTrack(($index + 1), 'down')">d</div>
+					
+					<div id="upload-wrapper" class="empty-field {{displayUpload}}" v-if="!t_title">
+						<input type="file" id="upload-file-field" class="hide">
+						<div id="trigger-upload-file" class="playlist-button browse-button {{triggerUploadFileStateClass}}" v-on="click: triggerFileBrowser">...</div>
+
+						<div id="upload-control-wrapper" class="{{uploadFileControlWrapperStateClass}}">
+							<div id="cancel-upload-file" class="playlist-button cancel-button">cancel</div>
+							<div id="upload-file" class="playlist-button upload-button">upload</div>
+						</div>
 					</div>
-					
-					
+
 				</div>
 			</li>
 		</ul>

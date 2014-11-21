@@ -99,13 +99,13 @@ define([
                 var that = this;
                 var uploadFileButton = inputField.parent('#upload-wrapper').find('#upload-control-wrapper  #upload-file');
 
-                var lineId = inputField.parents('#upload-wrapper').siblings('.line-text').attr('id');
-                var lineArray = lineId.split("-");
-                var key = lineArray[1];
+                // var lineId = inputField.parents('#upload-wrapper').siblings('.line-text');
+                // var lineArray = lineId.split("-");
+                // var key = lineArray[1];
 
                 uploadFileButton.unbind('click');
                 uploadFileButton.on('click', function(){
-                    DataHandler.uploadUserTrack(inputField[0].files[0], key);
+                    DataHandler.uploadUserTrack(inputField[0].files[0]);
                 });
 
             },
@@ -153,8 +153,18 @@ define([
                 DataHandler.swapUserTrack([track1, track2]);
             },
 
-            deleteUserTrack: function(tId){
-                DataHandler.deleteUserTrack(tId);
+            deleteUserTrack: function(el, tId){
+
+                var deleteButton = el.$el;
+
+                for (var i = 100; i > 1; i--) { 
+                    setTimeout(function(){
+                        $(deleteButton).siblings('.progressbar').css('width', i + '%');
+                    }, 1000);
+                    console.log(i);
+                }
+
+                // DataHandler.deleteUserTrack(tId);
             },
 
             clearUploadField: function(inputField){
