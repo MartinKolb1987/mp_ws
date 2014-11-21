@@ -40,6 +40,7 @@ define([
         currentlyPlayingDjImage: '',
         currentClientSidePlaylist: [],
         currentlyClientSideUploadingTrack: false,
+        autoChangeDjImage: true,
 
         init: function(){
             var that = this;
@@ -456,6 +457,7 @@ define([
                     // update user image
                     // --> needed for transition (vue.js updates view too fast)
                     if(data.currentlyPlayingDjImage !== this.currentlyPlayingDjImage){
+                        this.autoChangeDjImage = true;
                         this.changeDjImage(view, data.currentlyPlayingDjImage);
                     }
 
@@ -553,26 +555,25 @@ define([
             return checkedData;
         },
 
-        changeDjImage: function(view, dataCurrentlyPlayingDjImage){
+        changeDjImage: function(view, dataCurrentlyPlayingDjImage, isAutoUpdate){
             var that = this;
 
-            if(view.imageOne !== this.currentlyPlayingDjImage){
-                view.imageOne = dataCurrentlyPlayingDjImage;
-                view.djImageStateClassTwo = 'inactive';
-                setTimeout(function(){
-                    view.djImageStateClassOne = 'active';
-                }, that.currentlyPlayingDjImageChangeTimeout - 300);
-            
-            } else {
-                console.log('hieee');
-                view.imageTwo = dataCurrentlyPlayingDjImage;
-                view.djImageStateClassOne = 'inactive';
-                setTimeout(function(){
-                    view.djImageStateClassTwo = 'active';
-                }, that.currentlyPlayingDjImageChangeTimeout - 300);
-            
+            if(this.autoChangeDjImage === true){
+                if(view.imageOne !== this.currentlyPlayingDjImage){
+                    view.imageOne = dataCurrentlyPlayingDjImage;
+                    view.djImageStateClassTwo = 'inactive';
+                    setTimeout(function(){
+                        view.djImageStateClassOne = 'active';
+                    }, that.currentlyPlayingDjImageChangeTimeout - 300);
+                } else {
+                    view.imageTwo = dataCurrentlyPlayingDjImage;
+                    view.djImageStateClassOne = 'inactive';
+                    setTimeout(function(){
+                        view.djImageStateClassTwo = 'active';
+                    }, that.currentlyPlayingDjImageChangeTimeout - 300);
+                }
+                this.autoChangeDjImage = false;
             }
-            
             this.currentlyPlayingDjImage = dataCurrentlyPlayingDjImage;
         }
 

@@ -31,7 +31,7 @@ define([
             id: 0,
             
             // dj image
-            imageOne: '../server/userdata/default.png',
+            imageOne: '',
             imageTwo: '',
             djImageStateClassOne: '',
             djImageStateClassTwo: '',
