@@ -555,7 +555,7 @@ define([
             return checkedData;
         },
 
-        changeDjImage: function(view, dataCurrentlyPlayingDjImage, isAutoUpdate){
+        changeDjImage: function(view, dataCurrentlyPlayingDjImage){
             var that = this;
 
             if(this.autoChangeDjImage === true){
