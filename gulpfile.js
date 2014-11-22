@@ -16,6 +16,7 @@ var sass = require('gulp-sass');
 var minifyCSS = require('gulp-minify-css');
 var autoprefixer = require('gulp-autoprefixer');
 var runSequence = require('run-sequence');
+var uglify = require('gulp-uglify');
 
 // clean system
 var rimraf = require('gulp-rimraf');
@@ -142,12 +143,15 @@ gulp.task('create-bower_components-folder-dist', function(){
     gulp.src('./').pipe(exec('mkdir -p -m 0777 ' + distPath + '/app/bower_components/requirejs', {silent: true}));
 });
 
-gulp.task('concatenate-scripts-folder-and-move-require-js', function(){
+gulp.task('concatenate-scripts-folder-and-move-it-to-idst', function(){
     // concatenate all scripts and html in scripts folder
     gulp.src('./').pipe(exec('./node_modules/requirejs/bin/r.js -o ' + appPath + '/build-require.js', {silent: true}));
+});
 
-    // create folders in dist/app
-    gulp.src('./').pipe(exec('cp -R ' + appPath + '/bower_components/requirejs/require.js ' + distPath + '/app/bower_components/requirejs/', {silent: true}));
+gulp.task('move-requirejs-compressed-to-dist', function() {
+  gulp.src( appPath + '/bower_components/requirejs/require.js')
+    .pipe(uglify())
+    .pipe(gulp.dest(distPath + '/app/bower_components/requirejs/'));
 });
 
 gulp.task('move-index-to-dist', function (){
@@ -185,7 +189,7 @@ gulp.task('development', function () {
 gulp.task('build', function () {
     // reset all user stuff and system data and create cleand dist folder
     trackIdStart = 0;
-    runSequence('clean-dist', 'prefix-and-minify-css', 'create-bower_components-folder-dist', 'concatenate-scripts-folder-and-move-require-js', 'move-index-to-dist', 'move-images-to-dist', 'reset-server-userdata', 'reset-server-musicplayer-system-info', 'reset-server-db', 'move-server-to-dist', 'chmod-dist-recursive', 'init-server-db');
+    runSequence('clean-dist', 'prefix-and-minify-css', 'create-bower_components-folder-dist', 'concatenate-scripts-folder-and-move-it-to-idst', 'move-requirejs-compressed-to-dist', 'move-index-to-dist', 'move-images-to-dist', 'reset-server-userdata', 'reset-server-musicplayer-system-info', 'reset-server-db', 'move-server-to-dist', 'chmod-dist-recursive', 'init-server-db');
 });
 
 
