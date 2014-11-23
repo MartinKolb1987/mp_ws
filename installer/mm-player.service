@@ -1,0 +1,13 @@
+[Unit]
+Description=MusicMagnet Player Daemon
+After=local-fs.target network.target multi-user.target
+
+[Service]
+Type=simple
+User=musicmagnet
+Group=musicmagnet
+Nice=-10
+ExecStart=/home/musicmagnet/daemons/musicplayer.sh
+
+[Install]
+WantedBy=multi-user.target
