@@ -17,6 +17,7 @@ var minifyCSS = require('gulp-minify-css');
 var autoprefixer = require('gulp-autoprefixer');
 var runSequence = require('run-sequence');
 var uglify = require('gulp-uglify');
+var replace = require('gulp-replace');
 
 // clean system
 var rimraf = require('gulp-rimraf');
@@ -135,6 +136,13 @@ gulp.task('move-server-to-dist', function (){
     gulp.src('./').pipe(exec('cp -R ' + serverPath + ' ' + distPath + '/server/', {silent: true}));
 });
 
+gulp.task('replace-localhost-in-dist-util-php', function(){
+    // replace moved util.php with new ip address
+    gulp.src([serverPath + '/util.php'])
+    .pipe(replace('localhost', '192.168.0.1'))
+    .pipe(gulp.dest(distPath + '/server/'));
+});
+
 gulp.task('chmod-dist-recursive', function(){
     gulp.src('./').pipe(exec('chmod -R 0777 ' + distPath, {silent: true}));
 });
@@ -189,7 +197,7 @@ gulp.task('development', function () {
 gulp.task('build', function () {
     // reset all user stuff and system data and create cleand dist folder
     trackIdStart = 0;
-    runSequence('clean-dist', 'prefix-and-minify-css', 'create-bower_components-folder-dist', 'concatenate-scripts-folder-and-move-it-to-idst', 'move-requirejs-compressed-to-dist', 'move-index-to-dist', 'move-images-to-dist', 'reset-server-userdata', 'reset-server-musicplayer-system-info', 'reset-server-db', 'move-server-to-dist', 'chmod-dist-recursive', 'init-server-db');
+    runSequence('clean-dist', 'prefix-and-minify-css', 'create-bower_components-folder-dist', 'concatenate-scripts-folder-and-move-it-to-idst', 'move-requirejs-compressed-to-dist', 'move-index-to-dist', 'move-images-to-dist', 'reset-server-userdata', 'reset-server-musicplayer-system-info', 'reset-server-db', 'move-server-to-dist', 'replace-localhost-in-dist-util-php', 'chmod-dist-recursive', 'init-server-db');
 });
 
 
