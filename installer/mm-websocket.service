@@ -1,0 +1,13 @@
+[Unit]
+Description=MusicMagnet Websocket Daemon
+After=local-fs.target network.target multi-user.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+Nice=0
+ExecStart=/root/websocket.sh
+
+[Install]
+WantedBy=multi-user.target

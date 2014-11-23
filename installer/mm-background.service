@@ -1,0 +1,12 @@
+[Unit]
+Description=MusicMagnet Background Service
+After=local-fs.target network.target multi-user.target
+
+[Service]
+Type=simple
+User=musicmagnet
+Group=musicmagnet
+ExecStart=/home/user/daemons/background.sh
+
+[Install]
+WantedBy=multi-user.target
