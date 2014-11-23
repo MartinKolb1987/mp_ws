@@ -55,7 +55,11 @@ define([
             uploadProgressWrapperStateClass: 'hide',
 
             // delete
-            deleteTimeout: ''
+            deleteTimeout: '',
+            deleteAction: false,
+
+            // playlist line
+            playlistLineActive: false
 
         },
         methods: {
@@ -159,27 +163,32 @@ define([
                 var deleteButton = el.$el;
                 var progressbar = $(deleteButton).siblings('.progressbar');
 
-                var length = 100;
+                var counter = 100;
+
+                this.$data.deleteAction = true;
 
                 this.$data.deleteTimeout = setInterval(function(){
-                    progressbar.css('width', length + '%');
-                    if(length === 0){
-                        // console.log(tId, 'finished');
-                        DataHandler.deleteUserTrack(tId);
+
+                    progressbar.css('width', counter + '%');
+                    if(counter === 0){
+                        // DataHandler.deleteUserTrack(tId);
                         clearInterval(that.$data.deleteTimeout);
+                        console.log('delete');
+                        that.$data.deleteAction = false;
                         return false;
                     }
-                    length = length - 1;
+                    counter = counter - 1;
                 }, 50);
 
             },
 
             cancelDelete: function(el){
                 var that = this;
+
                 clearInterval(that.$data.deleteTimeout);
+                this.$data.deleteAction = false;
                 
                 var playlist = el.$el;
-
                 $(playlist).children('.line-wrapper').children('.progressbar').css('width', '0%');
             },
 
@@ -198,15 +207,26 @@ define([
                 }
             },
 
-            setPlaylist: function(el){
-
+            setPlaylistLine: function(el){
+                var that = this;
                 var element = el.$el;
 
-                if ($(element).hasClass('activePlaylist')){
-                    $(element).removeClass('activePlaylist');
-                } else {
-                    $(element).addClass('activePlaylist');
+                if (that.$data.deleteAction){
+                    clearInterval(this.$data.deleteTimeout);
+                    this.$data.deleteAction = false;
+            
+                    $(element).children('.line-wrapper').children('.progressbar').css('width', '0%');
 
+                } else {
+                    if (that.$data.playlistLineActive){
+                        if ($(element).hasClass('activePlaylist')){
+                            $(element).removeClass('activePlaylist');
+                            that.$data.playlistLineActive = false;
+                        }
+                    } else {
+                        $(element).addClass('activePlaylist');
+                        that.$data.playlistLineActive = true;
+                    }
                 }
             }
         }
