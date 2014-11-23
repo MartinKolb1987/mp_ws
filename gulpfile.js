@@ -6,6 +6,7 @@ var appPath = './app';
 var distPath = './dist';
 var serverPath = './server';
 var trackIdStart = 0;
+var productionIp = '192.168.0.1';
 
 // ----------------------------------------
 // gulp plugins
@@ -139,7 +140,7 @@ gulp.task('move-server-to-dist', function (){
 gulp.task('replace-localhost-in-dist-util-php', function(){
     // replace moved util.php with new ip address
     gulp.src([serverPath + '/util.php'])
-    .pipe(replace('localhost', '192.168.0.1'))
+    .pipe(replace('localhost', productionIp))
     .pipe(gulp.dest(distPath + '/server/'));
 });
 
@@ -157,9 +158,9 @@ gulp.task('concatenate-scripts-folder-and-move-it-to-idst', function(){
 });
 
 gulp.task('move-requirejs-compressed-to-dist', function() {
-  gulp.src( appPath + '/bower_components/requirejs/require.js')
-    .pipe(uglify())
-    .pipe(gulp.dest(distPath + '/app/bower_components/requirejs/'));
+    gulp.src( appPath + '/bower_components/requirejs/require.js')
+        .pipe(uglify())
+        .pipe(gulp.dest(distPath + '/app/bower_components/requirejs/'));
 });
 
 gulp.task('move-index-to-dist', function (){
