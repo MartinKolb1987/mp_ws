@@ -6,7 +6,7 @@ After=local-fs.target network.target multi-user.target
 Type=simple
 User=musicmagnet
 Group=musicmagnet
-ExecStart=/home/user/daemons/background.sh
+ExecStart=/home/musicmagnet/daemons/background.sh
 
 [Install]
 WantedBy=multi-user.target

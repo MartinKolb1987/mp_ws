@@ -7,7 +7,7 @@ Type=simple
 User=musicmagnet
 Group=musicmagnet
 Nice=-10
-ExecStart=/home/user/daemons/musicplayer.sh
+ExecStart=/home/musicmagnet/daemons/musicplayer.sh
 
 [Install]
 WantedBy=multi-user.target

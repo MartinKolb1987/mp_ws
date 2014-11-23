@@ -1,10 +1,19 @@
 #!/bin/bash
+# =======================================================
+# MusicMagnet
+# (c) 2014, MusicMagnet
+# http://www.condime.de/musicmagnet
+# =======================================================
+# This is the MusicMagnet deployment script (full)
+# run as root
+# =======================================================
 echo "remove old folders"
-rm -fr git
+rm -fr /root/musicmagnet-git
 rm -fr /usr/share/nginx/html/*
-mkdir git
 echo "clone git repo"
-git clone https://github.com/MartinKolb1987/mp_ws.git git/
+cd /root/
+mkdir musicmagnet-git
+git clone https://github.com/MartinKolb1987/mp_ws.git musicmagnet-git
 echo "stop websocket server"
 systemctl stop mm-websocket
 echo "copy stuff"

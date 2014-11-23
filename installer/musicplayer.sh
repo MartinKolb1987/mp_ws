@@ -1,5 +1,12 @@
 #!/bin/bash
-#sudo cp -f /usr/share/nginx/html/server/db/db.sqlite /usr/share/nginx/html/server/db/tmp/db.sqlite
+# =======================================================
+# MusicMagnet
+# (c) 2014, MusicMagnet
+# http://www.condime.de/musicmagnet
+# =======================================================
+# This is the MusicMagnet player daemon
+# Executed via Systemd (mm-player.service)
+# =======================================================
 function playMusic {
 	trackToPlay=$(wget http://localhost/server/core/player.php?type=getTrack -q -O -)
 	echo "got file path $trackToPlay from server"
