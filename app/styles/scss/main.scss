@@ -383,13 +383,35 @@ body{
                         width: 100%;
                         height: 40px;
 
+                        .playlist-button {
+                            padding: 12px 28px 0 6px;
+                            height: 28px;
+                            float: right;
+                            position: relative;
+                        }
+
+                        .playlist-button:hover {
+                            cursor: pointer;
+                            color: orange;
+                        }
+
                         .line-wrapper {
+
+                            .line-clickfield {
+                                // background-color: green;
+                                width: 100%;
+                                height: 40px;
+                                position: absolute;
+                                z-index: 50;
+                            }
 
                             .progressbar {
                                 // @include transition(width, 1s, linear);
                                 height: 40px;
                                 background-color: $btnColorDark;
                                 position: absolute;
+                                left: -20px;
+                                @include skewedBorder(right, -13px, 0, 20px, $btnColorDark);
                             }
 
                             .line-text {
@@ -405,59 +427,60 @@ body{
                                 float: left;
                                 position: relative;
                             }
+                        }
 
-                            .playlist-button {
-                                padding: 12px 28px 0 6px;
-                                height: 28px;
-                                float: right;
-                                position: relative;
-                            }
+                        .playlist-button-wrapper {
 
-                            .playlist-button:hover {
-                                cursor: pointer;
-                                color: orange;
-                            }
+                            position: absolute;
+                            right: -130px;
+                            @include transition(right, 0.25s, linear);
 
                             .delete-button {
+                                z-index: 100;
                                 background-color: $btnColorDark;
-                                @include skewedBorder(left, -13px, 1, 20px, $btnColorDark);
+                                @include skewedBorder(left, -13px, 100, 20px, $btnColorDark);
                             }
 
                             .swapup-button {
+                                z-index: 90;
                                 background-color: $btnColorMiddle;
-                                @include skewedBorder(left, -13px, 1, 20px, $btnColorMiddle);
+                                @include skewedBorder(left, -13px, 90, 20px, $btnColorMiddle);
                             }
                             
                             .swapdown-button {
+                                z-index: 80;
                                 background-color: $btnColorLight;
-                                @include skewedBorder(left, -13px, 1, 20px, $btnColorLight);
+                                @include skewedBorder(left, -13px, 80, 20px, $btnColorLight);
+                            }
+                        }
+
+                        #upload-wrapper{
+                            float: right;
+
+                            .browse-button {
+                                z-index: 100;
+                                background-color: $btnColorMiddle;
+                                @include skewedBorder(left, -13px, 100, 20px, $btnColorMiddle);
                             }
 
-                            #upload-wrapper{
-                                float: right;
-
-                                .browse-button {
-                                    background-color: $btnColorMiddle;
-                                    @include skewedBorder(left, -13px, 1, 20px, $btnColorMiddle);
-                                }
-
-                                .upload-button {
-                                    background-color: $btnColorMiddle;
-                                    @include skewedBorder(left, -13px, 1, 20px, $btnColorMiddle);
-                                }
-
-                                .cancel-button {
-                                    background-color: $btnColorDark;
-                                    @include skewedBorder(left, -13px, 1, 20px, $btnColorDark);
-                                }
+                            .cancel-button {
+                                z-index: 90;
+                                background-color: $btnColorDark;
+                                @include skewedBorder(left, -13px, 90, 20px, $btnColorDark);
                             }
 
-                            .empty-field {
-                                display: none;
+                            .upload-button {
+                                z-index: 80;
+                                background-color: $btnColorMiddle;
+                                @include skewedBorder(left, -13px, 80, 20px, $btnColorMiddle);
+                            }
+                        }
 
-                                &.show {
-                                    display: block;
-                                }
+                        .empty-field {
+                            display: none;
+
+                            &.show {
+                                display: block;
                             }
                         }
 

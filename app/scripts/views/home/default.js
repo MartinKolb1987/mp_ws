@@ -57,9 +57,7 @@ define([
             // delete
             deleteTimeout: '',
             deleteAction: false,
-
-            // playlist line
-            playlistLineActive: false
+            deleteTrackTitle: '',
 
         },
         methods: {
@@ -88,7 +86,7 @@ define([
                             // set state css 
                             that.$data.triggerUploadFileStateClass = 'hide';
                             that.$data.uploadFileControlWrapperStateClass = '';
-                            inputField.parents('#upload-wrapper').siblings('.line-title').text(inputField[0].files[0].name);
+                            inputField.parents('#upload-wrapper').siblings('.line-wrapper').children('.line-title').text(inputField[0].files[0].name);
 
                             // upload file
                             that.uploadFile(inputField);
@@ -106,7 +104,7 @@ define([
                 var that = this;
                 var uploadFileButton = inputField.parent('#upload-wrapper').find('#upload-control-wrapper  #upload-file');
 
-                var element = inputField.parent('#upload-wrapper').siblings('.progressbar');
+                var element = inputField.parent('#upload-wrapper').siblings('.line-wrapper').children('.progressbar');
 
                 uploadFileButton.unbind('click');
                 uploadFileButton.on('click', function(){
@@ -123,7 +121,7 @@ define([
                 uploadFileButton.unbind('click');
                 uploadFileButton.on('click', function(){
                     that.$data.triggerUploadFileStateClass = '';
-                    inputField.parents('#upload-wrapper').siblings('.line-title').text('');
+                    inputField.parents('#upload-wrapper').siblings('.line-wrapper').children('.line-title').text('');
                     that.$data.uploadFileControlWrapperStateClass = 'hide';
                     that.clearUploadField(inputField);
                 });
@@ -142,26 +140,32 @@ define([
 
             },
 
-            swapUserTrack: function(key, direction){
+            swapUserTrack: function(key, direction, el){
+                var swapButton = el.$el;
 
-                key = parseInt(key) - 1;    
+                if ($(swapButton).hasClass('playlist-button-active')){
+                    key = parseInt(key) - 1;    
 
-                if (direction === 'up'){
-                    var secondKey = key - 1;
-                } else {
-                    var secondKey = key + 1;
+                    if (direction === 'up'){
+                        var secondKey = key - 1;
+                    } else {
+                        var secondKey = key + 1;
+                    }
+
+                    var track1 = this.$data.playlist[key].t_id;
+                    var track2 = this.$data.playlist[secondKey].t_id;
+
+                    DataHandler.swapUserTrack([track1, track2]);
                 }
-
-                var track1 = this.$data.playlist[key].t_id;
-                var track2 = this.$data.playlist[secondKey].t_id;
-
-                DataHandler.swapUserTrack([track1, track2]);
             },
 
             deleteUserTrack: function(el, tId){
                 var that = this;
                 var deleteButton = el.$el;
-                var progressbar = $(deleteButton).siblings('.progressbar');
+                var progressbar = $(deleteButton).parents('.playlist-button-wrapper').siblings('.line-wrapper').children('.progressbar');
+                var lineTitle = $(deleteButton).parents('.playlist-button-wrapper').siblings('.line-wrapper').children('.line-title');
+
+                this.$data.deleteTrackTitle = $(lineTitle).text();
 
                 var counter = 100;
 
@@ -169,11 +173,11 @@ define([
 
                 this.$data.deleteTimeout = setInterval(function(){
 
+                    $(lineTitle).text('Tap to cancel!');
                     progressbar.css('width', counter + '%');
                     if(counter === 0){
-                        // DataHandler.deleteUserTrack(tId);
+                        DataHandler.deleteUserTrack(tId);
                         clearInterval(that.$data.deleteTimeout);
-                        console.log('delete');
                         that.$data.deleteAction = false;
                         return false;
                     }
@@ -181,18 +185,6 @@ define([
                 }, 50);
 
             },
-
-            cancelDelete: function(el){
-                var that = this;
-
-                clearInterval(that.$data.deleteTimeout);
-                this.$data.deleteAction = false;
-                
-                var playlist = el.$el;
-                $(playlist).children('.line-wrapper').children('.progressbar').css('width', '0%');
-            },
-
-
 
             clearUploadField: function(inputField){
                 // only clear input value --> doesn‘t work correctly
@@ -214,18 +206,22 @@ define([
                 if (that.$data.deleteAction){
                     clearInterval(this.$data.deleteTimeout);
                     this.$data.deleteAction = false;
-            
                     $(element).children('.line-wrapper').children('.progressbar').css('width', '0%');
-
+                    $(element).children('.line-wrapper').children('.line-title').text(this.$data.deleteTrackTitle);
                 } else {
-                    if (that.$data.playlistLineActive){
-                        if ($(element).hasClass('activePlaylist')){
-                            $(element).removeClass('activePlaylist');
-                            that.$data.playlistLineActive = false;
-                        }
+                    if ($(element).hasClass('activePlaylist')){
+                        that.$data.playlistLineActive = false;
+                        $(element).removeClass('activePlaylist');
+                        $(element).children('.playlist-button-wrapper').css('right', '-130px');
+                        $(element).children('.playlist-button-wrapper').children('.swapdown-button').removeClass('playlist-button-active');
                     } else {
-                        $(element).addClass('activePlaylist');
                         that.$data.playlistLineActive = true;
+                        $(element).parents('ul').children().removeClass('activePlaylist');
+                        $(element).parents('ul').children().children('.playlist-button-wrapper').css('right', '-130px');
+                        $(element).parents('ul').children().children('.playlist-button-wrapper').children('.swapdown-button').removeClass('playlist-button-active');
+                        $(element).addClass('activePlaylist');
+                        $(element).children('.playlist-button-wrapper').css('right', '0');
+                        $(element).children('.playlist-button-wrapper').children('.swapdown-button').addClass('playlist-button-active');
                     }
                 }
             }
