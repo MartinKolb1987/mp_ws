@@ -357,8 +357,7 @@ define([
         },
 
         downvoteTrack: function(trackId){
-            console.log(trackId);
-            // this.sendData('home', 'downvoteTrack', trackId);
+            this.sendData('home', 'downvoteTrack', trackId);
         },
 
         distributeDownVoteTrack: function(data, view){
