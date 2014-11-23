@@ -1,0 +1,10 @@
+[Unit]
+Description=MusicMagnet Startup Service
+After=local-fs.target
+
+[Service]
+Type=simple
+ExecStart=/root/startup.sh
+
+[Install]
+WantedBy=multi-user.target
