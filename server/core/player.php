@@ -115,6 +115,11 @@ function getTrackToPlay() {
             $db->close();
             unset($db);
 
+            // set dj image and current track default
+            // --> otherwise auto update doesn‘t work correct
+            $createTxtFile = createTxtFile('djImage', '../server/userdata/default.png');
+            $createTxtFile = createTxtFile('trackId', '0');
+
             return 'empty';
         }
 
@@ -130,7 +135,7 @@ function getTrackToPlay() {
             $bucketTracksCount++;
         }
         if ($bucketTracksCount == 0) {
-            //echo('error: the next bucket is empty.<br/>');
+            // echo('error: the next bucket is empty.<br/>');
 
             // close db
             $db->close();
