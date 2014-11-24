@@ -192,8 +192,6 @@ define([
             },
 
             clearUploadField: function(inputField){
-                // only clear input value --> doesn‘t work correctly
-                // better to remove and add new one
                 inputField.parent('#upload-wrapper').prepend('<input type="file" id="upload-file-field" class="hide">');
                 inputField.remove();
             },
@@ -214,18 +212,16 @@ define([
                     $(element).children('.line-wrapper').children('.progressbar').css('width', '0%');
                     $(element).children('.line-wrapper').children('.line-title').text(this.$data.deleteTrackTitle);
                 } else {
+                    console.log(this.$data.playlist);
                     if ($(element).hasClass('activePlaylist')){
                         that.$data.playlistLineActive = false;
                         $(element).removeClass('activePlaylist');
-                        $(element).children('.playlist-button-wrapper').css('right', '-130px');
                         $(element).children('.playlist-button-wrapper').children('.swapdown-button').removeClass('playlist-button-active');
                     } else {
                         that.$data.playlistLineActive = true;
                         $(element).parents('ul').children().removeClass('activePlaylist');
-                        $(element).parents('ul').children().children('.playlist-button-wrapper').css('right', '-130px');
                         $(element).parents('ul').children().children('.playlist-button-wrapper').children('.swapdown-button').removeClass('playlist-button-active');
                         $(element).addClass('activePlaylist');
-                        $(element).children('.playlist-button-wrapper').css('right', '0');
                         $(element).children('.playlist-button-wrapper').children('.swapdown-button').addClass('playlist-button-active');
                     }
                 }

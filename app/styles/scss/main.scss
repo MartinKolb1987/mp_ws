@@ -488,6 +488,13 @@ body{
                             display: none;
                         }
 
+                        &.activePlaylist {
+
+                            .playlist-button-wrapper {
+                                right: 0;
+                            }
+                        }
+
                     }
                 }
             }
