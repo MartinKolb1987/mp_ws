@@ -279,7 +279,7 @@ define([
             view.internetAccess = data.info.status.internetAccess;
 
             // check if user has already downvoted current track
-            if(data.info.currentlyPlaying.downvote === 1){
+            if(data.info.currentlyPlaying.downvote === 1 || data.info.currentlyPlaying.id === 0){
                 view.downvoteActiveStateClass = '';
                 view.downvoteDisabledStateClass = 'disabled';
             } else {
@@ -300,9 +300,16 @@ define([
         },
 
         distributeUserPlaylist: function(data, view){
+            var that = this;
             var playlist = [];
             var set = false;
+            this.currentClientSidePlaylist = [];
+
             $.each(data.playlist, function(key, item){
+
+                // collect all current user track ids (playlist)
+                that.currentClientSidePlaylist.push((item.t_id === false) ? '' : item.t_id);
+                
                 if (item.t_id === false && set === false){
                     item.displayUpload = 'show';
                     set = true;
@@ -312,6 +319,7 @@ define([
                 playlist.push(item);
             });
             view.playlist = playlist;
+            console.log(this.currentClientSidePlaylist);
         },
 
         // user image
@@ -438,6 +446,8 @@ define([
 
         },
 
+        updateUserPlaylistInterval: {},
+
         responseDataCheckForNewUpdates: function(data, view){
             var that = this;
             var route = data.route;
@@ -446,12 +456,29 @@ define([
                 case 'home':
 
                     // if it‘s not equal, just start an update request
-                    // TODO: take care of user is currently uploading a file
-                    // TODO: take care of user is currently swaping a file
-                    // --> stop autoUpdate  during user action
                     if(data.currentlyPlayingTrackId !== this.currentlyPlayingTrackId){
                         if(DebugHandler.isActive){ console.log('Auto update track id: ' + this.readyState); }
+    
+                        // refresh currently playing track
                         this.getCurrentlyPlayingTrack(route);
+    
+                        // check if track is in user playlist
+                        if(this.currentClientSidePlaylist.indexOf(1) >= 0){
+                            if(this.currentlyClientSideUploadingTrack === false){
+                                // refresh user playlist 
+                                this.getUserPlaylist(route);
+                            } else {
+                                this.updateUserPlaylistInterval = setInterval(function(){
+                                    if(that.currentlyClientSideUploadingTrack === false){
+                                        // refresh user playlist 
+                                        that.getUserPlaylist(route);
+                                        clearInterval(that.updateUserPlaylistInterval);
+                                        return true;
+                                    }
+                                }, 1000);
+                            }
+                        }
+    
                     }
 
                     // update user image
@@ -505,16 +532,19 @@ define([
             }
 
             xhr.onerror = function(e) {
+                that.currentlyClientSideUploadingTrack = false;
                 ErrorHandler.log('xhr error, please try again: ' + type , new Error().stack);
             };
 
             xhr.onload = function(e) {
+                that.currentlyClientSideUploadingTrack = false;
                 // distribute responsed data 
                 that.getData(e.target.responseText);
             };
 
             xhr.upload.onprogress = function(e) {
                 var procent = Math.round(100 / e.total * e.loaded);
+                that.currentlyClientSideUploadingTrack = true;
 
                 if(type === 'uploadUserImage' || type === 'uploadUserTrack'){
                     

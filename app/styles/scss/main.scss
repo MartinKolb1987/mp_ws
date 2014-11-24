@@ -49,7 +49,7 @@ $bgColor: #17404d; // background
 $btnColorLight: #ffda46; // orange light
 $btnColorMiddle: #ffcc00; // orange light
 $btnColorDark: #ffa200; // orange light
-$btnDownvoteDisabled: #77ced4;
+$btnDownvoteDisabled: #405b64;
 $iconSystemInfo: #637f88;
 $downvoteMessage: #ffffff;
 $playlistText: #17404d;
@@ -268,7 +268,7 @@ body{
                             right: 0;
                             left: 0;
                             bottom: 0;
-                            z-index: 2;
+                            z-index: 3;
                             margin: 16px;
                         }
                     }
@@ -290,7 +290,7 @@ body{
                                 color: white;
                                 text-align: center;
                                 right: 0;
-                                line-height: 20vh;
+                                line-height: 130px;
                                 &.hide{
                                     opacity:0;
                                 }
