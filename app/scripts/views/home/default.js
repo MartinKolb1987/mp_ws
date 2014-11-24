@@ -206,13 +206,12 @@ define([
                 var that = this;
                 var element = el.$el;
 
-                if (that.$data.deleteAction){
+                if (that.$data.deleteAction && $(element).hasClass('activePlaylist')){
                     clearInterval(this.$data.deleteTimeout);
                     this.$data.deleteAction = false;
                     $(element).children('.line-wrapper').children('.progressbar').css('width', '0%');
                     $(element).children('.line-wrapper').children('.line-title').text(this.$data.deleteTrackTitle);
-                } else {
-                    console.log(this.$data.playlist);
+                } else if (!that.$data.deleteAction){
                     if ($(element).hasClass('activePlaylist')){
                         that.$data.playlistLineActive = false;
                         $(element).removeClass('activePlaylist');
