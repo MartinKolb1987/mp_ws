@@ -262,6 +262,12 @@ function abortPlayback() {
 
     // decide if downvotes are over 50% to abort the playback
     if ($downvoteCount > ($usersCount / 2)) {
+
+        // set dj image and current track default
+        // --> otherwise auto update doesn‘t work correct
+        $createTxtFile = createTxtFile('djImage', '../server/userdata/default.png');
+        $createTxtFile = createTxtFile('trackId', '0');
+        
         return 1;
     } else {
 		if($deletedCount == 1) {

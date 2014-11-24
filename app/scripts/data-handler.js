@@ -519,14 +519,10 @@ define([
                 if(type === 'uploadUserImage' || type === 'uploadUserTrack'){
                     
                     if (procent < 98){
-                        that.$data.uploadProgressWrapperStateClass = ''; // show progress wrapper
-                        view.uploadProgressValue = procent + '%';
                         $(data[1]).css('width', procent + '%');
                     } else {
                         view.triggerUploadFileStateClass = '';
                         view.uploadFileControlWrapperStateClass = 'hide';
-                        view.uploadProgressValue = procent + '% --> fertig';
-                        view.uploadProgressWrapperStateClass = 'hide'; // hide progress wrapper
                     }
 
                 }

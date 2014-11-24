@@ -12,8 +12,7 @@
 $db_path = dirname(__FILE__) . '/db/db.sqlite';
 
 // path for temp fileupload (client_actions.php)
-// $tempPath = '/usr/share/nginx/html/server/tmp/';
-$tempPath = '/Applications/XAMPP/xamppfiles/htdocs/mp_ws/tmp';
+$tempPath = '/usr/share/nginx/html/server/tmp/';
 
 // path for upload directory (users.php)
 // $uploadDirectory = getenv("DOCUMENT_ROOT") . '/mp_ws/server/userdata/';
