@@ -54,6 +54,9 @@ define([
             fileControlStateClass: 'hide',
             uploadProgressWrapperStateClass: 'hide',
 
+            // swap
+            nextActiveField: '',
+
             // delete
             deleteTimeout: '',
             deleteAction: false,
@@ -143,7 +146,7 @@ define([
             swapUserTrack: function(key, direction, el){
                 var swapButton = el.$el;
 
-                if ($(swapButton).hasClass('playlist-button-active')){
+                if ($(swapButton).hasClass('playlist-button-active') || direction === 'up'){
                     key = parseInt(key) - 1;    
 
                     if (direction === 'up'){
@@ -154,6 +157,8 @@ define([
 
                     var track1 = this.$data.playlist[key].t_id;
                     var track2 = this.$data.playlist[secondKey].t_id;
+
+                    this.$data.nextActiveField = secondKey + 1;
 
                     DataHandler.swapUserTrack([track1, track2]);
                 }
