@@ -140,8 +140,9 @@ gulp.task('move-server-to-dist', function (){
 gulp.task('replace-localhost-in-dist-util-php', function(){
     // replace moved util.php with new ip address
     gulp.src([serverPath + '/util.php'])
-    .pipe(replace('localhost', productionIp))
-    .pipe(gulp.dest(distPath + '/server/'));
+        .pipe(replace("dirname(__FILE__) . '/db/db.sqlite'", "'/usr/share/nginx/html/server/tmp/db.sqlite'"))
+        .pipe(replace('localhost', productionIp))
+        .pipe(gulp.dest(distPath + '/server/'));
 });
 
 gulp.task('chmod-dist-recursive', function(){

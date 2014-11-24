@@ -267,7 +267,7 @@ function deleteOldUserImageFromDisk($clientIp){
 
     // remove old image
     if($imagePath['u_picture'] !== 'default.png'){
-        shell_exec("rm -rf $oldImagePath");
+        shell_exec("rm -f $oldImagePath");
     }
 
     // close db
