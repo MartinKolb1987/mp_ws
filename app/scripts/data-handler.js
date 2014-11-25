@@ -319,7 +319,6 @@ define([
                 playlist.push(item);
             });
             view.playlist = playlist;
-            console.log(this.currentClientSidePlaylist);
         },
 
         // user image
