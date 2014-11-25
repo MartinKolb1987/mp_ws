@@ -211,7 +211,7 @@ define([
                     this.$data.deleteAction = false;
                     $(element).children('.line-wrapper').children('.progressbar').css('width', '0%');
                     $(element).children('.line-wrapper').children('.line-title').text(this.$data.deleteTrackTitle);
-                } else if (!that.$data.deleteAction){
+                } else if (that.$data.deleteAction === false){
                     if ($(element).hasClass('activePlaylist')){
                         that.$data.playlistLineActive = false;
                         $(element).removeClass('activePlaylist');

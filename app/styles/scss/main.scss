@@ -361,22 +361,30 @@ body{
 
                     ul {
                         list-style: none;
-                    }
+                        position: relative;
 
-                    ul li:nth-child(1) {
-                        background-color: $playlistLine1;
-                    }
-                    ul li:nth-child(2) {
-                        background-color: $playlistLine2;
-                    }
-                    ul li:nth-child(3) {
-                        background-color: $playlistLine3;
-                    }
-                    ul li:nth-child(4) {
-                        background-color: $playlistLine4;
-                    }
-                    ul li:nth-child(5) {
-                        background-color: $playlistLine5;
+                        li {
+
+                            &:nth-child(1) {
+                                background-color: $playlistLine1;
+                            }
+
+                            &:nth-child(2) {
+                                background-color: $playlistLine2;
+                            }
+
+                            &:nth-child(3) {
+                                background-color: $playlistLine3;
+                            }
+                            
+                            &:nth-child(4) {
+                                background-color: $playlistLine4;
+                            }
+                            
+                            &:nth-child(5) {
+                                background-color: $playlistLine5;
+                            }
+                        }
                     }
 
                     .playlist {
@@ -396,12 +404,16 @@ body{
                         }
 
                         .line-wrapper {
+                            position: relative;
 
                             .line-clickfield {
-                                // background-color: green;
                                 width: 100%;
                                 height: 40px;
                                 position: absolute;
+                                top: 0;
+                                right: 0;
+                                bottom: 0;
+                                left: 0;
                                 z-index: 50;
                             }
 
@@ -411,6 +423,8 @@ body{
                                 background-color: $btnColorDark;
                                 position: absolute;
                                 left: -20px;
+                                top: 0;
+                                bottom: 0;
                                 @include skewedBorder(right, -13px, 0, 20px, $btnColorDark);
                             }
 
@@ -426,6 +440,10 @@ body{
                                 color: white;
                                 float: left;
                                 position: relative;
+                                max-width: 200px;
+                                overflow: hidden;
+                                height: 25px;
+                                white-space: nowrap;
                             }
                         }
 
