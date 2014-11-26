@@ -165,30 +165,31 @@ define([
             },
 
             deleteUserTrack: function(el, tId){
-                var that = this;
-                var deleteButton = el.$el;
-                var progressbar = $(deleteButton).parents('.playlist-button-wrapper').siblings('.line-wrapper').children('.progressbar');
-                var lineTitle = $(deleteButton).parents('.playlist-button-wrapper').siblings('.line-wrapper').children('.line-title');
+                if (this.$data.deleteAction === false){
+                    var that = this;
+                    var deleteButton = el.$el;
+                    var progressbar = $(deleteButton).parents('.playlist-button-wrapper').siblings('.line-wrapper').children('.progressbar');
+                    var lineTitle = $(deleteButton).parents('.playlist-button-wrapper').siblings('.line-wrapper').children('.line-title');
 
-                this.$data.deleteTrackTitle = $(lineTitle).text();
+                    this.$data.deleteTrackTitle = $(lineTitle).text();
 
-                var counter = 100;
+                    var counter = 100;
 
-                this.$data.deleteAction = true;
+                    this.$data.deleteAction = true;
 
-                this.$data.deleteTimeout = setInterval(function(){
+                    this.$data.deleteTimeout = setInterval(function(){
 
-                    $(lineTitle).text('Tap to cancel!');
-                    progressbar.css('width', counter + '%');
-                    if(counter === 0){
-                        DataHandler.deleteUserTrack(tId);
-                        clearInterval(that.$data.deleteTimeout);
-                        that.$data.deleteAction = false;
-                        return false;
-                    }
-                    counter = counter - 1;
-                }, 50);
-
+                        $(lineTitle).text('Tap to cancel!');
+                        progressbar.css('width', counter + '%');
+                        if(counter === 0){
+                            DataHandler.deleteUserTrack(tId);
+                            clearInterval(that.$data.deleteTimeout);
+                            that.$data.deleteAction = false;
+                            return false;
+                        }
+                        counter = counter - 1;
+                    }, 50);
+                }
             },
 
             clearUploadField: function(inputField){
