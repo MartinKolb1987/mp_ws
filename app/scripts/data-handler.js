@@ -467,6 +467,7 @@ define([
                                 // refresh user playlist 
                                 this.getUserPlaylist(route);
                             } else {
+                                // upload user playlist if upload is ready
                                 this.updateUserPlaylistInterval = setInterval(function(){
                                     if(that.currentlyClientSideUploadingTrack === false){
                                         // refresh user playlist 
