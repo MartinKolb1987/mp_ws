@@ -5,8 +5,9 @@ define([
     'dataHandler',
     'translation',
     'componentCollection',
+    'tourGuide',
     'text!../../templates/home/default.html'
-], function(Vue, ErrorHandler, DebugHandler, DataHandler, TranslationHandler, ComponentCollection, DefaultTemplate) {
+], function(Vue, ErrorHandler, DebugHandler, DataHandler, TranslationHandler, ComponentCollection, TourGuide, DefaultTemplate) {
     'use strict';
 
     Vue.component('home', {
@@ -16,6 +17,9 @@ define([
 
         ready: function() {
             ComponentCollection.addComponent('home', this.$data);
+
+            // check if tour guide should be shown or not
+            TourGuide.checkTourGuideModeStatus();
         },
 
         data: {
@@ -63,6 +67,7 @@ define([
             deleteTrackTitle: '',
 
         },
+
         methods: {
 
             triggerFileBrowser: function(e){

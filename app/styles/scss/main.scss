@@ -130,6 +130,35 @@ html[xmlns] .clearfix {
     // @include translate3d(-30px, 0, 0);
 }
 
+// -------------------------------------
+//  TOUR GUIDE STYLES
+// -------------------------------------
+#tour-guide-overlay{
+    @include transition(opacity, 0.5s, linear);
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: -100vw;
+    background-color: $bgColor;
+    opacity: 0;
+    &.fadeIn{
+        opacity: 1;
+    }
+
+    #close-tour-guide{
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: $white;
+    }
+}
+
+// #currently-playing{
+//     position: relative;
+//     z-index: 100000;
+// }
 
 // -------------------------------------
 //  CUSTOM STYLES
