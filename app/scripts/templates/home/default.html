@@ -22,10 +22,14 @@
 		
 		<!-- system info wrapper -->
 		<div id="system-info-wrapper">
-			<div id="downvote-button" class="{{downvoteActiveStateClass}} {{downvoteDisabledStateClass}}" v-on="click: downvoteTrack(id)">D</div>
+			<div id="downvote-button" class="{{downvoteActiveStateClass}} {{downvoteDisabledStateClass}}" v-on="click: downvoteTrack(id)">
+				<img src="images/downvote.svg" alt="">
+			</div>
 			<div id="downvote-response-message" class="{{downvoteResponseMessageStateClass}}">{{downvoteResponseMessage}}</div>
 			<div id="system-info-text">
-			I: {{internetAccess}} U: {{users}}
+				<img src="images/battery.svg" alt="">
+				<img src="images/internet_access.svg" alt=""> {{internetAccess}}
+				<img src="images/users.svg" alt=""> {{users}}
 			</div>
 		</div>
 
@@ -43,18 +47,30 @@
 				</div>
 
 				<div class="playlist-button-wrapper {{displaySwapUp}} {{displaySwapDown}}">
-					<div class="playlist-button delete-button" v-if="t_title" v-on="click: deleteUserTrack(this, t_id)">D</div>	
-					<div class="playlist-button swapup-button" v-if="t_title" v-on="click: swapUserTrack(($index + 1), 'up', this)">u</div>
-					<div class="playlist-button swapdown-button" v-if="t_title" v-on="click: swapUserTrack(($index + 1), 'down', this)">d</div>
+					<div class="playlist-button delete-button" v-if="t_title" v-on="click: deleteUserTrack(this, t_id)">
+						<img src="images/delete.svg" alt="">
+					</div>	
+					<div class="playlist-button swapup-button" v-if="t_title" v-on="click: swapUserTrack(($index + 1), 'up', this)">
+						<img src="images/switch.svg" alt="">
+					</div>
+					<div class="playlist-button swapdown-button" v-if="t_title" v-on="click: swapUserTrack(($index + 1), 'down', this)">
+						<img src="images/switch.svg" alt="">
+					</div>
 				</div>
 				
 				<div id="upload-wrapper" class="empty-field {{displayUpload}}" v-if="!t_title">
 					<input type="file" id="upload-file-field" class="hide">
-					<div id="trigger-upload-file" class="playlist-button browse-button {{triggerUploadFileStateClass}}" v-on="click: triggerFileBrowser">...</div>
+					<div id="trigger-upload-file" class="playlist-button browse-button {{triggerUploadFileStateClass}}" v-on="click: triggerFileBrowser">
+						<img src="images/browse.svg" alt="">
+					</div>
 
 					<div id="upload-control-wrapper" class="{{uploadFileControlWrapperStateClass}}">
-						<div id="cancel-upload-file" class="playlist-button cancel-button">cancel</div>
-						<div id="upload-file" class="playlist-button upload-button">upload</div>
+						<div id="cancel-upload-file" class="playlist-button cancel-button">
+							<img src="images/delete.svg" alt="">
+						</div>
+						<div id="upload-file" class="playlist-button upload-button">
+							<img src="images/upload.svg" alt="">
+						</div>
 					</div>
 				</div>
 			</li>

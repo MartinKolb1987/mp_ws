@@ -190,13 +190,24 @@ body{
                     position: relative;
                     height: $btnHeight;
                     line-height: $btnHeight;
-                    span{
-                        &.icon{
+                    a {
+                        position: absolute;
+                        z-index: 1;
+
+                        img {
                             float: left;
-                            width: 35px;
-                            text-align: center;
+                            height: 32px;
+                            padding: 10px 10px 0 2px;
+                            position: absolute;
+                            left: 0;
+                        }
+
+                        span {
+                            position: absolute;
+                            left: 45px;
                         }
                     }
+                    
                     &.active{
                         @include transition(width , 0.3s, linear); 
                         width: 42.5vw;
@@ -206,7 +217,6 @@ body{
                         span{
                             &.icon-info{
                                 opacity: 1;
-                                float: left;
                             }
                         }
                     }
@@ -217,7 +227,6 @@ body{
                         span{
                             &.icon-info{
                                 opacity: 0;
-                                float: left;
                             }
                         }
                     }
@@ -324,6 +333,11 @@ body{
                                 background-color: $btnDownvoteDisabled;
                                 @include skewedBorder(right, -10px, -1, 30px, $btnDownvoteDisabled); // = direction, directionValue, zIndex, width, color
                             }
+
+                            img {
+                                height: 26px;
+                                padding: 17px 0 0 7px;
+                            }
                         }
                         #downvote-response-message{
                             @include transition(left, 1.0s, linear);
@@ -352,6 +366,12 @@ body{
                             color: $iconSystemInfo;
                             line-height: $regularLineHeight;
                             text-align: center;
+
+                            img {
+                                height: 17px;
+                                opacity: 0.5;
+                                padding-left: 5px;
+                            }
                         }
                     }
                 }
@@ -396,11 +416,12 @@ body{
                             height: 28px;
                             float: right;
                             position: relative;
-                        }
 
-                        .playlist-button:hover {
-                            cursor: pointer;
-                            color: orange;
+                            img {
+                                position: relative;
+                                width: 15px;
+                                z-index: 100;
+                            }
                         }
 
                         .line-wrapper {
@@ -448,10 +469,9 @@ body{
                         }
 
                         .playlist-button-wrapper {
-
                             position: absolute;
                             @include transition(right, 0.25s, linear);
-
+                            
                             .delete-button {
                                 z-index: 100;
                                 background-color: $btnColorDark;
@@ -470,10 +490,14 @@ body{
                                 z-index: 80;
                                 background-color: $btnColorLight;
                                 @include skewedBorder(left, -13px, 80, 20px, $btnColorLight);
+
+                                img {
+                                    transform: rotate(180deg);
+                                }
                             }
 
                             &.showSwapUp {
-                                right: -97px;
+                                right: -104px;
 
                                 .swapup-button {
                                     display: block;
@@ -481,7 +505,7 @@ body{
                             }
 
                             &.showSwapDown {
-                                right: -97px;
+                                right: -104px;
 
                                 .swapdown-button {
                                     display: block;
@@ -490,7 +514,7 @@ body{
                             }
 
                             &.showSwapUp.showSwapDown {
-                                right: -141px;
+                                right: -152px;
                             }
 
                         }
