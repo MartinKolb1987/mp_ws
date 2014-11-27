@@ -5,8 +5,9 @@ define([
     'dataHandler',
     'translation',
     'componentCollection',
+    'tourGuide',
     'text!../../templates/settings/default.html'
-], function(Vue, ErrorHandler, DebugHandler, DataHandler, TranslationHandler, ComponentCollection, DefaultTemplate) {
+], function(Vue, ErrorHandler, DebugHandler, DataHandler, TranslationHandler, ComponentCollection, TourGuide, DefaultTemplate) {
     'use strict';
 
     Vue.component('settings', {
@@ -16,6 +17,9 @@ define([
 
         ready: function() {
             ComponentCollection.addComponent('settings', this.$data);
+
+            // check if tour guide should be shown or not
+            TourGuide.checkTourGuideModeStatus();
         },
 
         data: {

@@ -38,7 +38,8 @@ require.config({
         debug: 'debug-handler',
         error: 'error-handler',
         translation: 'translation-handler',
-        componentCollection: 'component-collection'
+        componentCollection: 'component-collection',
+        tourGuide: 'tour-guide'
     }
 });
 
