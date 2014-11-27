@@ -303,21 +303,47 @@ define([
             var that = this;
             var playlist = [];
             var set = false;
+            var index = 0;
+            var lastFilledLine = 0;
             this.currentClientSidePlaylist = [];
 
             $.each(data.playlist, function(key, item){
 
                 // collect all current user track ids (playlist)
                 that.currentClientSidePlaylist.push((item.t_id === false) ? '' : item.t_id);
+
+                item.displaySwapDown = 'showSwapDown';
                 
+                // toggle upload button and mark last filled line
                 if (item.t_id === false && set === false){
-                    item.displayUpload = 'show';
+                    item.displayUpload = 'showUpload';
                     set = true;
+                    lastFilledLine = index - 1;
                 } else {
                     item.displayUpload = '';
                 }
+
+                // toggle swap up button
+                if (index === 0){
+                    item.displaySwapUp = '';
+                } else {
+                    item.displaySwapUp = 'showSwapUp';
+                }
+
+                index = index + 1;
                 playlist.push(item);
             });
+
+
+            // toggle swap down button
+            if (set === false){
+                playlist[4].displaySwapDown = '';
+            } else {
+                playlist[lastFilledLine].displaySwapDown = '';
+            }
+
+            view.triggerUploadFileStateClass = '';
+
             view.playlist = playlist;
         },
 
@@ -547,11 +573,11 @@ define([
                 that.currentlyClientSideUploadingTrack = true;
 
                 if(type === 'uploadUserImage' || type === 'uploadUserTrack'){
+                    view.triggerUploadFileStateClass = 'hide';
                     
                     if (procent < 98){
                         $(data[1]).css('width', procent + '%');
                     } else {
-                        view.triggerUploadFileStateClass = '';
                         view.uploadFileControlWrapperStateClass = 'hide';
                     }
 

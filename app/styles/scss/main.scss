@@ -450,7 +450,6 @@ body{
                         .playlist-button-wrapper {
 
                             position: absolute;
-                            right: -142px;
                             @include transition(right, 0.25s, linear);
 
                             .delete-button {
@@ -460,16 +459,40 @@ body{
                             }
 
                             .swapup-button {
+                                display: none;
                                 z-index: 90;
                                 background-color: $btnColorMiddle;
                                 @include skewedBorder(left, -13px, 90, 20px, $btnColorMiddle);
                             }
                             
                             .swapdown-button {
+                                display: none;
                                 z-index: 80;
                                 background-color: $btnColorLight;
                                 @include skewedBorder(left, -13px, 80, 20px, $btnColorLight);
                             }
+
+                            &.showSwapUp {
+                                right: -97px;
+
+                                .swapup-button {
+                                    display: block;
+                                }
+                            }
+
+                            &.showSwapDown {
+                                right: -97px;
+
+                                .swapdown-button {
+                                    display: block;
+                                }
+
+                            }
+
+                            &.showSwapUp.showSwapDown {
+                                right: -141px;
+                            }
+
                         }
 
                         #upload-wrapper{
@@ -497,7 +520,7 @@ body{
                         .empty-field {
                             display: none;
 
-                            &.show {
+                            &.showUpload {
                                 display: block;
                             }
                         }
@@ -508,7 +531,7 @@ body{
 
                         &.activePlaylist {
 
-                            .playlist-button-wrapper {
+                            .playlist-button-wrapper, .playlist-button-wrapper.showSwapUp.showSwapDown {
                                 right: 0;
                             }
                         }

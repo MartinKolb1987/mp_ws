@@ -42,7 +42,7 @@
 					<div class="line-title">{{t_title}}</div>
 				</div>
 
-				<div class="playlist-button-wrapper">
+				<div class="playlist-button-wrapper {{displaySwapUp}} {{displaySwapDown}}">
 					<div class="playlist-button delete-button" v-if="t_title" v-on="click: deleteUserTrack(this, t_id)">D</div>	
 					<div class="playlist-button swapup-button" v-if="t_title" v-on="click: swapUserTrack(($index + 1), 'up', this)">u</div>
 					<div class="playlist-button swapdown-button" v-if="t_title" v-on="click: swapUserTrack(($index + 1), 'down', this)">d</div>
