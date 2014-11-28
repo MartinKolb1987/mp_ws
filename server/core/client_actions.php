@@ -219,7 +219,7 @@ function getCurrentlyPlaying($route, $type, $websocketClientIp = '') {
         return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":' . $currentTrack . ',"artist":"' . $currentArtist . '","title":"' . $currentTitle . '","album":"' . $currentAlbum . '","length":' . $currentLength . ',"image":"' . $userPicture . '","downvote":' . $currentlyPlayingDownvote . '},"status":{"users":"' . $userCount . '","internetAccess":' . $getInternetAccess . '}}}';
     } else {
         // show no track is playing
-        return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":0,"artist":"no artist","title":"no title","album":"no album","length":0,"image":"../server/userdata/default.png","downvote":0},"status":{"users":"' . $userCount . '","internetAccess":' . $getInternetAccess . '}}}';
+        return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":0,"artist":false,"title":false,"album":false,"length":false,"image":"../server/userdata/default.png","downvote":0},"status":{"users":"' . $userCount . '","internetAccess":' . $getInternetAccess . '}}}';
     }
 }
 

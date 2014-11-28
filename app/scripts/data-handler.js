@@ -261,11 +261,16 @@ define([
         distributeCurrentlyPlayingTrack: function(data, view){
             var that = this;
             view.route = data.route;
-            view.album = data.info.currentlyPlaying.album;
-            view.title = data.info.currentlyPlaying.title;
-            view.artist = data.info.currentlyPlaying.artist;
             view.id = data.info.currentlyPlaying.id;
-            view.length = data.info.currentlyPlaying.length;
+            
+            // if no data exists 
+            // --> just let the translations handler do the job (it‘s automatically)
+            if(data.info.currentlyPlaying.title) { 
+                view.album = data.info.currentlyPlaying.album;
+                view.title = data.info.currentlyPlaying.title;
+                view.artist = data.info.currentlyPlaying.artist;
+                view.length = data.info.currentlyPlaying.length;
+            }
             
             // dj image and states
             setTimeout(function(){
