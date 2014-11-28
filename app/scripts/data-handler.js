@@ -338,7 +338,7 @@ define([
             // toggle swap down button
             if (set === false){
                 playlist[4].displaySwapDown = '';
-            } else {
+            } else if (lastFilledLine > -1){
                 playlist[lastFilledLine].displaySwapDown = '';
             }
 

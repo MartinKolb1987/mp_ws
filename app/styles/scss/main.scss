@@ -500,6 +500,7 @@ body{
                         .playlist-button-wrapper {
                             position: absolute;
                             @include transition(right, 0.25s, linear);
+                            right: -55px;
                             
                             .delete-button {
                                 z-index: 100;

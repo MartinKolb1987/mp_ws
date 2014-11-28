@@ -210,24 +210,30 @@ define([
 
             setPlaylistLine: function(el){
                 var that = this;
-                var element = el.$el;
+                var element = $(el.$el);
 
-                if (that.$data.deleteAction && $(element).hasClass('activePlaylist')){
+                // cancel delete
+                if (that.$data.deleteAction && element.hasClass('activePlaylist')){
                     clearInterval(this.$data.deleteTimeout);
                     this.$data.deleteAction = false;
-                    $(element).children('.line-wrapper').children('.progressbar').css('width', '0%');
-                    $(element).children('.line-wrapper').children('.line-title').text(this.$data.deleteTrackTitle);
+                    var lineWrapper = element.children('.line-wrapper');
+                    lineWrapper.children('.progressbar').css('width', '0%');
+                    lineWrapper.children('.line-title').text(this.$data.deleteTrackTitle);
+
+                // toggle playlist line
                 } else if (that.$data.deleteAction === false){
-                    if ($(element).hasClass('activePlaylist')){
+
+                    if (element.hasClass('activePlaylist')){
                         that.$data.playlistLineActive = false;
-                        $(element).removeClass('activePlaylist');
-                        $(element).children('.playlist-button-wrapper').children('.swapdown-button').removeClass('playlist-button-active');
+                        element.removeClass('activePlaylist');
+                        element.children('.playlist-button-wrapper').children('.swapdown-button').removeClass('playlist-button-active');
                     } else {
                         that.$data.playlistLineActive = true;
-                        $(element).parents('ul').children().removeClass('activePlaylist');
-                        $(element).parents('ul').children().children('.playlist-button-wrapper').children('.swapdown-button').removeClass('playlist-button-active');
-                        $(element).addClass('activePlaylist');
-                        $(element).children('.playlist-button-wrapper').children('.swapdown-button').addClass('playlist-button-active');
+                        var ulChildren = element.parents('ul').children();
+                        ulChildren.removeClass('activePlaylist');
+                        ulChildren.children('.playlist-button-wrapper').children('.swapdown-button').removeClass('playlist-button-active');
+                        element.addClass('activePlaylist');
+                        element.children('.playlist-button-wrapper').children('.swapdown-button').addClass('playlist-button-active');
                     }
                 }
             }
