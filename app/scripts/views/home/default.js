@@ -149,9 +149,9 @@ define([
             },
 
             swapUserTrack: function(key, direction, el){
-                var swapButton = el.$el;
+                var swapButton = $(el.$el);
 
-                if ($(swapButton).hasClass('playlist-button-active') || direction === 'up'){
+                if (swapButton.hasClass('playlist-button-active') || direction === 'up'){
                     key = parseInt(key) - 1;    
 
                     if (direction === 'up'){
@@ -172,11 +172,12 @@ define([
             deleteUserTrack: function(el, tId){
                 if (this.$data.deleteAction === false){
                     var that = this;
-                    var deleteButton = el.$el;
-                    var progressbar = $(deleteButton).parents('.playlist-button-wrapper').siblings('.line-wrapper').children('.progressbar');
-                    var lineTitle = $(deleteButton).parents('.playlist-button-wrapper').siblings('.line-wrapper').children('.line-title');
+                    var deleteButton = $(el.$el);
+                    var lineWrapper = deleteButton.parents('.playlist-button-wrapper').siblings('.line-wrapper');
+                    var progressbar = lineWrapper.children('.progressbar');
+                    var lineTitle = lineWrapper.children('.line-title');
 
-                    this.$data.deleteTrackTitle = $(lineTitle).text();
+                    this.$data.deleteTrackTitle = lineTitle.text();
 
                     var counter = 100;
 
@@ -184,7 +185,7 @@ define([
 
                     this.$data.deleteTimeout = setInterval(function(){
 
-                        $(lineTitle).text('Tap to cancel!');
+                        lineTitle.text('Tap to cancel!');
                         progressbar.css('width', counter + '%');
                         if(counter === 0){
                             DataHandler.deleteUserTrack(tId);
