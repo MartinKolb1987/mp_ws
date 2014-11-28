@@ -312,22 +312,22 @@ define([
                 // collect all current user track ids (playlist)
                 that.currentClientSidePlaylist.push((item.t_id === false) ? '' : item.t_id);
 
-                item.displaySwapDown = 'showSwapDown';
+                item.displaySwapDownClass = 'showSwapDownClass';
                 
                 // toggle upload button and mark last filled line
                 if (item.t_id === false && set === false){
-                    item.displayUpload = 'showUpload';
+                    item.displayUploadClass = 'showUploadClass';
                     set = true;
                     lastFilledLine = index - 1;
                 } else {
-                    item.displayUpload = '';
+                    item.displayUploadClass = '';
                 }
 
                 // toggle swap up button
                 if (index === 0){
-                    item.displaySwapUp = '';
+                    item.displaySwapUpClass = '';
                 } else {
-                    item.displaySwapUp = 'showSwapUp';
+                    item.displaySwapUpClass = 'showSwapUpClass';
                 }
 
                 index = index + 1;
@@ -337,11 +337,12 @@ define([
 
             // toggle swap down button
             if (set === false){
-                playlist[4].displaySwapDown = '';
+                playlist[4].displaySwapDownClass = '';
             } else if (lastFilledLine > -1){
-                playlist[lastFilledLine].displaySwapDown = '';
+                playlist[lastFilledLine].displaySwapDownClass = '';
             }
 
+            // display browser button
             view.triggerUploadFileStateClass = '';
 
             view.playlist = playlist;

@@ -46,7 +46,7 @@
 					<div class="line-title">{{t_title}}</div>
 				</div>
 
-				<div class="playlist-button-wrapper {{displaySwapUp}} {{displaySwapDown}}">
+				<div class="playlist-button-wrapper {{displaySwapUpClass}} {{displaySwapDownClass}}">
 					<div class="playlist-button delete-button" v-if="t_title" v-on="click: deleteUserTrack(this, t_id)">
 						<img src="images/delete.svg" alt="">
 					</div>	
@@ -58,7 +58,7 @@
 					</div>
 				</div>
 				
-				<div id="upload-wrapper" class="empty-field {{displayUpload}}" v-if="!t_title">
+				<div id="upload-wrapper" class="empty-field {{displayUploadClass}}" v-if="!t_title">
 					<input type="file" id="upload-file-field" class="hide">
 					<div id="trigger-upload-file" class="playlist-button browse-button {{triggerUploadFileStateClass}}" v-on="click: triggerFileBrowser">
 						<img src="images/browse.svg" alt="">
