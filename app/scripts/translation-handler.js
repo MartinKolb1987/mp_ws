@@ -14,6 +14,7 @@ define([
                 langHome: 'Heimat',
                 downvoteResponseMessage: 'Dein Downvote war erfolgreich!',
                 djImageInfo: 'Dein DJ!',
+                trackTitle: 'Wähle einen Musiktitel!',
                 
                 // settings
                 langSettings: 'Einstellungen',
@@ -34,6 +35,7 @@ define([
                 langHome: 'Home',
                 downvoteResponseMessage: 'Your downvote has been counted!',
                 djImageInfo: 'Your DJ!',
+                trackTitle: 'Choose a track!',
                 
                 // settings
                 langSettings: 'Settings',

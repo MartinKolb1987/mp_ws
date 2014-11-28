@@ -43,22 +43,23 @@
 					<div class="line-clickfield" v-on="click: setPlaylistLine(this)"></div>
 					<div class="progressbar"></div>
 					<div class="line-text">{{$index + 1}}.</div>
-					<div class="line-title">{{t_title}}</div>
+					<div class="line-title hide {{displayUploadClass}}" v-if="!t_id">{{trackTitle}}</div>
+					<div class="line-title" v-if="t_id">{{t_title}}</div>
 				</div>
 
 				<div class="playlist-button-wrapper {{displaySwapUpClass}} {{displaySwapDownClass}}">
-					<div class="playlist-button delete-button" v-if="t_title" v-on="click: deleteUserTrack(this, t_id)">
+					<div class="playlist-button delete-button" v-if="t_id" v-on="click: deleteUserTrack(this, t_id)">
 						<img src="images/delete.svg" alt="">
 					</div>	
-					<div class="playlist-button swapup-button" v-if="t_title" v-on="click: swapUserTrack(($index + 1), 'up', this)">
+					<div class="playlist-button swapup-button" v-if="t_id" v-on="click: swapUserTrack(($index + 1), 'up', this)">
 						<img src="images/switch.svg" alt="">
 					</div>
-					<div class="playlist-button swapdown-button" v-if="t_title" v-on="click: swapUserTrack(($index + 1), 'down', this)">
+					<div class="playlist-button swapdown-button" v-if="t_id" v-on="click: swapUserTrack(($index + 1), 'down', this)">
 						<img src="images/switch.svg" alt="">
 					</div>
 				</div>
 				
-				<div id="upload-wrapper" class="empty-field {{displayUploadClass}}" v-if="!t_title">
+				<div id="upload-wrapper" class="empty-field {{displayUploadClass}}" v-if="!t_id">
 					<input type="file" id="upload-file-field" class="hide">
 					<div id="trigger-upload-file" class="playlist-button browse-button {{triggerUploadFileStateClass}}" v-on="click: triggerFileBrowser">
 						<img src="images/browse.svg" alt="">

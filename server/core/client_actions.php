@@ -240,7 +240,7 @@ function getUserPlaylist($route, $type, $websocketClientIp = '') {
     // initialize database   
     $db = new ClientDB();
     
-    $userPlaylistQuery = $db->query("SELECT b.t_id, t.t_artist, t.t_title FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id WHERE t.u_ip = '$clientIp' AND b.b_played = 0 ORDER BY b.b_id ASC");
+    $userPlaylistQuery = $db->query("SELECT b.t_id, t.t_artist, t.t_title FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id WHERE t.u_ip = '$clientIp' AND b.b_played = 0 AND b.b_currently_playing = 0 ORDER BY b.b_id ASC");
     $userPlaylistArray = [];
     $listEntryCounter = 0;
 

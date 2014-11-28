@@ -52,6 +52,9 @@ define([
             // upload message
             uploadProgressImageMessage: '',
 
+            // default title
+            trackTitle: 'Choose a track!',
+
             // css classes
             triggerUploadFileStateClass: '',
             uploadFileControlWrapperStateClass: 'hide',
