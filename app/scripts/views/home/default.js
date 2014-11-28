@@ -74,7 +74,7 @@ define([
                 e.stopPropagation();
                 
                 // select file upload field
-                var inputField = $(e.target).prev('#upload-file-field');
+                var inputField = $(e.target).parents('#upload-wrapper').find('#upload-file-field');
                 
                 // open file browser
                 inputField.trigger('click');
