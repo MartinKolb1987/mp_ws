@@ -568,7 +568,7 @@ body{
 
                             .line-clickfield {
                                 width: 100%;
-                                height: 40px;
+                                height: 52px;
                                 position: absolute;
                                 top: 0;
                                 right: 0;
@@ -579,13 +579,13 @@ body{
 
                             .progressbar {
                                 // @include transition(width, 1s, linear);
-                                height: 40px;
+                                height: 52px;
                                 background-color: $btnColorDark;
                                 position: absolute;
                                 left: -20px;
                                 top: 0;
                                 bottom: 0;
-                                @include skewedBorder(right, -13px, 0, 20px, $btnColorDark);
+                                @include skewedBorder(right, -11px, 0, 20px, $btnColorDark);
                             }
 
                             .line-text {
@@ -638,7 +638,7 @@ body{
                             }
 
                             &.showSwapUpClass {
-                                right: -98px;
+                                right: -113px;
 
                                 .swapup-button {
                                     display: block;
@@ -646,7 +646,7 @@ body{
                             }
 
                             &.showSwapDownClass {
-                                right: -98px;
+                                right: -113px;
 
                                 .swapdown-button {
                                     display: block;
@@ -655,7 +655,7 @@ body{
                             }
 
                             &.showSwapUpClass.showSwapDownClass {
-                                right: -154px;
+                                right: -169px;
                             }
 
                         }
@@ -667,6 +667,7 @@ body{
                                 z-index: 100;
                                 background-color: $btnColorMiddle;
                                 @include skewedBorder(left, -10px, 100, 20px, $btnColorMiddle);
+                                padding-right: 18px;
 
                                 img {
                                     padding-top: 3px;
@@ -677,6 +678,7 @@ body{
                                 z-index: 90;
                                 background-color: $btnColorDark;
                                 @include skewedBorder(left, -10px, 90, 20px, $btnColorDark);
+                                padding-right: 18px;
                             }
 
                             .upload-button {
