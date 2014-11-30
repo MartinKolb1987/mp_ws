@@ -37,7 +37,7 @@
 
 	<div id="playlist-wrapper" class="clearfix">
 		<ul>
-			<li v-repeat="playlist" class="playlist">
+			<li id="{{playlistStatus}}" v-repeat="playlist" class="playlist">
 
 				<div class="line-wrapper">
 					<div class="line-clickfield" v-on="click: setPlaylistLine(this)"></div>

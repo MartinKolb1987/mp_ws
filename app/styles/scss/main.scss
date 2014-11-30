@@ -580,7 +580,7 @@ body{
                                 @include skewedBorder(left, -13px, 90, 20px, $btnColorMiddle);
                             }
                             
-                            .swapdown-button {
+                            .swapdown-button { 
                                 display: none;
                                 z-index: 80;
                                 background-color: $btnColorLight;

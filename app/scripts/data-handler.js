@@ -318,10 +318,12 @@ define([
                 that.currentClientSidePlaylist.push((item.t_id === false) ? '' : item.t_id);
 
                 item.displaySwapDownClass = 'showSwapDownClass';
+                item.playlistStatus = '';
                 
                 // toggle upload button and mark last filled line
                 if (item.t_id === false && set === false){
                     item.displayUploadClass = 'showUploadClass';
+                    item.playlistStatus = 'browsePlaylist';
                     set = true;
                     lastFilledLine = index - 1;
                 } else {
@@ -333,7 +335,7 @@ define([
                     item.displaySwapUpClass = '';
                 } else {
                     item.displaySwapUpClass = 'showSwapUpClass';
-                }
+                }                
 
                 index = index + 1;
                 playlist.push(item);
@@ -345,6 +347,13 @@ define([
                 playlist[4].displaySwapDownClass = '';
             } else if (lastFilledLine > -1){
                 playlist[lastFilledLine].displaySwapDownClass = '';
+            }
+
+            console.log(lastFilledLine);
+
+            // mark first empty playlist
+            if (set === true && lastFilledLine <= 2 && lastFilledLine >= 0){
+                playlist[(lastFilledLine + 2)].playlistStatus = 'secondEmptyPlaylist';
             }
 
             // display browser button

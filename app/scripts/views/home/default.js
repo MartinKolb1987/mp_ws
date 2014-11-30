@@ -160,21 +160,24 @@ define([
             swapUserTrack: function(key, direction, el){
                 var swapButton = $(el.$el);
 
-                if (swapButton.hasClass('playlist-button-active') || direction === 'up'){
-                    key = parseInt(key) - 1;    
+                if (this.$data.deleteAction === false){
 
-                    if (direction === 'up'){
-                        var secondKey = key - 1;
-                    } else {
-                        var secondKey = key + 1;
+                    if (swapButton.hasClass('playlist-button-active') || direction === 'up'){
+                        key = parseInt(key) - 1;    
+
+                        if (direction === 'up'){
+                            var secondKey = key - 1;
+                        } else {
+                            var secondKey = key + 1;
+                        }
+
+                        var track1 = this.$data.playlist[key].t_id;
+                        var track2 = this.$data.playlist[secondKey].t_id;
+
+                        this.$data.nextActiveField = secondKey + 1;
+
+                        DataHandler.swapUserTrack([track1, track2]);
                     }
-
-                    var track1 = this.$data.playlist[key].t_id;
-                    var track2 = this.$data.playlist[secondKey].t_id;
-
-                    this.$data.nextActiveField = secondKey + 1;
-
-                    DataHandler.swapUserTrack([track1, track2]);
                 }
             },
 
