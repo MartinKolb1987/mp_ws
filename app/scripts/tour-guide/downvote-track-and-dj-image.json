@@ -1,0 +1,39 @@
+{
+    "options": {
+        "tourGuideAppend": "#app",
+        "tourGuideDefaultStructure": "<div id=\"tour-guide-overlay\"><div id=\"tour-guide-title\"></div><div id=\"tour-guide-close\"></div><div id=\"tour-guide-pagination\"></div><div id=\"tour-guide-prev\"></div><div id=\"tour-guide-next\"></div></div>",
+        "tourGuideOverlay": {
+            "target": "#tour-guide-overlay"
+        },
+        "tourGuideTitle": {
+            "target": "#tour-guide-title",
+            "content": "2. Downvote & DJ Image"
+        },
+        "tourGuideClose": {
+            "target": "#tour-guide-close",
+            "content": "x"
+        },
+        "tourGuideNext": {
+            "target": "#tour-guide-next",
+            "content": ">"
+        },
+        "tourGuidePrev": {
+            "target": "#tour-guide-prev",
+            "content": "<"
+        },
+        "tourGuidePagination": {
+            "target": "#tour-guide-pagination",
+            "content": "%from% / %to%"
+        },
+        "fadeInTourGuide": false,
+        "fadeOutTourGuide": true
+    },
+    "tourPoints": [
+        {
+            "info": "ipoint1"
+        },
+        {
+            "info": "ipoint2"
+        }
+    ]
+}

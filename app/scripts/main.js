@@ -25,6 +25,16 @@ require.config({
                 'zeptoEvents',
                 'zeptoCallbacks'
             ]
+        },
+        zeptoAnimation: {
+            deps: [
+                'zeptoCore'
+            ]
+        },
+        zeptoAnimationMethods: {
+            deps: [
+                'zeptoAnimation'
+            ]
         }
     },
     paths: {
@@ -34,6 +44,8 @@ require.config({
         zeptoEvents: '../bower_components/zeptojs/src/event',
         zeptoCallbacks: '../bower_components/zeptojs/src/callbacks',
         zeptoSelector: '../bower_components/zeptojs/src/selector',
+        zeptoAnimation: '../bower_components/zeptojs/src/fx',
+        zeptoAnimationMethods: '../bower_components/zeptojs/src/fx_methods',
         dataHandler: 'data-handler',
         debug: 'debug-handler',
         error: 'error-handler',
@@ -50,8 +62,10 @@ require([
     'zeptoCore',
     'zeptoEvents',
     'zeptoCallbacks',
-    'zeptoSelector'
-], function(Router, DataHandler, ComponentCollection, $, ZeptoEvents, ZeptoCallbacks, ZeptoSelector) {
+    'zeptoSelector',
+    'zeptoAnimation',
+    'zeptoAnimationMethods'
+], function(Router, DataHandler, ComponentCollection, $, ZeptoEvents, ZeptoCallbacks, ZeptoSelector, ZeptoAnimation,zeptoAnimationMethods) {
     ComponentCollection.init();
 
     var currentUrl = String(window.location);

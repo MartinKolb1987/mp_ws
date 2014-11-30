@@ -133,32 +133,74 @@ html[xmlns] .clearfix {
 // -------------------------------------
 //  TOUR GUIDE STYLES
 // -------------------------------------
-#tour-guide-overlay{
-    @include transition(opacity, 0.5s, linear);
-    position: fixed;
-    z-index: 99999;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: -100vw;
-    background-color: $bgColor;
-    opacity: 0;
-    &.fadeIn{
-        opacity: 1;
-    }
 
-    #close-tour-guide{
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        color: $white;
-    }
+.tour-guide-highlight-element{
+    position: relative;
+    z-index: 100000;
 }
 
-// #currently-playing{
-//     position: relative;
-//     z-index: 100000;
-// }
+#app{
+    &.night{
+
+        #tour-guide-overlay{
+            position: fixed;
+            z-index: 99999;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: $bgColor;
+            display: none;
+            overflow: auto;
+
+            #tour-guide-title{
+                position: absolute;
+                left: 15px;
+                top: 15px;
+                color: $white;
+                max-width: 80vw;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            #tour-guide-close{
+                position: absolute;
+                right: 15px;
+                top: 15px;
+                color: $white;
+            }
+
+            #tour-guide-next{
+                position: absolute;
+                right: 15px;
+                bottom: 15px;
+                color: $white;
+            }
+
+            #tour-guide-prev{
+                position: absolute;
+                left: 15px;
+                bottom: 15px;
+                color: $white;
+            }
+
+            #tour-guide-pagination{
+                position: absolute;
+                left: 35vw;
+                right: 35vw;
+                bottom: 15px;
+                max-width: 30vw;
+                overflow: hidden;
+                text-align: center;
+                color: $white;
+            }
+        }
+
+
+    }
+}
+// -------------------------------------
 
 // -------------------------------------
 //  CUSTOM STYLES

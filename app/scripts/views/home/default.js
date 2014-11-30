@@ -19,7 +19,7 @@ define([
             ComponentCollection.addComponent('home', this.$data);
 
             // check if tour guide should be shown or not
-            TourGuide.checkTourGuideModeStatus();
+            TourGuide.checkTourGuideModeStatus('init');
         },
 
         data: {
@@ -102,6 +102,9 @@ define([
                             // upload file
                             that.uploadFile(inputField);
                             that.cancelUploadFile(inputField);
+
+                            // trigger next tour guide step if tour guide is active
+                            TourGuide.checkTourGuideModeStatus('next');
                         } else {
                             alert('wrong file type, try it again');
                             that.clearUploadField(inputField);
@@ -135,6 +138,9 @@ define([
                     inputField.parents('#upload-wrapper').siblings('.line-wrapper').children('.line-title').text('');
                     that.$data.uploadFileControlWrapperStateClass = 'hide';
                     that.clearUploadField(inputField);
+
+                    // trigger prev tour guide step if tour guide is active
+                    TourGuide.checkTourGuideModeStatus('prev');
                 });
             },
 

@@ -3,12 +3,13 @@ define([
     'translation',
     'dataHandler',
     'componentCollection',
+    'tourGuide',
     '../views/home/default',
     '../views/settings/default',
     '../views/help/default',
     '../views/notfound/default',
     '../views/translation/default',
-], function(Vue, TranslationHandler, DataHandler, ComponentCollection, HomeView, SettingsView, HelpView, NotfoundView, TranslationView) {
+], function(Vue, TranslationHandler, DataHandler, ComponentCollection, TourGuide, HomeView, SettingsView, HelpView, NotfoundView, TranslationView) {
     'use strict';
 
     var app = {
@@ -96,6 +97,18 @@ define([
             // --> ws can only answer after request
             // server send event doesn‘t fit in our web app context
             DataHandler.checkForNewUpdates(route);
+
+
+            // // ----------------------
+            // // ONLY TESTING STUFF !!
+            // // ----------------------
+            // // fill tour points in and set options
+            // // --> data is selcted in tour guide
+            // TourGuide.fillTourData('uploadTrack');
+            // // initialize tour with tour points and options
+            // TourGuide.init();
+            // // start
+            // TourGuide.start();
 
         },
 
