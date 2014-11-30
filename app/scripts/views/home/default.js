@@ -19,7 +19,7 @@ define([
             ComponentCollection.addComponent('home', this.$data);
 
             // check if tour guide should be shown or not
-            TourGuide.checkTourGuideModeStatus('init');
+            TourGuide.checkTourGuideModeStatus();
         },
 
         data: {
@@ -104,7 +104,7 @@ define([
                             that.cancelUploadFile(inputField);
 
                             // trigger next tour guide step if tour guide is active
-                            TourGuide.checkTourGuideModeStatus('next');
+                            TourGuide.next();
                         } else {
                             alert('wrong file type, try it again');
                             that.clearUploadField(inputField);
@@ -140,7 +140,7 @@ define([
                     that.clearUploadField(inputField);
 
                     // trigger prev tour guide step if tour guide is active
-                    TourGuide.checkTourGuideModeStatus('prev');
+                    TourGuide.prev();
                 });
             },
 

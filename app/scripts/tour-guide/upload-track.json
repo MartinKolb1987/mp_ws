@@ -1,7 +1,7 @@
 {
     "options": {
         "tourGuideAppend": "#app",
-        "tourGuideDefaultStructure": "<div id=\"tour-guide-overlay\"><div id=\"tour-guide-title\"></div><div id=\"tour-guide-close\"></div><div id=\"tour-guide-pagination\"></div><div id=\"tour-guide-prev\"></div><div id=\"tour-guide-next\"></div></div>",
+        "tourGuideDefaultStructure": "<div id=\"tour-guide-overlay\"><div id=\"tour-guide-title\"></div><div id=\"tour-guide-close\"></div><div id=\"tour-guide-info\"></div><div id=\"tour-guide-pagination\"></div><div id=\"tour-guide-prev\"></div><div id=\"tour-guide-next\"></div></div><div id=\"tour-guide-hint\"></div>",
         "tourGuideOverlay": {
             "target": "#tour-guide-overlay"
         },
@@ -15,11 +15,11 @@
         },
         "tourGuideNext": {
             "target": "#tour-guide-next",
-            "content": ">"
+            "content": ""
         },
         "tourGuidePrev": {
             "target": "#tour-guide-prev",
-            "content": "<"
+            "content": ""
         },
         "tourGuidePagination": {
             "target": "#tour-guide-pagination",
@@ -28,19 +28,32 @@
         "fadeInTourGuide": false,
         "fadeOutTourGuide": false,
         "preloadNextTourGuide": "downvoteTrackAndDjImage",
-        "nextTourGuideButtonContent": "Next Chapter"
+        "nextTourGuideButtonContent": "Next Chapter",
+        "tourGuideHint": "#tour-guide-hint"
     },
     "tourPoints": [
         {
-            "elements": ["#playlist-wrapper::hint::top"],
-            "info": "ipoint1"
+            "elements": ["#playlist-wrapper", "#trigger-upload-file::hint::top"],
+            "info": {
+                "target": "#tour-guide-info",
+                "content": "ipoint 1",
+                "positionCss": "top::50px::height::20vh"
+            }
         },
         {
-            "elements": ["#playlist-wrapper::hint::top"],
-            "info": "ipoint2"
+            "elements": ["#playlist-wrapper", "#upload-file::hint::top"],
+            "info": {
+                "target": "#tour-guide-info",
+                "content": "ipoint 134",
+                "positionCss": "top::50px::height::20vh"
+            }
         },
         {
-            "info": "ipoint3"
+            "info": {
+                "target": "#tour-guide-info",
+                "content": "ipoint 12343",
+                "positionCss": "top::50px::height::80vh"
+            }
         }
     ]
 }

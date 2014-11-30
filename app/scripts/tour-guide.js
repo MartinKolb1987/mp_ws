@@ -56,6 +56,8 @@ define([
         preloadNextTourGuide: '',
         nextTourGuideButtonContent: 'Next Chapter',
 
+        tourGuideHint: '#tour-guide-hint',
+
         // set tour data
         // --------------------------
         fill: function(tourPoints, options){
@@ -112,6 +114,8 @@ define([
             this.nextTourGuideButtonContent = '';
             this.nextTourGuideButtonContent = (options.nextTourGuideButtonContent === undefined) ? this.nextTourGuideButtonContent : options.nextTourGuideButtonContent;
 
+            this.tourGuideHint = '';
+            this.tourGuideHint = (options.tourGuideHint === undefined) ? this.tourGuideHint : options.tourGuideHint;
         },
 
         init: function(){
@@ -121,7 +125,7 @@ define([
         // control functions
         // --------------------------
         start: function(){
-            this.checkTourGuideModeStatus('init');
+            this.checkTourGuideModeStatus();
         },
 
         stop: function(){
@@ -129,16 +133,19 @@ define([
         },
 
         next: function(){
-            this.currentTourPoint++;
-            this.renderTourPointView();
-            console.log('next point');
+            if(this.isTourGuideModeActive === true){
+                this.currentTourPoint++;
+                this.renderTourPointView();
+                console.log('next point');
+            }
         },
 
         prev: function(){
-            this.currentTourPoint--;
-            this.renderTourPointView();
-            console.log('prev point');
-
+            if(this.isTourGuideModeActive === true){
+                this.currentTourPoint--;
+                this.renderTourPointView();
+                console.log('prev point');
+            }
         },
 
         startGuide: function(){
@@ -164,11 +171,13 @@ define([
             this.tourGuidePaginationTarget = $(that.tourGuidePaginationTarget);
             this.tourGuidePaginationTarget.html(that.tourGuidePaginationContent);
             
+            this.tourGuideHint = $(that.tourGuideHint);
+
             // fade guide in or not
             if(this.fadeInTourGuide === true){
                 setTimeout(function(){
                     $('#tour-guide-overlay').fadeIn();
-                }, 700);
+                }, 1000);
             } else {
                 $('#tour-guide-overlay').show();
             }
@@ -186,7 +195,7 @@ define([
             
             // ux feeling
 
-            // fade guide in or not
+            // fade guide out or not
             if(this.fadeOutTourGuide === true){
                 setTimeout(function(){
                     that.tourGuideOverlayTarget.fadeOut();
@@ -199,29 +208,22 @@ define([
                 that.tourGuideOverlayTarget.remove();
             }
 
-
-            // ux feeling
-
             console.log('stop tour');
         },
 
         // current tour guide states
         // --------------------------
-        checkTourGuideModeStatus: function(type){
+        checkTourGuideModeStatus: function(){
             if(this.isTourGuideModeActive === true){
-                this.checkTourStatus(type);
+                this.checkTourStatus();
             }
         },
 
-        checkTourStatus: function(type){
+        checkTourStatus: function(){
             // check if tour already running
             // --> otherwise start it
             if(this.isTourActive === true){
-                if(type === 'prev'){
-                    this.prev();
-                } else {
-                    this.next();
-                }
+                this.next();
             } else {
                 this.startGuide();
             }
@@ -263,11 +265,13 @@ define([
         // --------------------------
         renderTourPointView: function(){
             var that = this;
+            var currentTourPointData = this.tourPoints[that.currentTourPoint];
             var lastIndexFromTourPoints = this.countedTourPoints - 1;
             
             // next chapter exists 
             // --> fill new tour guide data in
             // --> start next tour
+            // -----------------------------------
             if(this.currentTourPoint > lastIndexFromTourPoints){
                 this.fillTourData(this.preloadNextTourGuide);
                 this.init();
@@ -276,6 +280,7 @@ define([
             }
 
             // hide and show NEXT button
+            // -----------------------------------
             if(this.currentTourPoint === lastIndexFromTourPoints){
 
                 // fill next tour guide data in
@@ -293,52 +298,100 @@ define([
             }
 
             // hide and show PREV button
+            // -----------------------------------
             if(this.currentTourPoint === 0){
                 this.tourGuidePrevTarget.hide();
             } else {
                 this.tourGuidePrevTarget.show();
             }
 
+            // render info box content
+            // -----------------------------------
+            var infoTarget = $(currentTourPointData.info.target);
+            var infoContent = currentTourPointData.info.content;
+            if(currentTourPointData.info.positionCss !== undefined){
+                var infoStructure = this.splitData(currentTourPointData.info.positionCss);
+                var infoCssPosition = infoStructure[0]; // top, bottom
+                var infoCssPositionUnit = infoStructure[1]; // e.g. 50px
+                var infoCssHeight = infoStructure[2]; // height
+                var infoCssHeightUnit = infoStructure[3]; // e.g. 20vh
+                if(infoCssPosition === 'top'){
+                    infoTarget.css({'top': infoCssPositionUnit, 'bottom': 'initial', 'height': infoCssHeightUnit});
+                } else if(infoCssPosition === 'bottom'){
+                    infoTarget.css({'bottom': infoCssPositionUnit, 'top': 'initial', 'height': infoCssHeightUnit});
+                }
+            }
+
+            infoTarget.html(infoContent);
 
             // render pagination
+            // -----------------------------------
             var parsedPagination = this.parsePagination();
             this.tourGuidePaginationTarget.html(parsedPagination);
 
-            this.highlightElements();
+            // highlight elements if exists
+            // -----------------------------------
+            this.highlightElements(currentTourPointData);
 
+            // set all needed click events
+            // -----------------------------------
             this.setEventlistener();
 
         },
 
-        highlightElements: function(){
+        highlightElements: function(currentTourPointData){
             var that = this;
-            var currentTourPointData = this.tourPoints[that.currentTourPoint];
+            
+            // elements
             var element = '';
             var hint = '';
-            var direction = '';
-            var splittedHighlightElementData = '';
+            var position = '';
+            var highlightElementData = '';
+            var hintElement = $('#tour-guide-hint');
 
             // find all highlighted elements and remove class
             $('.tour-guide-highlight-element').removeClass('tour-guide-highlight-element');
 
+            // hide hint element
+            this.tourGuideHint.hide();
+
             // check if elements to highlight exists
             if(currentTourPointData.elements !== undefined ){
                 $.each(currentTourPointData.elements, function(innerKey, innerValue){
-                    splittedHighlightElementData = that.splitHighlightElementData(innerValue);
-                    element = splittedHighlightElementData[0];
-                    hint = splittedHighlightElementData[1];
-                    direction = splittedHighlightElementData[2];
+                    highlightElementData = that.splitData(innerValue);
+                    element = highlightElementData[0];
+                    
+                    if(highlightElementData[1] !== undefined && highlightElementData[2] !== undefined){
+                        hint = highlightElementData[1];
+                        position = highlightElementData[2];
+                        // user playlist is rendering
+                        // give it some time
+                        setTimeout(function(){
+                            var offset = $(element).offset();
+
+                            // add hint
+                            if(position === 'top'){
+                                that.tourGuideHint.css({'top': (offset.top - 10), 'left': offset.left});
+                                that.tourGuideHint.html('&#9660;');
+                            } else if(position === 'bottom'){
+                                that.tourGuideHint.css({'top': offset.top, 'left': offset.left});
+                                that.tourGuideHint.html('&#9650;');
+                            }
+
+                            that.tourGuideHint.fadeIn(1000);
+                        }, 100);
+                            
+                        
+                    }
 
                     $(element).addClass('tour-guide-highlight-element');
-
-                    console.log(element, hint, direction);
 
                 });
             }
 
         },
 
-        splitHighlightElementData: function(innerValue){
+        splitData: function(innerValue){
             return innerValue.split('::');
         },
 

@@ -13,7 +13,7 @@ define([
         ready: function () {
             ComponentCollection.addComponent('help', this.$data);
             // check if tour guide should be shown or not
-            TourGuide.checkTourGuideModeStatus('init');
+            TourGuide.checkTourGuideModeStatus();
         },
 
         methods: {

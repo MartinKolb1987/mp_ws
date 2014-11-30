@@ -171,6 +171,16 @@ html[xmlns] .clearfix {
                 color: $white;
             }
 
+            #tour-guide-info{
+                position: absolute;
+                top: 50px;
+                left: 15px;
+                right: 15px;
+                background: blue;
+                overflow-x: none;
+                overflow-y: auto;
+            }
+
             #tour-guide-next{
                 position: absolute;
                 right: 15px;
@@ -195,6 +205,18 @@ html[xmlns] .clearfix {
                 text-align: center;
                 color: $white;
             }
+
+
+        }
+        // must be excluded
+        // --> otherwise the hint could not be point over 
+        //     the element which should be highlighted
+        #tour-guide-hint{
+            position: absolute;
+            background: blue;
+            color: $white;
+            display: none;
+            z-index: 100001;
         }
 
 

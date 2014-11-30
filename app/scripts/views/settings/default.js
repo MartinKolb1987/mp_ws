@@ -19,7 +19,7 @@ define([
             ComponentCollection.addComponent('settings', this.$data);
 
             // check if tour guide should be shown or not
-            TourGuide.checkTourGuideModeStatus('init');
+            TourGuide.checkTourGuideModeStatus();
         },
 
         data: {
