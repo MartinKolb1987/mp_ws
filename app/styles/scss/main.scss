@@ -252,10 +252,12 @@ html[xmlns] .clearfix {
         //     the element which should be highlighted
         #tour-guide-hint{
             position: absolute;
-            background: blue;
             color: $white;
             display: none;
             z-index: 100001;
+            img{
+                height: 120px;
+            }
         }
 
 

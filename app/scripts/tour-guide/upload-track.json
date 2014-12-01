@@ -1,7 +1,7 @@
 {
     "options": {
         "tourGuideAppend": "#app",
-        "tourGuideDefaultStructure": "<div id=\"tour-guide-overlay\"><div id=\"tour-guide-title\"></div><div id=\"tour-guide-close\"></div><div id=\"tour-guide-info\"></div><div id=\"tour-guide-pagination\"></div><div id=\"tour-guide-prev\"></div><div id=\"tour-guide-next\"></div></div><div id=\"tour-guide-hint\"></div>",
+        "tourGuideDefaultStructure": "<div id=\"tour-guide-overlay\"><div id=\"tour-guide-title\"></div><div id=\"tour-guide-close\"></div><div id=\"tour-guide-info\"></div><div id=\"tour-guide-pagination\"></div><div id=\"tour-guide-prev\"></div><div id=\"tour-guide-next\"></div></div><div id=\"tour-guide-hint\"><img src=\"images/tutorial_arrow.svg\"></div>",
         "tourGuideOverlay": {
             "target": "#tour-guide-overlay"
         },
@@ -33,7 +33,7 @@
     },
     "tourPoints": [
         {
-            "elements": ["#browse-playlist", "#trigger-upload-file::hint::top::90px::rotate::90deg"],
+            "elements": ["#browse-playlist", "#trigger-upload-file::hint::top::90::left::45::rotate::-45deg"],
             "info": {
                 "target": "#tour-guide-info",
                 "content": "ipoint 1",
@@ -41,7 +41,7 @@
             }
         },
         {
-            "elements": ["#browse-playlist", "#upload-file::hint::top::90px::rotate::90deg"],
+            "elements": ["#browse-playlist", "#upload-file::hint::top::90::left::45::rotate::-45deg"],
             "info": {
                 "target": "#tour-guide-info",
                 "content": "ipoint 134",
@@ -49,7 +49,7 @@
             }
         },
         {
-            "elements": ["#second-empty-playlist", "#upload-file::hint::top::90px::rotate::90deg"],
+            "elements": ["#second-empty-playlist", "#upload-file::hint::top::90::left::45::rotate::-45deg"],
             "info": {
                 "target": "#tour-guide-info",
                 "content": "ipoint 12343",

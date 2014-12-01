@@ -345,8 +345,10 @@ define([
             // elements
             var element = '';
             var hint = '';
-            var position = '';
-            var positionUnit = '';
+            var positionTop = '';
+            var positionTopUnit = '';
+            var positionLeft = '';
+            var positionLeftUnit = '';
             var rotateAngle = '';
             var rotateAngleUnit = '';
             var highlightElementData = '';
@@ -375,10 +377,12 @@ define([
 
                         if(highlightElementData[1] !== undefined && highlightElementData[2] !== undefined){
                             hint = highlightElementData[1];
-                            position = highlightElementData[2];
-                            positionUnit = highlightElementData[3];
-                            rotateAngle = highlightElementData[4];
-                            rotateAngleUnit = highlightElementData[5];
+                            positionTop = highlightElementData[2];
+                            positionTopUnit = highlightElementData[3];
+                            positionLeft = highlightElementData[4];
+                            positionLeftUnit = highlightElementData[5];
+                            rotateAngle = highlightElementData[6];
+                            rotateAngleUnit = highlightElementData[7];
 
                             // user playlist is rendering
                             // give it some time
@@ -386,16 +390,10 @@ define([
                                 var offset = $(element).offset();
 
                                 // add hint
-                                if(position === 'top'){
-                                    that.tourGuideHint.css({'top': (offset.top - 10), 'left': offset.left});
-                                    that.tourGuideHint.html('&#9660;');
-                                } else if(position === 'bottom'){
-                                    that.tourGuideHint.css({'top': offset.top, 'left': offset.left});
-                                    that.tourGuideHint.html('&#9650;');
-                                }
+                                that.tourGuideHint.css({'top': (offset.top - positionTopUnit), 'left': (offset.left - positionLeftUnit), 'transform': 'rotate(' + rotateAngleUnit + ')'});
 
                                 that.tourGuideHint.fadeIn(1000);
-                            }, 100);
+                            }, 150);
                                 
                         }
 
