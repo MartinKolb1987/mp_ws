@@ -346,6 +346,9 @@ define([
             var element = '';
             var hint = '';
             var position = '';
+            var positionUnit = '';
+            var rotateAngle = '';
+            var rotateAngleUnit = '';
             var highlightElementData = '';
             var hintElement = $('#tour-guide-hint');
 
@@ -362,8 +365,12 @@ define([
                     element = highlightElementData[0];
                     
                     if(highlightElementData[1] !== undefined && highlightElementData[2] !== undefined){
+                        console.log(highlightElementData);
                         hint = highlightElementData[1];
                         position = highlightElementData[2];
+                        positionUnit = highlightElementData[3];
+                        rotateAngle = highlightElementData[4];
+                        rotateAngleUnit = highlightElementData[5];
                         // user playlist is rendering
                         // give it some time
                         setTimeout(function(){

@@ -33,7 +33,7 @@
     },
     "tourPoints": [
         {
-            "elements": ["#playlist-wrapper", "#trigger-upload-file::hint::top"],
+            "elements": ["#playlist-wrapper", "#trigger-upload-file::hint::top::90px::rotate::90deg"],
             "info": {
                 "target": "#tour-guide-info",
                 "content": "ipoint 1",
