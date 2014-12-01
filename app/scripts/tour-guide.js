@@ -371,7 +371,6 @@ define([
                     $.each(queue, function(key, value){
                         
                         highlightElementData = value;
-                        console.log(value);
                         element = highlightElementData[0];
 
                         if(highlightElementData[1] !== undefined && highlightElementData[2] !== undefined){

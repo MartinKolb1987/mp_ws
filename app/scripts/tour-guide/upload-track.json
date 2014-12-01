@@ -15,11 +15,11 @@
         },
         "tourGuideNext": {
             "target": "#tour-guide-next",
-            "content": ">"
+            "content": ""
         },
         "tourGuidePrev": {
             "target": "#tour-guide-prev",
-            "content": "<"
+            "content": ""
         },
         "tourGuidePagination": {
             "target": "#tour-guide-pagination",
@@ -41,7 +41,7 @@
             }
         },
         {
-            "elements": ["#playlist-wrapper", "#upload-file::hint::top"],
+            "elements": ["#browse-playlist", "#upload-file::hint::top::90px::rotate::90deg"],
             "info": {
                 "target": "#tour-guide-info",
                 "content": "ipoint 134",
@@ -49,6 +49,7 @@
             }
         },
         {
+            "elements": ["#second-empty-playlist", "#upload-file::hint::top::90px::rotate::90deg"],
             "info": {
                 "target": "#tour-guide-info",
                 "content": "ipoint 12343",
