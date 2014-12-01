@@ -342,11 +342,13 @@ define([
             });
 
 
-            // toggle swap down button
+            // toggle swap down button and mark last filled playlist
             if (set === false){
                 playlist[4].displaySwapDownClass = '';
             } else if (lastFilledLine > -1){
+                playlist[lastFilledLine].playlistStatus = 'last-filled-playlist';
                 playlist[lastFilledLine].displaySwapDownClass = '';
+
             }
 
             // mark second empty playlist
