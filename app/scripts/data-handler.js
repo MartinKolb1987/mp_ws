@@ -323,7 +323,7 @@ define([
                 // toggle upload button and mark last filled line
                 if (item.t_id === false && set === false){
                     item.displayUploadClass = 'showUploadClass';
-                    item.playlistStatus = 'browsePlaylist';
+                    item.playlistStatus = 'browse-playlist';
                     set = true;
                     lastFilledLine = index - 1;
                 } else {
@@ -349,9 +349,9 @@ define([
                 playlist[lastFilledLine].displaySwapDownClass = '';
             }
 
-            // mark first empty playlist
+            // mark second empty playlist
             if (set === true && lastFilledLine <= 2 && lastFilledLine >= 0){
-                playlist[(lastFilledLine + 2)].playlistStatus = 'secondEmptyPlaylist';
+                playlist[(lastFilledLine + 2)].playlistStatus = 'second-empty-playlist';
             }
 
             // display browser button
