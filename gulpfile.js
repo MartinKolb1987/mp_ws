@@ -177,7 +177,8 @@ gulp.task('move-images-to-dist', function (){
 });
 
 gulp.task('move-fonts-to-styles-dist', function (){
-    gulp.src('./').pipe(exec('cp -R ' + appPath + '/styles/fonts/ ' + distPath + '/app/styles/', {silent: true}));
+    gulp.src('./').pipe(exec('mkdir -p -m 0777 ' + distPath + '/app/styles/fonts', {silent: true}));
+    gulp.src('./').pipe(exec('cp -R ' + appPath + '/styles/fonts/ ' + distPath + '/app/styles/fonts/', {silent: true}));
 });
 
 

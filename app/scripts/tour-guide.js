@@ -351,6 +351,7 @@ define([
             var rotateAngleUnit = '';
             var highlightElementData = '';
             var hintElement = $('#tour-guide-hint');
+            var queue = [];
 
             // find all highlighted elements and remove class
             $('.tour-guide-highlight-element').removeClass('tour-guide-highlight-element');
@@ -360,46 +361,58 @@ define([
 
             // check if elements to highlight exists
             if(currentTourPointData.elements !== undefined ){
-                $.each(currentTourPointData.elements, function(innerKey, innerValue){
-                    highlightElementData = that.splitData(innerValue);
-                    element = highlightElementData[0];
-                    
-                    if(highlightElementData[1] !== undefined && highlightElementData[2] !== undefined){
-                        console.log(highlightElementData);
-                        hint = highlightElementData[1];
-                        position = highlightElementData[2];
-                        positionUnit = highlightElementData[3];
-                        rotateAngle = highlightElementData[4];
-                        rotateAngleUnit = highlightElementData[5];
-                        // user playlist is rendering
-                        // give it some time
-                        setTimeout(function(){
-                            var offset = $(element).offset();
-
-                            // add hint
-                            if(position === 'top'){
-                                that.tourGuideHint.css({'top': (offset.top - 10), 'left': offset.left});
-                                that.tourGuideHint.html('&#9660;');
-                            } else if(position === 'bottom'){
-                                that.tourGuideHint.css({'top': offset.top, 'left': offset.left});
-                                that.tourGuideHint.html('&#9650;');
-                            }
-
-                            that.tourGuideHint.fadeIn(1000);
-                        }, 100);
-                            
-                        
-                    }
-
-                    $(element).addClass('tour-guide-highlight-element');
-
+                $.each(currentTourPointData.elements, function(key, value){
+                    highlightElementData = that.splitData(value);
+                    queue.push(highlightElementData);
                 });
+
+                setTimeout(function(){
+                    
+                    $.each(queue, function(key, value){
+                        
+                        highlightElementData = value;
+                        console.log(value);
+                        element = highlightElementData[0];
+
+                        if(highlightElementData[1] !== undefined && highlightElementData[2] !== undefined){
+                            hint = highlightElementData[1];
+                            position = highlightElementData[2];
+                            positionUnit = highlightElementData[3];
+                            rotateAngle = highlightElementData[4];
+                            rotateAngleUnit = highlightElementData[5];
+
+                            // user playlist is rendering
+                            // give it some time
+                            setTimeout(function(){
+                                var offset = $(element).offset();
+
+                                // add hint
+                                if(position === 'top'){
+                                    that.tourGuideHint.css({'top': (offset.top - 10), 'left': offset.left});
+                                    that.tourGuideHint.html('&#9660;');
+                                } else if(position === 'bottom'){
+                                    that.tourGuideHint.css({'top': offset.top, 'left': offset.left});
+                                    that.tourGuideHint.html('&#9650;');
+                                }
+
+                                that.tourGuideHint.fadeIn(1000);
+                            }, 100);
+                                
+                        }
+
+                        $(element).addClass('tour-guide-highlight-element');
+
+                    });
+
+                    
+                }, 100);
+
             }
 
         },
 
-        splitData: function(innerValue){
-            return innerValue.split('::');
+        splitData: function(value){
+            return value.split('::');
         },
 
         parsePagination: function(){
