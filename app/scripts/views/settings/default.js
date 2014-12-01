@@ -45,7 +45,7 @@ define([
                 e.stopPropagation();
                 
                 // select file upload field
-                var inputField = $(e.target).prev('#upload-file-field');
+                var inputField = $(e.target).parents('#image-upload-wrapper').find('#upload-image-field');
                 
                 // open file browser
                 inputField.trigger('click');
@@ -79,7 +79,7 @@ define([
             
             uploadFile: function(inputField){
                 var that = this;
-                var uploadFileButton = inputField.parent('#upload-wrapper').find('#upload-control-wrapper  #upload-file');
+                var uploadFileButton = inputField.parent('#image-upload-wrapper').find('#upload-image-control-wrapper #upload-image');
                 uploadFileButton.unbind('click');
                 uploadFileButton.on('click', function(){
                     DataHandler.uploadUserImage(inputField[0].files[0]);
@@ -89,7 +89,7 @@ define([
 
             cancelUploadFile: function(inputField){
                 var that = this;
-                var uploadFileButton = inputField.parent('#upload-wrapper').find('#upload-control-wrapper  #cancel-upload-file');
+                var uploadFileButton = inputField.parent('#image-upload-wrapper').find('#upload-image-control-wrapper #cancel-upload-image');
 
                 uploadFileButton.unbind('click');
                 uploadFileButton.on('click', function(){
@@ -119,7 +119,7 @@ define([
             clearUploadField: function(inputField){
                 // only clear input value --> doesn‘t work correctly
                 // better to remove and add new one
-                inputField.parent('#upload-wrapper').prepend('<input type="file" id="upload-file-field" class="hide">');
+                inputField.parent('#image-upload-wrapper').prepend('<input type="file" id="upload-image-field" class="hide">');
                 inputField.remove();
             },
 

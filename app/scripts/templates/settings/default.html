@@ -1,33 +1,59 @@
 <!-- wrapper settings -->
 <div id="settings">
 
-	<!-- dj wrapper -->
-	<div id="dj-wrapper">
-		<div id="dj-image" v-style="background-image: 'url(' + userImageUrl + ')';"></div>
+	<div class="image-wrapper clearfix">
+		<div class="image-text-wrapper">
+			<div class="info-text">Select your DJ image</div>
+		</div>
+		<div class="image-wrapper">
+			<div class="dj-image" v-style="background-image: 'url(' + userImageUrl + ')';"></div>
+		</div>
+	</div>
+
+	<div class="image-text">
+		<div class="progressbar"></div>
+		<div class="image-name">blabla.jpg</div>
 	</div>
 
 	<!-- upload wrapper single file -->	
-	<div id="upload-wrapper">
-		<input type="file" id="upload-file-field" class="hide">
-		<button id="trigger-upload-file" class="{{triggerUploadFileStateClass}}" v-on="click: triggerFileBrowser">select image</button>
+	<div id="image-upload-wrapper">
+		<input type="file" id="upload-image-field" class="hide">
 
-		<div id="upload-control-wrapper" class="{{uploadFileControlWrapperStateClass}}">
-			<button id="upload-file">upload image</button>
-			<button id="cancel-upload-file">cancel</button>
+		<div id="image-control-wrapper" class="{{fileControlStateClass}}">
+			<div id="delete-image" class="image-button delete-button" v-on="click: deleteUserImage()">
+				<img src="images/delete.svg" alt="">
+			</div>
+		</div>
+
+		<div id="trigger-upload-image" class="image-button browse-button {{triggerUploadFileStateClass}}" v-on="click: triggerFileBrowser">
+			<img src="images/user_avatar.svg" alt="">
+		</div>
+
+		<div id="upload-image-control-wrapper" class="{{uploadFileControlWrapperStateClass}}">
+			<div id="cancel-upload-image" class="image-button cancel-button">
+				<img src="images/delete.svg" alt="">
+			</div>
+			<div id="upload-image" class="image-button upload-button">
+				<img src="images/upload.svg" alt="">
+			</div>
 		</div>
 		
-		<div id="file-control-wrapper" class="{{fileControlStateClass}}">
-			<button id="upload-file" v-on="click: deleteUserImage()">delete image</button>
-		</div>
 	</div>
 
-	<button id="set-internet-access" v-on="click: setInternetAccess">{{internetAccess}}</button>
+	<!-- <div class="user-settings clearfix">
+		Color schema
+	</div>
 
-	<br/>
-	Downvote Level: {{downvoteLevel}}
-	<br/>
-	<button class="set-downvote-level" v-on="click: setDownvoteLevel(25)">Level "25"</button>
-	<button class="set-downvote-level" v-on="click: setDownvoteLevel(50)">Level "50"</button>
-	<button class="set-downvote-level" v-on="click: setDownvoteLevel(75)">Level "75"</button>
+	<div class="admin-settings clearfix">
+		<div id="set-internet-access" v-on="click: setInternetAccess">{{internetAccess}}</div>
+		<br/>
+		Downvote Level: {{downvoteLevel}}
+		<br/>
+		<div class="set-downvote-level" v-on="click: setDownvoteLevel(25)">Level "25"</div>
+		<div class="set-downvote-level" v-on="click: setDownvoteLevel(50)">Level "50"</div>
+		<div class="set-downvote-level" v-on="click: setDownvoteLevel(75)">Level "75"</div>
+	</div> -->
+
+	
 
 </div>

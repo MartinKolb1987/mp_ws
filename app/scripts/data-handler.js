@@ -349,8 +349,6 @@ define([
                 playlist[lastFilledLine].displaySwapDownClass = '';
             }
 
-            console.log(lastFilledLine);
-
             // mark first empty playlist
             if (set === true && lastFilledLine <= 2 && lastFilledLine >= 0){
                 playlist[(lastFilledLine + 2)].playlistStatus = 'secondEmptyPlaylist';
