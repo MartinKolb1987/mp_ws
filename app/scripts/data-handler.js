@@ -350,7 +350,7 @@ define([
             }
 
             // mark second empty playlist
-            if (set === true && lastFilledLine <= 2 && lastFilledLine >= 0){
+            if (set === true && lastFilledLine <= 2 && lastFilledLine >= -1){
                 playlist[(lastFilledLine + 2)].playlistStatus = 'second-empty-playlist';
             }
 

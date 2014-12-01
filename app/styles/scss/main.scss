@@ -64,7 +64,6 @@
          url('fonts/ubuntu-r-webfont.svg#ubunturegular') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 
 @font-face {
@@ -77,7 +76,6 @@
          url('fonts/ubuntu-m-webfont.svg#ubuntumedium') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 
 // -------------------------------------
@@ -611,7 +609,7 @@ body{
                         .playlist-button-wrapper {
                             position: absolute;
                             @include transition(right, 0.25s, linear);
-                            right: -55px;
+                            right: -57px;
                             
                             .delete-button {
                                 z-index: 100;
