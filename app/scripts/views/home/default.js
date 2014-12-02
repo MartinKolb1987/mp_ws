@@ -220,7 +220,7 @@ define([
             },
 
             downvoteTrack: function(trackId){
-                TourGuide.next();
+                TourGuide.next(); // remove it after styling
                 if(this.$data.downvoteActiveStateClass === 'active'){
                     DataHandler.downvoteTrack(trackId);
                 }
@@ -257,19 +257,7 @@ define([
             },
 
             jumpToSite: function(route){
-                var findClickElement = $('#navigation > li > a[data-route=' + route + ']');
-                
-                // check if tour guide is active
-                if(TourGuide.getTourGuideState() === true){
-                    //  is it the second tour point
-                    if(TourGuide.getCurrentTourPoint() === 1){
-                        findClickElement.click();
-                        TourGuide.next();
-                    }
-                } else {
-                    findClickElement.click();
-                }
-
+                $('#navigation > li > a[data-route=' + route + ']').click();
             }
         }
     });

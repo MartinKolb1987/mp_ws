@@ -38,7 +38,7 @@
     },
     "tourPoints": [
         {
-            "elements": ["#currently-playing", "#downvote-button::hint::top::20::left::75::rotate::140deg"],
+            "elements": ["#currently-playing", "#system-info-wrapper", "#downvote-button::hint::top::25px::left::35px::rotate::140deg"],
             "info": {
                 "target": "#tour-guide-info",
                 "content": "Downvote track",
@@ -46,18 +46,35 @@
             }
         },
         {
-            "elements": ["#currently-playing", "#system-info-text::hint::top::-25::left::-100::rotate::190deg"],
+            "elements": ["#currently-playing", "#system-info-text::hint::top::-25px::left::-40px::rotate::190deg"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "Click on image",
+                "content": "Click on image to change your dj image",
                 "positionCss": "top::400px::height::20vh"
             }
         },
         {
+            "elements": ["#dj-image-wrapper", "#image-upload-wrapper", "#trigger-upload-image::hint::top::40px::left::-10px::rotate::180deg"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "Finished",
-                "positionCss": "top::50px::height::80vh"
+                "content": "Select your dj image",
+                "positionCss": "top::400px::height::20vh"
+            }
+        },
+        {
+            "elements": ["#dj-image-wrapper", "#image-upload-wrapper", ".image-text", "#upload-image::hint::top::40px::left::-10px::rotate::180deg"],
+            "info": {
+                "target": "#tour-guide-info",
+                "content": "Upload your dj image",
+                "positionCss": "top::400px::height::20vh"
+            }
+        },
+        {
+            "elements": ["#dj-image-wrapper", "#image-upload-wrapper"],
+            "info": {
+                "target": "#tour-guide-info",
+                "content": "That‘s it, close tour guide",
+                "positionCss": "top::400px::height::20vh"
             }
         }
     ]

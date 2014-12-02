@@ -174,6 +174,10 @@ define([
             var that = this;
             this.isTourActive = true;
 
+            // clean tour guide markup
+            $(that.tourGuideOverlayTarget).remove();
+            $(that.tourGuideHint).remove();
+
             // add tour guide markup (default structure)
             $(that.tourGuideAppend).append(that.tourGuideDefaultStructure);
             this.tourGuideOverlayTarget = $(that.tourGuideOverlayTarget);
@@ -227,6 +231,7 @@ define([
                 setTimeout(function(){
                     // clean needed tour guide markup from dom
                     that.tourGuideOverlayTarget.remove();
+                    that.tourGuideHint.remove();
                 }, 1000);
             } else {
                 that.tourGuideOverlayTarget.remove();
@@ -430,11 +435,12 @@ define([
                         element = highlightElementData[0];
 
                         if(highlightElementData[1] !== undefined && highlightElementData[2] !== undefined){
+                            // console.log('hier');
                             hint = highlightElementData[1];
                             positionTop = highlightElementData[2];
-                            positionTopUnit = highlightElementData[3];
+                            positionTopUnit = highlightElementData[3].replace('px', '');
                             positionLeft = highlightElementData[4];
-                            positionLeftUnit = highlightElementData[5];
+                            positionLeftUnit = highlightElementData[5].replace('px', '');
                             rotateAngle = highlightElementData[6];
                             rotateAngleUnit = highlightElementData[7];
 
@@ -446,18 +452,20 @@ define([
                                 setHintTime = that.tourGuideHintFadeInTime;
                             }
 
-
                             // user playlist is rendering
                             // give it some time
                             setTimeout(function(){
                                 var offset = $(element).offset();
-                                var top = offset.top + parseInt(positionTopUnit);
-                                var left = offset.left + parseInt(positionLeftUnit);
+                                // console.log(offset);
+                                if(offset !== null || offset !== ''){
+                                    var top = offset.top + parseInt(positionTopUnit);
+                                    var left = offset.left + parseInt(positionLeftUnit);
 
-                                // add hint
-                                that.tourGuideHint.css({'top': top + 'px', 'left': left + 'px', 'transform': 'rotate(' + rotateAngleUnit + ')'});
+                                    // add hint
+                                    that.tourGuideHint.css({'top': top + 'px', 'left': left + 'px', 'transform': 'rotate(' + rotateAngleUnit + ')'});
 
-                                that.tourGuideHint.fadeIn(1000);
+                                    that.tourGuideHint.fadeIn(1000);
+                                }
                             }, setHintTime);
                                 
                         }

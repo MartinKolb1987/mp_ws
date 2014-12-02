@@ -78,6 +78,9 @@ define([
                             // upload file
                             that.uploadFile(inputField);
                             that.cancelUploadFile(inputField);
+
+                            // trigger next tour guide step if tour guide is active
+                            TourGuide.next();
                         } else {
                             alert('wrong file type, try it again');
                             that.clearUploadField(inputField);
@@ -111,6 +114,9 @@ define([
                     that.$data.uploadImageFilename = 'hide';
                     inputField.parents('#image-upload-wrapper').siblings('.image-text').children('.image-name').text('');
                     that.clearUploadField(inputField);
+
+                    // trigger prev tour guide step if tour guide is active
+                    TourGuide.prev();
                 });
             },
 

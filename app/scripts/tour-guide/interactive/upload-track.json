@@ -38,26 +38,26 @@
     },
     "tourPoints": [
         {
-            "elements": ["#browse-playlist", "#trigger-upload-file::hint::top::-85::left::-60::rotate::-45deg"],
+            "elements": ["#browse-playlist", "#trigger-upload-file::hint::top::-85px::left::-60px::rotate::-45deg"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "ipoint 1",
+                "content": "Choose your track",
                 "positionCss": "top::50px::height::20vh"
             }
         },
         {
-            "elements": ["#browse-playlist", "#upload-file::hint::top::-85::left::-60::rotate::-45deg"],
+            "elements": ["#browse-playlist", "#upload-file::hint::top::-85px::left::-60px::rotate::-45deg"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "ipoint 134",
+                "content": "Upload your track",
                 "positionCss": "top::50px::height::20vh"
             }
         },
         {
-            "elements": ["#last-filled-playlist", "#browse-playlist", "#trigger-upload-file::hint::top::-85::left::-60::rotate::-45deg"],
+            "elements": ["#last-filled-playlist", "#browse-playlist", "#trigger-upload-file::hint::top::-85px::left::-60px::rotate::-45deg"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "ipoint 12343",
+                "content": "Nice, click on Next Chapter",
                 "positionCss": "top::50px::height::20vh"
             }
         }

@@ -73,6 +73,16 @@ define([
                 case 'home':
                     DataHandler.getCurrentlyPlayingTrack(route);
                     DataHandler.getUserPlaylist(route);
+                    // // ----------------------
+                    // // ONLY TESTING STUFF !!
+                    // // ----------------------
+                    // // fill tour points in and set options
+                    // // --> data is selcted in tour guide
+                    // TourGuide.fillTourData('uploadTrack', 'interactive');
+                    // // initialize tour with tour points and options
+                    // TourGuide.init();
+                    // // start
+                    // TourGuide.start();
                     break;
  
                 case 'settings':
@@ -99,16 +109,6 @@ define([
             DataHandler.checkForNewUpdates(route);
 
 
-            // ----------------------
-            // ONLY TESTING STUFF !!
-            // ----------------------
-            // fill tour points in and set options
-            // --> data is selcted in tour guide
-            // TourGuide.fillTourData('downvoteTrackAndDjImage', 'interactive');
-            // // initialize tour with tour points and options
-            // TourGuide.init();
-            // // start
-            // TourGuide.start();
 
         },
 
