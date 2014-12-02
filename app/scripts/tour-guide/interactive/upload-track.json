@@ -38,7 +38,7 @@
     },
     "tourPoints": [
         {
-            "elements": ["#browse-playlist", "#trigger-upload-file::hint::top::90::left::45::rotate::-45deg"],
+            "elements": ["#browse-playlist", "#trigger-upload-file::hint::top::-85::left::-60::rotate::-45deg"],
             "info": {
                 "target": "#tour-guide-info",
                 "content": "ipoint 1",
@@ -46,7 +46,7 @@
             }
         },
         {
-            "elements": ["#browse-playlist", "#upload-file::hint::top::90::left::45::rotate::-45deg"],
+            "elements": ["#browse-playlist", "#upload-file::hint::top::-85::left::-60::rotate::-45deg"],
             "info": {
                 "target": "#tour-guide-info",
                 "content": "ipoint 134",
@@ -54,7 +54,7 @@
             }
         },
         {
-            "elements": ["#last-filled-playlist", "#browse-playlist", "#trigger-upload-file::hint::top::90::left::45::rotate::-45deg"],
+            "elements": ["#last-filled-playlist", "#browse-playlist", "#trigger-upload-file::hint::top::-85::left::-60::rotate::-45deg"],
             "info": {
                 "target": "#tour-guide-info",
                 "content": "ipoint 12343",

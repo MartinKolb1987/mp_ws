@@ -1,13 +1,13 @@
 {
     "options": {
         "tourGuideAppend": "#app",
-        "tourGuideDefaultStructure": "<div id=\"tour-guide-overlay\"><div id=\"tour-guide-title\"></div><div id=\"tour-guide-close\"></div><div id=\"tour-guide-pagination\"></div><div id=\"tour-guide-prev\"></div><div id=\"tour-guide-next\"></div></div>",
+        "tourGuideDefaultStructure": "<div id=\"tour-guide-overlay\"><div id=\"tour-guide-title\"></div><div id=\"tour-guide-close\"></div><div id=\"tour-guide-info\"></div><div id=\"tour-guide-pagination\"></div><div id=\"tour-guide-prev\"></div><div id=\"tour-guide-next\"></div></div><div id=\"tour-guide-hint\"><img src=\"images/tutorial_arrow.svg\"></div>",
         "tourGuideOverlay": {
             "target": "#tour-guide-overlay"
         },
         "tourGuideTitle": {
             "target": "#tour-guide-title",
-            "content": "2. Downvote & DJ Image"
+            "content": "2. Downvote Track & DJ Image"
         },
         "tourGuideClose": {
             "target": "#tour-guide-close",
@@ -15,33 +15,48 @@
         },
         "tourGuideNext": {
             "target": "#tour-guide-next",
-            "content": ">"
+            "content": ""
         },
         "tourGuidePrev": {
             "target": "#tour-guide-prev",
-            "content": "<"
+            "content": ""
         },
         "tourGuidePagination": {
             "target": "#tour-guide-pagination",
             "content": "%from% / %to%"
         },
+        
         "fadeInTourGuide": false,
+        "fadeInTourGuideTime": 1000,
         "fadeOutTourGuide": true,
+
         "preloadPrevTourGuide": "uploadTrack",
-        "prevTourGuideButtonContent": "Previouse Chapter"
+        "prevTourGuideButtonContent": "Previous Chapter",
+
+        "tourGuideHint": "#tour-guide-hint",
+        "tourGuideHintFadeInTime": 150
     },
     "tourPoints": [
         {
+            "elements": ["#currently-playing", "#downvote-button::hint::top::20::left::75::rotate::140deg"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "ipoint 134",
-                "positionCss": "top::50px::height::80vh"
+                "content": "Downvote track",
+                "positionCss": "top::400px::height::20vh"
+            }
+        },
+        {
+            "elements": ["#currently-playing", "#system-info-text::hint::top::-25::left::-100::rotate::190deg"],
+            "info": {
+                "target": "#tour-guide-info",
+                "content": "Click on image",
+                "positionCss": "top::400px::height::20vh"
             }
         },
         {
             "info": {
                 "target": "#tour-guide-info",
-                "content": "ipoint 134",
+                "content": "Finished",
                 "positionCss": "top::50px::height::80vh"
             }
         }

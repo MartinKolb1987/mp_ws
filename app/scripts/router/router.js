@@ -99,12 +99,12 @@ define([
             DataHandler.checkForNewUpdates(route);
 
 
-            // // ----------------------
-            // // ONLY TESTING STUFF !!
-            // // ----------------------
-            // // fill tour points in and set options
-            // // --> data is selcted in tour guide
-            // TourGuide.fillTourData('uploadTrack', 'interactive');
+            // ----------------------
+            // ONLY TESTING STUFF !!
+            // ----------------------
+            // fill tour points in and set options
+            // --> data is selcted in tour guide
+            // TourGuide.fillTourData('downvoteTrackAndDjImage', 'interactive');
             // // initialize tour with tour points and options
             // TourGuide.init();
             // // start

@@ -414,6 +414,7 @@ define([
 
         distributeDownVoteTrack: function(data, view){
             if(data.downvote === 1){
+
                 view.downvoteActiveStateClass = '';
                 var downvoteTrackResponse = $('#downvote-response-message');
                 
@@ -426,8 +427,12 @@ define([
                 // color downvote button
                 setTimeout(function(){
                     view.downvoteDisabledStateClass = 'disabled';
+                    // trigger tour guide next if tour guide is active
+                    TourGuide.next();
                 }, 3800);
+
             }
+
         },
         
 

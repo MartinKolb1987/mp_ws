@@ -253,6 +253,14 @@ define([
             }
         },
 
+        getTourGuideState: function(){
+            return this.isTourGuideModeActive;
+        },
+
+        getCurrentTourPoint: function(){
+            return this.currentTourPoint;
+        },
+
         // set eventlistener
         // --------------------------
         setEventlistener: function(){
@@ -438,13 +446,16 @@ define([
                                 setHintTime = that.tourGuideHintFadeInTime;
                             }
 
+
                             // user playlist is rendering
                             // give it some time
                             setTimeout(function(){
                                 var offset = $(element).offset();
+                                var top = offset.top + parseInt(positionTopUnit);
+                                var left = offset.left + parseInt(positionLeftUnit);
 
                                 // add hint
-                                that.tourGuideHint.css({'top': (offset.top - positionTopUnit), 'left': (offset.left - positionLeftUnit), 'transform': 'rotate(' + rotateAngleUnit + ')'});
+                                that.tourGuideHint.css({'top': top + 'px', 'left': left + 'px', 'transform': 'rotate(' + rotateAngleUnit + ')'});
 
                                 that.tourGuideHint.fadeIn(1000);
                             }, setHintTime);

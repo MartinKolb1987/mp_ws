@@ -220,6 +220,7 @@ define([
             },
 
             downvoteTrack: function(trackId){
+                TourGuide.next();
                 if(this.$data.downvoteActiveStateClass === 'active'){
                     DataHandler.downvoteTrack(trackId);
                 }
@@ -253,6 +254,22 @@ define([
                         element.children('.playlist-button-wrapper').children('.swapdown-button').addClass('playlist-button-active');
                     }
                 }
+            },
+
+            jumpToSite: function(route){
+                var findClickElement = $('#navigation > li > a[data-route=' + route + ']');
+                
+                // check if tour guide is active
+                if(TourGuide.getTourGuideState() === true){
+                    //  is it the second tour point
+                    if(TourGuide.getCurrentTourPoint() === 1){
+                        findClickElement.click();
+                        TourGuide.next();
+                    }
+                } else {
+                    findClickElement.click();
+                }
+
             }
         }
     });
