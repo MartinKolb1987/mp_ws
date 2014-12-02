@@ -36,7 +36,8 @@ define([
             triggerUploadFileStateClass: '',
             uploadFileControlWrapperStateClass: 'hide',
             fileControlStateClass: 'hide',
-            uploadProgressWrapperStateClass: 'hide'
+            uploadProgressWrapperStateClass: 'hide',
+            uploadImageFilename: 'hide'
             
         },
 
@@ -66,6 +67,9 @@ define([
                             that.$data.triggerUploadFileStateClass = 'hide';
                             that.$data.fileControlStateClass = 'hide';
                             that.$data.uploadFileControlWrapperStateClass = '';
+                            that.$data.uploadImageFilename = '';
+                            inputField.parents('#image-upload-wrapper').siblings('.image-text').children('.image-name').text(inputField[0].files[0].name);
+
                             // upload file
                             that.uploadFile(inputField);
                             that.cancelUploadFile(inputField);
@@ -75,7 +79,6 @@ define([
                         }
                     }
                 });
-
             },
             
             uploadFile: function(inputField){
@@ -83,9 +86,9 @@ define([
                 var uploadFileButton = inputField.parent('#image-upload-wrapper').find('#upload-image-control-wrapper #upload-image');
                 uploadFileButton.unbind('click');
                 uploadFileButton.on('click', function(){
+                    inputField.parents('#image-upload-wrapper').siblings('.image-text').children('.image-name').text('');
                     DataHandler.uploadUserImage(inputField[0].files[0]);
                 });
-
             },
 
             cancelUploadFile: function(inputField){
@@ -95,7 +98,10 @@ define([
                 uploadFileButton.unbind('click');
                 uploadFileButton.on('click', function(){
                     that.$data.triggerUploadFileStateClass = '';
+                    that.$data.fileControlStateClass = '';
                     that.$data.uploadFileControlWrapperStateClass = 'hide';
+                    that.$data.uploadImageFilename = 'hide';
+                    inputField.parents('#image-upload-wrapper').siblings('.image-text').children('.image-name').text('');
                     that.clearUploadField(inputField);
                 });
             },
@@ -110,7 +116,6 @@ define([
                 } else {
                     return false;
                 }
-
             },
 
             deleteUserImage: function(){

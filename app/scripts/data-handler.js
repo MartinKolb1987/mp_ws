@@ -381,6 +381,8 @@ define([
             // --> show delete image button
             if(data.userImage.url.indexOf('images') > 0){
                 view.fileControlStateClass = '';
+                view.triggerUploadFileStateClass = '';
+                view.uploadImageFilename = 'hide';
             } else {
                 view.fileControlStateClass = 'hide';
             }

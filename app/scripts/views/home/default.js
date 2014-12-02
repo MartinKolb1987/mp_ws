@@ -49,6 +49,9 @@ define([
             downvoteResponseMessageStateClass: '',
             downvoteResponseMessage: '',
 
+            // temporary text save
+            browsePlaylistFilltext: '',
+
             // upload message
             uploadProgressImageMessage: '',
 
@@ -78,6 +81,7 @@ define([
                 
                 // select file upload field
                 var inputField = $(e.target).parents('#upload-wrapper').find('#upload-file-field');
+                this.$data.browsePlaylistFilltext = inputField.parents('#upload-wrapper').siblings('.line-wrapper').children('.line-title').text();
                 
                 // open file browser
                 inputField.trigger('click');
@@ -135,7 +139,7 @@ define([
                 uploadFileButton.unbind('click');
                 uploadFileButton.on('click', function(){
                     that.$data.triggerUploadFileStateClass = '';
-                    inputField.parents('#upload-wrapper').siblings('.line-wrapper').children('.line-title').text('');
+                    inputField.parents('#upload-wrapper').siblings('.line-wrapper').children('.line-title').text(that.$data.browsePlaylistFilltext);
                     that.$data.uploadFileControlWrapperStateClass = 'hide';
                     that.clearUploadField(inputField);
 
