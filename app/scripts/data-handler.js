@@ -365,8 +365,9 @@ define([
 
         // user image
         // --------------------------
-        uploadUserImage: function(file){
-            this.sendData('settings', 'uploadUserImage', file);
+        uploadUserImage: function(file, element){
+            var data = [file, element];
+            this.sendData('settings', 'uploadUserImage', data);
         },
 
         getUserImage: function(route){
@@ -565,10 +566,7 @@ define([
             formData.append('type', type);
             formData.append('route', route);
 
-            if(type === 'uploadUserImage'){
-                formData.append('file', data);
-                formData.append('data', '');
-            } else if(type === 'uploadUserTrack') {
+            if (type === 'uploadUserImage' || type === 'uploadUserTrack') {
                 formData.append('file', data[0]);
                 formData.append('data', data[1]);
             } else {

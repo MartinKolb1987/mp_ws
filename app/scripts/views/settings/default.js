@@ -37,7 +37,12 @@ define([
             uploadFileControlWrapperStateClass: 'hide',
             fileControlStateClass: 'hide',
             uploadProgressWrapperStateClass: 'hide',
-            uploadImageFilename: 'hide'
+            uploadImageFilename: 'hide',
+
+            // delete
+            deleteTimeout: '',
+            deleteAction: false,
+            deleteImage: ''
             
         },
 
@@ -84,10 +89,13 @@ define([
             uploadFile: function(inputField){
                 var that = this;
                 var uploadFileButton = inputField.parent('#image-upload-wrapper').find('#upload-image-control-wrapper #upload-image');
+
+                var element = inputField.parents('#image-upload-wrapper').siblings('.image-text').children('.progressbar')
+
                 uploadFileButton.unbind('click');
                 uploadFileButton.on('click', function(){
                     inputField.parents('#image-upload-wrapper').siblings('.image-text').children('.image-name').text('');
-                    DataHandler.uploadUserImage(inputField[0].files[0]);
+                    DataHandler.uploadUserImage(inputField[0].files[0], element);
                 });
             },
 
@@ -118,8 +126,49 @@ define([
                 }
             },
 
-            deleteUserImage: function(){
-                DataHandler.deleteUserImage();
+            deleteUserImage: function(el){
+                if (this.$data.deleteAction === false){
+
+                    this.$data.uploadImageFilename = '';
+
+                    var that = this;
+                    var view = $(el.$el);
+                    var imageText = view.children('#settings').children('.image-text');
+                    var progressbar = imageText.children('.progressbar');
+                    var imageName = imageText.children('.image-name');
+
+                    var counter = 100;
+
+                    this.$data.deleteAction = true;
+
+                    this.$data.deleteTimeout = setInterval(function(){
+                        imageName.text('Tap to cancel!');
+                        progressbar.css('width', counter + '%');
+                        if(counter === 0){
+                            DataHandler.deleteUserImage();
+                            clearInterval(that.$data.deleteTimeout);
+                            that.$data.deleteAction = false;
+                            imageName.text('');
+                            that.$data.uploadImageFilename = 'hide';
+                            return false;
+                        }
+                        counter = counter - 1;
+                    }, 50);
+                }
+            },
+
+            cancelDelete: function(el){
+                var that = this;
+                var element = $(el.$el);
+
+                if (that.$data.deleteAction){
+                    clearInterval(this.$data.deleteTimeout);
+                    this.$data.deleteAction = false;
+                    var imageText = element.children('#settings').children('.image-text');
+                    imageText.children('.progressbar').css('width', '0%');
+                    imageText.children('.image-name').text('');
+                    this.$data.uploadImageFilename = 'hide';
+                }
             },
 
             clearUploadField: function(inputField){
@@ -129,7 +178,7 @@ define([
                 inputField.remove();
             },
 
-            setInternetAccess: function(e){
+            setInternetAccess: function(){
                 DataHandler.setInternetAccess();
             },
 

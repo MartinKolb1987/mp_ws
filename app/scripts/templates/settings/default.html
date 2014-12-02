@@ -11,6 +11,7 @@
 	</div>
 
 	<div class="image-text {{uploadImageFilename}}">
+		<div class="image-text-clickfield" v-on="click: cancelDelete(this)"></div>
 		<div class="progressbar"></div>
 		<div class="image-name"></div>
 	</div>
@@ -20,7 +21,7 @@
 		<input type="file" id="upload-image-field" class="hide">
 
 		<div id="image-control-wrapper" class="{{fileControlStateClass}}">
-			<div id="delete-image" class="image-button delete-button" v-on="click: deleteUserImage()">
+			<div id="delete-image" class="image-button delete-button" v-on="click: deleteUserImage(this)">
 				<img src="images/delete.svg" alt="">
 			</div>
 		</div>
