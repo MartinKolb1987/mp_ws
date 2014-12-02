@@ -55,6 +55,9 @@ define([
 
         preloadNextTourGuide: '',
         nextTourGuideButtonContent: 'Next Chapter',
+        
+        preloadPrevTourGuide: '',
+        prevTourGuideButtonContent: 'Previous Chapter',
 
         tourGuideHint: '#tour-guide-hint',
 
@@ -113,6 +116,11 @@ define([
             this.preloadNextTourGuide = (options.preloadNextTourGuide === undefined) ? this.preloadNextTourGuide : options.preloadNextTourGuide;
             this.nextTourGuideButtonContent = '';
             this.nextTourGuideButtonContent = (options.nextTourGuideButtonContent === undefined) ? this.nextTourGuideButtonContent : options.nextTourGuideButtonContent;
+            
+            this.preloadPrevTourGuide = '';
+            this.preloadPrevTourGuide = (options.preloadPrevTourGuide === undefined) ? this.preloadPrevTourGuide : options.preloadPrevTourGuide;
+            this.prevTourGuideButtonContent = '';
+            this.prevTourGuideButtonContent = (options.prevTourGuideButtonContent === undefined) ? this.prevTourGuideButtonContent : options.prevTourGuideButtonContent;
 
             this.tourGuideHint = '';
             this.tourGuideHint = (options.tourGuideHint === undefined) ? this.tourGuideHint : options.tourGuideHint;
@@ -279,6 +287,17 @@ define([
                 return true;
             }
 
+            /// previous chapter exists 
+            // --> fill new tour guide data in
+            // --> start next tour
+            // -----------------------------------
+            if(this.currentTourPoint < 0){
+                this.fillTourData(this.preloadPrevTourGuide);
+                this.init();
+                this.start();
+                return true;
+            }
+
             // hide and show NEXT button
             // -----------------------------------
             if(this.currentTourPoint === lastIndexFromTourPoints){
@@ -286,9 +305,7 @@ define([
                 // fill next tour guide data in
                 if(this.preloadNextTourGuide.length > 0){
                     this.tourGuideNextTarget.html(that.nextTourGuideButtonContent);
-                    console.log('init next chapter');
                 } else {
-                    console.log('there is no next chapter');
                     this.tourGuideNextTarget.hide();
                 }
 
@@ -301,7 +318,16 @@ define([
             // -----------------------------------
             if(this.currentTourPoint === 0){
                 this.tourGuidePrevTarget.hide();
+
+                // if previous chapter exists
+                if(this.preloadPrevTourGuide.length > 0){
+                    this.tourGuidePrevTarget.html(that.prevTourGuideButtonContent);
+                    this.tourGuidePrevTarget.show();
+                } else {
+                    this.tourGuidePrevTarget.hide();
+                }
             } else {
+                this.tourGuidePrevTarget.html(that.tourGuidePrevContent);
                 this.tourGuidePrevTarget.show();
             }
 
@@ -402,7 +428,7 @@ define([
                     });
 
                     
-                }, 100);
+                }, 200);
 
             }
 

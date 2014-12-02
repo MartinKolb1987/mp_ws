@@ -1,8 +1,9 @@
 define([
     'error',
     'debug',
-    'componentCollection'
-], function(ErrorHandler, DebugHandler, ComponentCollection) {
+    'componentCollection',
+    'tourGuide'
+], function(ErrorHandler, DebugHandler, ComponentCollection, TourGuide) {
     'use strict';
 
     var dataHandler = {
@@ -581,6 +582,7 @@ define([
                 that.currentlyClientSideUploadingTrack = false;
                 // distribute responsed data 
                 that.getData(e.target.responseText);
+
             };
 
             xhr.upload.onprogress = function(e) {
@@ -594,6 +596,9 @@ define([
                         $(data[1]).css('width', procent + '%');
                     } else {
                         view.uploadFileControlWrapperStateClass = 'hide';
+
+                        // trigger next tour guide step if tour guide is active
+                        TourGuide.next();
                     }
 
                 }
