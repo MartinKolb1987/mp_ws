@@ -54,7 +54,7 @@
             }
         },
         {
-            "elements": ["#last-filled-playlist", "#browse-playlist", "#trigger-upload-file::hint::top::-85px::left::-60px::rotate::-45deg"],
+            "elements": ["#last-filled-playlist", "#browse-playlist"],
             "info": {
                 "target": "#tour-guide-info",
                 "content": "Nice, click on Next Chapter",
