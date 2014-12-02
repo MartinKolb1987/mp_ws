@@ -1,7 +1,7 @@
 define([
-    'text!tour-guide/upload-track.json',
-    'text!tour-guide/downvote-track-and-dj-image.json',
-], function(TourGuideUploadTrackData, TourGuideDownvoteTrackAndDjImageData) {
+    'text!tour-guide/interactive/upload-track.json',
+    'text!tour-guide/interactive/downvote-track-and-dj-image.json',
+], function(InteractiveTourGuideUploadTrackData, InteractiveTourGuideDownvoteTrackAndDjImageData) {
     'use strict';
 
     // --------------------------
@@ -20,8 +20,10 @@ define([
         // tour guide
         // --------------------------
         isTourGuideModeActive: false,
+        typeTourGuide: 'text',
         tourPoints: [],
         options: {},
+        initStartTourGuide: true,
 
         // current tour guide states
         // --------------------------
@@ -51,6 +53,7 @@ define([
         tourGuidePaginationTarget: '#tour-guide-pagination',
         
         fadeInTourGuide: false,
+        fadeInTourGuideTime: 1000, // = milliseconds
         fadeOutTourGuide: false,
 
         preloadNextTourGuide: '',
@@ -60,6 +63,7 @@ define([
         prevTourGuideButtonContent: 'Previous Chapter',
 
         tourGuideHint: '#tour-guide-hint',
+        tourGuideHintFadeInTime: 150, // = milliseconds
 
         // set tour data
         // --------------------------
@@ -109,6 +113,8 @@ define([
 
             this.fadeInTourGuide = '';
             this.fadeInTourGuide = (options.fadeInTourGuide === undefined) ? this.fadeInTourGuide : options.fadeInTourGuide;
+            this.fadeInTourGuideTime = '';
+            this.fadeInTourGuideTime = (options.fadeInTourGuideTime === undefined) ? this.fadeInTourGuideTime : options.fadeInTourGuideTime;
             this.fadeOutTourGuide = '';
             this.fadeOutTourGuide = (options.fadeOutTourGuide === undefined) ? this.fadeOutTourGuide : options.fadeOutTourGuide;
             
@@ -124,9 +130,17 @@ define([
 
             this.tourGuideHint = '';
             this.tourGuideHint = (options.tourGuideHint === undefined) ? this.tourGuideHint : options.tourGuideHint;
+            this.tourGuideHintFadeInTime = '';
+            this.tourGuideHintFadeInTime = (options.tourGuideHintFadeInTime === undefined) ? this.tourGuideHintFadeInTime : options.tourGuideHintFadeInTime;
         },
 
         init: function(){
+            this.isTourGuideModeActive = true;
+            this.initStartTourGuide = true;
+
+        },
+
+        initIntern: function(){
             this.isTourGuideModeActive = true;
         },
 
@@ -182,10 +196,10 @@ define([
             this.tourGuideHint = $(that.tourGuideHint);
 
             // fade guide in or not
-            if(this.fadeInTourGuide === true){
+            if(this.fadeInTourGuide === true && this.initStartTourGuide === true){
                 setTimeout(function(){
                     $('#tour-guide-overlay').fadeIn();
-                }, 1000);
+                }, that.fadeInTourGuideTime);
             } else {
                 $('#tour-guide-overlay').show();
             }
@@ -199,9 +213,11 @@ define([
             this.isTourActive = false;
             this.isTourGuideModeActive = false;
 
+            // go to help site
             $('#navigation > li > a[data-route=help]').click();
             
-            // ux feeling
+            // hide tour guide hint if exists
+            this.tourGuideHint.hide();
 
             // fade guide out or not
             if(this.fadeOutTourGuide === true){
@@ -276,13 +292,16 @@ define([
             var currentTourPointData = this.tourPoints[that.currentTourPoint];
             var lastIndexFromTourPoints = this.countedTourPoints - 1;
             
+            // hide tour guide hint if exists
+            this.tourGuideHint.hide();
+
             // next chapter exists 
             // --> fill new tour guide data in
             // --> start next tour
             // -----------------------------------
             if(this.currentTourPoint > lastIndexFromTourPoints){
-                this.fillTourData(this.preloadNextTourGuide);
-                this.init();
+                this.fillTourData(this.preloadNextTourGuide, this.typeTourGuide);
+                this.initIntern();
                 this.start();
                 return true;
             }
@@ -292,8 +311,8 @@ define([
             // --> start next tour
             // -----------------------------------
             if(this.currentTourPoint < 0){
-                this.fillTourData(this.preloadPrevTourGuide);
-                this.init();
+                this.fillTourData(this.preloadPrevTourGuide, this.typeTourGuide);
+                this.initIntern();
                 this.start();
                 return true;
             }
@@ -379,6 +398,7 @@ define([
             var rotateAngleUnit = '';
             var highlightElementData = '';
             var hintElement = $('#tour-guide-hint');
+            var setHintTime = 0;
             var queue = [];
 
             // find all highlighted elements and remove class
@@ -410,6 +430,14 @@ define([
                             rotateAngle = highlightElementData[6];
                             rotateAngleUnit = highlightElementData[7];
 
+                            // e.g. if tutorial is fading in first, add fade in tour guide time to hint time
+                            if(that.initStartTourGuide === true && that.fadeInTourGuide === true ){
+                                setHintTime = that.tourGuideHintFadeInTime + that.fadeInTourGuideTime;
+                                that.initStartTourGuide = false;
+                            } else {
+                                setHintTime = that.tourGuideHintFadeInTime;
+                            }
+
                             // user playlist is rendering
                             // give it some time
                             setTimeout(function(){
@@ -419,7 +447,7 @@ define([
                                 that.tourGuideHint.css({'top': (offset.top - positionTopUnit), 'left': (offset.left - positionLeftUnit), 'transform': 'rotate(' + rotateAngleUnit + ')'});
 
                                 that.tourGuideHint.fadeIn(1000);
-                            }, 150);
+                            }, setHintTime);
                                 
                         }
 
@@ -445,19 +473,36 @@ define([
 
         // tour data filler
         // --------------------------
-        fillTourData: function(route){
+        fillTourData: function(route, tourGuideType){
             var that = this;
             var tourGuideObject = {};
 
+            // if type is set, otherwise init text tour guide
+            if(tourGuideType.length > 1){
+                this.typeTourGuide = tourGuideType;
+            }
+
             switch(route){
                 case 'uploadTrack':
-                    tourGuideObject = JSON.parse(TourGuideUploadTrackData);
+                    if(that.typeTourGuide === 'interactive'){
+                        // load interactive
+                        tourGuideObject = JSON.parse(InteractiveTourGuideUploadTrackData);
+                    } else {
+                        // load text
+                        tourGuideObject = JSON.parse(InteractiveTourGuideUploadTrackData);
+                    }
                     // fill tour points in and set options
                     that.fill(tourGuideObject.tourPoints, tourGuideObject.options);
                     break;
             
                 case 'downvoteTrackAndDjImage':
-                    tourGuideObject = JSON.parse(TourGuideDownvoteTrackAndDjImageData);
+                    if(that.typeTourGuide === 'interactive'){
+                        // load interactive
+                        tourGuideObject = JSON.parse(InteractiveTourGuideDownvoteTrackAndDjImageData);
+                    } else {
+                        // load text
+                        tourGuideObject = JSON.parse(InteractiveTourGuideUploadTrackData);
+                    }
                     // fill tour points in and set options
                     that.fill(tourGuideObject.tourPoints, tourGuideObject.options);
                     break;

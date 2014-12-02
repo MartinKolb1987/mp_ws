@@ -24,7 +24,7 @@ define([
                 if(type === 'interactive'){
                     // fill tour points in and set options
                     // --> data is selected in tour guide
-                    TourGuide.fillTourData('uploadTrack');
+                    TourGuide.fillTourData('uploadTrack', 'interactive');
                     // initialize tour with tour points and options
                     TourGuide.init();
 
@@ -32,7 +32,14 @@ define([
                     $('#navigation > li > a[data-route=home]').click();
 
                 } else {
-                    TourGuide.init(); // initialize tour with tour points and options
+                    // fill tour points in and set options
+                    // --> data is selected in tour guide
+                    TourGuide.fillTourData('uploadTrack', 'text');
+                    // initialize tour with tour points and options
+                    TourGuide.init('text');
+
+                    // trigger click event
+                    $('#navigation > li > a[data-route=home]').click();
                 }
 
             }

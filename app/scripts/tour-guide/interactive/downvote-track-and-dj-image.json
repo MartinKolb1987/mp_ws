@@ -32,10 +32,18 @@
     },
     "tourPoints": [
         {
-            "info": "ipoint1"
+            "info": {
+                "target": "#tour-guide-info",
+                "content": "ipoint 134",
+                "positionCss": "top::50px::height::80vh"
+            }
         },
         {
-            "info": "ipoint2"
+            "info": {
+                "target": "#tour-guide-info",
+                "content": "ipoint 134",
+                "positionCss": "top::50px::height::80vh"
+            }
         }
     ]
 }

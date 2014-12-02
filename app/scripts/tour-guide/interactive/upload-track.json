@@ -25,11 +25,16 @@
             "target": "#tour-guide-pagination",
             "content": "%from% / %to%"
         },
-        "fadeInTourGuide": false,
+        
+        "fadeInTourGuide": true,
+        "fadeInTourGuideTime": 1000,
         "fadeOutTourGuide": false,
+        
         "preloadNextTourGuide": "downvoteTrackAndDjImage",
         "nextTourGuideButtonContent": "Next Chapter",
-        "tourGuideHint": "#tour-guide-hint"
+
+        "tourGuideHint": "#tour-guide-hint",
+        "tourGuideHintFadeInTime": 150
     },
     "tourPoints": [
         {
