@@ -64,6 +64,7 @@ define([
                         if(that.checkFile(inputField) === true){
                             // set state css 
                             that.$data.triggerUploadFileStateClass = 'hide';
+                            that.$data.fileControlStateClass = 'hide';
                             that.$data.uploadFileControlWrapperStateClass = '';
                             // upload file
                             that.uploadFile(inputField);

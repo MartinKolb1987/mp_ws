@@ -332,8 +332,8 @@ body{
 
                         img {
                             float: left;
-                            height: 32px;
-                            padding: 10px 10px 0 2px;
+                            height: 26px;
+                            padding: 14px 10px 0 5px;
                             position: absolute;
                             left: 0;
                         }
@@ -562,14 +562,14 @@ body{
                         height: 52px;
 
                         .playlist-button {
-                            padding: 16px 28px 0 10px;
+                            padding: 18px 28px 0 10px;
                             height: 36px;
                             float: right;
                             position: relative;
 
                             img {
                                 position: relative;
-                                width: 18px;
+                                width: 16px;
                                 z-index: 100;
                             }
                         }
@@ -622,7 +622,7 @@ body{
                         .playlist-button-wrapper {
                             position: absolute;
                             @include transition(right, 0.25s, linear);
-                            right: -57px;
+                            right: -55px;
                             
                             .delete-button {
                                 z-index: 100;
@@ -649,7 +649,7 @@ body{
                             }
 
                             &.showSwapUpClass {
-                                right: -113px;
+                                right: -109px;
 
                                 .swapup-button {
                                     display: block;
@@ -657,7 +657,7 @@ body{
                             }
 
                             &.showSwapDownClass {
-                                right: -113px;
+                                right: -109px;
 
                                 .swapdown-button {
                                     display: block;
@@ -666,7 +666,7 @@ body{
                             }
 
                             &.showSwapUpClass.showSwapDownClass {
-                                right: -169px;
+                                right: -163px;
                             }
 
                         }
@@ -735,15 +735,14 @@ body{
                 .image-wrapper {
                     display: block;
                     width: 100vw;
+                    position: relative;
 
                     .image-text-wrapper {
                         float: left;
-                        width: 42.5vw;
-                        height: 20vh;
-                        max-height: 200px;
-                        min-height: 130px;
+                        width: 25vw;
+                        height: 30vh;
                         background-color: $mainColorLight;
-                        // @include skewedBorder(right, -27px, 3, 90px, $mainColorLight);
+                        @include skewedBorder(right, -27px, 3, 90px, $mainColorLight);
 
                         .info-text {
                             color: $white;
@@ -753,26 +752,29 @@ body{
 
                     .image-wrapper {
                         float: left;
-                        width: 57.5vw;
-                        height: 20vh;
-                        background-color: $btnColorMiddle;
+                        width: 75vw;
+                        height: 30vh;
 
                         .dj-image {
                             background-position: right center;
                             background-size: cover;
                             display: block;
-                            height:20vh;
-                            max-height: 200px;
-                            min-height: 130px;
-                            width: 57.5vw;
+                            height:30vh;
+                            width: 75vw;
                         }
                     }
                 }
 
                 .image-text {
                     float: left;
+                    height: 52px;
+                    width: 100vw;
+                    position: relative;
+                    background-color: $mainColorDark;
 
                     .progressbar {
+                        width: 200px;
+                        background-color: green;
                         height: 52px;
                         background-color: $btnColorDark;
                         position: absolute;
@@ -783,12 +785,19 @@ body{
                     }
 
                     .image-name {
-
+                        position: absolute;
+                        color: $bgColor;
+                        padding: 16px 0 0 16px;
                     }
                 }
 
                 #image-upload-wrapper {
-                    float: right;
+                    position: absolute;
+                    right: 0;
+
+                    #image-control-wrapper, #trigger-upload-image, #upload-image-control-wrapper {
+                        float: right;
+                    }
 
                     .image-button {
                         padding: 16px 28px 0 10px;
