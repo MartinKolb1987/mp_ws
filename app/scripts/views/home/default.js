@@ -257,7 +257,16 @@ define([
             },
 
             jumpToSite: function(route){
-                $('#navigation > li > a[data-route=' + route + ']').click();
+                var findClickElement = $('#navigation > li > a[data-route=' + route + ']');
+                // check if tour guide is active
+                if(TourGuide.getTourGuideState() === true){
+                    //  is it the second tour point
+                    if(TourGuide.getCurrentTourPoint() === 1){
+                        findClickElement.click();
+                    }
+                } else {
+                    findClickElement.click();
+                }
             }
         }
     });
