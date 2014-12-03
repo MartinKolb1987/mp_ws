@@ -41,24 +41,24 @@
             "elements": ["#browse-playlist", "#trigger-upload-file::hint::top::-85px::left::-60px::rotate::-45deg"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "Choose your track",
-                "positionCss": "top::50px::height::20vh"
+                "content": "<div class=\"tour-guide-info-title\">Los gehts!</div><div class=\"tour-guide-info-content\">Wähle einen <b>Musiktitel</b> aus deinem Smartphonespeicher!</div>",
+                "positionCss": "top::50px::height::30vh"
             }
         },
         {
             "elements": ["#browse-playlist", "#upload-file::hint::top::-85px::left::-60px::rotate::-45deg"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "Upload your track",
-                "positionCss": "top::50px::height::20vh"
+                "content": "<div class=\"tour-guide-info-title\">Musikupload</div><div class=\"tour-guide-info-content\">Drücke auf <b>Upload</b> um dein Lied in die globale Playlist hochzuladen.</div>",
+                "positionCss": "top::50px::height::30vh"
             }
         },
         {
             "elements": ["#last-filled-playlist", "#browse-playlist"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "Nice, click on Next Chapter",
-                "positionCss": "top::50px::height::20vh"
+                "content": "<div class=\"tour-guide-info-title\">Geschafft :) !</div><div class=\"tour-guide-info-content\">Du kannst nun einen weiteren <b>Musiktitel</b> hochladen!</div>",
+                "positionCss": "top::50px::height::30vh"
             }
         }
     ]

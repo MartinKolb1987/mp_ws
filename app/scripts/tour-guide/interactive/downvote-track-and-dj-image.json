@@ -41,40 +41,40 @@
             "elements": ["#currently-playing", "#system-info-wrapper", "#downvote-button::hint::top::25px::left::35px::rotate::140deg"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "Downvote track",
-                "positionCss": "top::400px::height::20vh"
+                "content": "<div class=\"tour-guide-info-title\">Downvote!</div><div class=\"tour-guide-info-content\">Du magst das aktuelle Lied <b>nicht</b>? Dann klicke auf den <b>Downvote</b> Knopf. Bei genügend Downvotes wird das Lied <b>abgebrochen</b>.</div>",
+                "positionCss": "top::400px::height::40vh"
             }
         },
         {
             "elements": ["#currently-playing", "#system-info-text::hint::top::-25px::left::-40px::rotate::190deg"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "Click on image to change your dj image",
-                "positionCss": "top::400px::height::20vh"
+                "content": "<div class=\"tour-guide-info-title\">DJ Bild</div><div class=\"tour-guide-info-content\">Wenn du dein eigenes <b>DJ Bild</b> hochladen möchtest, klicke einfach auf das Bild.</div>",
+                "positionCss": "top::400px::height::40vh"
             }
         },
         {
             "elements": ["#dj-image-wrapper", "#image-upload-wrapper", "#trigger-upload-image::hint::top::40px::left::-10px::rotate::180deg"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "Select your dj image",
-                "positionCss": "top::400px::height::20vh"
+                "content": "<div class=\"tour-guide-info-title\">Bildauswahl</div><div class=\"tour-guide-info-content\">Sucher dir ein Bild aus deinem <b>Smartphonespeicher</b>!</div>",
+                "positionCss": "top::460px::height::40vh"
             }
         },
         {
             "elements": ["#dj-image-wrapper", "#image-upload-wrapper", ".image-text", "#upload-image::hint::top::40px::left::-10px::rotate::180deg"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "Upload your dj image",
-                "positionCss": "top::400px::height::20vh"
+                "content": "<div class=\"tour-guide-info-title\">Und los!</div><div class=\"tour-guide-info-content\">Benutze den <b>Upload Knopf</b> um dein Bild hochzuladen. Oder mache deine Auswahl <b>rückgängig</b>.</div>",
+                "positionCss": "top::460px::height::40vh"
             }
         },
         {
             "elements": ["#dj-image-wrapper", "#image-upload-wrapper"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "That‘s it, close tour guide",
-                "positionCss": "top::400px::height::20vh"
+                "content": "<div class=\"tour-guide-info-title\">Das wars!</div><div class=\"tour-guide-info-content\">Du bist nun ein ausgebildeter <b>MusicMagnet DJ</b>. Viel Spaß mit unserer App!</div>",
+                "positionCss": "top::400px::height::40vh"
             }
         }
     ]

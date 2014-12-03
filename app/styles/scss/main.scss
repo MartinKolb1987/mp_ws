@@ -78,6 +78,18 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'exodemibolditalic';
+    src: url('fonts/exo-semibolditalic-webfont.eot');
+    src: url('fonts/exo-semibolditalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/exo-semibolditalic-webfont.woff2') format('woff2'),
+         url('fonts/exo-semibolditalic-webfont.woff') format('woff'),
+         url('fonts/exo-semibolditalic-webfont.ttf') format('truetype'),
+         url('fonts/exo-semibolditalic-webfont.svg#exodemibolditalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 // -------------------------------------
 //  COLORS
 // -------------------------------------
@@ -97,6 +109,8 @@ $playlistLine2: #1aa5ba;
 $playlistLine3: #33afc1;
 $playlistLine4: #4db9c9;
 $playlistLine5: #59becd;
+$helpTourTitle: #66c3d1;
+$helpTourText: #ffcc00;
 
 
 // -------------------------------------
@@ -201,6 +215,7 @@ html[xmlns] .clearfix {
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+                opacity: 0.5;
             }
 
             #tour-guide-close{
@@ -208,15 +223,37 @@ html[xmlns] .clearfix {
                 right: 15px;
                 top: 15px;
                 color: $white;
+                opacity: 0.5;
             }
 
             #tour-guide-info{
+                // background-color: blue;
                 position: absolute;
                 top: 50px;
                 left: 15px;
                 right: 15px;
                 overflow-x: none;
                 overflow-y: auto;
+
+
+                .tour-guide-info-title{
+                    color: $helpTourTitle;
+                    font-size: 40px;
+                    font-family: 'exodemibolditalic', Arial, sans-serif;
+                    width: 240px;
+                    margin: 0 auto;
+                    padding-right: 40px;
+                }
+
+                .tour-guide-info-content{
+                    color: $helpTourText;
+                    font-size: 22px;
+                    font-family: 'ubunturegular', Arial, sans-serif;
+                    width: 240px;
+                    text-shadow: 1px 1px 1px #000;
+                    margin: 0 auto;
+                    padding: 10px 0 0 20px;
+                }
             }
 
             #tour-guide-next{
@@ -224,6 +261,7 @@ html[xmlns] .clearfix {
                 right: 15px;
                 bottom: 15px;
                 color: $white;
+                opacity: 0.5;
             }
 
             #tour-guide-prev{
@@ -231,6 +269,7 @@ html[xmlns] .clearfix {
                 left: 15px;
                 bottom: 15px;
                 color: $white;
+                opacity: 0.5;
             }
 
             #tour-guide-pagination{
@@ -242,6 +281,7 @@ html[xmlns] .clearfix {
                 overflow: hidden;
                 text-align: center;
                 color: $white;
+                opacity: 0.5;
             }
 
 
