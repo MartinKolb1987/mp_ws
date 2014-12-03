@@ -1,7 +1,9 @@
 define([
     'text!tour-guide/interactive/upload-track.json',
     'text!tour-guide/interactive/downvote-track-and-dj-image.json',
-], function(InteractiveTourGuideUploadTrackData, InteractiveTourGuideDownvoteTrackAndDjImageData) {
+    'text!tour-guide/text/upload-track.json',
+    'text!tour-guide/text/downvote-track-and-dj-image.json'
+], function(InteractiveTourGuideUploadTrackData, InteractiveTourGuideDownvoteTrackAndDjImageData, TextTourGuideUploadTrackData, TextTourGuideDownvoteTrackAndDjImageData) {
     'use strict';
 
     // --------------------------
@@ -508,7 +510,7 @@ define([
                         tourGuideObject = JSON.parse(InteractiveTourGuideUploadTrackData);
                     } else {
                         // load text
-                        tourGuideObject = JSON.parse(InteractiveTourGuideUploadTrackData);
+                        tourGuideObject = JSON.parse(TextTourGuideUploadTrackData);
                     }
                     // fill tour points in and set options
                     that.fill(tourGuideObject.tourPoints, tourGuideObject.options);
@@ -520,7 +522,7 @@ define([
                         tourGuideObject = JSON.parse(InteractiveTourGuideDownvoteTrackAndDjImageData);
                     } else {
                         // load text
-                        tourGuideObject = JSON.parse(InteractiveTourGuideUploadTrackData);
+                        tourGuideObject = JSON.parse(TextTourGuideDownvoteTrackAndDjImageData);
                     }
                     // fill tour points in and set options
                     that.fill(tourGuideObject.tourPoints, tourGuideObject.options);

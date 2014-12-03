@@ -1,0 +1,55 @@
+{
+    "options": {
+        "tourGuideAppend": "#app",
+        "tourGuideDefaultStructure": "<div id=\"tour-guide-overlay\"><div id=\"tour-guide-title\"></div><div id=\"tour-guide-close\"></div><div id=\"tour-guide-info\"></div><div id=\"tour-guide-pagination\"></div><div id=\"tour-guide-prev\"></div><div id=\"tour-guide-next\"></div></div><div id=\"tour-guide-hint\"><img src=\"images/tutorial_arrow.svg\"></div>",
+        "tourGuideOverlay": {
+            "target": "#tour-guide-overlay"
+        },
+        "tourGuideTitle": {
+            "target": "#tour-guide-title",
+            "content": "1. Upload Music"
+        },
+        "tourGuideClose": {
+            "target": "#tour-guide-close",
+            "content": "x"
+        },
+        "tourGuideNext": {
+            "target": "#tour-guide-next",
+            "content": ">"
+        },
+        "tourGuidePrev": {
+            "target": "#tour-guide-prev",
+            "content": "<"
+        },
+        "tourGuidePagination": {
+            "target": "#tour-guide-pagination",
+            "content": "%from% / %to%"
+        },
+        
+        "fadeInTourGuide": true,
+        "fadeInTourGuideTime": 1000,
+        "fadeOutTourGuide": false,
+        
+        "preloadNextTourGuide": "downvoteTrackAndDjImage",
+        "nextTourGuideButtonContent": "Next Chapter",
+
+        "tourGuideHint": "#tour-guide-hint",
+        "tourGuideHintFadeInTime": 150
+    },
+    "tourPoints": [
+        {
+            "info": {
+                "target": "#tour-guide-info",
+                "content": "Step 1 Choose your track",
+                "positionCss": "top::50px::height::80vh"
+            }
+        },
+        {
+            "info": {
+                "target": "#tour-guide-info",
+                "content": "Step 2 The slot is now filled",
+                "positionCss": "top::50px::height::80vh"
+            }
+        }
+    ]
+}

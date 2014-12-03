@@ -78,7 +78,7 @@ define([
                     // // ----------------------
                     // // fill tour points in and set options
                     // // --> data is selcted in tour guide
-                    // TourGuide.fillTourData('uploadTrack', 'interactive');
+                    // TourGuide.fillTourData('uploadTrack', 'text');
                     // // initialize tour with tour points and options
                     // TourGuide.init();
                     // // start

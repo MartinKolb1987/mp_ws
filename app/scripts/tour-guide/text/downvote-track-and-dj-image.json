@@ -1,0 +1,76 @@
+{
+    "options": {
+        "tourGuideAppend": "#app",
+        "tourGuideDefaultStructure": "<div id=\"tour-guide-overlay\"><div id=\"tour-guide-title\"></div><div id=\"tour-guide-close\"></div><div id=\"tour-guide-info\"></div><div id=\"tour-guide-pagination\"></div><div id=\"tour-guide-prev\"></div><div id=\"tour-guide-next\"></div></div><div id=\"tour-guide-hint\"><img src=\"images/tutorial_arrow.svg\"></div>",
+        "tourGuideOverlay": {
+            "target": "#tour-guide-overlay"
+        },
+        "tourGuideTitle": {
+            "target": "#tour-guide-title",
+            "content": "2. Downvote Track & DJ Image"
+        },
+        "tourGuideClose": {
+            "target": "#tour-guide-close",
+            "content": "x"
+        },
+        "tourGuideNext": {
+            "target": "#tour-guide-next",
+            "content": ">"
+        },
+        "tourGuidePrev": {
+            "target": "#tour-guide-prev",
+            "content": "<"
+        },
+        "tourGuidePagination": {
+            "target": "#tour-guide-pagination",
+            "content": "%from% / %to%"
+        },
+        
+        "fadeInTourGuide": false,
+        "fadeInTourGuideTime": 1000,
+        "fadeOutTourGuide": true,
+
+        "preloadPrevTourGuide": "uploadTrack",
+        "prevTourGuideButtonContent": "Previous Chapter",
+
+        "tourGuideHint": "#tour-guide-hint",
+        "tourGuideHintFadeInTime": 150
+    },
+    "tourPoints": [
+        {
+            "info": {
+                "target": "#tour-guide-info",
+                "content": "Step 1 Downvote track",
+                "positionCss": "top::50px::height::80vh"
+            }
+        },
+        {
+            "info": {
+                "target": "#tour-guide-info",
+                "content": "Step 2 Click on image to change your dj image",
+                "positionCss": "top::50px::height::80vh"
+            }
+        },
+        {
+            "info": {
+                "target": "#tour-guide-info",
+                "content": "Step 3 Select your dj image",
+                "positionCss": "top::50px::height::80vh"
+            }
+        },
+        {
+            "info": {
+                "target": "#tour-guide-info",
+                "content": "Step 4 Upload your dj image",
+                "positionCss": "top::50px::height::80vh"
+            }
+        },
+        {
+            "info": {
+                "target": "#tour-guide-info",
+                "content": "Step 5 That‘s it, close tour guide",
+                "positionCss": "top::50px::height::80vh"
+            }
+        }
+    ]
+}
