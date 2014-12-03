@@ -588,6 +588,10 @@ define([
                 // distribute responsed data 
                 that.getData(e.target.responseText);
 
+                if(type === 'uploadUserImage' || type === 'uploadUserTrack'){
+                    // trigger next tour guide step if tour guide is active
+                    TourGuide.next();
+                }
             };
 
             xhr.upload.onprogress = function(e) {
@@ -601,9 +605,6 @@ define([
                         $(data[1]).css('width', procent + '%');
                     } else {
                         view.uploadFileControlWrapperStateClass = 'hide';
-
-                        // trigger next tour guide step if tour guide is active
-                        TourGuide.next();
                     }
 
                 }
