@@ -40,14 +40,14 @@
         {
             "info": {
                 "target": "#tour-guide-info",
-                "content": "Step 1 Choose your track",
+                "content": "<div class=\"text-tour-guide-info-title\">Schritt 1</div><div class=\"text-tour-guide-info-content\">Music hochladen ist total einfach. Schaue dir einfach den <b>unteren Teil</b> des MusicMagnet Players an.<br><br>Die <b>leeren Zeilen</b> sehen so aus:<br><img src=\"images/upload_step1.png\"><br>Klicke auf den <span class=\"span-yellow\">Browse Knopf</span> und wähle deinen Lieblingssong aus deinem Smartphonespeicher aus.</div>",
                 "positionCss": "top::50px::height::80vh"
             }
         },
         {
             "info": {
                 "target": "#tour-guide-info",
-                "content": "Step 2 The slot is now filled",
+                "content": "<div class=\"text-tour-guide-info-title\">Schritt 2</div><div class=\"text-tour-guide-info-content\">Die Zeile ist nun mit deinem ausgewählten Lied gefüllt und sieht so aus: <br><img src=\"images/upload_step2.png\"><br>Mit einem Klick auf den <span class=\"span-yellow\">Upload Knopf</span> wird das Lied zum MusicMagnet Tower gesendet. Das dauert evtl. ein paar Sekunden.<br><br>Das wars. Nun könntest du ein <b>weiteres Lied</b> in eine leere Zeile hochladen :-) .",
                 "positionCss": "top::50px::height::80vh"
             }
         }

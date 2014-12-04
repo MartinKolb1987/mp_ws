@@ -236,7 +236,7 @@ html[xmlns] .clearfix {
                 overflow-y: auto;
 
 
-                .tour-guide-info-title{
+                .tour-guide-info-title, .text-tour-guide-info-title{
                     color: $helpTourTitle;
                     font-size: 40px;
                     font-family: 'exodemibolditalic', Arial, sans-serif;
@@ -255,7 +255,7 @@ html[xmlns] .clearfix {
                     padding: 10px 0 0 20px;
                 }
 
-                .quit-button{
+                .tour-guide-quit-button{
                     background-color: $btnColorDark;
                     color: $white;
                     margin: 20px auto;
@@ -264,7 +264,33 @@ html[xmlns] .clearfix {
                     width: 200px;
                     position: relative;
                     @include skewedBorder(left, -10px, 0, 20px, $btnColorDark);
-                    // @include skewedBorder(right, -10px, 0, 20px, $btnColorDark);
+                }
+
+                .text-tour-guide-info-title{
+                    margin: 0 0 20px 16px;
+                }
+
+                .text-tour-guide-info-content{
+                    padding: 0 16px;
+                    width: 90%;
+                    color: $white;
+                    font-size: 14px;
+                    font-family: 'ubunturegular', Arial, sans-serif;
+                    
+                    img{
+                        max-width: 340px;
+                        margin: 20px 0;
+                    }
+                }
+
+                .span-yellow{
+                    color: $btnColorMiddle;
+                    font-weight: bold;
+                }
+
+                .span-blue{
+                    color: $mainColorLight;
+                    font-weight: bold;
                 }
             }
 

@@ -40,35 +40,35 @@
         {
             "info": {
                 "target": "#tour-guide-info",
-                "content": "Step 1 Downvote track",
+                "content": "<div class=\"text-tour-guide-info-title\">Schritt 1</div><div class=\"text-tour-guide-info-content\">Der obere Bereich des Players beinhaltet Informationen über das <b>momentan abgespielte Lied</b> und das Bild vom <b>Besitzer</b> des Lieds: <br><img src=\"images/downvote_step1.png\"><br>Wenn dir das abgespielte Lied nicht gefällt klicke auf den <span class=\"span-yellow\">Downvote Knopf</span>. Wenn genügend Benutzer das Lied negativ bewertet haben wird es <b>abgebrochen</b>.",
                 "positionCss": "top::50px::height::80vh"
             }
         },
         {
             "info": {
                 "target": "#tour-guide-info",
-                "content": "Step 2 Click on image to change your dj image",
+                "content": "<div class=\"text-tour-guide-info-title\">Schritt 2</div><div class=\"text-tour-guide-info-content\">Wenn du ein <b>eigenes DJ Bild</b> hochladen möchtest, welches beim Abspielen deines Liedes angezeigt wird, klicke auf die <span class=\"span-blue\">Bildfläche</span> auf der rechten Seite <br><img src=\"images/downvote_step2.png\"><br>Wenn dir das abgespielte Lied nicht gefällt klicke auf den <span class=\"span-yellow\">Downvote Knopf</span>. Dadurch wirst du auf die <b>Einstellungsseite</b> weitergeletet, mehr dazu aber im nächsten Schritt.",
                 "positionCss": "top::50px::height::80vh"
             }
         },
         {
             "info": {
                 "target": "#tour-guide-info",
-                "content": "Step 3 Select your dj image",
+                "content": "<div class=\"text-tour-guide-info-title\">Schritt 3</div><div class=\"text-tour-guide-info-content\">Auf der Einstellungsseite kannst du dir ein Bild auswählen, indem du auf den <span class=\"span-yellow\">Browse Knopf</span> unterhalb der leeren Bildfläche klickst.<img src=\"images/downvote_step3.png\">",
                 "positionCss": "top::50px::height::80vh"
             }
         },
         {
             "info": {
                 "target": "#tour-guide-info",
-                "content": "Step 4 Upload your dj image",
+                "content": "<div class=\"text-tour-guide-info-title\">Schritt 4</div><div class=\"text-tour-guide-info-content\">Nachdem du ein Bild ausgewählt hast lädst du es mit einem Klick auf den <span class=\"span-yellow\">Upload Knopf</span> auf den MusicMagnet Tower. Das Bild wird beim Abmelden am System gelöscht.<img src=\"images/downvote_step4.png\">",
                 "positionCss": "top::50px::height::80vh"
             }
         },
         {
             "info": {
                 "target": "#tour-guide-info",
-                "content": "Step 5 That‘s it, close tour guide",
+                "content": "<div class=\"text-tour-guide-info-title\">Das wars!</div><div class=\"text-tour-guide-info-content\"><img src=\"images/downvote_step5.png\">Gratulation! Du bist nun ein voll trainierter <b>MusicMagnet DJ</b>. Viel Spaß mit unserer App!",
                 "positionCss": "top::50px::height::80vh"
             }
         }
