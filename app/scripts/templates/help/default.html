@@ -1,7 +1,53 @@
 <!-- wrapper help -->
 <div id="help">
+	<div class="help-intro-text">
+		<div class="help-intro-text-title">
+			Hallo zukünftiger MusicMagnet DJ
+		</div>
+		<div class="help-intro-text-content">
+			Du weißt nicht was du tun musst? Um eine Eklärung für alle MusicMagnet Funktionen zu bekommen starte die Führung durch einen Klick auf den folgenden Knopf!
+		</div>
+	</div>
 
-	<b>{{langHelp}}</b>
-	<button v-on="click: startTutorial('interactive')">interactive tutorial</button>
-	<button v-on="click: startTutorial('text')">text tutorial</button>
+	<div class="tour-start-wrapper">
+		<div class="tour-start-button" v-on="click: startTutorial('interactive')">
+			<img src="images/tutorial.svg" alt="">
+			interactive tutorial
+		</div>
+		<br><br><br>
+		<div class="tour-start-button" v-on="click: startTutorial('text')">
+			<img src="images/tutorial.svg" alt="">
+			<span>text tutorial<span>
+		</div>
+	</div>
+
+	<div class="icon-explanation">
+		<span>Icon Erklärung</span>
+		<ul>
+			<li>
+				<div class="icon-explanation-icon">
+					<img src="images/internet_access.svg" alt="">
+				</div>
+				<div class="icon-explanation-text">
+					Hinweis ob du Internetzugang hast oder ob du dich nur in dem lokalen Netzwerk befindest.
+				</div>
+			</li>
+			<li>
+				<div class="icon-explanation-icon">
+					<img src="images/users.svg" alt="">
+				</div>
+				<div class="icon-explanation-text">
+					Anzahl der Benutzer die momentan den MusicMagnet nutzen.
+				</div>
+			</li>
+			<li>
+				<div class="icon-explanation-icon">
+					<img src="images/battery.svg" alt="">
+				</div>
+				<div class="icon-explanation-text">
+					Warnsymbol dass die Batterie des MusicMagnet Towers bald leer ist.
+				</div>
+			</li>
+		</ul>
+	</div>
 </div>

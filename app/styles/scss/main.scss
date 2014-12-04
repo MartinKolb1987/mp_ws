@@ -254,6 +254,18 @@ html[xmlns] .clearfix {
                     margin: 0 auto;
                     padding: 10px 0 0 20px;
                 }
+
+                .quit-button{
+                    background-color: $btnColorDark;
+                    color: $white;
+                    margin: 20px auto;
+                    padding: 10px 0;
+                    text-align: center;
+                    width: 200px;
+                    position: relative;
+                    @include skewedBorder(left, -10px, 0, 20px, $btnColorDark);
+                    // @include skewedBorder(right, -10px, 0, 20px, $btnColorDark);
+                }
             }
 
             #tour-guide-next{
@@ -890,6 +902,92 @@ body{
                 .hide{
                     display: none;
                 }
+            }
+
+            //  help site
+            // -------------------------------------
+            #help{
+                width: 100vw;
+
+                .help-intro-text{
+                    background-color: $mainColorLight;
+                    padding: 25px 16px;
+                    color: $white;
+
+                    .help-intro-text-title{
+                        font-family: 'ubuntubold', Arial, sans-serif;
+                        font-size: 18px;
+                    }
+
+                    .help-intro-text-content{
+                        font-family: 'ubunturegular', Arial, sans-serif;
+                        font-size: 14px;
+                    }
+                }
+
+                .tour-start-wrapper{
+
+                    .tour-start-button{
+                        height: 36px;
+                        padding: 16px 10px 0 10px;
+                        color: $white;
+                        background-color: $btnColorDark;
+                        float: right;
+                        position: absolute;
+                        right: 0;
+                        @include skewedBorder(left, -11px, 1, 20px, $btnColorDark);
+
+                        img{
+                            position: relative;
+                            width: 18px;
+                            z-index: 100;
+                        }
+
+                        span{
+                            padding: 4px 10px 0;
+                            vertical-align: top;
+                        }
+
+                    }
+                }
+
+                .icon-explanation{
+                    margin: 20px 0 0 0;
+                    padding-left: 16px;
+
+                    span{
+                        color: $white;
+                        opacity: 0.5;
+                        font-family: 'ubuntubold', Arial, sans-serif;
+                        font-size: 18px;
+                    }
+
+                    ul{
+                        margin-top: 20px;
+                        list-style-type: none;
+
+                        li{
+                            height: 50px;
+
+                            .icon-explanation-icon{
+                                float: left;
+                                margin-right: 16px;
+                                padding: 4px 0;
+
+                                img{
+                                    width: 23px;
+                                }
+                            }
+
+                            .icon-explanation-text{
+                                font-family: 'ubuntumedium', Arial, sans-serif;
+                                font-size: 12px;
+                                color: $mainColorLight;
+                            }
+                        }
+                    }
+                }
+
             }
         }
     }

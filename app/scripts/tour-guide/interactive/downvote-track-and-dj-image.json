@@ -42,7 +42,7 @@
             "info": {
                 "target": "#tour-guide-info",
                 "content": "<div class=\"tour-guide-info-title\">Downvote!</div><div class=\"tour-guide-info-content\">Du magst das aktuelle Lied <b>nicht</b>? Dann klicke auf den <b>Downvote</b> Knopf. Bei genügend Downvotes wird das Lied <b>abgebrochen</b>.</div>",
-                "positionCss": "top::400px::height::40vh"
+                "positionCss": "top::320px::height::40vh"
             }
         },
         {
@@ -50,7 +50,7 @@
             "info": {
                 "target": "#tour-guide-info",
                 "content": "<div class=\"tour-guide-info-title\">DJ Bild</div><div class=\"tour-guide-info-content\">Wenn du dein eigenes <b>DJ Bild</b> hochladen möchtest, klicke einfach auf das Bild.</div>",
-                "positionCss": "top::400px::height::40vh"
+                "positionCss": "top::320px::height::40vh"
             }
         },
         {
@@ -58,7 +58,7 @@
             "info": {
                 "target": "#tour-guide-info",
                 "content": "<div class=\"tour-guide-info-title\">Bildauswahl</div><div class=\"tour-guide-info-content\">Sucher dir ein Bild aus deinem <b>Smartphonespeicher</b>!</div>",
-                "positionCss": "top::460px::height::40vh"
+                "positionCss": "top::400px::height::40vh"
             }
         },
         {
@@ -66,15 +66,15 @@
             "info": {
                 "target": "#tour-guide-info",
                 "content": "<div class=\"tour-guide-info-title\">Und los!</div><div class=\"tour-guide-info-content\">Benutze den <b>Upload Knopf</b> um dein Bild hochzuladen. Oder mache deine Auswahl <b>rückgängig</b>.</div>",
-                "positionCss": "top::460px::height::40vh"
+                "positionCss": "top::400px::height::40vh"
             }
         },
         {
             "elements": ["#dj-image-wrapper", "#image-upload-wrapper"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "<div class=\"tour-guide-info-title\">Das wars!</div><div class=\"tour-guide-info-content\">Du bist nun ein ausgebildeter <b>MusicMagnet DJ</b>. Viel Spaß mit unserer App!</div>",
-                "positionCss": "top::400px::height::40vh"
+                "content": "<div class=\"tour-guide-info-title\">Das wars!</div><div class=\"tour-guide-info-content\">Du bist nun ein ausgebildeter <b>MusicMagnet DJ</b>. Viel Spaß mit unserer App!</div><div class=\"quit-button\">Schließen</div>",
+                "positionCss": "top::320px::height::40vh"
             }
         }
     ]

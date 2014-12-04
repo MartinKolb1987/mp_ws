@@ -297,6 +297,12 @@ define([
             this.tourGuidePrevTarget.on('click', function(){
                 that.prev();
             });
+
+            // stop button
+            $('.quit-button').unbind('click');
+            $('.quit-button').on('click', function(){
+                that.stop();
+            });
         
         },
 

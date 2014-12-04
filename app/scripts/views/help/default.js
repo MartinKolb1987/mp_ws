@@ -36,7 +36,7 @@ define([
                     // --> data is selected in tour guide
                     TourGuide.fillTourData('uploadTrack', 'text');
                     // initialize tour with tour points and options
-                    TourGuide.init('text');
+                    TourGuide.init();
 
                     // trigger click event
                     $('#navigation > li > a[data-route=home]').click();

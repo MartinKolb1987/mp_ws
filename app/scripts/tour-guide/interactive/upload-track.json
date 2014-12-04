@@ -57,7 +57,7 @@
             "elements": ["#last-filled-playlist", "#browse-playlist"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "<div class=\"tour-guide-info-title\">Geschafft :) !</div><div class=\"tour-guide-info-content\">Du kannst nun einen weiteren <b>Musiktitel</b> hochladen!</div>",
+                "content": "<div class=\"tour-guide-info-title\">Geschafft :) !</div><div class=\"tour-guide-info-content\">Klicke nun auf <b>nächstes Kapitel</b> um im Tutorial fort zu fahren!</div>",
                 "positionCss": "top::50px::height::30vh"
             }
         }
