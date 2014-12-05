@@ -151,7 +151,6 @@ define([
             checkFile: function(inputField){
                 var allowedFileTypes = ['audio/mpeg', 'audio/x-mpeg', 'audio/x-mpeg-3', 'audio/mp3', 'audio/mp4', 'audio/m4a', 'video/ogg', 'audio/ogg', 'audio/opus', 'audio/vorbis', 'audio/vnd.wav', 'audio/wav', 'audio/x-wav', 'audio/webm', 'audio/aiff', 'audio/x-aiff'];
                 var fileType = inputField[0].files[0].type;
-
                 // check if file type is allowed
                 if($.inArray(fileType, allowedFileTypes) >= 0){
                     return true;

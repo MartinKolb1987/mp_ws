@@ -26,7 +26,7 @@
             "content": "%from% / %to%"
         },
         
-        "fadeInTourGuide": true,
+        "fadeInTourGuide": false,
         "fadeInTourGuideTime": 1000,
         "fadeOutTourGuide": false,
         
