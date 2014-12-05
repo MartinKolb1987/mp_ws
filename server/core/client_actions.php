@@ -151,12 +151,12 @@ function uploadFile($type, $file, $route){
 
         // write currently playing track id into txt
         // no db used, because of the high request rate during "is user view up to date"
-        $currentDjUserIp = currentDjUserIp();
-        echo $currentDjUserIp;
-        echo $clientIp;
-        if($currentDjUserIp === $clientIp){
-            $createTxtFile = createTxtFile('djImage', $wholeImagePath);
-        }
+        // $currentDjUserIp = currentDjUserIp();
+        // echo $currentDjUserIp;
+        // echo $clientIp;
+        // if($currentDjUserIp === $clientIp){
+        //     $createTxtFile = createTxtFile('djImage', $wholeImagePath);
+        // }
         return '{"route":"' .  $route . '", "type": "' . $type . '","userImage":{"url":"' . $wholeImagePath . '"}}';
     }
     
@@ -311,6 +311,11 @@ function getCurrentMusicplayerInfo($route, $type, $websocketClientIp = ''){
     // $content = '';
     // $trackId = '';
     // $djImage = '';
+    $getUserQuery = '';
+    $getUserArray = '';
+    $currentDjImage = '';
+    $currentTrackId = '';
+    $currentDjImagePath = '';
 
     if($route === 'home'){
 

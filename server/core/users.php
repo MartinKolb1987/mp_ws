@@ -239,10 +239,10 @@ function deleteUserImage($route, $type, $websocketClientIp = '') {
     
     // set dj image default
     // --> otherwise auto update doesn‘t work correct
-    $currentDjUserIp = currentDjUserIp();
-    if($currentDjUserIp === $clientIp){
-        $createTxtFile = createTxtFile('djImage', $defaultImagePath);
-    }
+    // $currentDjUserIp = currentDjUserIp();
+    // if($currentDjUserIp === $clientIp){
+    //     $createTxtFile = createTxtFile('djImage', $defaultImagePath);
+    // }
 
     // close db
     $db->close();
