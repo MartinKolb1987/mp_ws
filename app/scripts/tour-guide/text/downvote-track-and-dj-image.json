@@ -15,11 +15,11 @@
         },
         "tourGuideNext": {
             "target": "#tour-guide-next",
-            "content": ">"
+            "content": "<div class=\"tour-guide-next-button\">></div>"
         },
         "tourGuidePrev": {
             "target": "#tour-guide-prev",
-            "content": "<"
+            "content": "<div class=\"tour-guide-next-button\"><</div>"
         },
         "tourGuidePagination": {
             "target": "#tour-guide-pagination",
@@ -54,21 +54,21 @@
         {
             "info": {
                 "target": "#tour-guide-info",
-                "content": "<div class=\"text-tour-guide-info-title\">Schritt 3</div><div class=\"text-tour-guide-info-content\">Auf der Einstellungsseite kannst du dir ein Bild auswählen, indem du auf den <span class=\"span-yellow\">Browse Knopf</span> unterhalb der leeren Bildfläche klickst.<img src=\"images/downvote_step3.png\">",
+                "content": "<div class=\"text-tour-guide-info-title\">Schritt 3</div><div class=\"text-tour-guide-info-content\">Auf der Einstellungsseite kannst du dir ein Bild auswählen, indem du auf den <span class=\"span-yellow\">Browse Knopf</span> unterhalb der leeren Bildfläche klickst.<br><img src=\"images/downvote_step3.png\">",
                 "positionCss": "top::50px::height::80vh"
             }
         },
         {
             "info": {
                 "target": "#tour-guide-info",
-                "content": "<div class=\"text-tour-guide-info-title\">Schritt 4</div><div class=\"text-tour-guide-info-content\">Nachdem du ein Bild ausgewählt hast lädst du es mit einem Klick auf den <span class=\"span-yellow\">Upload Knopf</span> auf den MusicMagnet Tower. Das Bild wird beim Abmelden am System gelöscht.<img src=\"images/downvote_step4.png\">",
+                "content": "<div class=\"text-tour-guide-info-title\">Schritt 4</div><div class=\"text-tour-guide-info-content\">Nachdem du ein Bild ausgewählt hast lädst du es mit einem Klick auf den <span class=\"span-yellow\">Upload Knopf</span> auf den MusicMagnet Tower. Das Bild wird beim Abmelden am System gelöscht.<br> <img src=\"images/downvote_step4.png\">",
                 "positionCss": "top::50px::height::80vh"
             }
         },
         {
             "info": {
                 "target": "#tour-guide-info",
-                "content": "<div class=\"text-tour-guide-info-title\">Das wars!</div><div class=\"text-tour-guide-info-content\"><img src=\"images/downvote_step5.png\">Gratulation! Du bist nun ein voll trainierter <b>MusicMagnet DJ</b>. Viel Spaß mit unserer App!",
+                "content": "<div class=\"text-tour-guide-info-title\">Das wars!</div><div class=\"text-tour-guide-info-content\"><img src=\"images/downvote_step5.png\"><br>Gratulation! Du bist nun ein voll trainierter <b>MusicMagnet DJ</b>. Viel Spaß mit unserer App!<div class=\"tour-guide-quit-button\">Schließen</div>",
                 "positionCss": "top::50px::height::80vh"
             }
         }

@@ -111,14 +111,16 @@ function getTrackToPlay() {
         if ($nextBucketCount == 0) {
             //echo('error: there are no more buckets to play from.<br/>');
 
+            $db->exec("UPDATE users SET u_dj = 0, u_current_track = 0 WHERE u_dj = 1");
+
             // close db
             $db->close();
             unset($db);
 
             // set dj image and current track default
             // --> otherwise auto update doesn‘t work correct
-            $createTxtFile = createTxtFile('djImage', '../server/userdata/default.png');
-            $createTxtFile = createTxtFile('trackId', '0');
+            // $createTxtFile = createTxtFile('djImage', '../server/userdata/default.png');
+            // $createTxtFile = createTxtFile('trackId', '0');
 
             return 'empty';
         }
@@ -137,14 +139,16 @@ function getTrackToPlay() {
         if ($bucketTracksCount == 0) {
             // echo('error: the next bucket is empty.<br/>');
 
+            $db->exec("UPDATE users SET u_dj = 0, u_current_track = 0 WHERE u_dj = 1");
+
             // close db
             $db->close();
             unset($db);
 
             // set dj image and current track default
             // --> otherwise auto update doesn‘t work correct
-            $createTxtFile = createTxtFile('djImage', '../server/userdata/default.png');
-            $createTxtFile = createTxtFile('trackId', '0');
+            // $createTxtFile = createTxtFile('djImage', '../server/userdata/default.png');
+            // $createTxtFile = createTxtFile('trackId', '0');
 
             return 'empty';
         }
@@ -193,9 +197,17 @@ function getTrackToPlay() {
     // set the status of the random track to currently_playing
     $db->exec("UPDATE bucketcontents SET b_currently_playing = 1 WHERE t_id=$randomTrackId");
 
+    $db->exec("UPDATE users SET u_dj = 0, u_current_track = 0 WHERE u_dj = 1");
+
+    $userIPQuery = $db->query("SELECT u.u_ip FROM users u INNER JOIN tracks t ON u.u_ip = t.u_ip WHERE t.t_id = $randomTrackId");
+    $row = $userIPQuery->fetchArray(SQLITE3_ASSOC);
+    $userIP = $row['u_ip'];
+
+    $db->exec("UPDATE users SET u_dj = 1, u_current_track = $randomTrackId WHERE u_ip = $userIP");
+
     // write currently playing track id into txt
     // no db used, because of the high request rate during "is user view up to date"
-    $createTxtFile = createTxtFile('trackId', $randomTrackId);
+    // $createTxtFile = createTxtFile('trackId', $randomTrackId);
 
     // update user image
     $userImagePath = '';

@@ -28,7 +28,7 @@ $db->exec("PRAGMA foreign_keys = ON;");
 // create new tables
 echo('Creating new tables...<br/>');
 // users
-$db->exec("CREATE TABLE users (u_ip TEXT PRIMARY KEY, u_mac TEXT, u_picture TEXT)");
+$db->exec("CREATE TABLE users (u_ip TEXT PRIMARY KEY, u_mac TEXT, u_picture TEXT, u_dj INTEGER, u_current_track INTEGER)");
 // admin
 $db->exec("CREATE TABLE admins (u_ip TEXT REFERENCES users(u_ip), a_downvote_level INTEGER, a_internet_access INTEGER)");
 // tracks
@@ -46,7 +46,7 @@ echo('FINISHED Creating new tables...<br/>');
 
 if(isset($_GET['AddMockData'])){
 	// echo('inserting test data (incl. currently playing track)...<br/>');
-	// $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('127.0.0.1', 'd3-a2-54-69-3f-bb-24', 'default.png')");
+	// $db->exec("INSERT INTO users (u_ip, u_mac, u_picture, u_dj, u_current_track) VALUES ('127.0.0.1', 'd3-a2-54-69-3f-bb-24', 'default.png', 0, 1)");
 	// $db->exec("INSERT INTO admins (u_ip, a_downvote_level, a_internet_access) VALUES ('127.0.0.1', 50, 0)");
 	// $db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('127.0.0.1', '127.0.0.1/tracks/56464156.ogg', 'Klospülung', 'Mundwasser', 'album1', 210)");
 	// $db->exec("INSERT INTO buckets (b_is_active) VALUES (1)");
@@ -55,10 +55,10 @@ if(isset($_GET['AddMockData'])){
 }
 
 
-// $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('1.1.1.1', 'd3-a2-54-69-3f-bb-25', '1.1.1.1/user.png')");
-// $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('2.2.2.2', 'd3-a2-54-69-3f-bb-26', '2.2.2.2/user.png')");
-// $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('3.3.3.3', 'd3-a2-54-69-3f-bb-27', '3.3.3.3/user.png')");
-// $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('4.4.4.4', 'd3-a2-54-69-3f-bb-28', '4.4.4.4/user.png')");
+// $db->exec("INSERT INTO users (u_ip, u_mac, u_picture, u_dj, u_current_track) VALUES ('1.1.1.1', 'd3-a2-54-69-3f-bb-25', '1.1.1.1/user.png', 0, 0)");
+// $db->exec("INSERT INTO users (u_ip, u_mac, u_picture, u_dj, u_current_track) VALUES ('2.2.2.2', 'd3-a2-54-69-3f-bb-26', '2.2.2.2/user.png', 1, 2)");
+// $db->exec("INSERT INTO users (u_ip, u_mac, u_picture, u_dj, u_current_track) VALUES ('3.3.3.3', 'd3-a2-54-69-3f-bb-27', '3.3.3.3/user.png', 0, 0)");
+// $db->exec("INSERT INTO users (u_ip, u_mac, u_picture, u_dj, u_current_track) VALUES ('4.4.4.4', 'd3-a2-54-69-3f-bb-28', '4.4.4.4/user.png', 0, 0)");
 
 // // insert - tracks
 // $db->exec("INSERT INTO tracks (u_ip, t_filename, t_artist, t_title, t_album, t_length) VALUES ('2.2.2.2', '2.2.2.2/56464156.ogg', 'Klospülung', 'Mundwasser', 'album1', 210)");

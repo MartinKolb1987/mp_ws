@@ -299,8 +299,8 @@ define([
             });
 
             // stop button
-            $('.quit-button').unbind('click');
-            $('.quit-button').on('click', function(){
+            $('.tour-guide-quit-button').unbind('click');
+            $('.tour-guide-quit-button').on('click', function(){
                 that.stop();
             });
         
