@@ -149,14 +149,6 @@ function uploadFile($type, $file, $route){
         $path = setPicture($newFilePath);
         $wholeImagePath = '../server/userdata/'. $path;
 
-        // write currently playing track id into txt
-        // no db used, because of the high request rate during "is user view up to date"
-        // $currentDjUserIp = currentDjUserIp();
-        // echo $currentDjUserIp;
-        // echo $clientIp;
-        // if($currentDjUserIp === $clientIp){
-        //     $createTxtFile = createTxtFile('djImage', $wholeImagePath);
-        // }
         return '{"route":"' .  $route . '", "type": "' . $type . '","userImage":{"url":"' . $wholeImagePath . '"}}';
     }
     
@@ -299,18 +291,6 @@ function getUserImage($route, $type, $websocketClientIp = '') {
  * decide which data is maybe needed (client side)
  */
 function getCurrentMusicplayerInfo($route, $type, $websocketClientIp = ''){
-    // global $clientIp;
-    // global $currentlyPlayingTrackIdPath;
-    // global $currentlyPlayingDjImagePath;
-
-    // // take client ip from websocket
-    // if(empty($websocketClientIp) === false){
-    //     $clientIp = $websocketClientIp;
-    // }
-  
-    // $content = '';
-    // $trackId = '';
-    // $djImage = '';
     $getUserQuery = '';
     $getUserArray = '';
     $currentDjImage = '';
@@ -331,20 +311,6 @@ function getCurrentMusicplayerInfo($route, $type, $websocketClientIp = ''){
         // close db
         $db->close();
         unset($db);
-
-        // // if txt files dont exists
-        // // --> create them
-        // if(file_exists($currentlyPlayingTrackIdPath) === false || file_exists($currentlyPlayingDjImagePath) === false){
-        //     $crtTxtFile = createTxtFile('trackId', '0'); 
-        //     chmod($currentlyPlayingTrackIdPath, 0777);
-        //     $crtTxtFile = createTxtFile('djImage', '../server/userdata/default.png');
-        //     chmod($currentlyPlayingDjImagePath, 0777);
-        // }
-        
-        // // get currently playing music track id
-        // $trackId = trim(file_get_contents($currentlyPlayingTrackIdPath));
-        // // get currently playing dj image
-        // $djImage = trim(file_get_contents($currentlyPlayingDjImagePath));
 
         if($currentTrackId > 0){
             $content = '{"route":"' .  $route . '", "type": "' . $type . '","currentlyPlayingTrackId": ' . $currentTrackId . ', "currentlyPlayingDjImage": "' . $currentDjImagePath . '"}';

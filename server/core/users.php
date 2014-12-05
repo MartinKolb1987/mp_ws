@@ -130,7 +130,7 @@ function createUser($currentIP) {
     // $macAddress = getClientMAC($currentIP);
     
     // insert data
-    $db->exec("INSERT INTO users (u_ip, u_mac, u_picture) VALUES ('$currentIP', ' $macAddress', 'default.png')");
+    $db->exec("INSERT INTO users (u_ip, u_mac, u_picture, u_dj, u_current_track) VALUES ('$currentIP', ' $macAddress', 'default.png', 0, 0)");
 
     if ($userCount === -1) {
         $db->exec("INSERT INTO admins (u_ip, a_downvote_level, a_internet_access) VALUES ('$currentIP', 50, 0)");
@@ -237,13 +237,6 @@ function deleteUserImage($route, $type, $websocketClientIp = '') {
     $db->exec("UPDATE users SET u_picture = 'default.png' WHERE u_ip='$clientIp'");
     $defaultImagePath = '../server/userdata/default.png';
     
-    // set dj image default
-    // --> otherwise auto update doesn‘t work correct
-    // $currentDjUserIp = currentDjUserIp();
-    // if($currentDjUserIp === $clientIp){
-    //     $createTxtFile = createTxtFile('djImage', $defaultImagePath);
-    // }
-
     // close db
     $db->close();
     unset($db);
