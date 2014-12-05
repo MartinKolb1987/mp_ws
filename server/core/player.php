@@ -180,10 +180,12 @@ function getTrackToPlay() {
 
     // get the u_ip and t_filename from the random track
     $randomTrackFilename;
-    $randomTrackQuery = $db->query("SELECT t_filename FROM tracks WHERE t_id = $randomTrackId");
+    $randomTrackUserIp;
+    $randomTrackQuery = $db->query("SELECT t_filename, u_ip FROM tracks WHERE t_id = $randomTrackId");
 
     while ($row = $randomTrackQuery->fetchArray(SQLITE3_ASSOC)) {
         $randomTrackFilename = $row['t_filename'];
+        $randomTrackUserIp = $row['u_ip'];
     }
 
     //echo ('next song to be played: --- t_id: '.$randomTrackId.' - t_filename: '.$randomTrackFilename.'<br/>');
@@ -194,6 +196,15 @@ function getTrackToPlay() {
     // write currently playing track id into txt
     // no db used, because of the high request rate during "is user view up to date"
     $createTxtFile = createTxtFile('trackId', $randomTrackId);
+
+    // update user image
+    $userImagePath = '';
+    $userImageQuery = $db->query("SELECT u_picture FROM users WHERE u_ip = $randomTrackUserIp");
+    while ($row = $userImageQuery->fetchArray(SQLITE3_ASSOC)) {
+        $userImagePath = $row['u_picture'];
+    }
+    $userImagePath = '../server/userdata/' . $userImagePath;
+    $createTxtFile = createTxtFile('djImage', $userImagePath);
 
     // close db
     $db->close();

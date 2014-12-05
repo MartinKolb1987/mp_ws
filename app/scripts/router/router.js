@@ -121,6 +121,9 @@ define([
             var lang = window.navigator.userLanguage || window.navigator.language;
             lang = lang.substr(0, 2).toLowerCase();
             this.translateCurrentView(lang);
+
+            // set language in data handler
+            DataHandler.currentLanguage = lang;
         },
 
         translateCurrentView: function(lang){

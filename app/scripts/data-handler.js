@@ -1,9 +1,10 @@
 define([
     'error',
     'debug',
+    'translation',
     'componentCollection',
     'tourGuide'
-], function(ErrorHandler, DebugHandler, ComponentCollection, TourGuide) {
+], function(ErrorHandler, DebugHandler, TranslationHandler, ComponentCollection, TourGuide) {
     'use strict';
 
     var dataHandler = {
@@ -14,7 +15,7 @@ define([
         
         // websocket
         websocketHost: 'ws://localhost:54321',
-        checkForNewUpdatesIntervalTimeWebsocket: 500, // milliseconds
+        checkForNewUpdatesIntervalTimeWebsocket: 2000, // milliseconds
         
         // xhr
         regularHost: '../server/core/client.php',
@@ -28,6 +29,8 @@ define([
         // state variables – just for music system info
         // --> what track is playing, how looks user playlist, etc.
         // ------------------------------------------------------------
+
+        currentLanguage: 'de', // router takes care of it and set default lang based on browser language
 
         // websocket
         isWebsocketActive: false,
@@ -259,6 +262,7 @@ define([
             this.sendData(route, 'getCurrentlyPlaying'); // route = 'home', type = currentlyPlaying, data = ''
         },
 
+
         distributeCurrentlyPlayingTrack: function(data, view){
             var that = this;
             view.route = data.route;
@@ -266,13 +270,20 @@ define([
             
             // if no data exists 
             // --> just let the translations handler do the job (it‘s automatically)
-            if(data.info.currentlyPlaying.title) { 
+            if(data.info.currentlyPlaying.title){
                 view.album = data.info.currentlyPlaying.album;
                 view.title = data.info.currentlyPlaying.title;
                 view.artist = data.info.currentlyPlaying.artist;
                 view.length = data.info.currentlyPlaying.length;
+            } else {
+                TranslationHandler.translate(that.currentLanguage, view);
             }
-            
+
+            // client music player system info
+            this.lastPlayedTrackId = this.currentlyPlayingTrackId;
+            this.currentlyPlayingTrackId = data.info.currentlyPlaying.id;
+            this.currentlyPlayingDjImage = data.info.currentlyPlaying.image;
+
             // dj image and states
             setTimeout(function(){
                 view.djImageInfoStateClass = 'hide';
@@ -285,7 +296,7 @@ define([
             view.internetAccess = data.info.status.internetAccess;
 
             // check if user has already downvoted current track
-            if(data.info.currentlyPlaying.downvote === 1 || data.info.currentlyPlaying.id === 0){
+            if(data.info.currentlyPlaying.downvote === 1 || data.info.currentlyPlaying.id === -1){
                 view.downvoteActiveStateClass = '';
                 view.downvoteDisabledStateClass = 'disabled';
             } else {
@@ -293,10 +304,33 @@ define([
                 view.downvoteDisabledStateClass = '';
             }
 
-            // client music player system info
-            this.lastPlayedTrackId = this.currentlyPlayingTrackId;
-            this.currentlyPlayingTrackId = data.info.currentlyPlaying.id;
-            this.currentlyPlayingDjImage = data.info.currentlyPlaying.image;
+        },
+
+        changeDjImage: function(view, dataCurrentlyPlayingDjImage){
+            var that = this;
+
+            if(this.autoChangeDjImage === true){
+
+                // if(view.imageOne !== this.currentlyPlayingDjImage){
+                    view.imageOne = dataCurrentlyPlayingDjImage;
+                    // view.djImageStateClassTwo = 'inactive';
+                    setTimeout(function(){
+                        view.djImageStateClassOne = 'active';
+                    }, that.currentlyPlayingDjImageChangeTimeout - 300);
+                
+                // } else {
+                //     view.imageTwo = dataCurrentlyPlayingDjImage;
+                //     view.djImageStateClassOne = 'inactive';
+                //     setTimeout(function(){
+                //         view.djImageStateClassTwo = 'active';
+                //     }, that.currentlyPlayingDjImageChangeTimeout - 300);
+                
+                // }
+            
+                this.autoChangeDjImage = false;
+            
+            }
+            this.currentlyPlayingDjImage = dataCurrentlyPlayingDjImage;
         },
 
         // get user uploaded playlist
@@ -490,7 +524,10 @@ define([
             // interval
             clearInterval(this.checkForNewUpdatesInterval);
             this.checkForNewUpdatesInterval = setInterval(function(){
-                that.sendData(route, 'checkForNewUpdates'); // route = 'home', type = checkForNewUpdates, data = ''
+                // only do auto update if no tour guide mode is active
+                if(TourGuide.getTourGuideState() !== true){
+                    that.sendData(route, 'checkForNewUpdates'); // route = 'home', type = checkForNewUpdates, data = ''
+                }
             }, interval);
 
         },
@@ -503,9 +540,9 @@ define([
 
             switch(route){
                 case 'home':
-
+                    
                     // if it‘s not equal, just start an update request
-                    if(data.currentlyPlayingTrackId !== this.currentlyPlayingTrackId){
+                    if(parseInt(data.currentlyPlayingTrackId, 2) !== parseInt(this.currentlyPlayingTrackId, 2)){
                         if(DebugHandler.isActive){ console.log('Auto update track id: ' + this.readyState); }
     
                         // refresh currently playing track
@@ -528,6 +565,8 @@ define([
                                 }, 1000);
                             }
                         }
+
+                        this.currentlyPlayingTrackId = data.currentlyPlayingTrackId;
     
                     }
 
@@ -631,29 +670,8 @@ define([
             }
 
             return checkedData;
-        },
-
-        changeDjImage: function(view, dataCurrentlyPlayingDjImage){
-            var that = this;
-
-            if(this.autoChangeDjImage === true){
-                if(view.imageOne !== this.currentlyPlayingDjImage){
-                    view.imageOne = dataCurrentlyPlayingDjImage;
-                    view.djImageStateClassTwo = 'inactive';
-                    setTimeout(function(){
-                        view.djImageStateClassOne = 'active';
-                    }, that.currentlyPlayingDjImageChangeTimeout - 300);
-                } else {
-                    view.imageTwo = dataCurrentlyPlayingDjImage;
-                    view.djImageStateClassOne = 'inactive';
-                    setTimeout(function(){
-                        view.djImageStateClassTwo = 'active';
-                    }, that.currentlyPlayingDjImageChangeTimeout - 300);
-                }
-                this.autoChangeDjImage = false;
-            }
-            this.currentlyPlayingDjImage = dataCurrentlyPlayingDjImage;
         }
+
 
     };
 

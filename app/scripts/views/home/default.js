@@ -151,7 +151,7 @@ define([
             checkFile: function(inputField){
                 var allowedFileTypes = ['audio/mpeg', 'audio/x-mpeg', 'audio/x-mpeg-3', 'audio/mp3', 'audio/mp4', 'audio/m4a', 'video/ogg', 'audio/ogg', 'audio/opus', 'audio/vorbis', 'audio/vnd.wav', 'audio/wav', 'audio/x-wav', 'audio/webm', 'audio/aiff', 'audio/x-aiff'];
                 var fileType = inputField[0].files[0].type;
-                
+
                 // check if file type is allowed
                 if($.inArray(fileType, allowedFileTypes) >= 0){
                     return true;
@@ -220,7 +220,11 @@ define([
             },
 
             downvoteTrack: function(trackId){
-                TourGuide.next(); // remove it after styling
+                // check if currently playing track exists
+                // --> otherwise trigger next tour point manually
+                if(DataHandler.currentlyPlayingTrackId < 1){
+                    TourGuide.next();
+                }
                 if(this.$data.downvoteActiveStateClass === 'active'){
                     DataHandler.downvoteTrack(trackId);
                 }

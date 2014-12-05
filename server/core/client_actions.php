@@ -152,6 +152,8 @@ function uploadFile($type, $file, $route){
         // write currently playing track id into txt
         // no db used, because of the high request rate during "is user view up to date"
         $currentDjUserIp = currentDjUserIp();
+        echo $currentDjUserIp;
+        echo $clientIp;
         if($currentDjUserIp === $clientIp){
             $createTxtFile = createTxtFile('djImage', $wholeImagePath);
         }
@@ -177,13 +179,14 @@ function getCurrentlyPlaying($route, $type, $websocketClientIp = '') {
     $db = new ClientDB();
 
     // get currently playing track meta data 
-    $currentlyPlayingQuery = $db->query("SELECT b.t_id, t.t_artist, t.t_title, t.t_album, t.t_length, u.u_picture FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id INNER JOIN users u ON t.u_ip = u.u_ip WHERE b.b_currently_playing=1");
+    $currentlyPlayingQuery = $db->query("SELECT b.t_id, t.t_artist, t.t_title, t.t_album, t.t_length, t.u_ip, u.u_picture FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id INNER JOIN users u ON t.u_ip = u.u_ip WHERE b.b_currently_playing=1");
     $currentlyPlayingArray = $currentlyPlayingQuery->fetchArray(SQLITE3_ASSOC);
     $currentTrack = $currentlyPlayingArray['t_id'];
     $currentArtist = $currentlyPlayingArray['t_artist'];
     $currentTitle = $currentlyPlayingArray['t_title'];
     $currentAlbum = $currentlyPlayingArray['t_album'];
     $currentLength = $currentlyPlayingArray['t_length'];
+    $currentlyPlayingUserIp = $currentlyPlayingArray['u_ip'];
 
     // user downvote check
     if(empty($currentTrack) == false) {
@@ -199,7 +202,7 @@ function getCurrentlyPlaying($route, $type, $websocketClientIp = '') {
     $userCount = getActiveUsers();
     
     // get user picture
-    $getUserPictureQuery = $db->query("SELECT u_picture FROM users WHERE u_ip = '$clientIp' LIMIT 1");
+    $getUserPictureQuery = $db->query("SELECT u_picture FROM users WHERE u_ip = '$currentlyPlayingUserIp' LIMIT 1");
     $getUserPictureArray = $getUserPictureQuery->fetchArray(SQLITE3_ASSOC);
     $userPicture = $getUserPictureArray['u_picture'];
     $userPicture = '../server/userdata/'. $userPicture;
@@ -219,7 +222,7 @@ function getCurrentlyPlaying($route, $type, $websocketClientIp = '') {
         return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":' . $currentTrack . ',"artist":"' . $currentArtist . '","title":"' . $currentTitle . '","album":"' . $currentAlbum . '","length":' . $currentLength . ',"image":"' . $userPicture . '","downvote":' . $currentlyPlayingDownvote . '},"status":{"users":"' . $userCount . '","internetAccess":' . $getInternetAccess . '}}}';
     } else {
         // show no track is playing
-        return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":0,"artist":false,"title":false,"album":false,"length":false,"image":"../server/userdata/default.png","downvote":0},"status":{"users":"' . $userCount . '","internetAccess":' . $getInternetAccess . '}}}';
+        return '{"route":"' .  $route . '", "type": "' . $type . '","info":{"currentlyPlaying":{"id":-1,"artist":false,"title":false,"album":false,"length":false,"image":"../server/userdata/default.png","downvote":0},"status":{"users":"' . $userCount . '","internetAccess":' . $getInternetAccess . '}}}';
     }
 }
 
@@ -296,36 +299,54 @@ function getUserImage($route, $type, $websocketClientIp = '') {
  * decide which data is maybe needed (client side)
  */
 function getCurrentMusicplayerInfo($route, $type, $websocketClientIp = ''){
-    global $clientIp;
-    global $currentlyPlayingTrackIdPath;
-    global $currentlyPlayingDjImagePath;
+    // global $clientIp;
+    // global $currentlyPlayingTrackIdPath;
+    // global $currentlyPlayingDjImagePath;
 
-    // take client ip from websocket
-    if(empty($websocketClientIp) === false){
-        $clientIp = $websocketClientIp;
-    }
+    // // take client ip from websocket
+    // if(empty($websocketClientIp) === false){
+    //     $clientIp = $websocketClientIp;
+    // }
   
-    $content = '';
-    $trackId = '';
-    $djImage = '';
+    // $content = '';
+    // $trackId = '';
+    // $djImage = '';
 
     if($route === 'home'){
 
-        // if txt files dont exists
-        // --> create them
-        if(file_exists($currentlyPlayingTrackIdPath) === false || file_exists($currentlyPlayingDjImagePath) === false){
-            $crtTxtFile = createTxtFile('trackId', '0'); 
-            chmod($currentlyPlayingTrackIdPath, 0777);
-            $crtTxtFile = createTxtFile('djImage', '../server/userdata/default.png');
-            chmod($currentlyPlayingDjImagePath, 0777);
-        }
-        
-        // get currently playing music track id
-        $trackId = trim(file_get_contents($currentlyPlayingTrackIdPath));
-        // get currently playing dj image
-        $djImage = trim(file_get_contents($currentlyPlayingDjImagePath));
+        // initialize database
+        $db = new ClientDB();
 
-        $content = '{"route":"' .  $route . '", "type": "' . $type . '","currentlyPlayingTrackId": ' . $trackId . ', "currentlyPlayingDjImage": "' . $djImage . '"}';
+        $getUserQuery = $db->query("SELECT u_picture, u_current_track FROM users WHERE u_dj = 1");
+        $getUserArray = $getUserQuery->fetchArray(SQLITE3_ASSOC);
+        $currentDjImage = $getUserArray['u_picture'];
+        $currentTrackId = $getUserArray['u_current_track'];
+        $currentDjImagePath = '../server/userdata/' . $currentDjImage;
+
+        // close db
+        $db->close();
+        unset($db);
+
+        // // if txt files dont exists
+        // // --> create them
+        // if(file_exists($currentlyPlayingTrackIdPath) === false || file_exists($currentlyPlayingDjImagePath) === false){
+        //     $crtTxtFile = createTxtFile('trackId', '0'); 
+        //     chmod($currentlyPlayingTrackIdPath, 0777);
+        //     $crtTxtFile = createTxtFile('djImage', '../server/userdata/default.png');
+        //     chmod($currentlyPlayingDjImagePath, 0777);
+        // }
+        
+        // // get currently playing music track id
+        // $trackId = trim(file_get_contents($currentlyPlayingTrackIdPath));
+        // // get currently playing dj image
+        // $djImage = trim(file_get_contents($currentlyPlayingDjImagePath));
+
+        if($currentTrackId > 0){
+            $content = '{"route":"' .  $route . '", "type": "' . $type . '","currentlyPlayingTrackId": ' . $currentTrackId . ', "currentlyPlayingDjImage": "' . $currentDjImagePath . '"}';
+        } else {
+            $content = '{"route":"' .  $route . '", "type": "' . $type . '","currentlyPlayingTrackId": -1, "currentlyPlayingDjImage": "../server/userdata/default.png"}';
+        }
+
     }
 
     return $content;
