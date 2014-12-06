@@ -639,7 +639,7 @@ define([
                 that.currentlyClientSideUploadingTrack = true;
 
                 if(type === 'uploadUserImage' || type === 'uploadUserTrack'){
-                    view.triggerUploadFileStateClass = 'hide';
+                    view.displayUploadClass = 'hide';
                     
                     if (procent < 98){
                         $(data[1]).css('width', procent + '%');
