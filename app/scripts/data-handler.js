@@ -524,10 +524,7 @@ define([
             // interval
             clearInterval(this.checkForNewUpdatesInterval);
             this.checkForNewUpdatesInterval = setInterval(function(){
-                // only do auto update if no tour guide mode is active
-                if(TourGuide.getTourGuideState() !== true){
-                    that.sendData(route, 'checkForNewUpdates'); // route = 'home', type = checkForNewUpdates, data = ''
-                }
+                that.sendData(route, 'checkForNewUpdates'); // route = 'home', type = checkForNewUpdates, data = ''
             }, interval);
 
         },
@@ -540,16 +537,18 @@ define([
 
             switch(route){
                 case 'home':
-                    
                     // if it‘s not equal, just start an update request
-                    if(parseInt(data.currentlyPlayingTrackId, 2) !== parseInt(this.currentlyPlayingTrackId, 2)){
+                    if(data.currentlyPlayingTrackId !== this.currentlyPlayingTrackId){
+
                         if(DebugHandler.isActive){ console.log('Auto update track id: ' + this.readyState); }
-    
+
                         // refresh currently playing track
                         this.getCurrentlyPlayingTrack(route);
     
-                        // check if track is in user playlist
-                        if(this.currentClientSidePlaylist.indexOf(1) >= 0){
+                        // only do auto update user playlist if no tour guide mode is active
+                        if(TourGuide.getTourGuideState() !== true){
+
+                            // check if user is uploading a track
                             if(this.currentlyClientSideUploadingTrack === false){
                                 // refresh user playlist 
                                 this.getUserPlaylist(route);
@@ -564,9 +563,11 @@ define([
                                     }
                                 }, 1000);
                             }
+
                         }
 
-                        this.currentlyPlayingTrackId = data.currentlyPlayingTrackId;
+
+                        that.currentlyPlayingTrackId = data.currentlyPlayingTrackId;
     
                     }
 

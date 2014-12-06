@@ -210,7 +210,6 @@ define([
                 $('#tour-guide-overlay').show();
             }
 
-            console.log('start tour');
             this.renderTourPointView();
         },
 
@@ -299,8 +298,9 @@ define([
             });
 
             // stop button
-            $('.tour-guide-quit-button').unbind('click');
-            $('.tour-guide-quit-button').on('click', function(){
+            var tourGuideButtonQuit = $('.tour-guide-quit-button');
+            tourGuideButtonQuit.unbind('click');
+            tourGuideButtonQuit.on('click', function(){
                 that.stop();
             });
         
@@ -308,6 +308,9 @@ define([
 
         // helper functions
         // --------------------------
+
+        afterCareHighligthElementTimeout: {},
+
         renderTourPointView: function(){
             var that = this;
             var currentTourPointData = this.tourPoints[that.currentTourPoint];
@@ -399,11 +402,29 @@ define([
             // -----------------------------------
             this.highlightElements(currentTourPointData);
 
+
             // set all needed click events
             // -----------------------------------
             this.setEventlistener();
 
+            // check if all needed elements are
+            // highlighted
+            // -----------------------------------
+            clearTimeout(that.afterCareHighligthElementTimeout);
+            this.afterCareHighligthElementTimeout = setTimeout(function(){
+                if(currentTourPointData.elements !== undefined){
+                    if($('.tour-guide-highlight-element').length === 0){
+                        that.renderTourPointView();
+                    } else {
+                        clearTimeout(that.afterCareHighligthElementTimeout);
+                    }
+                }
+            }, 500);
+
         },
+
+        highlightElementOutterTimeout: {},
+        highlightElementInnerTimeout: {},
 
         highlightElements: function(currentTourPointData){
             var that = this;
@@ -421,6 +442,8 @@ define([
             var hintElement = $('#tour-guide-hint');
             var setHintTime = 0;
             var queue = [];
+            clearTimeout(this.highlightElementOutterTimeout);
+            clearTimeout(this.highlightElementInnerTimeout);
 
             // find all highlighted elements and remove class
             $('.tour-guide-highlight-element').removeClass('tour-guide-highlight-element');
@@ -435,7 +458,7 @@ define([
                     queue.push(highlightElementData);
                 });
 
-                setTimeout(function(){
+                this.highlightElementOutterTimeout = setTimeout(function(){
                     
                     $.each(queue, function(key, value){
                         
@@ -462,7 +485,7 @@ define([
 
                             // user playlist is rendering
                             // give it some time
-                            setTimeout(function(){
+                            that.highlightElementInnerTimeout = setTimeout(function(){
                                 var offset = $(element).offset();
                                 // console.log(offset);
                                 if(offset !== null || offset !== ''){
