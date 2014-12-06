@@ -83,6 +83,9 @@ define([
                 var inputField = $(e.target).parents('#upload-wrapper').find('#upload-file-field');
                 this.$data.browsePlaylistFilltext = inputField.parents('#upload-wrapper').siblings('.line-wrapper').children('.line-title').text();
                 
+                // check if tour guide is active and if already uploaded a track by tour guide user
+                if(this.preventClickEventsDuringTourGuideIsActive() === true){ return false; }
+
                 // open file browser
                 inputField.trigger('click');
                 
@@ -163,6 +166,9 @@ define([
             swapUserTrack: function(key, direction, el){
                 var swapButton = $(el.$el);
 
+                // check if tour guide is active and if already uploaded a track by tour guide user
+                if(this.preventClickEventsDuringTourGuideIsActive() === true){ return false; }
+
                 if (this.$data.deleteAction === false){
 
                     if (swapButton.hasClass('playlist-button-active') || direction === 'up'){
@@ -185,6 +191,10 @@ define([
             },
 
             deleteUserTrack: function(el, tId){
+
+                // check if tour guide is active and if already uploaded a track by tour guide user
+                if(this.preventClickEventsDuringTourGuideIsActive() === true){ return false; }
+
                 if (this.$data.deleteAction === false){
                     var that = this;
                     var deleteButton = $(el.$el);
@@ -269,6 +279,18 @@ define([
                     }
                 } else {
                     findClickElement.click();
+                }
+            },
+
+            preventClickEventsDuringTourGuideIsActive: function(){
+                // check if tour guide is active and if already uploaded a track by tour guide user
+                if(TourGuide.getTourGuideState() === true){
+                    if($('#last-filled-playlist').hasClass('tour-guide-highlight-element') === true){
+                        alert('Diese Funktion ist im TourGuide-Modus nicht möglich, bitte klicke auf "nächstes Kapitel".');
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
             }
         }
