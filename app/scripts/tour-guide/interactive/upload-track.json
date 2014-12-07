@@ -31,7 +31,7 @@
         "fadeOutTourGuide": false,
         
         "preloadNextTourGuide": "downvoteTrackAndDjImage",
-        "nextTourGuideButtonContent": "Next Chapter",
+        "nextTourGuideButtonContent": "<div class=\"next-button\">Nächstes Kapitel</div>",
 
         "tourGuideHint": "#tour-guide-hint",
         "tourGuideHintFadeInTime": 150

@@ -260,16 +260,26 @@ html[xmlns] .clearfix {
                     padding: 10px 0 0 20px;
                 }
 
-                .tour-guide-quit-button{
-                    background-color: $btnColorDark;
-                    color: $white;
-                    margin: 20px auto;
-                    padding: 22px 0;
-                    height: 20px;
-                    text-align: center;
-                    width: 200px;
+                .tour-guide-quit-button-wrapper{
                     position: relative;
-                    @include skewedBorder(left, -13px, 0, 25px, $btnColorDark);
+                    width: 200px;
+                    margin: 0 auto;
+
+                    .tour-guide-quit-button{
+                        background-color: $btnColorDark;
+                        color: $white;
+                        margin: 15px auto 0;
+                        padding: 22px 0;
+                        height: 20px;
+                        text-align: center;
+                        width: 160px;
+                        position: relative;
+                        @include skewedBorder(left, -13px, 0, 25px, $btnColorDark);
+                    }
+
+                    .tour-guide-quit-button-right{
+                        @include skewedBorder(left, 167px, 0, 25px, $btnColorDark);
+                    }
                 }
 
                 .text-tour-guide-info-title{
@@ -345,7 +355,7 @@ html[xmlns] .clearfix {
             #tour-guide-pagination{
                 position: absolute;
                 left: 35vw;
-                right: 35vw;
+                right: 41vw;
                 bottom: 36px;
                 max-width: 30vw;
                 overflow: hidden;
@@ -429,6 +439,7 @@ body{
                 list-style-type: none;
                 height: $btnHeight;
                 background-color: $btnColorLight;
+
                 li{
                     float: left;
                     background-color: $btnColorMiddle;

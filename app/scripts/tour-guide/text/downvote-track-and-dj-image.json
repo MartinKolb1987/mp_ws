@@ -47,7 +47,7 @@
         {
             "info": {
                 "target": "#tour-guide-info",
-                "content": "<div class=\"text-tour-guide-info-title\">Schritt 2</div><div class=\"text-tour-guide-info-content\">Wenn du ein <b>eigenes DJ Bild</b> hochladen möchtest, welches beim Abspielen deines Liedes angezeigt wird, klicke auf die <span class=\"span-blue\">Bildfläche</span> auf der rechten Seite <br><img src=\"images/downvote_step2.png\"><br>Wenn dir das abgespielte Lied nicht gefällt klicke auf den <span class=\"span-yellow\">Downvote Knopf</span>. Dadurch wirst du auf die <b>Einstellungsseite</b> weitergeletet, mehr dazu aber im nächsten Schritt.",
+                "content": "<div class=\"text-tour-guide-info-title\">Schritt 2</div><div class=\"text-tour-guide-info-content\">Wenn du ein <b>eigenes DJ Bild</b> hochladen möchtest, welches beim Abspielen deines Liedes angezeigt wird, klicke auf die <span class=\"span-blue\">Bildfläche</span> auf der rechten Seite. <br><img src=\"images/downvote_step2.png\"><br>Wenn dir das abgespielte Lied nicht gefällt klicke auf den <span class=\"span-yellow\">Downvote Knopf</span>. Dadurch wirst du auf die <b>Einstellungsseite</b> weitergeletet, mehr dazu aber im nächsten Schritt.",
                 "positionCss": "top::50px::height::80vh"
             }
         },
@@ -61,7 +61,7 @@
         {
             "info": {
                 "target": "#tour-guide-info",
-                "content": "<div class=\"text-tour-guide-info-title\">Schritt 4</div><div class=\"text-tour-guide-info-content\">Nachdem du ein Bild ausgewählt hast lädst du es mit einem Klick auf den <span class=\"span-yellow\">Upload Knopf</span> auf den MusicMagnet Tower. Das Bild wird beim Abmelden am System gelöscht.<br> <img src=\"images/downvote_step4.png\">",
+                "content": "<div class=\"text-tour-guide-info-title\">Schritt 4</div><div class=\"text-tour-guide-info-content\">Nachdem du ein Bild ausgewählt hast, lädst du es mit einem Klick auf den <span class=\"span-yellow\">Upload Knopf</span> auf den MusicMagnet Tower. Das Bild wird beim Abmelden vom System gelöscht.<br> <img src=\"images/downvote_step4.png\">",
                 "positionCss": "top::50px::height::80vh"
             }
         },
