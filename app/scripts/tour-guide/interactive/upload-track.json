@@ -11,7 +11,7 @@
         },
         "tourGuideClose": {
             "target": "#tour-guide-close",
-            "content": "x"
+            "content": "<img src=\"images/delete.svg\">"
         },
         "tourGuideNext": {
             "target": "#tour-guide-next",

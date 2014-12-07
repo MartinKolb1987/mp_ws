@@ -11,15 +11,15 @@
         },
         "tourGuideClose": {
             "target": "#tour-guide-close",
-            "content": "x"
+            "content": "<img src=\"images/delete.svg\">"
         },
         "tourGuideNext": {
             "target": "#tour-guide-next",
-            "content": "<div class=\"tour-guide-next-button\"><img src=\"images/tutorial_next.svg\"></div>"
+            "content": "<div class=\"tour-guide-next-button\"><div class=\"next-button\"><img src=\"images/tutorial_next.svg\"></div></div>"
         },
         "tourGuidePrev": {
             "target": "#tour-guide-prev",
-            "content": "<div class=\"tour-guide-prev-button\"><img src=\"images/tutorial_back.svg\"></div>"
+            "content": "<div class=\"tour-guide-prev-button\"><div class=\"prev-button\"><img src=\"images/tutorial_back.svg\"></div></div>"
         },
         "tourGuidePagination": {
             "target": "#tour-guide-pagination",
@@ -31,7 +31,7 @@
         "fadeOutTourGuide": true,
 
         "preloadPrevTourGuide": "uploadTrack",
-        "prevTourGuideButtonContent": "Previous Chapter",
+        "prevTourGuideButtonContent": "<div class=\"prev-button\">Letztes Kapitel</div>",
 
         "tourGuideHint": "#tour-guide-hint",
         "tourGuideHintFadeInTime": 150
@@ -68,7 +68,7 @@
         {
             "info": {
                 "target": "#tour-guide-info",
-                "content": "<div class=\"text-tour-guide-info-title\">Das wars!</div><div class=\"text-tour-guide-info-content\"><img src=\"images/downvote_step5.png\"><br>Gratulation! Du bist nun ein voll trainierter <b>MusicMagnet DJ</b>. Viel Spaß mit unserer App!<div class=\"tour-guide-quit-button\">Schließen</div>",
+                "content": "<div class=\"text-tour-guide-info-title\">Das wars!</div><div class=\"text-tour-guide-info-content\"><img src=\"images/downvote_step5.png\"><br>Gratulation! Du bist nun ein voll trainierter <b>MusicMagnet DJ</b>. Viel Spaß mit unserer App!<div class=\"tour-guide-quit-button\"><b>Schließen</b></div>",
                 "positionCss": "top::50px::height::80vh"
             }
         }

@@ -11,15 +11,15 @@
         },
         "tourGuideClose": {
             "target": "#tour-guide-close",
-            "content": "x"
+            "content": "<img src=\"images/delete.svg\">"
         },
         "tourGuideNext": {
             "target": "#tour-guide-next",
-            "content": "<div class=\"tour-guide-next-button\"><img src=\"images/tutorial_next.svg\"></div>"
+            "content": "<div class=\"tour-guide-next-button\"><div class=\"next-button\"><img src=\"images/tutorial_next.svg\"></div></div>"
         },
         "tourGuidePrev": {
             "target": "#tour-guide-prev",
-            "content": "<div class=\"tour-guide-prev-button\"><img src=\"images/tutorial_back.svg\"></div>"
+            "content": "<div class=\"tour-guide-prev-button\"><div class=\"prev-button\"><img src=\"images/tutorial_back.svg\"></div></div>"
         },
         "tourGuidePagination": {
             "target": "#tour-guide-pagination",
@@ -31,7 +31,7 @@
         "fadeOutTourGuide": false,
         
         "preloadNextTourGuide": "downvoteTrackAndDjImage",
-        "nextTourGuideButtonContent": "Next Chapter",
+        "nextTourGuideButtonContent": "<div class=\"next-button\">Nächstes Kapitel</div>",
 
         "tourGuideHint": "#tour-guide-hint",
         "tourGuideHintFadeInTime": 150
