@@ -453,9 +453,13 @@ body{
                         img {
                             float: left;
                             height: 26px;
-                            padding: 14px 10px 0 5px;
+                            padding: 14px 10px 0 11px;
                             position: absolute;
                             left: 0;
+                        }
+
+                        .first-navigation-element{
+                            padding-left: 16px;
                         }
 
                         span {
@@ -481,7 +485,7 @@ body{
                     }
                     &.inactive{
                         @include transition(width , 0.3s, linear); 
-                        width: 35px;
+                        width: 48px;
                         padding-right: 20px;
                         span{
                             &.icon-info{
