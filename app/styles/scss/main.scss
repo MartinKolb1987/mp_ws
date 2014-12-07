@@ -259,11 +259,12 @@ html[xmlns] .clearfix {
                     background-color: $btnColorDark;
                     color: $white;
                     margin: 20px auto;
-                    padding: 10px 0;
+                    padding: 22px 0;
+                    height: 20px;
                     text-align: center;
                     width: 200px;
                     position: relative;
-                    @include skewedBorder(left, -10px, 0, 20px, $btnColorDark);
+                    @include skewedBorder(left, -13px, 0, 25px, $btnColorDark);
                 }
 
                 .text-tour-guide-info-title{
@@ -296,18 +297,38 @@ html[xmlns] .clearfix {
 
             #tour-guide-next{
                 position: absolute;
-                right: 15px;
+                right: 0px;
                 bottom: 15px;
                 color: $white;
                 opacity: 0.5;
+                background-color: $btnColorDark;
+                padding: 22px 16px;
+                height: 20px;
+                z-index: 2;
+                @include skewedBorder(left, -12px, 1, 24px, $btnColorDark);
+
+                img {
+                    width: 14px;
+                    padding: 0 6px;
+                }
             }
 
             #tour-guide-prev{
                 position: absolute;
-                left: 15px;
+                left: 0px;
                 bottom: 15px;
                 color: $white;
                 opacity: 0.5;
+                background-color: $btnColorMiddle;
+                padding: 22px 16px;
+                height: 20px;
+                z-index: 2;
+                @include skewedBorder(right, -12px, 1, 24px, $btnColorMiddle);
+
+                img {
+                    width: 14px;
+                    padding: 0 6px;
+                }
             }
 
             #tour-guide-pagination{

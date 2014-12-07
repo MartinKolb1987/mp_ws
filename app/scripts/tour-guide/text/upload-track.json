@@ -15,11 +15,11 @@
         },
         "tourGuideNext": {
             "target": "#tour-guide-next",
-            "content": ">"
+            "content": "<div class=\"tour-guide-next-button\"><img src=\"images/tutorial_next.svg\"></div>"
         },
         "tourGuidePrev": {
             "target": "#tour-guide-prev",
-            "content": "<"
+            "content": "<div class=\"tour-guide-prev-button\"><img src=\"images/tutorial_back.svg\"></div>"
         },
         "tourGuidePagination": {
             "target": "#tour-guide-pagination",
