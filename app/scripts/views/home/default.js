@@ -113,7 +113,7 @@ define([
                             // trigger next tour guide step if tour guide is active
                             TourGuide.next();
                         } else {
-                            alert('wrong file type, try it again');
+                            alert('Falscher Dateityp, versuch es erneut.');
                             that.clearUploadField(inputField);
                         }
                     }
@@ -210,7 +210,7 @@ define([
 
                     this.$data.deleteTimeout = setInterval(function(){
 
-                        lineTitle.text('Tap to cancel!');
+                        lineTitle.text('Klicken um das Löschen abzubrechen!');
                         progressbar.css('width', counter + '%');
                         if(counter === 0){
                             DataHandler.deleteUserTrack(tId);

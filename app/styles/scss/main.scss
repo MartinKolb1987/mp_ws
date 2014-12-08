@@ -102,7 +102,7 @@ $btnColorMiddle: #ffcc00; // orange light
 $btnColorDark: #ffa200; // orange light
 $btnDownvoteDisabled: #405b64;
 $iconSystemInfo: #637f88;
-$downvoteMessage: #ffffff;
+$downvoteMessage: #ffda46;
 $playlistText: #17404d;
 $playlistLine1: #009bb2;
 $playlistLine2: #1aa5ba;
@@ -283,12 +283,10 @@ html[xmlns] .clearfix {
                 }
 
                 .text-tour-guide-info-title{
-                    margin: 0 0 20px 16px;
+                    margin: 0 0 20px;
                 }
 
                 .text-tour-guide-info-content{
-                    padding: 0 16px;
-                    width: 90%;
                     color: $white;
                     font-size: 14px;
                     font-family: 'ubunturegular', Arial, sans-serif;
@@ -296,6 +294,7 @@ html[xmlns] .clearfix {
                     img{
                         max-width: 340px;
                         margin: 20px 0;
+                        width: 100%;
                     }
                 }
 
@@ -616,6 +615,7 @@ body{
                         #downvote-response-message{
                             @include transition(left, 1.0s, linear);
                             background-color: $downvoteMessage;
+                            color: $white;
                             position: absolute;
                             text-align: left;
                             top: 0;
@@ -747,6 +747,8 @@ body{
                             position: absolute;
                             @include transition(right, 0.25s, linear);
                             right: -55px;
+                            padding-left: 20px;
+                            overflow: hidden;
                             
                             .delete-button {
                                 z-index: 100;

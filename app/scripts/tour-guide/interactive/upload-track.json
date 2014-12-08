@@ -49,7 +49,7 @@
             "elements": ["#browse-playlist", "#upload-file::hint::top::-85px::left::-60px::rotate::-45deg"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "<div class=\"tour-guide-info-title\">Musikupload</div><div class=\"tour-guide-info-content\">Drücke auf <b>Upload</b> um dein Lied in die globale Playlist hochzuladen.</div>",
+                "content": "<div class=\"tour-guide-info-title\">Musikupload</div><div class=\"tour-guide-info-content\">Drücke auf <b>Upload</b> um dein Lied in die globale Wiedergabeliste hochzuladen.</div>",
                 "positionCss": "top::50px::height::30vh"
             }
         },
