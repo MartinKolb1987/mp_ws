@@ -15,15 +15,15 @@ $db = new ClientDB();
 $db->exec("PRAGMA foreign_keys = ON;");
 
 // drop old tables
-// echo('Dropping old tables...<br/>');
-// $db->exec("DROP TABLE downvotes");
-// $db->exec("DROP TABLE bucketcontents");
-// $db->exec("DROP TABLE blacklist");
-// $db->exec("DROP TABLE buckets");
-// $db->exec("DROP TABLE tracks");
-// $db->exec("DROP TABLE admins");
-// $db->exec("DROP TABLE users");
-// echo('FINISHED Dropping old tables...<br/>');
+echo('Dropping old tables...<br/>');
+$db->exec("DROP TABLE downvotes");
+$db->exec("DROP TABLE bucketcontents");
+$db->exec("DROP TABLE blacklist");
+$db->exec("DROP TABLE buckets");
+$db->exec("DROP TABLE tracks");
+$db->exec("DROP TABLE admins");
+$db->exec("DROP TABLE users");
+echo('FINISHED Dropping old tables...<br/>');
 
 // create new tables
 echo('Creating new tables...<br/>');
