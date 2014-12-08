@@ -87,11 +87,12 @@ function uploadFile($type, $file, $route){
     if($type == 'uploadUserTrack'){
         // random number for the file
         $randomNo = rand(0, 9999999);
-        // $tempPath = '/usr/share/nginx/html/server/tmp/';
+        $tempPath = '/usr/share/nginx/html/server/tmp/';
+    $tempUploadFile = $tempPath . $randomNo . $fileExt;
         $tempFile = $clientIp . '/tracks/' . $randomNo . $fileExt;
         
         // move file
-        if (move_uploaded_file($file['tmp_name'], $uploadDirectory . $tempFile) == false){
+        if (move_uploaded_file($file['tmp_name'], $tempUploadFile) == false){
             return '{"route":"' .  $route . '", "type": "error", "message": "moving temp file failed (fileUpload() - audio track - #1)"}';
         }
         
@@ -99,33 +100,38 @@ function uploadFile($type, $file, $route){
         $db = new ClientDB();
         
         // get metadata from audio file
-        // $t_artist = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Performer%" "' . $tempFile . '"'));
-        // $t_title = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Track%" "' . $tempFile . '"'));
-        // $t_album = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Album%" "' . $tempFile . '"'));
-        // $t_length = exec('nice -n 10 mediainfo --Inform="Audio;%Duration%" /opt/lampp/htdocs/mp_ws/server/userdata/127.0.0.1/tracks/3118767.mp3');
+        $t_artist = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Performer%" "' . $tempUploadFile . '"'));
+        $t_title = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Track%" "' . $tempUploadFile . '"'));
+        $t_album = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Album%" "' . $tempUploadFile . '"'));
+        $t_length = shell_exec('nice -n 10 mediainfo --Inform="Audio;%Duration%" "' . $tempUploadFile . '"');
+    
+    $t_artist = rtrim($t_artist, "\n");
+    $t_title = rtrim($t_title, "\n");
+    $t_album = rtrim($t_album, "\n");
+    //$t_length = rtrim($t_length, "\n");
 
-        $t_artist = 'Artist' . $randomNo;
-        $t_title = 'Title' . $randomNo;
-        $t_album = 'Album' . $randomNo;
-        $t_length = $randomNo;
+        //$t_artist = 'Artist' . $randomNo;
+        //$t_title = 'Title' . $randomNo;
+        //$t_album = 'Album' . $randomNo;
+        //$t_length = $randomNo;
         
         // close db
         $db->close();
         unset($db);
     
-        $lengthDate = date_parse($t_length);
-        $t_length = $lengthDate['hour'] * 3600 + $lengthDate['minute'] * 60 + $lengthDate['second'];
+        //$lengthDate = date_parse($t_length);
+        $t_length = round($t_length / 1000);
     
         if(strlen($t_title) <= 1) {
             $t_title = $fileName;
         }
         
-        // // generate new file name
-        // $newFilePath = $clientIp . '/' . $randomNo . $fileExt;
-        // // move file
-        // if (rename($tempFile, ($uploadDirectory . $newFilePath)) == false) {
-        //     return '{"route":"' .  $route . '", "type": "error", "message": "moving temp file failed (fileUpload() - audio track - #2)"}';
-        // }
+        // generate new file name
+        //$newFilePath = $clientIp . '/' . $randomNo . $fileExt;
+        // move file
+        if (rename($tempUploadFile, ($uploadDirectory . $tempFile)) == false) {
+             return '{"route":"' .  $route . '", "type": "error", "message": "moving temp file failed (fileUpload() - audio track - #2)"}';
+        }
         
         // add to db
         addTrack($tempFile, $t_artist, $t_title, $t_album, $t_length);
