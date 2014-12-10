@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <title>App</title>
+        <link rel="stylesheet" href="styles/main.css">
+        <script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
+    </head>
+    <body>
+        <div id="app" class="night">
+
+            <!-- navigation -->
+            <ul id="navigation">
+                <li><a href="#!/home" data-route="home"><img class="first-navigation-element" src="images/player.svg" alt=""><span class="icon-info">MUSICMAGNET</span></a></li>
+                <li><a href="#!/settings" data-route="settings"><img src="images/settings.svg" alt=""><span class="icon-info">EINSTELLUNGEN</span></a></li>
+                <li><a href="#!/help" data-route="help"><img src="images/help.svg" alt=""><span class="icon-info">HILFE</span></a></li>
+            </ul>
+            <!-- navigation END -->
+            
+            <!-- initial loader -->
+            <div id="inital-loader-wrapper">
+                <div id="inital-loader">
+                    Loading...
+                </div>
+            </div>
+            <!-- initial loader END -->
+
+            <!-- rendered view -->
+            <div v-view="currentView" class="view" v-transition>
+                <!-- content rendered here -->
+            </div>
+            <!-- rendered view END -->
+
+        </div>
+    </body>
+</html>
