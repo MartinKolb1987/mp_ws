@@ -102,7 +102,7 @@ $btnColorMiddle: #ffcc00; // orange light
 $btnColorDark: #ffa200; // orange light
 $btnDownvoteDisabled: #405b64;
 $iconSystemInfo: #637f88;
-$downvoteMessage: #ffda46;
+$downvoteMessage: #ffa200;
 $playlistText: #17404d;
 $playlistLine1: #009bb2;
 $playlistLine2: #1aa5ba;
@@ -452,7 +452,7 @@ body{
                         img {
                             float: left;
                             height: 26px;
-                            padding: 14px 10px 0 11px;
+                            padding: 14px 10px 13px 11px;
                             position: absolute;
                             left: 0;
                         }
@@ -471,12 +471,13 @@ body{
                     }
                     
                     &.active{
-                        @include transition(width , 0.3s, linear); 
+                        @include transition(width , 0.3s, linear);
                         width: 42.5vw;
                         background-color: $mainColorDark;
                         @include skewedBorder(left, -10px, 0, 20px, $mainColorDark); // = direction, directionValue, zIndex, width, color
                         padding-right: 71px;
                         span{
+                            display: block;
                             &.icon-info{
                                 opacity: 1;
                             }
@@ -487,6 +488,7 @@ body{
                         width: 48px;
                         padding-right: 20px;
                         span{
+                            display: hidden;
                             &.icon-info{
                                 opacity: 0;
                             }
@@ -506,6 +508,10 @@ body{
                         &.inactive{
                             background-color: $btnColorLight;
                             @include skewedBorder(left, -10px, 1, 20px, $btnColorLight); // = direction, directionValue, zIndex, width, color
+
+                            span{
+                                display: block;
+                            }
                         }
                     }
                 }
