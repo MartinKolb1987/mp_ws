@@ -527,7 +527,7 @@ body{
                 #currently-playing{
                     display: block;
                     width: 100vw;
-                    margin-bottom: 52px;
+                    margin-bottom: 35px;
                     #info-track-wrapper, #dj-wrapper{
                         min-height: 130px;
                         max-height: 200px;
@@ -539,7 +539,7 @@ body{
                     #info-track-wrapper{
                         width: 42.5vw;
                         background-color: $mainColorLight;
-                        @include skewedBorder(right, -27px, 3, 90px, $mainColorLight); // = direction, directionValue, zIndex, width, color
+                        @include skewedBorder(right, -34px, 3, 90px, $mainColorLight); // = direction, directionValue, zIndex, width, color
                         #info-track{
                             position: absolute;
                             top: 0;
@@ -565,7 +565,7 @@ body{
                         .dj-image{
                             @include transition(right, 0.6s, linear);
                             width: 57.5vw;
-                            @include skewedBorder(left, -28px, 1, 55px, $bgColor); // = direction, directionValue, zIndex, width, color
+                            @include skewedBorder(left, -38px, 1, 71px, $bgColor); // = direction, directionValue, zIndex, width, color
                             height: 20vh;
                             min-height: 130px;
                             max-height: 200px;
@@ -658,6 +658,11 @@ body{
 
                 #playlist-wrapper{
                     width: 100%;
+
+                    #playlist-title{
+                        margin: 16px;
+                        color: $white;
+                    }
 
                     ul {
                         list-style: none;

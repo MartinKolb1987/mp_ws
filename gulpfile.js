@@ -91,23 +91,6 @@ gulp.task('reset-server-userdata', function(){
         .pipe(rimraf({ force: true }));
 });
 
-gulp.task('reset-server-musicplayer-system-info', function(){
-    var playingTrackIdFilePath = serverPath + '/musicplayer_system_info/currently_playing_track.txt';
-    var playingDjImageFilePath = serverPath + '/musicplayer_system_info/currently_playing_dj_image.txt';
-
-    // remove files from musicplayer_system_info
-    gulp.src('./').pipe(exec('rm -rf ' + serverPath + '/musicplayer_system_info/', {silent: true}));
-    gulp.src('./').pipe(exec('mkdir -m 0777 ' + serverPath + '/musicplayer_system_info/', {silent: true}));
-
-    // create txt file with track id 
-    gulp.src('./').pipe(exec('echo "' + trackIdStart + '" > ' + playingTrackIdFilePath, {silent: true}))
-        .pipe(exec('chmod 0777 ' + playingTrackIdFilePath, {silent: true}));
-    
-    // create txt file with default image path
-    gulp.src('./').pipe(exec('echo "../server/userdata/default.png" > ' + playingDjImageFilePath, {silent: true}))
-        .pipe(exec('chmod 0777 ' + playingDjImageFilePath, {silent: true}));
-});
-
 gulp.task('reset-server-db', function(){
     // remove db
     gulp.src('./').pipe(exec('rm -f ' + serverPath + '/db/db.sqlite', {silent: true}));
@@ -206,7 +189,7 @@ gulp.task('development', function () {
 gulp.task('build', function () {
     // reset all user stuff and system data and create cleand dist folder
     trackIdStart = 0;
-    runSequence('clean-dist', 'prefix-and-minify-css', 'create-bower_components-folder-dist', 'concatenate-scripts-folder-and-move-it-to-idst', 'move-requirejs-compressed-to-dist', 'move-index-to-dist', 'move-htaccess-to-dist', 'move-images-to-dist', 'reset-server-userdata', 'reset-server-musicplayer-system-info', 'reset-server-db', 'move-server-to-dist', 'move-fonts-to-styles-dist', 'replace-localhost-in-dist-util-php', 'chmod-dist-recursive', 'init-server-db');
+    runSequence('clean-dist', 'prefix-and-minify-css', 'create-bower_components-folder-dist', 'concatenate-scripts-folder-and-move-it-to-idst', 'move-requirejs-compressed-to-dist', 'move-index-to-dist', 'move-htaccess-to-dist', 'move-images-to-dist', 'reset-server-userdata', 'reset-server-db', 'move-server-to-dist', 'move-fonts-to-styles-dist', 'replace-localhost-in-dist-util-php', 'chmod-dist-recursive', 'init-server-db');
 });
 
 
@@ -217,5 +200,5 @@ gulp.task('build', function () {
 
 gulp.task('reset', function (){
     trackIdStart = 0;
-    runSequence('reset-server-userdata', 'reset-server-musicplayer-system-info', 'reset-server-db', 'init-server-db-with-test-data', 'start-webapp');
+    runSequence('reset-server-userdata', 'reset-server-db', 'init-server-db-with-test-data', 'start-webapp');
 });
