@@ -15,8 +15,8 @@ $db_path = dirname(__FILE__) . '/db/db.sqlite';
 $tempPath = '/usr/share/nginx/html/server/tmp/';
 
 // path for upload directory (users.php)
-$uploadDirectory = getenv("DOCUMENT_ROOT") . '/mp_ws/server/userdata/';
-// $uploadDirectory = dirname(__FILE__) . '/userdata/';
+// $uploadDirectory = getenv("DOCUMENT_ROOT") . '/mp_ws/server/userdata/';
+$uploadDirectory = dirname(__FILE__) . '/userdata/';
 
 // path for user data (users.php) -- currently not used???
 $truePath = '/usr/share/nginx/html/server/userdata/';

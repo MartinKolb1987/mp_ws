@@ -129,9 +129,9 @@ function uploadFile($type, $file, $route){
         // generate new file name
         //$newFilePath = $clientIp . '/' . $randomNo . $fileExt;
         // move file
-        if (rename($tempUploadFile, ($uploadDirectory . $tempFile)) == false) {
-             return '{"route":"' .  $route . '", "type": "error", "message": "moving temp file failed (fileUpload() - audio track - #2)"}';
-        }
+        // if (rename($tempUploadFile, ($uploadDirectory . $tempFile)) == false) {
+        //      return '{"route":"' .  $route . '", "type": "error", "message": "moving temp file failed (fileUpload() - audio track - #2)"}';
+        // }
         
         // add to db
         addTrack($tempFile, $t_artist, $t_title, $t_album, $t_length);
