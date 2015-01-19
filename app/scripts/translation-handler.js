@@ -16,6 +16,7 @@ define([
                 downvoteResponseMessage: 'Dein Downvote war erfolgreich!',
                 djImageInfo: 'Dein DJ!',
                 trackTitle: 'Wähle einen Musiktitel!',
+                playlistTitle: 'Meine eigene Playlist',
                 
                 // currently playing track
                 title: 'Kein Titel',
@@ -48,6 +49,7 @@ define([
                 downvoteResponseMessage: 'Your downvote has been counted!',
                 djImageInfo: 'Your DJ!',
                 trackTitle: 'Choose a track!',
+                playlistTitle: 'My own playlist',
 
                 // currently playing track
                 title: 'No title',

@@ -49,6 +49,9 @@ define([
             downvoteResponseMessageStateClass: '',
             downvoteResponseMessage: '',
 
+            // own playlist
+            playlistTitle: 'My own playlist',
+
             // temporary text save
             browsePlaylistFilltext: '',
 
