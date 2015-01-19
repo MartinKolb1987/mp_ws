@@ -92,28 +92,28 @@ function uploadFile($type, $file, $route){
         $tempFile = $clientIp . '/tracks/' . $randomNo . $fileExt;
         
         // move file
-        if (move_uploaded_file($file['tmp_name'], $tempUploadFile) == false){
-            return '{"route":"' .  $route . '", "type": "error", "message": "moving temp file failed (fileUpload() - audio track - #1)"}';
-        }
+        // if (move_uploaded_file($file['tmp_name'], $tempUploadFile) == false){
+        //     return '{"route":"' .  $route . '", "type": "error", "message": "moving temp file failed (fileUpload() - audio track - #1)"}';
+        // }
         
         // initialize database   
         $db = new ClientDB();
         
-        // get metadata from audio file
-        $t_artist = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Performer%" "' . $tempUploadFile . '"'));
-        $t_title = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Track%" "' . $tempUploadFile . '"'));
-        $t_album = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Album%" "' . $tempUploadFile . '"'));
-        $t_length = shell_exec('nice -n 10 mediainfo --Inform="Audio;%Duration%" "' . $tempUploadFile . '"');
+    //     // get metadata from audio file
+    //     $t_artist = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Performer%" "' . $tempUploadFile . '"'));
+    //     $t_title = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Track%" "' . $tempUploadFile . '"'));
+    //     $t_album = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Album%" "' . $tempUploadFile . '"'));
+    //     $t_length = shell_exec('nice -n 10 mediainfo --Inform="Audio;%Duration%" "' . $tempUploadFile . '"');
     
-    $t_artist = rtrim($t_artist, "\n");
-    $t_title = rtrim($t_title, "\n");
-    $t_album = rtrim($t_album, "\n");
+    // $t_artist = rtrim($t_artist, "\n");
+    // $t_title = rtrim($t_title, "\n");
+    // $t_album = rtrim($t_album, "\n");
     //$t_length = rtrim($t_length, "\n");
 
-        //$t_artist = 'Artist' . $randomNo;
-        //$t_title = 'Title' . $randomNo;
-        //$t_album = 'Album' . $randomNo;
-        //$t_length = $randomNo;
+        $t_artist = 'Artist' . $randomNo;
+        $t_title = 'Title' . $randomNo;
+        $t_album = 'Album' . $randomNo;
+        $t_length = $randomNo;
         
         // close db
         $db->close();
