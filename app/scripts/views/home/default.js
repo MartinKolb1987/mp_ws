@@ -196,13 +196,14 @@ define([
             deleteUserTrack: function(el, tId){
                 var that = this;
                 var deleteButton = $(el.$el);
+                var playlist = deleteButton.parent('.playlist-button-wrapper').parent('.playlist');
 
                 // check if tour guide is active and if already uploaded a track by tour guide user
                 if(this.preventClickEventsDuringTourGuideIsActive() === true){
                     return false;
                 }
 
-                if (this.$data.deleteAction === false){
+                if (this.$data.deleteAction === false && playlist.hasClass('activePlaylist')){
                     var that = this;
                     var lineWrapper = deleteButton.parents('.playlist-button-wrapper').siblings('.line-wrapper');
                     var progressbar = lineWrapper.children('.progressbar');

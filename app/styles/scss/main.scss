@@ -452,7 +452,7 @@ body{
                         img {
                             float: left;
                             height: 26px;
-                            padding: 14px 10px 13px 11px;
+                            padding: 14px 10px 13px 7px;
                             position: absolute;
                             left: 0;
                         }
@@ -463,10 +463,14 @@ body{
 
                         span {
                             font-family: 'ubuntubold', Arial, sans-serif;
-                            font-size: 18px;
+                            font-size: 17px;
                             position: absolute;
                             left: 45px;
                             color: $bgColor;
+                            &.icon-info{
+                                opacity: 1;
+                                @include transition(opacity , 1.3s, linear);
+                            }
                         }
                     }
                     
@@ -485,12 +489,13 @@ body{
                     }
                     &.inactive{
                         @include transition(width , 0.3s, linear); 
-                        width: 48px;
+                        width: 36px;
                         padding-right: 20px;
                         span{
                             display: hidden;
                             &.icon-info{
                                 opacity: 0;
+                                @include transition(opacity , 0s, linear);
                             }
                         }
                     }
