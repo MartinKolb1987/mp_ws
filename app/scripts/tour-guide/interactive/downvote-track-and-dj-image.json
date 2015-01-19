@@ -38,7 +38,7 @@
     },
     "tourPoints": [
         {
-            "elements": ["#currently-playing", "#system-info-wrapper", "#downvote-button::hint::top::25px::left::35px::rotate::140deg"],
+            "elements": ["#currently-playing", "#system-info-wrapper", "#downvote-button::hint::top::31px::left::52px::rotate::140deg"],
             "info": {
                 "target": "#tour-guide-info",
                 "content": "<div class=\"tour-guide-info-title\">Downvote!</div><div class=\"tour-guide-info-content\">Du magst das aktuelle Lied <b>nicht</b>? Dann klicke auf den <b>Downvote</b> Knopf. Bei genügend Downvotes wird das Lied <b>abgebrochen</b>.</div>",
@@ -54,15 +54,15 @@
             }
         },
         {
-            "elements": ["#dj-image-wrapper", "#image-upload-wrapper", "#trigger-upload-image::hint::top::40px::left::-10px::rotate::180deg"],
+            "elements": ["#dj-image-wrapper", "#image-upload-wrapper", "#trigger-upload-image::hint::top::43px::left::-12px::rotate::180deg"],
             "info": {
                 "target": "#tour-guide-info",
-                "content": "<div class=\"tour-guide-info-title\">Bildauswahl</div><div class=\"tour-guide-info-content\">Sucher dir ein Bild aus deinem <b>Smartphonespeicher</b>!</div>",
+                "content": "<div class=\"tour-guide-info-title\">Bildauswahl</div><div class=\"tour-guide-info-content\">Suche dir ein Bild aus deinem <b>Smartphonespeicher</b>!</div>",
                 "positionCss": "top::430px::height::30vh"
             }
         },
         {
-            "elements": ["#dj-image-wrapper", "#image-upload-wrapper", ".image-text", "#upload-image::hint::top::40px::left::-10px::rotate::180deg"],
+            "elements": ["#dj-image-wrapper", "#image-upload-wrapper", ".image-text", "#upload-image::hint::top::43px::left::-12px::rotate::180deg"],
             "info": {
                 "target": "#tour-guide-info",
                 "content": "<div class=\"tour-guide-info-title\">Und los!</div><div class=\"tour-guide-info-content\">Benutze den <b>Upload Knopf</b> um dein Bild hochzuladen. Oder mache deine Auswahl <b>rückgängig</b>.</div>",

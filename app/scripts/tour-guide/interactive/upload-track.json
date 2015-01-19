@@ -38,7 +38,7 @@
     },
     "tourPoints": [
         {
-            "elements": ["#browse-playlist", "#trigger-upload-file::hint::top::-85px::left::-60px::rotate::-45deg"],
+            "elements": ["#browse-playlist", "#trigger-upload-file::hint::top::-100px::left::-62px::rotate::-45deg"],
             "info": {
                 "target": "#tour-guide-info",
                 "content": "<div class=\"tour-guide-info-title\">Los gehts!</div><div class=\"tour-guide-info-content\">Wähle einen <b>Musiktitel</b> aus deinem Smartphonespeicher!</div>",
@@ -46,7 +46,7 @@
             }
         },
         {
-            "elements": ["#browse-playlist", "#upload-file::hint::top::-85px::left::-60px::rotate::-45deg"],
+            "elements": ["#browse-playlist", "#upload-file::hint::top::-100px::left::-62px::rotate::-45deg"],
             "info": {
                 "target": "#tour-guide-info",
                 "content": "<div class=\"tour-guide-info-title\">Musikupload</div><div class=\"tour-guide-info-content\">Drücke auf <b>Upload</b> um dein Lied in die globale Wiedergabeliste hochzuladen.</div>",
