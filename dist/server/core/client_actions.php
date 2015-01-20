@@ -105,15 +105,15 @@ function uploadFile($type, $file, $route){
         $t_album = $db->escapeString(shell_exec('nice -n 10 mediainfo --Inform="General;%Album%" "' . $tempUploadFile . '"'));
         $t_length = shell_exec('nice -n 10 mediainfo --Inform="Audio;%Duration%" "' . $tempUploadFile . '"');
     
-    $t_artist = rtrim($t_artist, "\n");
-    $t_title = rtrim($t_title, "\n");
-    $t_album = rtrim($t_album, "\n");
-    //$t_length = rtrim($t_length, "\n");
+        $t_artist = rtrim($t_artist, "\n");
+        $t_title = rtrim($t_title, "\n");
+        $t_album = rtrim($t_album, "\n");
+        $t_length = rtrim($t_length, "\n");
 
-        //$t_artist = 'Artist' . $randomNo;
-        //$t_title = 'Title' . $randomNo;
-        //$t_album = 'Album' . $randomNo;
-        //$t_length = $randomNo;
+        // $t_artist = 'Artist' . $randomNo;
+        // $t_title = 'Title' . $randomNo;
+        // $t_album = 'Album' . $randomNo;
+        // $t_length = $randomNo;
         
         // close db
         $db->close();
@@ -127,7 +127,7 @@ function uploadFile($type, $file, $route){
         }
         
         // generate new file name
-        //$newFilePath = $clientIp . '/' . $randomNo . $fileExt;
+        $newFilePath = $clientIp . '/' . $randomNo . $fileExt;
         // move file
         if (rename($tempUploadFile, ($uploadDirectory . $tempFile)) == false) {
              return '{"route":"' .  $route . '", "type": "error", "message": "moving temp file failed (fileUpload() - audio track - #2)"}';

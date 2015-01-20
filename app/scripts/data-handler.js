@@ -269,12 +269,16 @@ define([
             view.id = data.info.currentlyPlaying.id;
             
             // if no data exists 
-            // --> just let the translations handler do the job (it‘s automatically)
+            // --> just let the translations handler do the job
             if(data.info.currentlyPlaying.title){
                 view.album = data.info.currentlyPlaying.album;
                 view.title = data.info.currentlyPlaying.title;
                 view.artist = data.info.currentlyPlaying.artist;
-                view.length = data.info.currentlyPlaying.length;
+
+                var minutes = Math.floor(data.info.currentlyPlaying.length / 60);
+                var seconds = data.info.currentlyPlaying.length - minutes * 60;
+                view.length = minutes + ':' + seconds;
+
             } else {
                 TranslationHandler.translate(that.currentLanguage, view);
             }
