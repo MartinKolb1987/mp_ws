@@ -765,7 +765,7 @@ body{
                             right: -55px;
                             padding-left: 20px;
                             overflow: hidden;
-                            
+
                             .delete-button {
                                 z-index: 100;
                                 background-color: $btnColorDark;
@@ -807,6 +807,10 @@ body{
                                 right: -163px;
                             }
 
+                            &.slide-hide{
+                                right: -190px !important;
+                            }
+
                         }
 
                         #upload-wrapper{
@@ -835,6 +839,14 @@ body{
                                 background-color: $btnColorMiddle;
                                 @include skewedBorder(left, -10px, 80, 20px, $btnColorMiddle);
                             }
+
+                            #upload-control-wrapper{
+                                @include transition(all, 0.25s, linear);
+                                &.slide-hide{
+                                    margin-right: -190px !important;
+                                }
+                            }
+
                         }
 
                         .empty-field {
@@ -948,6 +960,11 @@ body{
 
                     #image-control-wrapper, #trigger-upload-image, #upload-image-control-wrapper {
                         float: right;
+                    }
+
+                    @include transition(all, 0.25s, linear);
+                    &.slide-hide{
+                        margin-right: -190px !important;
                     }
 
                     .image-button {

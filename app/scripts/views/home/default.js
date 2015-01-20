@@ -206,8 +206,11 @@ define([
                 if (this.$data.deleteAction === false && playlist.hasClass('activePlaylist')){
                     var that = this;
                     var lineWrapper = deleteButton.parents('.playlist-button-wrapper').siblings('.line-wrapper');
+                    var buttonWrapper = lineWrapper.siblings('.playlist-button-wrapper');
                     var progressbar = lineWrapper.children('.progressbar');
                     var lineTitle = lineWrapper.children('.line-title');
+
+                    // playlist-button-wrapper showSwapUpClass
 
                     this.$data.deleteTrackTitle = lineTitle.text();
 
@@ -215,8 +218,10 @@ define([
 
                     this.$data.deleteAction = true;
 
-                    this.$data.deleteTimeout = setInterval(function(){
+                    // hide control panel
+                    buttonWrapper.addClass('slide-hide');
 
+                    this.$data.deleteTimeout = setInterval(function(){
                         lineTitle.text('Klicken um das Löschen abzubrechen!');
                         progressbar.css('width', counter + '%');
                         if(counter === 0){
@@ -257,6 +262,8 @@ define([
                     var lineWrapper = element.children('.line-wrapper');
                     lineWrapper.children('.progressbar').css('width', '0%');
                     lineWrapper.children('.line-title').text(this.$data.deleteTrackTitle);
+                    // show control panel
+                    element.find('.playlist-button-wrapper').removeClass('slide-hide');
 
                 // toggle playlist line
                 } else if (that.$data.deleteAction === false){

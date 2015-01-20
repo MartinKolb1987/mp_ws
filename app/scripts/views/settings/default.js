@@ -147,11 +147,16 @@ define([
 
                     this.$data.deleteAction = true;
 
+                    // hide control panel
+                    imageText.siblings('#image-upload-wrapper').addClass('slide-hide');
+
                     this.$data.deleteTimeout = setInterval(function(){
                         imageName.text('Klicken um das Löschen abzubrechen!');
                         progressbar.css('width', counter + '%');
                         if(counter === 0){
                             DataHandler.deleteUserImage();
+                            // show control panel
+                            imageText.siblings('#image-upload-wrapper').removeClass('slide-hide');
                             clearInterval(that.$data.deleteTimeout);
                             that.$data.deleteAction = false;
                             imageName.text('');
@@ -171,6 +176,8 @@ define([
                     clearInterval(this.$data.deleteTimeout);
                     this.$data.deleteAction = false;
                     var imageText = element.children('#settings').children('.image-text');
+                    // show control panel
+                    imageText.siblings('#image-upload-wrapper').removeClass('slide-hide');
                     imageText.children('.progressbar').css('width', '0%');
                     imageText.children('.image-name').text('');
                     this.$data.uploadImageFilename = 'hide';

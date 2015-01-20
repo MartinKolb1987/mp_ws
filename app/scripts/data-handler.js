@@ -634,6 +634,7 @@ define([
                 }
             };
 
+
             xhr.upload.onprogress = function(e) {
                 var procent = Math.round(100 / e.total * e.loaded);
                 that.currentlyClientSideUploadingTrack = true;
@@ -641,6 +642,16 @@ define([
                 if(type === 'uploadUserImage' || type === 'uploadUserTrack'){
                     view.displayUploadClass = 'hide';
                     
+                    if(procent > 0 && procent < 10 && type === 'uploadUserTrack'){
+                        // hide upload control panel
+                        $(data[1]).parents('.line-wrapper').siblings('#upload-wrapper').children('#upload-control-wrapper').addClass('slide-hide');
+                    }
+
+                    if(procent > 0 && procent < 10 && type === 'uploadUserImage'){
+                        // hide upload control panel
+                        $(data[1]).parents('.image-text').siblings('#image-upload-wrapper').addClass('slide-hide');
+                    }
+
                     if (procent < 98){
                         $(data[1]).css('width', procent + '%');
                     } else {
