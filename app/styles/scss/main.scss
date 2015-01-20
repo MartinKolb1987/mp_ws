@@ -560,6 +560,14 @@ body{
 
                                 li {
                                     padding-bottom: 6px;
+
+                                    &#info-track-title, &#info-track-artist, &#info-track-album, &#info-track-length{
+                                        width: 40vw;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;
+                                    }
+
                                 }
                             }
                             
