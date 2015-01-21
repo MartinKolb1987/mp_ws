@@ -19,7 +19,7 @@
 		<div id="dj-wrapper" v-on="click: jumpToSite('settings')">
 			<div class="dj-image {{djImageStateClassOne}}" v-style="background-image: 'url(' + imageOne + ')';"></div>
 			<!-- <div class="dj-image {{djImageStateClassTwo}}" v-style="background-image: 'url(' + imageTwo + ')';"></div> -->
-			<div class="dj-image info {{djImageInfoStateClass}}">{{djImageInfo}}</div>
+			<div class="info {{djImageInfoStateClass}}">{{djImageInfo}}</div>
 		</div>
 		
 		<!-- system info wrapper -->
@@ -46,7 +46,7 @@
 				<div class="line-wrapper">
 					<div class="line-clickfield" v-on="click: setPlaylistLine(this)"></div>
 					<div class="progressbar"></div>
-					<div class="line-text">{{$index + 1}}.</div>
+					<div class="line-text">{{$index + 1}}</div>
 					<div class="line-title hide {{displayUploadClass}}" v-if="!t_id">{{trackTitle}}</div>
 					<div class="line-title" v-if="t_id">{{t_title}}</div>
 				</div>

@@ -39,6 +39,23 @@
     }
 }
 
+@-webkit-keyframes rotation {
+    from {-webkit-transform: rotate(0deg);}
+    to   {-webkit-transform: rotate(359deg);}
+}
+@-moz-keyframes rotation {
+    from {-moz-transform: rotate(0deg);}
+    to   {-moz-transform: rotate(359deg);}
+}
+@-o-keyframes rotation {
+    from {-o-transform: rotate(0deg);}
+    to   {-o-transform: rotate(359deg);}
+}
+@keyframes rotation {
+    from {transform: rotate(0deg);}
+    to   {transform: rotate(359deg);}
+}
+
 // -------------------------------------
 //  FONTS
 // -------------------------------------
@@ -103,7 +120,8 @@ $btnColorDark: #ffa200; // orange light
 $btnDownvoteDisabled: #405b64;
 $iconSystemInfo: #637f88;
 $downvoteMessage: #ffa200;
-$playlistText: #17404d;
+$logoText: #ffcc00;
+$playlistText: #007587;
 $playlistLine1: #009bb2;
 $playlistLine2: #1aa5ba;
 $playlistLine3: #33afc1;
@@ -417,6 +435,14 @@ body{
                 background-color: $bgColor;
                 color: $white;
                 #inital-loader{
+                    img{
+                        width: 60px;
+                        -webkit-animation: rotation 2s infinite linear;
+                        -moz-animation: rotation 2s infinite linear;
+                        -o-animation: rotation 2s infinite linear;
+                        animation: rotation 2s infinite linear;
+                        transform-origin: center center;
+                    }
                     text-align: center;
                     width: 200px;
                     height: 100px;
@@ -445,6 +471,7 @@ body{
                     position: relative;
                     height: $btnHeight;
                     line-height: $btnHeight;
+
                     a {
                         position: absolute;
                         z-index: 1;
@@ -465,15 +492,16 @@ body{
                             font-family: 'ubuntubold', Arial, sans-serif;
                             font-size: 17px;
                             position: absolute;
-                            left: 45px;
+                            left: 39px;
                             color: $bgColor;
                             &.icon-info{
                                 opacity: 1;
-                                @include transition(opacity , 1.3s, linear);
+                                @include transition(opacity , 1.4s, linear);
+                                letter-spacing: 1px;
                             }
                         }
                     }
-                    
+
                     &.active{
                         @include transition(width , 0.3s, linear);
                         width: 42.5vw;
@@ -485,12 +513,24 @@ body{
                             &.icon-info{
                                 opacity: 1;
                             }
+                            &.logo-text{
+                                color: $logoText;
+                                position: initial;
+                                display: initial;
+                                font-family: 'ubunturegular', Arial, sans-serif;
+                            }
+                        }
+
+                        [data-route=home]{
+                            .icon-info{
+                                margin-left: 12px;
+                            }
                         }
                     }
                     &.inactive{
                         @include transition(width , 0.3s, linear); 
                         width: 36px;
-                        padding-right: 20px;
+                        padding-right: 30px;
                         span{
                             display: hidden;
                             &.icon-info{
@@ -500,7 +540,17 @@ body{
                         }
                     }
                     &:nth-child(2){
+                        &.active{
+                            padding-right: 71px;
+                            img{
+                                padding-left: 3px;
+                            }
+                            .icon-info{
+                                margin-left: -2px;
+                            }
+                        }
                         &.inactive{
+                            padding-right: 25px;
                             background-color: $btnColorMiddle;
                             @include skewedBorder(left, -10px, 1, 20px, $btnColorMiddle); // = direction, directionValue, zIndex, width, color
                             &.second{
@@ -510,10 +560,13 @@ body{
                         }
                     }
                     &:nth-child(3){
+                        &.active{
+                            padding-right: 0;
+                        }
                         &.inactive{
                             background-color: $btnColorLight;
                             @include skewedBorder(left, -10px, 1, 20px, $btnColorLight); // = direction, directionValue, zIndex, width, color
-
+                            padding-right: 0;
                             span{
                                 display: block;
                             }
@@ -543,17 +596,17 @@ body{
                     }
                     #info-track-wrapper{
                         width: 42.5vw;
-                        background-color: $mainColorLight;
-                        @include skewedBorder(right, -34px, 3, 90px, $mainColorLight); // = direction, directionValue, zIndex, width, color
+                        @include skewedBorder(right, -19px, 3, 90px, $mainColorLight); // = direction, directionValue, zIndex, width, color
                         #info-track{
                             position: absolute;
                             top: 0;
-                            right: 0;
+                            right: 25px;
                             left: 0;
                             bottom: 0;
                             z-index: 3;
-                            margin: 16px;
+                            padding: 16px;
                             color: $white;
+                            background-color: $mainColorLight;
 
                             ul {
                                 list-style-type: none;
@@ -577,7 +630,7 @@ body{
                         width: 57.5vw;
                         .dj-image{
                             @include transition(right, 0.6s, linear);
-                            width: 57.5vw;
+                            width: 65vw;
                             @include skewedBorder(left, -38px, 1, 71px, $bgColor); // = direction, directionValue, zIndex, width, color
                             height: 20vh;
                             min-height: 130px;
@@ -586,21 +639,21 @@ body{
                             background-position: right center;
                             position: absolute;
                             right: -70vw;
-                            &.info{
-                                @include transition(opacity, 0.3s, linear);
-                                color: white;
-                                text-align: center;
-                                right: 0;
-                                line-height: 130px;
-                                &.hide{
-                                    opacity:0;
-                                }
-                            }
                             &.active{
-                                right: 0;
+                                right: -10px;
                             }
                             &.inactive{
                                 right: -80vw;
+                            }
+                        }
+                        .info{
+                            @include transition(opacity, 0.3s, linear);
+                            color: white;
+                            text-align: center;
+                            right: 0;
+                            line-height: 160px;
+                            &.hide{
+                                opacity:0;
                             }
                         }
                     }
@@ -901,7 +954,7 @@ body{
                         height: 30vh;
                         position: relative;
                         background-color: $mainColorLight;
-                        @include skewedBorder(right, -27px, 1, 90px, $mainColorLight);
+                        @include skewedBorder(right, -50px, 1, 150px, $mainColorLight);
 
                         .info-text {
                             color: $white;
