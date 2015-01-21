@@ -50,7 +50,7 @@ define([
             downvoteResponseMessage: '',
 
             // own playlist
-            playlistTitle: 'My own playlist',
+            playlistTitle: 'My playlist',
 
             // temporary text save
             browsePlaylistFilltext: '',
