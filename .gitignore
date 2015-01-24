@@ -7,9 +7,14 @@ app/bower_components
 .komodotools
 *.sqlite
 .idea
+dist/
 server/userdata/
 !server/userdata/default.png
 app/styles/main.css
 server/musicplayer_system_info/
 /.project
 server/musicplayer_system_info/currently_playing_track.txt
+
+dist/app/scripts/main.js
+
+dist/app/scripts/main.js
