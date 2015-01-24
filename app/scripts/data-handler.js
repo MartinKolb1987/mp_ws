@@ -277,7 +277,12 @@ define([
 
                 var minutes = Math.floor(data.info.currentlyPlaying.length / 60);
                 var seconds = data.info.currentlyPlaying.length - minutes * 60;
-                view.length = minutes + ':' + seconds;
+                var secondsTest = seconds.toString().length;
+                if (secondsTest > 1){
+                    view.length = minutes + ':' + seconds;
+                } else {
+                    view.length = minutes + ':0' + seconds;
+                }
 
             } else {
                 TranslationHandler.translate(that.currentLanguage, view);
