@@ -279,9 +279,9 @@ define([
                 var seconds = data.info.currentlyPlaying.length - minutes * 60;
                 var secondsTest = seconds.toString().length;
                 if (secondsTest > 1){
-                    view.length = minutes + ':' + seconds;
+                    view.length = minutes + ':' + seconds + ' min';
                 } else {
-                    view.length = minutes + ':0' + seconds;
+                    view.length = minutes + ':0' + seconds + ' min';
                 }
 
             } else {

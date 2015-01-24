@@ -68,9 +68,13 @@ function uploadFile($type, $file, $route){
     unset($db);
     
     $fileExt;
+    
     // check if filename has an extension (contains dot)
     if (strpos($fileName, '.') !== false){
-        $fileExt = substr($fileName, strrpos($fileName, '.'));
+
+        $fileExt = explode('.', $fileName);
+        $fileExt = '.' . $fileExt[sizeof($fileExt) - 1];
+
     } else {
         // dirty hack: on missing file extension, assume .mp3
         $fileExt = '.mp3';
@@ -318,10 +322,11 @@ function getCurrentMusicplayerInfo($route, $type, $websocketClientIp = ''){
         // initialize database
         $db = new ClientDB();
 
-        $getUserQuery = $db->query("SELECT u_picture, u_current_track FROM users WHERE u_dj = 1");
+        // $getUserQuery = $db->query("SELECT u_picture, u_current_track FROM users u, bucke WHERE u_dj = 1");
+        $getUserQuery = $db->query("SELECT b.t_id, u.u_picture FROM bucketcontents b INNER JOIN tracks t ON b.t_id = t.t_id INNER JOIN users u ON t.u_ip = u.u_ip WHERE b.b_currently_playing = 1");
         $getUserArray = $getUserQuery->fetchArray(SQLITE3_ASSOC);
+        $currentTrackId = $getUserArray['t_id'];
         $currentDjImage = $getUserArray['u_picture'];
-        $currentTrackId = $getUserArray['u_current_track'];
         $currentDjImagePath = '../server/userdata/' . $currentDjImage;
 
         // close db

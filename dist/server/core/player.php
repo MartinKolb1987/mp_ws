@@ -70,9 +70,6 @@ function getTrackToPlay() {
 
     // initialize database
     $db = new ClientDB();
-	
-
-    $db->exec("UPDATE users SET u_dj = 0, u_current_track = 0 WHERE u_dj = 1");
 
 	// check if a track is currently playing
     $currentlyPlayingTrackCount = 0;
@@ -213,6 +210,9 @@ function playbackFinished($t_filename) {
     while ($row = $finishedTrackQuery->fetchArray(SQLITE3_ASSOC)) {
         $finishedTrackId = $row['t_id'];
     }
+
+
+    $db->exec("UPDATE users SET u_dj = 0, u_current_track = 0 WHERE u_dj = 1");
 
     //echo ('finished track id: '.$finishedTrackId.'<br/>');
 
