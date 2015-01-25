@@ -489,7 +489,7 @@ body{
                         }
 
                         span {
-                            font-family: 'ubuntubold', Arial, sans-serif;
+                            font-family: 'ubuntumedium', Arial, sans-serif;
                             font-size: 17px;
                             position: absolute;
                             left: 39px;
@@ -504,7 +504,7 @@ body{
 
                     &.active{
                         @include transition(width , 0.3s, linear);
-                        width: 42.5vw;
+                        width: 40vw;
                         background-color: $mainColorDark;
                         @include skewedBorder(left, -10px, 0, 20px, $mainColorDark); // = direction, directionValue, zIndex, width, color
                         padding-right: 71px;
@@ -523,7 +523,7 @@ body{
 
                         [data-route=home]{
                             .icon-info{
-                                margin-left: 12px;
+                                margin-left: 10px;
                             }
                         }
                     }
@@ -541,12 +541,13 @@ body{
                     }
                     &:nth-child(2){
                         &.active{
+                            width: 42vw;
                             padding-right: 71px;
                             img{
                                 padding-left: 3px;
                             }
                             .icon-info{
-                                margin-left: -2px;
+                                margin-left: -3px;
                             }
                         }
                         &.inactive{
@@ -562,6 +563,9 @@ body{
                     &:nth-child(3){
                         &.active{
                             padding-right: 0;
+                            .icon-info{
+                                margin-left: -5px;
+                            }
                         }
                         &.inactive{
                             background-color: $btnColorLight;
@@ -812,11 +816,15 @@ body{
                                 color: white;
                                 float: left;
                                 position: relative;
-                                max-width: 60vw;
+                                max-width: 55vw;
                                 overflow: hidden;
                                 text-overflow: ellipsis;
                                 height: 25px;
                                 white-space: nowrap;
+
+                                &.delete-action{
+                                    max-width: 73vw;
+                                }
                             }
                         }
 

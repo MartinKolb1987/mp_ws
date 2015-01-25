@@ -234,9 +234,11 @@ define([
                     buttonWrapper.addClass('slide-hide');
 
                     this.$data.deleteTimeout = setInterval(function(){
+                        lineTitle.addClass('delete-action');
                         lineTitle.text('Klicken um das Löschen abzubrechen!');
                         progressbar.css('width', counter + '%');
                         if(counter === 0){
+                            lineTitle.removeClass('delete-action');
                             DataHandler.deleteUserTrack(tId);
                             clearInterval(that.$data.deleteTimeout);
                             that.$data.deleteAction = false;

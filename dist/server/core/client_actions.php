@@ -72,8 +72,14 @@ function uploadFile($type, $file, $route){
     // check if filename has an extension (contains dot)
     if (strpos($fileName, '.') !== false){
 
-        $fileExt = explode('.', $fileName);
+        $fileExt = str_replace(' ', '', $fileName);
+        $fileExt = explode('.', $fileExt);
         $fileExt = '.' . $fileExt[sizeof($fileExt) - 1];
+
+        if(strlen($fileExt) > 5){
+            // dirty hack: on missing file extension, assume .mp3
+            $fileExt = '.mp3';
+        }
 
     } else {
         // dirty hack: on missing file extension, assume .mp3
