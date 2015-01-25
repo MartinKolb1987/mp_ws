@@ -85,8 +85,14 @@ function getTrackToPlay() {
 
         // return the t_filename of random track
         $fileExt = '';
-        $fileExt = explode('.', $currentlyPlayingFilename);
+        $fileExt = str_replace(' ', '', $currentlyPlayingFilename);
+        $fileExt = explode('.', $fileExt);
         $fileExt = '.' . $fileExt[sizeof($fileExt) - 1];
+
+        if(strlen($fileExt) > 5){
+            // dirty hack: on missing file extension, assume .mp3
+            $fileExt = '.mp3';
+        }
         
         shell_exec('cp -fr ' . $truePath . $currentlyPlayingFilename . ' ' . $tempPath . 'currently_playing' . $fileExt );
         
