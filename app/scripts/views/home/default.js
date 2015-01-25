@@ -114,6 +114,9 @@ define([
                             ulChildren.removeClass('activePlaylist');
                             ulChildren.children('.playlist-button-wrapper').children('.swapdown-button').removeClass('playlist-button-active');
 
+                            // dont update user playlist while user is interacting with it
+                            DataHandler.currentlyClientSideUploadingTrack = true;
+
                             // upload file
                             that.uploadFile(inputField);
                             that.cancelUploadFile(inputField);
@@ -149,6 +152,9 @@ define([
 
                 uploadFileButton.unbind('click');
                 uploadFileButton.on('click', function(){
+                    // if system wants to update user playlist, just do it
+                    DataHandler.currentlyClientSideUploadingTrack = false;
+                    
                     that.$data.triggerUploadFileStateClass = '';
                     inputField.parents('#upload-wrapper').siblings('.line-wrapper').children('.line-title').text(that.$data.browsePlaylistFilltext);
                     that.$data.uploadFileControlWrapperStateClass = 'hide';
