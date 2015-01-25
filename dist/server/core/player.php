@@ -37,18 +37,13 @@ function execAction() {
         
         case 'playbackFinished':
             // sanity check - empty input
-            if (empty($_GET['filename'])) {
-                header('Content-type: application/json');
-                return '{"route":"' .  $route . '", "type": "error", "message": "no filename specified (execAction() - playbackFinished)"}';
-            } else {
-                $returnMsg = playbackFinished($_GET['filename']);
-				header('Content-type: text/plain');
-				if($returnMsg) {
-					echo '1';
-				} else {
-					echo '0';
-				}
-            }
+            $returnMsg = playbackFinished();
+			header('Content-type: text/plain');
+			if($returnMsg) {
+				echo '1';
+			} else {
+				echo '0';
+			}
             break;
         
         case 'abortPlayback':
@@ -64,6 +59,9 @@ function execAction() {
  * @return String filename and path of title to play, 'empty' if nothing to play
  */
 function getTrackToPlay() {
+
+    global $truePath;
+    global $tempPath;
 
 	// get active bucket from bucket table
     $activeBucketId = getActiveBucket();
@@ -84,9 +82,19 @@ function getTrackToPlay() {
 		$currentlyPlayingCountRow = $currentlyPlayingQuery->fetchArray(SQLITE3_ASSOC);
 		$currentlyPlayingFilename = $currentlyPlayingCountRow['t_filename'];
 		
+
+        // return the t_filename of random track
+        $fileExt = '';
+        $fileExt = explode('.', $currentlyPlayingFilename);
+        $fileExt = '.' . $fileExt[sizeof($fileExt) - 1];
+        
+        shell_exec('cp -fr ' . $truePath . $currentlyPlayingFilename . ' ' . $tempPath . 'currently_playing' . $fileExt );
+        
+        return 'currently_playing' . $fileExt;
+
 		//echo ('playing same track again. <br/>');
 		
-		return $currentlyPlayingFilename;
+		// return $currentlyPlayingFilename;
 		
 	}
 
@@ -184,14 +192,20 @@ function getTrackToPlay() {
     $db->exec("UPDATE bucketcontents SET b_currently_playing = 1 WHERE t_id=$randomTrackId");
 
     // update current dj data
-    $db->exec("UPDATE users SET u_dj = 1, u_current_track = $randomTrackId WHERE u_ip = '" . $randomTrackUserIp . "'");
+    // $db->exec("UPDATE users SET u_dj = 1, u_current_track = $randomTrackId WHERE u_ip = '" . $randomTrackUserIp . "'");
 
     // close db
     $db->close();
     unset($db);
     
     // return the t_filename of random track
-    return $randomTrackFilename;
+    $fileExt = '';
+    $fileExt = explode('.', $randomTrackFilename);
+    $fileExt = '.' . $fileExt[sizeof($fileExt) - 1];
+    
+    shell_exec('cp -fr ' . $truePath . $randomTrackFilename . ' ' . $tempPath . 'currently_playing' . $fileExt );
+    
+    return 'currently_playing' . $fileExt;
 }
 
 /* playbackFinished()
@@ -199,20 +213,20 @@ function getTrackToPlay() {
  * @param String $finishedTrack filename and path of finished title
  * @return 1 on success, 0 on fail
  */
-function playbackFinished($t_filename) {
+function playbackFinished() {
 
     // initialize database
     $db = new ClientDB();
 
     // get the t_id from the finished track with the t_filename
     $finishedTrackId;
-    $finishedTrackQuery = $db->query("SELECT t_id FROM tracks WHERE t_filename = '$t_filename'");
+    $finishedTrackQuery = $db->query("SELECT t_id FROM bucketcontents WHERE b_currently_playing = 1");
     while ($row = $finishedTrackQuery->fetchArray(SQLITE3_ASSOC)) {
         $finishedTrackId = $row['t_id'];
     }
 
 
-    $db->exec("UPDATE users SET u_dj = 0, u_current_track = 0 WHERE u_dj = 1");
+    // $db->exec("UPDATE users SET u_dj = 0, u_current_track = 0 WHERE u_dj = 1");
 
     //echo ('finished track id: '.$finishedTrackId.'<br/>');
 

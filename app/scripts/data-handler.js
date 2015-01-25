@@ -32,8 +32,14 @@ define([
 
         currentLanguage: 'de', // router takes care of it and set default lang based on browser language
 
+        // after care
+        checkIfAppIsWorkingTimeout: 5000,
+
         // websocket
         isWebsocketActive: false,
+
+        // short polling
+        isShortPollingActive: false,
         
         // xhr and websocket request queue
         sendDataRequestByRequestDelay: 10, // milliseconds (take care of requests)
@@ -49,6 +55,40 @@ define([
         init: function(){
             var that = this;
             this.checkWebsocket();
+            this.checkIfAppIsWorking();
+        },
+
+        // -----------------------------------------------------------
+        // AFTER CARE CHECK
+        // -----------------------------------------------------------
+
+        checkIfAppIsWorking: function(){
+            var that = this;
+            
+            setTimeout(function(){
+
+                // check if websocket is ready, otherwise do short polling manually
+                if(that.isWebsocketActive === false){
+                    if(that.isShortPollingActive === false ){
+                        that.initShortPolling();
+                        if(DebugHandler.isActive){ console.log('After care check: initShortPolling manually: Status ' + this.readyState); }
+                    }
+                }
+
+                // check if user playlist on home site exists
+                var isHomeSite = $('#home');
+                var playlistExits = isHomeSite.find('#playlist-wrapper ul .playlist');
+                
+                if(isHomeSite.length > 0){
+                    if(playlistExits.length === 0){
+                        that.getUserPlaylist('home');
+                        that.getCurrentlyPlayingTrack('home');
+                        if(DebugHandler.isActive){ console.log('After care check: No playlist is rendered, do it again: Status ' + this.readyState); }
+                    }
+                }
+
+            }, that.checkIfAppIsWorkingTimeout);
+
         },
 
         // -----------------------------------------------------------
@@ -70,6 +110,7 @@ define([
             var that = this;
 
             try{
+
                 this.websocket = new WebSocket(that.websocketHost);
 
                 this.websocket.onopen  = function(msg){
@@ -233,6 +274,7 @@ define([
         // -----------------------------------------------------------
 
         initShortPolling: function(){
+            this.isShortPollingActive = true;
 
             // trigger dataHandlerInitEvent if short polling is active
             // --> event listener router.js

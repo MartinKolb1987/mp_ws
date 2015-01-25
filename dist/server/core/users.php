@@ -185,7 +185,7 @@ function getActiveUsers() {
     
     // substract super user
     // --> production raspberry as user
-    $usersCount = $usersCount - 1;
+    $usersCount = $usersCount;
 
     return $usersCount;
 }
