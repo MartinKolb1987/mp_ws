@@ -60,6 +60,7 @@ define([
 
             // default title
             trackTitle: 'Choose a track!',
+            uploadAction: false,
 
             // css classes
             triggerUploadFileStateClass: '',
@@ -100,6 +101,7 @@ define([
             setOnChangeEventlistenerFileUpload: function(inputField){
                 var that = this;
                 inputField.unbind('change');
+                var ulChildren = $('#playlist-wrapper').children('ul').children();
 
                 inputField.on('change', function(e){
                     if(inputField[0].files[0] !== undefined){
@@ -108,6 +110,9 @@ define([
                             that.$data.triggerUploadFileStateClass = 'hide';
                             that.$data.uploadFileControlWrapperStateClass = '';
                             inputField.parents('#upload-wrapper').siblings('.line-wrapper').children('.line-title').text(inputField[0].files[0].name);
+                            that.$data.uploadAction = true;
+                            ulChildren.removeClass('activePlaylist');
+                            ulChildren.children('.playlist-button-wrapper').children('.swapdown-button').removeClass('playlist-button-active');
 
                             // upload file
                             that.uploadFile(inputField);
@@ -148,6 +153,7 @@ define([
                     inputField.parents('#upload-wrapper').siblings('.line-wrapper').children('.line-title').text(that.$data.browsePlaylistFilltext);
                     that.$data.uploadFileControlWrapperStateClass = 'hide';
                     that.clearUploadField(inputField);
+                    that.$data.uploadAction = false;
 
                     // trigger prev tour guide step if tour guide is active
                     TourGuide.prev();
@@ -256,7 +262,7 @@ define([
                 var element = $(el.$el);
 
                 // cancel delete
-                if (that.$data.deleteAction && element.hasClass('activePlaylist')){
+                if (that.$data.deleteAction && element.hasClass('activePlaylist') && that.$data.uploadAction === false){
                     clearInterval(this.$data.deleteTimeout);
                     this.$data.deleteAction = false;
                     var lineWrapper = element.children('.line-wrapper');
@@ -266,7 +272,7 @@ define([
                     element.find('.playlist-button-wrapper').removeClass('slide-hide');
 
                 // toggle playlist line
-                } else if (that.$data.deleteAction === false){
+                } else if (that.$data.deleteAction === false && that.$data.uploadAction === false){
 
                     if (element.hasClass('activePlaylist')){
                         that.$data.playlistLineActive = false;

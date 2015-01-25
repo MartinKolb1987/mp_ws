@@ -403,6 +403,9 @@ define([
             // display browser button
             view.triggerUploadFileStateClass = '';
 
+            // reset upload action
+            view.uploadAction = false;
+
             view.playlist = playlist;
         },
 
