@@ -7,9 +7,12 @@ Masterproject WS2014/15 - work in progess...
 2.) after cloning repo (be in the root folder of your project)  
     $ npm install && bower install  
 3.) start watching sass & js file changes  
-	$ gulp  
+	$ gulp watch
 4.) have fun ;-)
 
-If you would reset (clean user folder, create new db, etc.) the system just type
-$ sudo gulp reset
+Reset development environment (clean db etc.)
+* $ sudo gulp reset 
+
+Deployment (clean db, minifying js, compile scss and minifiy etc.)
+* $ sudo gulp build 
 
