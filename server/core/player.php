@@ -256,7 +256,7 @@ function abortPlayback() {
     $currentTrackId = currentlyPlaying();
 
     // get user count
-    $usersCount = getActiveUsers() - 1;
+    $usersCount = getActiveUsers();
 	
 	// initialize database
     $db = new ClientDB();
