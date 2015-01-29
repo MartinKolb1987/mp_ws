@@ -6,8 +6,9 @@ After=local-fs.target network.target multi-user.target
 Type=simple
 User=musicmagnet
 Group=musicmagnet
-Nice=-10
+Nice=-20
 ExecStart=/home/musicmagnet/daemons/musicplayer.sh
+StandardOutput=null
 
 [Install]
 WantedBy=multi-user.target

@@ -35,7 +35,9 @@ cd /root/
 echo "================== MMSI =================="
 echo "Installing software dependencies"
 echo "=========================================="
-pacman --noconfirm -Syu sudo wget alsa-utils alsa-firmware alsa-plugins fake-hwclock openntpd nginx php-fpm php php-sqlite mplayer vlc hostapd dnsmasq git
+pacman --noconfirm -Syu sudo wget alsa-utils alsa-firmware alsa-plugins fake-hwclock openntpd nginx php-fpm php php-sqlite mplayer vlc hostapd dnsmasq git mediainfo python2 python2-pip
+# install python pyserial library
+pip2 install pyserial
 # add user "musicmagnet"
 echo "================== MMSI =================="
 echo "Adding user 'musicmagnet'"
@@ -84,6 +86,9 @@ cp -f musicmagnet-git/installer/mm-background.service /etc/systemd/system/mm-bac
 cp -f musicmagnet-git/installer/mm-player.service /etc/systemd/system/mm-player.service
 cp -f musicmagnet-git/installer/mm-startup.service /etc/systemd/system/mm-startup.service
 cp -f musicmagnet-git/installer/mm-websocket.service /etc/systemd/system/mm-websocket.service
+# wlan0 network services
+#TODO
+mkdir 
 # scripts
 cp -f musicmagnet-git/installer/git-pull.sh /root/git-pull.sh
 chmod +x /root/git-pull.sh
@@ -91,6 +96,8 @@ cp -f musicmagnet-git/installer/git-pull-new.sh /root/git-pull-new.sh
 chmod +x /root/git-pull-new.sh
 cp -f musicmagnet-git/installer/startup.sh /root/startup.sh
 chmod +x /root/startup.sh
+cp -f musicmagnet-git/installer/serialservice.py /root/serialservice.py
+chmod +x /root/serialservice.py
 cp -f musicmagnet-git/installer/websocket.sh /root/websocket.sh
 chmod +x /root/websocket.sh
 mkdir /home/musicmagnet/daemons
@@ -111,6 +118,15 @@ echo "================== MMSI =================="
 echo "Enable Systemd services"
 echo "=========================================="
 systemctl enable fake-hwclock fake-hwclock-save.timer openntpd hostapd dnsmasq php-fpm mm-background mm-player mm-startup mm-websocket
+echo "================== MMSI =================="
+echo "Disable Systemd log (journald) and copy corrected services"
+echo "=========================================="
+systemctl disable systemd-journald systemd-journald.socket systemd-journald-dev-log.socket
+# copy changed Systemd services (with correct niceness)
+cp -f musicmagnet-git/installer/nginx.service /etc/systemd/system/multi-user.target.wants/nginx.service
+cp -f musicmagnet-git/installer/hostapd.service /etc/systemd/system/multi-user.target.wants/hostapd.service
+cp -f musicmagnet-git/installer/php-fpm.service /etc/systemd/system/multi-user.target.wants/php-fpm.service
+cp -f musicmagnet-git/installer/dnsmasq.service /etc/systemd/system/multi-user.target.wants/dnsmasq.service
 echo "================== MMSI =================="
 echo "Rebooting in 3 sec"
 echo "Remember to use ssh port 31337 now (ssh -p 31337)"

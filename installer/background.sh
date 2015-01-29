@@ -14,7 +14,7 @@ while :
 do
 	if [ "$count" == 5 ]; then
 		echo 'backup database'
-		sudo nice -n 10 cp -fp /usr/share/nginx/html/server/tmp/db.sqlite /usr/share/nginx/html/server/db/db.sqlite
+		cp -fp /usr/share/nginx/html/server/tmp/db.sqlite /usr/share/nginx/html/server/db/db.sqlite
 		count=0
 	fi
 	echo 'query server for abort'

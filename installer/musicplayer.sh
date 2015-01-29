@@ -6,6 +6,7 @@
 # =======================================================
 # This is the MusicMagnet player daemon
 # Executed via Systemd (mm-player.service)
+# with highest priority (nice -19)
 # =======================================================
 function playMusic {
 	trackToPlay=$(wget http://localhost/server/core/player.php?type=getTrack -q -O -)
@@ -16,14 +17,14 @@ function playMusic {
 		playMusic
 	else
 		echo "playing $trackToPlay"
-		sudo -u mplayer nice -n -10 mplayer /usr/share/nginx/html/server/userdata/$trackToPlay -ao alsa -af volnorm=2:0.50 -cache 102400 -cache-min 99
+		sudo -u musicmagnet mplayer /usr/share/nginx/html/server/tmp/$trackToPlay -ao alsa -af volnorm=2:0.50
 		echo "finished playing $trackToPlay, call playbackFinished"
 		playbackFinished $trackToPlay
 	fi
 }
 
 function playbackFinished {
-	successMessage=$(wget http://localhost/server/core/player.php?type=playbackFinished\&filename=$1 -q -O -)
+	successMessage=$(wget http://localhost/server/core/player.php?type=playbackFinished -q -O -)
 	if [ "$successMessage" != 1 ]; then
 		echo "something wrong, try again"
 		sleep 1

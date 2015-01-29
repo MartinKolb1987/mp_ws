@@ -8,6 +8,7 @@ User=root
 Group=root
 Nice=0
 ExecStart=/root/websocket.sh
+StandardOutput=null
 
 [Install]
 WantedBy=multi-user.target
